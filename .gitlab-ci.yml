@@ -2,8 +2,8 @@ image: java:8-jdk
 
 stages:
   - test
-  - compileConsumer
-  - compileProducer
+  - consumer
+  - producer
 
 before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
@@ -19,28 +19,31 @@ test:
     - ./gradlew testAll
   only:
     - master
+    - recette
 
-compileConsumer:
-  stage: compileConsumer
+consumer:
+  stage: consumer
   script:
     - ./gradlew packageConsumerJar
   artifacts:
     paths:
       - build/libs/*.jar
-    expire_in: 1 week
+    expire_in: 1 day
   only:
     - master
+    - recette
 
-compileProducer:
-  stage: compileProducer
+producer:
+  stage: producer
   script:
     - ./gradlew packageProducerJar
   artifacts:
     paths:
       - build/libs/*.jar
-    expire_in: 1 week
+    expire_in: 1 day
   only:
     - master
+    - recette
 
 
 after_script:
