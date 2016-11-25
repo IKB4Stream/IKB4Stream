@@ -1,11 +1,11 @@
 image: java:8-jdk
 
 stages:
-  - buildAndTest
+  - test
+  - compileConsumer
+  - compileProducer
 
 before_script:
-#  - echo `pwd` # debug
-#  - echo "$CI_BUILD_NAME, $CI_BUILD_REF_NAME $CI_BUILD_STAGE" # debug
   - export GRADLE_USER_HOME=`pwd`/.gradle
 
 cache:
@@ -13,16 +13,35 @@ cache:
     - .gradle/wrapper
     - .gradle/caches
 
-buildAndTest:
-  stage: buildAndTest
+test:
+  stage: test
   script:
-    - ./gradlew build
+    - ./gradlew testAll
+  only:
+    - master
+
+compileConsumer:
+  stage: compileConsumer
+  script:
+    - ./gradlew packageConsumerJar
   artifacts:
     paths:
       - build/libs/*.jar
     expire_in: 1 week
   only:
     - master
+
+compileProducer:
+  stage: compileProducer
+  script:
+    - ./gradlew packageProducerJar
+  artifacts:
+    paths:
+      - build/libs/*.jar
+    expire_in: 1 week
+  only:
+    - master
+
 
 after_script:
   - echo "End CI"

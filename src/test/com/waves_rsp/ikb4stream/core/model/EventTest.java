@@ -1,13 +1,9 @@
-package com.waves.ikb4stream.model;
+package com.waves_rsp.ikb4stream.core.model;
 
 import org.junit.Test;
 
-import java.time.Instant;
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
-
-import static org.junit.Assert.*;
 
 public class EventTest {
 

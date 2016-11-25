@@ -1,6 +1,5 @@
-package com.waves.ikb4stream.model;
+package com.waves_rsp.ikb4stream.core.model;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
