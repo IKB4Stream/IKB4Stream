@@ -22,7 +22,7 @@ public class EventTest {
         calendar.set(Calendar.DATE, 17);
         Date end = calendar.getTime();
 
-        Event event = new Event(latLong, start, end, "WaterPony", (byte) -1);
+        Event event = new Event(latLong, start, end, "WaterPony", (byte) -1, "twitter");
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -40,7 +40,7 @@ public class EventTest {
         calendar.set(Calendar.DATE, 17);
         Date end = calendar.getTime();
 
-        Event event = new Event(latLong, start, end, "Pool party", (byte) 101);
+        Event event = new Event(latLong, start, end, "Pool party", (byte) 101, "facebook");
     }
 
     @Test(expected = IllegalStateException.class)
@@ -58,7 +58,7 @@ public class EventTest {
         calendar.set(Calendar.DATE, 17);
         Date end = calendar.getTime();
 
-        Event event = new Event(latLong, start, end, "Pool party");
+        Event event = new Event(latLong, start, end, "Pool party", "eventful");
         event.getScore();
     }
 
@@ -77,7 +77,7 @@ public class EventTest {
         calendar.set(Calendar.DATE, 17);
         Date end = calendar.getTime();
 
-        Event event = new Event(latLong, start, end, "WaterPony", (byte) 10);
+        Event event = new Event(latLong, start, end, "WaterPony", (byte) 10, "twitter");
         assert (event.getScore() == (byte) 10);
     }
 
