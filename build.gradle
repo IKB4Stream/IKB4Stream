@@ -49,6 +49,6 @@ repositories {
 }
 
 dependencies {
-    compile 'org.mongodb:mongodb-driver:3.3.0'
+    compile 'org.mongodb:mongodb-driver-async:3.2.2'
     testCompile 'junit:junit:4.11'
 }
