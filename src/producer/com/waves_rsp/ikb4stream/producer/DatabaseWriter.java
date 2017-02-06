@@ -8,9 +8,13 @@ import com.mongodb.async.client.MongoClient;
 import com.mongodb.async.client.MongoClients;
 import com.mongodb.async.client.MongoCollection;
 import com.mongodb.async.client.MongoDatabase;
+import com.mongodb.client.model.geojson.Point;
+import com.mongodb.client.model.geojson.Position;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.producer.model.DatabaseWriterCallback;
 import org.bson.Document;
+
+import java.util.HashMap;
 
 public class DatabaseWriter {
     private final MongoClient mongoClient;
@@ -43,8 +47,11 @@ public class DatabaseWriter {
      * @param event
      */
     public void insertEvent(Event event, DatabaseWriterCallback callback) throws JsonProcessingException {
-        this.mongoCollection.insertOne(Document.parse(mapper.writeValueAsString(event)),
-                (result, t) -> callback.onResult(t));
+        Document document = Document.parse(mapper.writeValueAsString(event));
+        document.remove("location");
+        document.append("location", new Point(new Position(event.getLocation().getLatitude(), event.getLocation().getLongitude())));
+
+        this.mongoCollection.insertOne(document, (result, t) -> callback.onResult(t));
     }
 
 }
