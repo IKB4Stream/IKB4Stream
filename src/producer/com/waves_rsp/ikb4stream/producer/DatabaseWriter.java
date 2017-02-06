@@ -3,11 +3,13 @@ package com.waves_rsp.ikb4stream.producer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.mongodb.async.SingleResultCallback;
 import com.mongodb.async.client.MongoClient;
 import com.mongodb.async.client.MongoClients;
 import com.mongodb.async.client.MongoCollection;
 import com.mongodb.async.client.MongoDatabase;
 import com.waves_rsp.ikb4stream.core.model.Event;
+import com.waves_rsp.ikb4stream.producer.model.DatabaseWriterCallback;
 import org.bson.Document;
 
 public class DatabaseWriter {
@@ -40,10 +42,9 @@ public class DatabaseWriter {
      * Insert One Event to the Database
      * @param event
      */
-    public void insertEvent(Event event) throws JsonProcessingException {
-        this.mongoCollection.insertOne(Document.parse(mapper.writeValueAsString(event)), (result, t) -> {
-            //ICI c'est quand l'event est envoyé
-        });
+    public void insertEvent(Event event, DatabaseWriterCallback callback) throws JsonProcessingException {
+        this.mongoCollection.insertOne(Document.parse(mapper.writeValueAsString(event)),
+                (result, t) -> callback.onResult(t));
     }
 
 }
