@@ -17,9 +17,6 @@ test:
   stage: test
   script:
     - ./gradlew testAll
-  only:
-    - master
-    - recette
 
 consumer:
   stage: consumer
@@ -29,9 +26,6 @@ consumer:
     paths:
       - build/libs/*.jar
     expire_in: 1 day
-  only:
-    - master
-    - recette
 
 producer:
   stage: producer
@@ -41,9 +35,6 @@ producer:
     paths:
       - build/libs/*.jar
     expire_in: 1 day
-  only:
-    - master
-    - recette
 
 
 after_script:

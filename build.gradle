@@ -14,11 +14,13 @@ sourceSets {
     consumer {
         java {
             srcDirs = ['src/core', 'src/consumer']
+            compileClasspath = configurations.compile
         }
     }
     producer {
         java {
             srcDirs = ['src/core', 'src/producer']
+            compileClasspath = configurations.compile
         }
     }
 }
