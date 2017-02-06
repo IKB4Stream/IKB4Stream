@@ -1,4 +1,4 @@
-package com.waves_rsp.ikb4stream.producer.model;
+package com.waves_rsp.ikb4stream.consumer.model;
 
 import com.waves_rsp.ikb4stream.core.model.LatLong;
 

@@ -1,5 +1,6 @@
-package com.waves_rsp.ikb4stream.producer.model;
+package com.waves_rsp.ikb4stream.consumer.model;
 
+import com.waves_rsp.ikb4stream.consumer.model.Response;
 import org.junit.Test;
 
 public class ResponseTest {

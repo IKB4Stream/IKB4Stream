@@ -1,15 +1,16 @@
-package com.waves_rsp.ikb4stream.producer.model;
+package com.waves_rsp.ikb4stream.consumer.model;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
 
 public class Request {
-    private final LocalDateTime start;
-    private final LocalDateTime end;
+    private final Date start;
+    private final Date end;
     private final BoundingBox boundingBox;
-    private final LocalDateTime requestReception;
+    private final Date requestReception;
 
-    public Request(LocalDateTime start, LocalDateTime end, BoundingBox boundingBox, LocalDateTime requestReception) {
+    public Request(Date start, Date end, BoundingBox boundingBox, Date requestReception) {
         Objects.requireNonNull(start);
         Objects.requireNonNull(end);
         Objects.requireNonNull(boundingBox);
@@ -21,11 +22,11 @@ public class Request {
         this.requestReception = requestReception;
     }
 
-    public LocalDateTime getStart() {
+    public Date getStart() {
         return start;
     }
 
-    public LocalDateTime getEnd() {
+    public Date getEnd() {
         return end;
     }
 
@@ -33,7 +34,7 @@ public class Request {
         return boundingBox;
     }
 
-    public LocalDateTime getRequestReceptionDate() {
+    public Date getRequestReceptionDate() {
         return requestReception;
     }
 }
