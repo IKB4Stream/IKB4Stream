@@ -36,6 +36,5 @@ producer:
       - build/libs/*.jar
     expire_in: 1 day
 
-
 after_script:
   - echo "End CI"
