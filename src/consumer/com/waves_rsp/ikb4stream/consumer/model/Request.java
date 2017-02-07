@@ -1,6 +1,5 @@
 package com.waves_rsp.ikb4stream.consumer.model;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 

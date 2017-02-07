@@ -53,5 +53,6 @@ repositories {
 dependencies {
     compile 'org.mongodb:mongodb-driver-async:3.2.2'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.8.6'
+    compile 'org.apache.jena:jena-arq:2.9.3'
     testCompile 'junit:junit:4.11'
 }

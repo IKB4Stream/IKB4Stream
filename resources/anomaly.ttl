@@ -1,0 +1,18 @@
+@prefix waves:<http://www.waves.org/ontology#> .
+@prefix event: <http://purl.org/NET/c4dm/event.owl#>.
+@prefix time: <http://purl.org/NET/c4dm/timeline.owl#>.
+@prefix fao: <http://aims.fao.org/aos/geopolitical.owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+waves:anomaly a event:Event;
+	event:time _:t ;
+	event:place _:p .
+
+_:t time:at "2014-01-31T07:15:00"^^xsd:dateTime .
+
+#example coordinates for the consumption zone Ville Nouvelle (Versailles)
+_:p fao:hasMinLatitude "89.7481711095435"^^xsd:float ;
+	fao:hasMaxLatitude "89.80324706056869"^^xsd:float ;
+	fao:hasMinLongitude "1.96944422049222"^^xsd:float ;
+	fao:hasMaxLongitude "2.13442201957889"^^xsd:float .
+

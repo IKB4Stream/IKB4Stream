@@ -5,8 +5,8 @@ import java.util.Objects;
 
 public class Event {
     private final LatLong location;
-    private final Date start; //TODO: change to LocalDateTime
-    private final Date end; //TODO: change to LocalDateTime
+    private final Date start;
+    private final Date end;
     private final String description;
     private final byte score;
     private final String source;
