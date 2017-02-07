@@ -4,10 +4,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
 import com.waves_rsp.ikb4stream.producer.DatabaseWriter;
-import com.waves_rsp.ikb4stream.producer.model.DatabaseWriterCallback;
 import com.waves_rsp.ikb4stream.producer.score.ScoreProcessorManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DataConsumer {
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     private final ScoreProcessorManager scoreProcessorManager;
     private final DatabaseWriter databaseWriter;
     private final DataQueue dataQueue;
@@ -25,50 +27,47 @@ public class DataConsumer {
      * Create a DataConsumer
      * @return DataConsumer
      */
-    public static DataConsumer createDataConsumer() {
-        /* Get properties */
-        PropertiesManager propertiesManager = PropertiesManager.getInstance();
-
+    public static DataConsumer createDataConsumer(DataQueue dataQueue) {
         /* Create ScoreProcessorManager */
         ScoreProcessorManager scoreProcessorManager = new ScoreProcessorManager();
 
-        /* Create DatabaseWriter */
-        String host = propertiesManager.getProperty("database.host");
-        String datasource = propertiesManager.getProperty("database.datasource");
-        String collection = propertiesManager.getProperty("database.collection");
-        if (host == null || datasource == null || collection == null) {
-            throw new IllegalStateException("Configuration file doesn't have any information about database");
-        }
-        DatabaseWriter databaseWriter = DatabaseWriter.connect(host, datasource, collection);
-
-        /* Create DataQueue */
-        DataQueue dataQueue = new DataQueue();
+        DatabaseWriter databaseWriter = DatabaseWriter.getInstance();
 
         /* Get target score */
-        int targetScore = Integer.valueOf(propertiesManager.getProperty("score.target"));
+        int targetScore = 25;
+        String stringTargetScore = PropertiesManager.getInstance().getProperty("score.target");
+        if (stringTargetScore != null) {
+            targetScore = Integer.valueOf(stringTargetScore);
+        }
 
         return new DataConsumer(scoreProcessorManager, databaseWriter, dataQueue, targetScore);
     }
 
 
+    /**
+     * Filter an event
+     * @param event Event to be filter
+     * @param score Target score to reach to be insert into database
+     * @return True if it's greater than score
+     */
     private boolean filter(Event event, int score) {
         return event.getScore() >= score;
     }
 
     /**
      * Consume Event in dataQueue and send to scoreProcessor
-     * @param callback Method call after insert
      */
-    public void consume(DatabaseWriterCallback callback) {
+    public void consume() {
         try {
-            while (true) {
+            while (Thread.currentThread().isInterrupted()) {
                 Event event = dataQueue.pop();
-                scoreProcessorManager.processScore(event);
-                if (filter(event, targetScore)) {
-                    databaseWriter.insertEvent(event, callback);
+                Event eventClone = scoreProcessorManager.processScore(event);
+                if (filter(eventClone, targetScore)) {
+                    databaseWriter.insertEvent(eventClone, t -> logger.error("DatabaseWriter error {}", t.getMessage()));
                 }
             }
         } catch (JsonProcessingException | InterruptedException e) {
+            logger.error("DatabaseConsumer error {}", e.getMessage());
             Thread.currentThread().interrupt();
         }
     }

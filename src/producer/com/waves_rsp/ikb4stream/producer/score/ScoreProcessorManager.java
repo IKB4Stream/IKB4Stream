@@ -3,6 +3,8 @@ package com.waves_rsp.ikb4stream.producer.score;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
 import com.waves_rsp.ikb4stream.core.util.UtilManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URLClassLoader;
@@ -16,11 +18,14 @@ import java.util.jar.JarEntry;
 import java.util.stream.Stream;
 
 public class ScoreProcessorManager {
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     private final Map<String,IScoreProcessor> scoreProcessors = new HashMap<>();
 
-    public void processScore(Event event) {
+    public Event processScore(Event event) {
         Objects.requireNonNull(event);
-
+        // TODO: ProcessScore
+        byte score = 20;
+        return new Event(event.getLocation(), event.getStart(), event.getEnd(), event.getDescription(), score, event.getSource());
     }
 
     public void instanciate() throws IOException {
@@ -38,6 +43,7 @@ public class ScoreProcessorManager {
                             .forEach(clazz -> {
                                 IScoreProcessor scoreProcessor = (IScoreProcessor) UtilManager.newInstance(clazz);
                                 scoreProcessors.put(scoreProcessor.getClass().getName(), scoreProcessor);
+                                logger.info("ScoreProcessorManager info {}", "ScoreProcessor " + scoreProcessor.getClass().getName() + " has been launched");
                             });
                 }
             });

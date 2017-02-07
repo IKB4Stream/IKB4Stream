@@ -7,6 +7,8 @@ public class Main {
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
+        LOGGER.info("IKB4Stream Consumer Module start");
+
         // Example of how to implement RDFParser & AnomalyRequest classes
         RDFParser rdfParser = new RDFParser();
         AnomalyRequest anomalyRequest = rdfParser.parse("resources/anomaly.ttl");

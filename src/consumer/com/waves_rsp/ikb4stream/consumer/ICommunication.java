@@ -4,7 +4,7 @@ public interface ICommunication {
     /**
      * Called at startup.
      */
-    void start();
+    void start(DatabaseReader databaseReader);
 
     /**
      * Called at closure.

@@ -32,4 +32,14 @@ public class DataQueue {
             return queue.removeFirst();
         }
     }
+
+    /**
+     * Return the size of DataQueue
+     * @return int Size of the Queue
+     */
+    public int size() {
+        synchronized (key) {
+            return queue.size();
+        }
+    }
 }
