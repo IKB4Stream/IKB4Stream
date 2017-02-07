@@ -20,10 +20,9 @@ public class AnomalyRequest {
         if(minLatitude > maxLatitude) {
             throw new IllegalArgumentException("minLatitude must be lower than maxLatitude.");
         }
-        if(minLongitude > maxLatitude) {
-            throw new IllegalArgumentException("minLatitude must be lower than maxLatitude.");
+        if(minLongitude > maxLongitude) {
+            throw new IllegalArgumentException("minLongitude must be lower than maxLongitude.");
         }
-
         this.date = date;
         this.minLatitude = minLatitude;
         this.maxLatitude = maxLatitude;

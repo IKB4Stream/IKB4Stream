@@ -1,6 +1,5 @@
 package com.waves_rsp.ikb4stream.consumer.model;
 
-import com.waves_rsp.ikb4stream.consumer.model.Request;
 import org.junit.Test;
 
 public class RequestTest {
