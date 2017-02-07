@@ -6,8 +6,10 @@ import com.mongodb.async.client.MongoCollection;
 import com.mongodb.async.client.MongoDatabase;
 import com.mongodb.client.model.geojson.Polygon;
 import com.mongodb.client.model.geojson.Position;
-import com.waves_rsp.ikb4stream.consumer.model.BoundingBox;
-import com.waves_rsp.ikb4stream.consumer.model.Request;
+import com.waves_rsp.ikb4stream.core.communication.DatabaseReaderCallback;
+import com.waves_rsp.ikb4stream.core.communication.model.BoundingBox;
+import com.waves_rsp.ikb4stream.core.communication.model.Request;
+import com.waves_rsp.ikb4stream.core.communication.IDatabaseReader;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
 import org.bson.Document;
@@ -20,7 +22,7 @@ import java.util.stream.Collectors;
 
 import static com.mongodb.client.model.Filters.*;
 
-public class DatabaseReader {
+public class DatabaseReader implements IDatabaseReader {
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private static final DatabaseReader ourInstance = new DatabaseReader();
     private final MongoClient mongoClient;
@@ -60,6 +62,7 @@ public class DatabaseReader {
      * @param callback
      * @return
      */
+    @Override
     public void getEvent(Request request, DatabaseReaderCallback callback) {
         List<Position> polygon = Arrays.stream(request.getBoundingBox().getLatLongs())
                 .map(l -> new Position(l.getLatitude(), l.getLongitude()))

@@ -1,7 +1,6 @@
-package com.waves_rsp.ikb4stream.producer.score;
+package com.waves_rsp.ikb4stream.core.datasource.model;
 
 import com.waves_rsp.ikb4stream.core.model.Event;
-
 
 @FunctionalInterface
 public interface IScoreProcessor {

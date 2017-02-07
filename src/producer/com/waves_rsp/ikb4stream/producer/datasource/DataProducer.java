@@ -1,6 +1,6 @@
 package com.waves_rsp.ikb4stream.producer.datasource;
 
-import com.waves_rsp.ikb4stream.core.datasource.IDataProducer;
+import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
 import com.waves_rsp.ikb4stream.core.model.Event;
 
 /**

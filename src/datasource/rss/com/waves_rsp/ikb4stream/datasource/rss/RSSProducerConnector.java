@@ -6,8 +6,8 @@ import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
-import com.waves_rsp.ikb4stream.core.datasource.IDataProducer;
-import com.waves_rsp.ikb4stream.core.datasource.IProducerConnector;
+import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
+import com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
 

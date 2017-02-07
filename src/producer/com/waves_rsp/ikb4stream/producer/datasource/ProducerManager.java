@@ -1,5 +1,6 @@
 package com.waves_rsp.ikb4stream.producer.datasource;
 
+import com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
 import com.waves_rsp.ikb4stream.core.util.UtilManager;
 import org.slf4j.Logger;
@@ -15,11 +16,6 @@ import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.stream.Stream;
 
-/**
- * This class initializes and manages the producer connectors:
- * @see IProducerConnector
- *
- */
 public class ProducerManager {
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private static ProducerManager ourInstance = new ProducerManager();
@@ -53,9 +49,10 @@ public class ProducerManager {
      */
     private void launchDataConsumer() {
         int nbThreadConsumer = 10;
-        String stringNbThreadConsumer = PropertiesManager.getInstance().getProperty("scoreprocessormanager.nbDataConsumerThread");
-        if (stringNbThreadConsumer != null) {
-            nbThreadConsumer = Integer.parseInt(stringNbThreadConsumer);
+        try {
+            nbThreadConsumer = Integer.parseInt(PropertiesManager.getInstance().getProperty("producer.thread"));
+        } catch (IllegalArgumentException e) {
+            logger.warn("ProducerManager warn {}", "Use default value for producer.thread");
         }
 
         logger.info("ProducerManager info {}", nbThreadConsumer + " consumer will be launch");
@@ -74,10 +71,10 @@ public class ProducerManager {
 
     /**
      * Launch all producers
-     * @throws IOException If there isn't scoreprocessormanager.path in config.properties file in resource directory
+     * @throws IOException If there isn't producer.path in config.properties file in resource directory
      */
     private void launchDataProducer() throws IOException {
-        String stringPath = PropertiesManager.getInstance().getProperty("scoreprocessormanager.path");
+        String stringPath = PropertiesManager.getInstance().getProperty("producer.path");
         try (Stream<Path> paths = Files.walk(Paths.get(stringPath))) {
             paths.forEach((Path filePath) -> {
                 if (Files.isRegularFile(filePath)) {
@@ -89,10 +86,10 @@ public class ProducerManager {
                             .map(clazz -> UtilManager.loadClass(clazz, cl))
                             .filter(clazz -> UtilManager.implementInterface(clazz, IProducerConnector.class))
                             .forEach(clazz -> {
-                                IProducerConnector scoreProcessor = (IProducerConnector) UtilManager.newInstance(clazz);
-                                Thread thread = new Thread(() -> scoreProcessor.load(new DataProducer(dataQueue)));
+                                IProducerConnector producerConnector = (IProducerConnector) UtilManager.newInstance(clazz);
+                                Thread thread = new Thread(() -> producerConnector.load(new DataProducer(dataQueue)));
                                 thread.start();
-                                logger.info("ProducerManager info {}", "Producer " + scoreProcessor.getClass().getName() + " has been launched");
+                                logger.info("ProducerManager info {}", "Producer " + producerConnector.getClass().getName() + " has been launched");
                                 producerConnectors.add(thread);
                             });
 
@@ -115,20 +112,26 @@ public class ProducerManager {
      */
     public void stop() {
         producerConnectors.forEach(Thread::interrupt);
+        logger.info("ProducerManager info {}", "All producer has been stopped");
 
         // Wait the DataQueue is Empty
-        while (dataQueue.size() >= 0) {
+        logger.info("ProducerManager info {}", "Wait producers finished to clear the DataQueue");
+        while (dataQueue.size() > 0) {
 
         }
 
         dataConsumers.forEach(Thread::interrupt);
+        logger.info("ProducerManager info {}", "All consumers has been stopped");
     }
 
     /**
      * Force stop all producers and consumers
      */
     public void forceStop() {
+        logger.info("ProducerManager info {}", "Force stop");
         producerConnectors.forEach(Thread::interrupt);
+        logger.info("ProducerManager info {}", "All producer has been stopped");
         dataConsumers.forEach(Thread::interrupt);
+        logger.info("ProducerManager info {}", "All consumers has been stopped");
     }
 }

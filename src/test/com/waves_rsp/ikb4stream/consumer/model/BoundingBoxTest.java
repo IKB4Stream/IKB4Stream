@@ -1,5 +1,6 @@
 package com.waves_rsp.ikb4stream.consumer.model;
 
+import com.waves_rsp.ikb4stream.core.communication.model.BoundingBox;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
 import org.junit.Test;
 

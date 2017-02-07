@@ -1,4 +1,4 @@
-package com.waves_rsp.ikb4stream.consumer.model;
+package com.waves_rsp.ikb4stream.core.communication.model;
 
 import java.util.Date;
 import java.util.Objects;

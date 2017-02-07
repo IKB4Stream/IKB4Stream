@@ -1,4 +1,4 @@
-package com.waves_rsp.ikb4stream.consumer;
+package com.waves_rsp.ikb4stream.core.communication;
 
 @FunctionalInterface
 public interface DatabaseReaderCallback {

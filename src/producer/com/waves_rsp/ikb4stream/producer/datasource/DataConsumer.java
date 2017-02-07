@@ -8,35 +8,23 @@ import com.waves_rsp.ikb4stream.producer.score.ScoreProcessorManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * This class consumes the data from DataQueue and writes in DataBaseWriter after associate a score to the Event
- * @see ScoreProcessorManager
- * @see DatabaseWriter
- */
 public class DataConsumer {
-    private final Logger logger = LoggerFactory.getLogger(getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(DataConsumer.class);
     private final ScoreProcessorManager scoreProcessorManager;
     private final DatabaseWriter databaseWriter;
     private final DataQueue dataQueue;
     private final int targetScore;
 
-    /**
-     *
-     * @param scoreProcessorManager
-     * @param databaseWriter
-     * @param dataQueue
-     * @param targetScore
-     */
+
     private DataConsumer(ScoreProcessorManager scoreProcessorManager, DatabaseWriter databaseWriter, DataQueue dataQueue, int targetScore) {
-       this.scoreProcessorManager = scoreProcessorManager;
-       this.databaseWriter = databaseWriter;
-       this.dataQueue = dataQueue;
-       this.targetScore = targetScore;
+        this.scoreProcessorManager = scoreProcessorManager;
+        this.databaseWriter = databaseWriter;
+        this.dataQueue = dataQueue;
+        this.targetScore = targetScore;
     }
 
     /**
      * Create a DataConsumer
-     * @param dataQueue
      * @return DataConsumer
      */
     public static DataConsumer createDataConsumer(DataQueue dataQueue) {
@@ -47,9 +35,10 @@ public class DataConsumer {
 
         /* Get target score */
         int targetScore = 25;
-        String stringTargetScore = PropertiesManager.getInstance().getProperty("score.target");
-        if (stringTargetScore != null) {
-            targetScore = Integer.valueOf(stringTargetScore);
+        try {
+            targetScore = Integer.parseInt(PropertiesManager.getInstance().getProperty("score.target"));
+        } catch (IllegalArgumentException e) {
+            LOGGER.warn("DataConsumer warn {}", "Use default value for score.target");
         }
 
         return new DataConsumer(scoreProcessorManager, databaseWriter, dataQueue, targetScore);
@@ -68,20 +57,21 @@ public class DataConsumer {
 
     /**
      * Consume Event in dataQueue and send to scoreProcessor
-     * @throws JsonProcessingException, {@link InterruptedException} if the Thread is interrupted or there is JSON problem
      */
     public void consume() {
-        try {
-            while (Thread.currentThread().isInterrupted()) {
+        while (!Thread.currentThread().isInterrupted()) {
+            try {
                 Event event = dataQueue.pop();
                 Event eventClone = scoreProcessorManager.processScore(event);
                 if (filter(eventClone, targetScore)) {
-                    databaseWriter.insertEvent(eventClone, t -> logger.error("DatabaseWriter error {}", t.getMessage()));
+                    databaseWriter.insertEvent(eventClone, t -> LOGGER.error("DatabaseWriter error {}", t.getMessage()));
                 }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            } catch (JsonProcessingException e) {
+                LOGGER.error("DatabaseConsumer error {}", e.getMessage());
             }
-        } catch (JsonProcessingException | InterruptedException e) {
-            logger.error("DatabaseConsumer error {}", e.getMessage());
-            Thread.currentThread().interrupt();
         }
+
     }
 }

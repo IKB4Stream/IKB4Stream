@@ -1,10 +1,10 @@
-package com.waves_rsp.ikb4stream.consumer;
+package com.waves_rsp.ikb4stream.core.communication;
 
 public interface ICommunication {
     /**
      * Called at startup.
      */
-    void start(DatabaseReader databaseReader);
+    void start(IDatabaseReader databaseReader);
 
     /**
      * Called at closure.
