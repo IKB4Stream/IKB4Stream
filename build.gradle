@@ -8,7 +8,10 @@ sourceCompatibility = 1.8
 sourceSets {
     test {
         java {
-            srcDirs = ['src/core', 'src/consumer', 'src/producer', 'src/test/']
+            srcDirs = ['src/core', 'src/consumer', 'src/producer', 'src/test/', 'src/datasource', 'src/datasource/weather', 'src/datasource/rss']
+        }
+        resources {
+            srcDirs = ['resources']
         }
     }
     consumer {
@@ -16,11 +19,35 @@ sourceSets {
             srcDirs = ['src/core', 'src/consumer']
             compileClasspath = configurations.compile
         }
+        resources {
+            srcDirs = ['resources']
+        }
     }
     producer {
         java {
             srcDirs = ['src/core', 'src/producer']
             compileClasspath = configurations.compile
+        }
+        resources {
+            srcDirs = ['resources']
+        }
+    }
+    datasource_meteo {
+        java {
+            srcDirs = ['src/core', 'src/datasource/weather']
+            compileClasspath = configurations.compile
+        }
+        resources {
+            srcDirs = ['resources']
+        }
+    }
+    datasource_rss {
+        java {
+            srcDirs = ['src/core', 'src/datasource/rss']
+            compileClasspath = configurations.compile
+        }
+        resources {
+            srcDirs = ['resources']
         }
     }
 }
@@ -41,6 +68,16 @@ task packageProducerJar(type: Jar, description: 'Package the Producer Jar') {
     from sourceSets.producer.output
 }
 
+task packageWeatherJar(type: Jar, description: 'Package the Weather Jar') {
+    archiveName = "ikb4stream-$version-datasource-weather.jar"
+    from sourceSets.datasource_meteo.output
+}
+
+task packageRssJar(type: Jar, description: 'Package the RSS Jar') {
+    archiveName = "ikb4stream-$version-datasource-rss.jar"
+    from sourceSets.datasource_rss.output
+}
+
 task testAll(type: Test) {
     testClassesDir = sourceSets.test.output.classesDir
     classpath = sourceSets.test.runtimeClasspath
@@ -55,5 +92,6 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-databind:2.8.6'
     compile 'org.apache.jena:jena-arq:2.9.3'
     compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.6'
+    compile group: 'com.rometools', name: 'rome-modules', version: '1.7.1'
     testCompile 'junit:junit:4.11'
 }
