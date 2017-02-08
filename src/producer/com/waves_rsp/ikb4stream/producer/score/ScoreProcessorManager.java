@@ -19,7 +19,7 @@ import java.util.jar.JarEntry;
 import java.util.stream.Stream;
 
 public class ScoreProcessorManager {
-    private final Logger logger = LoggerFactory.getLogger(getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(ScoreProcessorManager.class);
     private final Map<String,IScoreProcessor> scoreProcessors = new HashMap<>();
 
     public Event processScore(Event event) {
@@ -29,7 +29,7 @@ public class ScoreProcessorManager {
         return new Event(event.getLocation(), event.getStart(), event.getEnd(), event.getDescription(), score, event.getSource());
     }
 
-    public void instanciate() throws IOException {
+    public void instanciate() {
         String stringPath = PropertiesManager.getInstance().getProperty("scoreprocessor.path");
         try (Stream<Path> paths = Files.walk(Paths.get(stringPath))) {
             paths.forEach((Path filePath) -> {
@@ -44,10 +44,12 @@ public class ScoreProcessorManager {
                             .forEach(clazz -> {
                                 IScoreProcessor scoreProcessor = (IScoreProcessor) UtilManager.newInstance(clazz);
                                 scoreProcessors.put(scoreProcessor.getClass().getName(), scoreProcessor);
-                                logger.info("ScoreProcessorManager info {}", "ScoreProcessor " + scoreProcessor.getClass().getName() + " has been launched");
+                                LOGGER.info("ScoreProcessor " + scoreProcessor.getClass().getName() + " has been launched");
                             });
                 }
             });
+        } catch (IOException e) {
+            LOGGER.error(e.getMessage());
         }
     }
 }

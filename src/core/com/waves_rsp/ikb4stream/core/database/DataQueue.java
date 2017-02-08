@@ -28,7 +28,9 @@ public class DataQueue {
      */
     Event pop() throws InterruptedException {
         synchronized (key) {
-            while (queue.size() <= 0) { key.wait(); }
+            while (queue.isEmpty()) {
+                key.wait();
+            }
             return queue.removeFirst();
         }
     }

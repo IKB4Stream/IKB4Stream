@@ -7,23 +7,22 @@ import com.mongodb.async.client.MongoDatabase;
 import com.mongodb.client.model.geojson.Polygon;
 import com.mongodb.client.model.geojson.Position;
 import com.waves_rsp.ikb4stream.core.communication.DatabaseReaderCallback;
-import com.waves_rsp.ikb4stream.core.communication.model.BoundingBox;
-import com.waves_rsp.ikb4stream.core.communication.model.Request;
 import com.waves_rsp.ikb4stream.core.communication.IDatabaseReader;
-import com.waves_rsp.ikb4stream.core.model.LatLong;
+import com.waves_rsp.ikb4stream.core.communication.model.Request;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
 import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.time.Instant;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.mongodb.client.model.Filters.*;
 
 public class DatabaseReader implements IDatabaseReader {
-    private final Logger logger = LoggerFactory.getLogger(getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseReader.class);
     private static final DatabaseReader ourInstance = new DatabaseReader();
     private final MongoClient mongoClient;
     private final MongoDatabase mongoDatabase;
@@ -38,7 +37,7 @@ public class DatabaseReader implements IDatabaseReader {
         String collection = propertiesManager.getProperty("database.collection");
 
         if (host == null || datasource == null || collection == null) {
-            logger.error("DatabaseReader error cannot get database information");
+            LOGGER.error("DatabaseReader error cannot get database information");
             throw new IllegalStateException("Configuration file doesn't have any information about database");
         }
 
@@ -46,7 +45,7 @@ public class DatabaseReader implements IDatabaseReader {
         this.mongoDatabase = mongoClient.getDatabase(datasource);
         this.mongoCollection = mongoDatabase.getCollection(collection);
 
-        logger.info("DatabaseReader info {}", "DatabaseReader has been instantiate");
+        LOGGER.info("DatabaseReader has been instantiate");
     }
 
     /**
@@ -77,47 +76,5 @@ public class DatabaseReader implements IDatabaseReader {
                         t,
                         "[" + result.stream().map(d -> d.toJson()).collect(Collectors.joining(", ")) + "]"
                 ));
-    }
-
-    public static void main(String[] args) {
-        DatabaseReader dbr = DatabaseReader.getInstance();
-
-        BoundingBox boundingBox = new BoundingBox(new LatLong[]{
-            new LatLong(0,0),
-            new LatLong(0,2),
-            new LatLong(2,2),
-            new LatLong(2,0),
-            new LatLong(0,0)
-        });
-        Calendar calendar = Calendar.getInstance();
-
-        calendar.set(Calendar.YEAR, 2015);
-        calendar.set(Calendar.MONTH, 4);
-        calendar.set(Calendar.DATE, 15);
-        calendar.set(Calendar.HOUR, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        Date start = calendar.getTime();
-
-        calendar.set(Calendar.YEAR, 2015);
-        calendar.set(Calendar.MONTH, 4);
-        calendar.set(Calendar.DATE, 17);
-        calendar.set(Calendar.HOUR, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        Date end = calendar.getTime();
-
-        Date now = Date.from(Instant.now());
-
-        Request r = new Request(start, end, boundingBox, now);
-
-        dbr.getEvent(r, (t, result) -> {
-            System.out.println(result);
-        });
-
-
-        while(true){}
     }
 }

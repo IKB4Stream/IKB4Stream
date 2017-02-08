@@ -9,7 +9,6 @@ import com.mongodb.async.client.MongoDatabase;
 import com.mongodb.client.model.geojson.Point;
 import com.mongodb.client.model.geojson.Position;
 import com.waves_rsp.ikb4stream.core.model.Event;
-import com.waves_rsp.ikb4stream.core.model.LatLong;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
 import com.waves_rsp.ikb4stream.producer.model.DatabaseWriterCallback;
 import org.bson.Document;
@@ -23,7 +22,7 @@ import java.util.Date;
  * This class writes data in mongodb database
  */
 public class DatabaseWriter {
-    private final Logger logger = LoggerFactory.getLogger(getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseWriter.class);
     private static final DatabaseWriter ourInsance = new DatabaseWriter();
     private final MongoClient mongoClient;
     private final MongoDatabase mongoDatabase;
@@ -42,7 +41,7 @@ public class DatabaseWriter {
         String collection = propertiesManager.getProperty("database.collection");
 
         if (host == null || datasource == null || collection == null) {
-            logger.error("DatabaseWriter error cannot get database information");
+            LOGGER.error("DatabaseWriter error cannot get database information");
             throw new IllegalStateException("Configuration file doesn't have any information about database");
         }
 
@@ -50,7 +49,7 @@ public class DatabaseWriter {
         this.mongoDatabase = mongoClient.getDatabase(datasource);
         this.mongoCollection = mongoDatabase.getCollection(collection);
 
-        logger.info("DatabaseWriter info {}", "DatabaseWriter has been instantiate");
+        LOGGER.info("DatabaseWriter has been instantiate");
     }
 
     /**
@@ -79,42 +78,4 @@ public class DatabaseWriter {
 
         this.mongoCollection.insertOne(document, (result, t) -> callback.onResult(t));
     }
-
-    /**
-     * This method executes the program by inserting events examples
-     * @param args
-     * @throws JsonProcessingException
-     */
-    public static void main(String[] args) throws JsonProcessingException {
-        DatabaseWriter db = DatabaseWriter.getInstance();
-
-        LatLong latLong = new LatLong(1, 1);
-        Calendar calendar = Calendar.getInstance();
-
-        calendar.set(Calendar.YEAR, 2015);
-        calendar.set(Calendar.MONTH, 4);
-        calendar.set(Calendar.DATE, 15);
-        calendar.set(Calendar.HOUR, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        Date start = calendar.getTime();
-
-        calendar.set(Calendar.YEAR, 2015);
-        calendar.set(Calendar.MONTH, 4);
-        calendar.set(Calendar.DATE, 17);
-        calendar.set(Calendar.HOUR, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        Date end = calendar.getTime();
-
-        Event event = new Event(latLong, start, end, "WaterPony", (byte) 10, "twitter");
-
-
-        while(true) {
-            db.insertEvent(event, t -> System.out.println(t.getMessage()) );
-        }
-    }
-
 }

@@ -15,6 +15,9 @@ import java.util.Objects;
  * Parser class to parse RDF file
  */
 public class RDFParser {
+    private RDFParser() {
+
+    }
 
     /**
      * @param anomalyFileName the rdf anomaly file's name

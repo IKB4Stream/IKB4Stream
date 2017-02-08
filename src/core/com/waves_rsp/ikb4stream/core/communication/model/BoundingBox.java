@@ -9,7 +9,9 @@ public class BoundingBox {
 
     public BoundingBox(LatLong[] points) {
         Objects.requireNonNull(points);
-        if(points.length < 1) { throw new IllegalArgumentException("We need at least 1 point in bounding box "); }
+        if(points.length < 1) {
+            throw new IllegalArgumentException("We need at least 1 point in bounding box ");
+        }
         this.latLongs = points;
     }
 

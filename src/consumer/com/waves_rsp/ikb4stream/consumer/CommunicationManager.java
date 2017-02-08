@@ -17,20 +17,20 @@ import java.util.jar.JarEntry;
 import java.util.stream.Stream;
 
 public class CommunicationManager {
-    private final Logger logger = LoggerFactory.getLogger(getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(CommunicationManager.class);
     private static CommunicationManager ourInstance = new CommunicationManager();
     private final Map<Thread, ICommunication> threadCommunications = new HashMap<>();
     private final DatabaseReader databaseReader;
-
-    public static CommunicationManager getInstance() {
-        return ourInstance;
-    }
 
     private CommunicationManager() {
         this.databaseReader = DatabaseReader.getInstance();
     }
 
-    public void start() throws IOException {
+    public static CommunicationManager getInstance() {
+        return ourInstance;
+    }
+
+    public void start()  {
         String stringPath = PropertiesManager.getInstance().getProperty("communication.path");
         try (Stream<Path> paths = Files.walk(Paths.get(stringPath))) {
             paths.forEach((Path filePath) -> {
@@ -46,23 +46,22 @@ public class CommunicationManager {
                                 ICommunication iCommunication = (ICommunication) UtilManager.newInstance(clazz);
                                 Thread thread = new Thread(() -> iCommunication.start(databaseReader));
                                 thread.start();
-                                logger.info("CommunicationManager info {}", "CommunicationManager " + iCommunication.getClass().getName() + " has been launched");
+                                LOGGER.info("CommunicationManager " + iCommunication.getClass().getName() + " has been launched");
                                 threadCommunications.put(thread, iCommunication);
                             });
                 }
             });
         } catch (IOException e) {
-            logger.error("CommunicationManager error {}", e.getMessage());
-            throw new IOException(e.getMessage());
+            LOGGER.error(e.getMessage());
         }
-        logger.info("CommunicationManager info {}", "All ICommunication has been launched");
+        LOGGER.info("All ICommunication has been launched");
     }
 
     public void stop() {
         threadCommunications.values().forEach(ICommunication::close);
-        logger.info("CommunicationManager info {}", "Closing communications...");
+        LOGGER.info("Closing communications...");
 
         threadCommunications.keySet().forEach(Thread::interrupt);
-        logger.info("CommunicationManager info {}", "CommunicationManager all communications thread has been stoped");
+        LOGGER.info("CommunicationManager all communications thread has been stoped");
     }
 }

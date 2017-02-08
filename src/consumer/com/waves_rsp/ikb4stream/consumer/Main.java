@@ -6,12 +6,11 @@ import org.slf4j.LoggerFactory;
 public class Main {
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
-    public static void main(String[] args) {
-        LOGGER.info("IKB4Stream Consumer Module start");
+    private Main() {
+        // Private constructor to block instantiation
+    }
 
-        // Example of how to implement RDFParser & AnomalyRequest classes
-        RDFParser rdfParser = new RDFParser();
-        AnomalyRequest anomalyRequest = rdfParser.parse("resources/anomaly.ttl");
+    public static void main(String[] args) {
         LOGGER.info("IKB4Stream Consumer Module start");
     }
 }

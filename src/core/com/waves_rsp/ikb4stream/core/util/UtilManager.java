@@ -12,8 +12,8 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.stream.Stream;
 
-public abstract class UtilManager {
-    public static URLClassLoader getURLClassLoader(ClassLoader classLoader, Path path) {
+public interface UtilManager {
+    static URLClassLoader getURLClassLoader(ClassLoader classLoader, Path path) {
         Objects.requireNonNull(path);
         String pathToJar = path.toString();
         URLClassLoader cl;
@@ -26,7 +26,7 @@ public abstract class UtilManager {
         return cl;
     }
 
-    public static Stream<JarEntry> getEntries(Path path) {
+    static Stream<JarEntry> getEntries(Path path) {
         Objects.requireNonNull(path);
         String pathToJar = path.toString();
         try {
@@ -37,7 +37,7 @@ public abstract class UtilManager {
         }
     }
 
-    public static Object newInstance(Class clazz) {
+    static Object newInstance(Class clazz) {
         Objects.requireNonNull(clazz);
         try {
             return clazz.newInstance();
@@ -46,7 +46,7 @@ public abstract class UtilManager {
         }
     }
 
-    public static Class loadClass(String className, URLClassLoader cl) {
+    static Class loadClass(String className, URLClassLoader cl) {
         Objects.requireNonNull(className);
         Objects.requireNonNull(cl);
         try {
@@ -56,18 +56,18 @@ public abstract class UtilManager {
         }
     }
 
-    public static boolean checkIsClassFile(JarEntry jar) {
+    static boolean checkIsClassFile(JarEntry jar) {
         Objects.requireNonNull(jar);
         return !(jar.isDirectory() || !jar.getName().endsWith(".class"));
     }
 
-    public static String getClassName(JarEntry jar) {
+    static String getClassName(JarEntry jar) {
         Objects.requireNonNull(jar);
         String className = jar.getName().substring(0,jar.getName().length()-6);
         return className.replace(File.separator, ".");
     }
 
-    public static boolean implementInterface(Class clazz, Class interfaceClass) {
+    static boolean implementInterface(Class clazz, Class interfaceClass) {
         Objects.requireNonNull(clazz);
         Objects.requireNonNull(interfaceClass);
         return Arrays.stream(clazz.getInterfaces())

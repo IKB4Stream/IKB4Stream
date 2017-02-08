@@ -32,18 +32,17 @@ public class DataQueue {
      */
     public Event pop() throws InterruptedException {
         synchronized (key) {
-            while (queue.size() <= 0) { key.wait(); }
+            while (queue.isEmpty()) { key.wait(); }
             return queue.removeFirst();
         }
     }
 
     /**
-     * Return the size of DataQueue
-     * @return int Size of the Queue
+     * @return Return true if the DataQueue is empty
      */
-    public int size() {
+    public boolean isEmpty() {
         synchronized (key) {
-            return queue.size();
+            return queue.isEmpty();
         }
     }
 }
