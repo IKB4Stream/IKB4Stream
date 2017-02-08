@@ -17,10 +17,19 @@ import java.util.Objects;
 import java.util.jar.JarEntry;
 import java.util.stream.Stream;
 
+/**
+ *This class associates a score to an Event
+ * @see IScoreProcessor
+ */
 public class ScoreProcessorManager {
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private final Map<String,IScoreProcessor> scoreProcessors = new HashMap<>();
 
+    /**
+     * This associates a score to the event in param
+     * @param event
+     * @return Event
+     */
     public Event processScore(Event event) {
         Objects.requireNonNull(event);
         // TODO: ProcessScore
@@ -28,6 +37,10 @@ public class ScoreProcessorManager {
         return new Event(event.getLocation(), event.getStart(), event.getEnd(), event.getDescription(), score, event.getSource());
     }
 
+    /**
+     * Initializes all the IScoreProcessor from Jar files
+     * @throws IOException
+     */
     public void instanciate() throws IOException {
         String stringPath = PropertiesManager.getInstance().getProperty("scoreprocessormanager.path");
         try (Stream<Path> paths = Files.walk(Paths.get(stringPath))) {
@@ -50,6 +63,11 @@ public class ScoreProcessorManager {
         }
     }
 
+    /**
+     * This method executes the program
+     * @param args
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException {
         ScoreProcessorManager producerManager = new ScoreProcessorManager();
         producerManager.instanciate();

@@ -19,6 +19,9 @@ import org.slf4j.LoggerFactory;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * This class writes data in mongodb database
+ */
 public class DatabaseWriter {
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private static final DatabaseWriter ourInsance = new DatabaseWriter();
@@ -27,6 +30,9 @@ public class DatabaseWriter {
     private final MongoCollection<Document> mongoCollection;
     private final ObjectMapper mapper = new ObjectMapper();
 
+    /**
+     * DataWriter constructor
+     */
     private DatabaseWriter() {
         PropertiesManager propertiesManager = PropertiesManager.getInstance();
 
@@ -47,13 +53,19 @@ public class DatabaseWriter {
         logger.info("DatabaseWriter info {}", "DatabaseWriter has been instantiate");
     }
 
+    /**
+     * Return an intance of {@link DatabaseWriter}
+     * @return DatabaseWriter
+     */
     public static DatabaseWriter getInstance() {
         return ourInsance;
     }
 
     /**
-     * Insert One Event to the Database
+     * This method inserts an event in the database
      * @param event
+     * @param callback
+     * @throws JsonProcessingException
      */
     public void insertEvent(Event event, DatabaseWriterCallback callback) throws JsonProcessingException {
         Document document = Document.parse(mapper.writeValueAsString(event));
@@ -68,6 +80,11 @@ public class DatabaseWriter {
         this.mongoCollection.insertOne(document, (result, t) -> callback.onResult(t));
     }
 
+    /**
+     * This method executes the program by inserting events examples
+     * @param args
+     * @throws JsonProcessingException
+     */
     public static void main(String[] args) throws JsonProcessingException {
         DatabaseWriter db = DatabaseWriter.getInstance();
 

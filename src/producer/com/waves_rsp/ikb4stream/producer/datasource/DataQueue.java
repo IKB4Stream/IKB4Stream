@@ -5,6 +5,10 @@ import com.waves_rsp.ikb4stream.core.model.Event;
 import java.util.ArrayDeque;
 import java.util.Objects;
 
+/**
+ * This class stores and provides data (Event) for DataConsumer
+ * @see DataConsumer
+ */
 public class DataQueue {
     private final ArrayDeque<Event> queue = new ArrayDeque<>();
     private final Object key = new Object();

@@ -8,6 +8,11 @@ import com.waves_rsp.ikb4stream.producer.score.ScoreProcessorManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * This class consumes the data from DataQueue and writes in DataBaseWriter after associate a score to the Event
+ * @see ScoreProcessorManager
+ * @see DatabaseWriter
+ */
 public class DataConsumer {
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private final ScoreProcessorManager scoreProcessorManager;
@@ -15,7 +20,13 @@ public class DataConsumer {
     private final DataQueue dataQueue;
     private final int targetScore;
 
-
+    /**
+     *
+     * @param scoreProcessorManager
+     * @param databaseWriter
+     * @param dataQueue
+     * @param targetScore
+     */
     private DataConsumer(ScoreProcessorManager scoreProcessorManager, DatabaseWriter databaseWriter, DataQueue dataQueue, int targetScore) {
        this.scoreProcessorManager = scoreProcessorManager;
        this.databaseWriter = databaseWriter;
@@ -25,6 +36,7 @@ public class DataConsumer {
 
     /**
      * Create a DataConsumer
+     * @param dataQueue
      * @return DataConsumer
      */
     public static DataConsumer createDataConsumer(DataQueue dataQueue) {
@@ -56,6 +68,7 @@ public class DataConsumer {
 
     /**
      * Consume Event in dataQueue and send to scoreProcessor
+     * @throws JsonProcessingException, {@link InterruptedException} if the Thread is interrupted or there is JSON problem
      */
     public void consume() {
         try {

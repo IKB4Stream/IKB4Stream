@@ -15,6 +15,11 @@ import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.stream.Stream;
 
+/**
+ * This class initializes and manages the producer connectors:
+ * @see IProducerConnector
+ *
+ */
 public class ProducerManager {
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private static ProducerManager ourInstance = new ProducerManager();
