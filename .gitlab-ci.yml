@@ -4,6 +4,7 @@ stages:
   - test
   - consumer
   - producer
+  - kafka
 
 before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
@@ -31,6 +32,15 @@ producer:
   stage: producer
   script:
     - ./gradlew packageProducerJar
+  artifacts:
+    paths:
+      - build/libs/*.jar
+    expire_in: 1 day
+
+kafka:
+  stage: kafka
+  script:
+    - ./gradlew packageKafkaCommunicationJar
   artifacts:
     paths:
       - build/libs/*.jar

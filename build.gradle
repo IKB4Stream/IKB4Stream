@@ -8,10 +8,17 @@ sourceCompatibility = 1.8
 sourceSets {
     test {
         java {
-            srcDirs = ['src/core', 'src/consumer', 'src/producer', 'src/test/', 'src/datasource', 'src/datasource/weather', 'src/datasource/rss']
+            srcDirs = ['src/core', 'src/consumer', 'src/producer', 'src/test/', 'src/datasource',
+                       'src/datasource/weather', 'src/datasource/rss', 'src/communication/kafka']
         }
         resources {
             srcDirs = ['resources']
+        }
+    }
+    communication_kafka {
+        java {
+            srcDirs = ['src/core', 'src/communication/kafka']
+            compileClasspath = configurations.compile
         }
     }
     consumer {
@@ -78,6 +85,11 @@ task packageRssJar(type: Jar, description: 'Package the RSS Jar') {
     from sourceSets.datasource_rss.output
 }
 
+task packageKafkaCommunicationJar(type: Jar, description: 'Package the Kafka Communication Jar') {
+    archiveName = "ikb4stream-$version-producer.jar"
+    from sourceSets.communication_kafka.output
+}
+
 task testAll(type: Test) {
     testClassesDir = sourceSets.test.output.classesDir
     classpath = sourceSets.test.runtimeClasspath
@@ -94,5 +106,6 @@ dependencies {
     compile group: 'org.influxdb', name: 'influxdb-java', version: '2.5'
     compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.6'
     compile group: 'com.rometools', name: 'rome-modules', version: '1.7.1'
+    compile 'org.apache.kafka:kafka-streams:0.10.0.1'
     testCompile 'junit:junit:4.11'
 }
