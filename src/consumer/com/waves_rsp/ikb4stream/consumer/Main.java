@@ -23,5 +23,6 @@ public class Main {
      */
     public static void main(String[] args) {
         LOGGER.info("IKB4Stream Consumer Module start");
+        CommunicationManager.getInstance().start();
     }
 }

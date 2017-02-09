@@ -2,9 +2,7 @@ image: java:8-jdk
 
 stages:
   - test
-  - consumer
-  - producer
-  - kafka
+  - build
 
 before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
@@ -19,31 +17,13 @@ test:
   script:
     - ./gradlew testAll
 
-consumer:
-  stage: consumer
+build:
+  stage: build
   script:
-    - ./gradlew packageConsumerJar
+    - ./gradlew clean ci
   artifacts:
     paths:
-      - build/libs/*.jar
-    expire_in: 1 day
-
-producer:
-  stage: producer
-  script:
-    - ./gradlew packageProducerJar
-  artifacts:
-    paths:
-      - build/libs/*.jar
-    expire_in: 1 day
-
-kafka:
-  stage: kafka
-  script:
-    - ./gradlew packageKafkaCommunicationJar
-  artifacts:
-    paths:
-      - build/libs/*.jar
+      - build/distributions/*.zip
     expire_in: 1 day
 
 after_script:

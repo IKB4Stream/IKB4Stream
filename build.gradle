@@ -11,9 +11,6 @@ sourceSets {
             srcDirs = ['src/core', 'src/consumer', 'src/producer', 'src/test/', 'src/datasource',
                        'src/datasource/weather', 'src/datasource/rss', 'src/communication/kafka']
         }
-        resources {
-            srcDirs = ['resources']
-        }
     }
     communication_kafka {
         java {
@@ -26,17 +23,11 @@ sourceSets {
             srcDirs = ['src/core', 'src/consumer']
             compileClasspath = configurations.compile
         }
-        resources {
-            srcDirs = ['resources']
-        }
     }
     producer {
         java {
             srcDirs = ['src/core', 'src/producer']
             compileClasspath = configurations.compile
-        }
-        resources {
-            srcDirs = ['resources']
         }
     }
     datasource_meteo {
@@ -44,17 +35,11 @@ sourceSets {
             srcDirs = ['src/core', 'src/datasource/weather']
             compileClasspath = configurations.compile
         }
-        resources {
-            srcDirs = ['resources']
-        }
     }
     datasource_rss {
         java {
             srcDirs = ['src/core', 'src/datasource/rss']
             compileClasspath = configurations.compile
-        }
-        resources {
-            srcDirs = ['resources']
         }
     }
 }
@@ -76,18 +61,36 @@ task packageProducerJar(type: Jar, description: 'Package the Producer Jar') {
 }
 
 task packageWeatherJar(type: Jar, description: 'Package the Weather Jar') {
-    archiveName = "ikb4stream-$version-datasource-weather.jar"
+    archiveName = "resources/datasource/ikb4stream-$version-datasource-weather.jar"
     from sourceSets.datasource_meteo.output
 }
 
 task packageRssJar(type: Jar, description: 'Package the RSS Jar') {
-    archiveName = "ikb4stream-$version-datasource-rss.jar"
+    archiveName = "resources/datasource/ikb4stream-$version-datasource-rss.jar"
     from sourceSets.datasource_rss.output
 }
 
 task packageKafkaCommunicationJar(type: Jar, description: 'Package the Kafka Communication Jar') {
-    archiveName = "ikb4stream-$version-producer.jar"
+    archiveName = "resources/communication/ikb4stream-$version-communication-kafka.jar"
     from sourceSets.communication_kafka.output
+}
+
+task copyConfigProperties(type: Copy) {
+    from 'resources/config.properties'
+    into 'build/libs/resources/'
+}
+
+task zipBuild(type: Zip) {
+    classifier = 'all'
+    from 'build/libs'
+}
+
+task packageAll(dependsOn: ['copyConfigProperties', 'packageConsumerJar', 'packageProducerJar', 'packageWeatherJar', 'packageRssJar', 'packageKafkaCommunicationJar']) {
+
+}
+
+task ci(dependsOn: ['packageAll', 'zipBuild']) {
+    tasks.findByName('zipBuild').mustRunAfter 'packageAll'
 }
 
 task testAll(type: Test) {
