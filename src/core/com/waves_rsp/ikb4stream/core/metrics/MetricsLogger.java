@@ -15,18 +15,21 @@ import java.util.concurrent.TimeUnit;
 public class MetricsLogger {
     private static final Logger LOGGER = LoggerFactory.getLogger(MetricsLogger.class);
     private final MetricsConnector metricsConnector;
-    private final BatchPoints.Builder builder;
+    private final BatchPoints.Builder batchPointsBuilder;
 
     private MetricsLogger() {
         this.metricsConnector = MetricsConnector.getMetricsConnector();
         this.metricsConnector.getInfluxDB().enableBatch(1000, 200, TimeUnit.NANOSECONDS);
-        this.builder = BatchPoints.database(metricsConnector.getProperties().getDbName()).tag("async", "true");
+        this.batchPointsBuilder = BatchPoints.database(metricsConnector.getProperties().getDbName()).tag("async", "true");
     }
 
     public static MetricsLogger getMetricsLogger() {
         return new MetricsLogger();
     }
 
+    /**
+     * Close the connexion with the influx database
+     */
     public void close() {
         metricsConnector.close();
     }
@@ -46,7 +49,7 @@ public class MetricsLogger {
         Point point = Point.measurement(measurement)
                            .time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
                 .addField(field, data).build();
-        BatchPoints points = builder.point(point).build();
+        BatchPoints points = batchPointsBuilder.point(point).build();
         influxDB.write(points);
         LOGGER.info("indexes points : "+points.getPoints());
     }

@@ -26,24 +26,34 @@ public class Main {
         LOGGER.info("IKB4Stream Consumer Module start");
         CommunicationManager.getInstance().start();
         CommunicationManager manager = CommunicationManager.getInstance();
+        manager.start();
+
         Thread listener = new Thread(() -> {
             try(Scanner sc = new Scanner(System.in)) {
                 while(!Thread.interrupted()) {
                     if (sc.hasNextLine()) {
                         switch (sc.nextLine()) {
-                            case "START":
-                                manager.start();
-                                break;
                             case "STOP":
                                 manager.stop();
+                                break;
+                            case "RESTART":
+                                manager.stop();
+                                Thread.sleep(500);
+                                manager.start();
+                                break;
+                            default:
+                                //Do nothing
                                 break;
                         }
                     }
                 }
+            } catch (InterruptedException e) {
+                LOGGER.error(e.getMessage());
             }
         });
 
-        listener.setDaemon(true);
         listener.start();
+        Runtime runtime = Runtime.getRuntime();
+        runtime.addShutdownHook(listener);
     }
 }
