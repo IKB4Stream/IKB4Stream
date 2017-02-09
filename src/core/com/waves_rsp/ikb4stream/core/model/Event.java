@@ -3,6 +3,9 @@ package com.waves_rsp.ikb4stream.core.model;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * Event class represents an event with starting date and end date
+ */
 public class Event {
     private final LatLong location;
     private final Date start;
@@ -94,6 +97,10 @@ public class Event {
         return result;
     }
 
+    /**
+     *
+     * @return a string which contains information about an event
+     */
     @Override
     public String toString() {
         return "Event{" +

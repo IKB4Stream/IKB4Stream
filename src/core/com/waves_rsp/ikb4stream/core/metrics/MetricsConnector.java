@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Objects;
 
 /**
- * Define the connector to influx database and instance it
+ * Defines the connector to influx database and instances it
  */
 public class MetricsConnector {
 
@@ -25,7 +25,7 @@ public class MetricsConnector {
     }
 
     /**
-     * Instanciate the influx connector for metrics
+     * Instanciates the influx connector for metrics
      *
      * @param properties define the connexions properties
      * @return metrics connector
