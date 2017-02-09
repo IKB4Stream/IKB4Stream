@@ -50,6 +50,8 @@ task packageConsumerJar(type: Jar, description: 'Package the Consumer Jar') {
         attributes 'Main-Class': 'com.waves_rsp.ikb4stream.consumer.Main'
     }
     from sourceSets.consumer.output
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }
 
 task packageProducerJar(type: Jar, description: 'Package the Producer Jar') {
@@ -58,21 +60,29 @@ task packageProducerJar(type: Jar, description: 'Package the Producer Jar') {
         attributes 'Main-Class': 'com.waves_rsp.ikb4stream.producer.Main'
     }
     from sourceSets.producer.output
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }
 
 task packageWeatherJar(type: Jar, description: 'Package the Weather Jar') {
     archiveName = "resources/datasource/ikb4stream-$version-datasource-weather.jar"
     from sourceSets.datasource_meteo.output
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }
 
 task packageRssJar(type: Jar, description: 'Package the RSS Jar') {
     archiveName = "resources/datasource/ikb4stream-$version-datasource-rss.jar"
     from sourceSets.datasource_rss.output
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }
 
 task packageKafkaCommunicationJar(type: Jar, description: 'Package the Kafka Communication Jar') {
     archiveName = "resources/communication/ikb4stream-$version-communication-kafka.jar"
     from sourceSets.communication_kafka.output
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }
 
 task copyConfigProperties(type: Copy) {
