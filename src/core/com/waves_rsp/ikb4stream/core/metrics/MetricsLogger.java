@@ -7,7 +7,6 @@ import org.influxdb.dto.Query;
 import org.influxdb.dto.QueryResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import retrofit2.http.Streaming;
 
 import java.util.List;
 import java.util.Objects;
@@ -22,7 +21,7 @@ public class MetricsLogger {
         Objects.requireNonNull(metricsConnector);
         this.metricsConnector = metricsConnector;
         this.metricsConnector.getInfluxDB().enableBatch(1000, 200, TimeUnit.NANOSECONDS);
-        this.builder = BatchPoints.database(metricsConnector.getProperties().getDbName()).tag("async", "true");
+        this.builder = BatchPoints.database(metricsConnector.getProperties().getDbName());
     }
 
     public static MetricsLogger getMetricsLogger(MetricsConnector connector) {
@@ -30,10 +29,10 @@ public class MetricsLogger {
     }
 
     /**
-     * Log a point sent to the influx database
+     * Log a data as value sent to the influx database into a specific measurement
      *
      * @param measurement the measurement key
-     * @param data the data to stock
+     * @param data the value to stock
      */
     public void log(String measurement, String data) {
         Objects.requireNonNull(measurement);
@@ -48,8 +47,7 @@ public class MetricsLogger {
     }
 
     /**
-     * Check a collections of point and load them into influx database
-     *
+     * Log a collections of point and send them into influx database
      *
      * @param points the points to check metrics
      */

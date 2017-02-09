@@ -1,5 +1,7 @@
 package com.waves_rsp.ikb4stream.core.metrics;
 
+import com.waves_rsp.ikb4stream.core.communication.ICommunication;
+import com.waves_rsp.ikb4stream.core.communication.IDatabaseReader;
 import org.influxdb.InfluxDB;
 import org.influxdb.InfluxDBFactory;
 import org.slf4j.Logger;
@@ -31,7 +33,7 @@ public class MetricsConnector {
     public static MetricsConnector getMetricsConnector(MetricsProperties properties) {
         return new MetricsConnector(properties);
     }
-
+    
     /**
      * Close the influx connexion
      */
