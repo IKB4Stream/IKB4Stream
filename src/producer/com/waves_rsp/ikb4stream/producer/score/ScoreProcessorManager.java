@@ -1,8 +1,8 @@
 package com.waves_rsp.ikb4stream.producer.score;
 
+import com.waves_rsp.ikb4stream.core.datasource.model.IScoreProcessor;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
-import com.waves_rsp.ikb4stream.core.datasource.model.IScoreProcessor;
 import com.waves_rsp.ikb4stream.core.util.UtilManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,10 +12,10 @@ import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.jar.JarEntry;
 import java.util.stream.Stream;
 
 public class ScoreProcessorManager {
@@ -24,9 +24,33 @@ public class ScoreProcessorManager {
 
     public Event processScore(Event event) {
         Objects.requireNonNull(event);
-        // TODO: ProcessScore
-        byte score = 20;
-        return new Event(event.getLocation(), event.getStart(), event.getEnd(), event.getDescription(), score, event.getSource());
+        try {
+            String scoreProcessors = PropertiesManager.getInstance().getProperty(event.getSource());
+            LOGGER.info(scoreProcessors + " will be applied in an event from " + event.getSource());
+            return process(getProcessors(scoreProcessors), event);
+        } catch (IllegalArgumentException e) {
+            LOGGER.warn("There isn't any ScoreProcessor for " + event.getSource());
+            return event;
+        }
+    }
+
+    private String[] getProcessors(String scoreProcessors) {
+        Objects.requireNonNull(scoreProcessors);
+        return scoreProcessors.split(",");
+    }
+
+    private Event process(String[] scoreProcessor, Event event) {
+        Objects.requireNonNull(scoreProcessor);
+        Arrays.stream(scoreProcessor).forEach(Objects::requireNonNull);
+        Objects.requireNonNull(event);
+        Event tmp = event;
+        for (String stringSp : scoreProcessor) {
+            IScoreProcessor sp = scoreProcessors.get(stringSp);
+            if (sp != null) {
+                tmp = sp.processScore(tmp);
+            }
+        }
+        return tmp;
     }
 
     public void instanciate() {
@@ -35,19 +59,26 @@ public class ScoreProcessorManager {
             paths.forEach((Path filePath) -> {
                 if (Files.isRegularFile(filePath)) {
                     URLClassLoader cl = UtilManager.getURLClassLoader(this.getClass().getClassLoader(), filePath);
-                    Stream<JarEntry> e = UtilManager.getEntries(filePath);
-
-                    e.filter(UtilManager::checkIsClassFile)
+                    UtilManager.getEntries(filePath).filter(UtilManager::checkIsClassFile)
                             .map(UtilManager::getClassName)
                             .map(clazz -> UtilManager.loadClass(clazz, cl))
                             .filter(clazz -> UtilManager.implementInterface(clazz, IScoreProcessor.class))
                             .forEach(clazz -> {
-                                IScoreProcessor scoreProcessor = (IScoreProcessor) UtilManager.newInstance(clazz);
-                                scoreProcessors.put(scoreProcessor.getClass().getName(), scoreProcessor);
-                                LOGGER.info("ScoreProcessor " + scoreProcessor.getClass().getName() + " has been launched");
+                                String jarName = filePath.getFileName().toString();
+                                scoreProcessors.put(jarName, (IScoreProcessor) UtilManager.newInstance(clazz));
+                                LOGGER.info("ScoreProcessor " + jarName + " has been launched");
                             });
+                    closeURLClassLoader(cl);
                 }
             });
+        } catch (IOException e) {
+            LOGGER.error(e.getMessage());
+        }
+    }
+
+    private void closeURLClassLoader(URLClassLoader cl) {
+        try {
+            cl.close();
         } catch (IOException e) {
             LOGGER.error(e.getMessage());
         }
