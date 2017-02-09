@@ -13,7 +13,7 @@ public class Request {
     private final Date requestReception;
 
     /**
-     * The request constructor
+     * The Request class constructor
      * @param start is the starting date of an anomaly
      * @param end is the end date of an anomaly
      * @param boundingBox coordinates
