@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 /**
  * This is the entry point for producer module. its goal is to initialize the class ProducerManager:
@@ -28,9 +29,37 @@ public class Main {
             producerManager.instantiate();
         } catch (IOException e) {
             LOGGER.error(e.getMessage());
-        } finally {
-            producerManager.stop();
         }
+
+        Thread listener = new Thread(() -> {
+            try(Scanner sc = new Scanner(System.in)) {
+                while(sc.hasNextLine()) {
+                    switch (sc.nextLine()) {
+                        case "START":
+                            producerManager.instantiate();
+                            break;
+                        case "RESTART":
+                            producerManager.stop();
+                            producerManager.instantiate();
+                            break;
+                        case "STOP":
+                            producerManager.stop();
+                            break;
+                        case "STOP -F":
+                            producerManager.forceStop();
+                            break;
+                        default:
+                            //Do nothing
+                            break;
+                    }
+                }
+            } catch (IOException e) {
+                LOGGER.info(e.getMessage());
+            }
+        });
+
+        Runtime runtime = Runtime.getRuntime();
+        runtime.addShutdownHook(listener);
     }
 }
 

@@ -29,6 +29,10 @@ public class Main {
                             break;
                         case "STOP":
                             metricsLogger.close();
+                            break;
+                        default:
+                            //Do nothing
+                            break;
                     }
                 }
             }
