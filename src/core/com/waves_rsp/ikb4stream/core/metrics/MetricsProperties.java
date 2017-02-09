@@ -1,5 +1,9 @@
 package com.waves_rsp.ikb4stream.core.metrics;
 
+import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Objects;
 
 /**
@@ -10,31 +14,27 @@ public class MetricsProperties {
     private final String user;
     private final String password;
     private final String dbName;
+    private final String measurement;
 
-    private MetricsProperties(String host, String user, String password, String dbName) {
-        Objects.requireNonNull(host);
-        Objects.requireNonNull(user);
-        Objects.requireNonNull(password);
-        Objects.requireNonNull(dbName);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MetricsProperties.class);
 
-        this.host = checkArgument(host);
-        this.user = checkArgument(user);
-        this.password = password;
-        this.dbName = checkArgument(dbName);
+    private MetricsProperties() {
+        PropertiesManager propertiesManager = PropertiesManager.getInstance();
+        this.host = checkArgument(propertiesManager.getProperty("database.metrics.host"));
+        this.user = checkArgument(propertiesManager.getProperty("database.metrics.user"));
+        this.password = checkArgument(propertiesManager.getProperty("database.metrics.password"));
+        this.dbName = checkArgument(propertiesManager.getProperty("database.metrics.datasource"));
+        this.measurement = checkArgument(propertiesManager.getProperty("database.metrics.measurement"));
+        LOGGER.info("properties for influx db have been loaded");
     }
 
     /**
      * Singleton to get properties from influx database
      *
-     * @param host url to connect to the database
-     * @param user the user who access to the database
-     * @param password the user password
-     * @param dbName the database name which requested
-     *
      * @return the object instance for MetricsProperties
      */
-    public static MetricsProperties create(String host, String user, String password, String dbName) {
-        return new MetricsProperties(host, user, password, dbName);
+    public static MetricsProperties create() {
+        return new MetricsProperties();
     }
 
     public String getHost() {
@@ -54,8 +54,13 @@ public class MetricsProperties {
     }
 
     private static String checkArgument(String argument) {
+        Objects.requireNonNull(argument);
         if(argument.isEmpty())
             throw new IllegalArgumentException(argument+" can't be empty");
         return argument;
+    }
+
+    public String getMeasurement() {
+        return measurement;
     }
 }

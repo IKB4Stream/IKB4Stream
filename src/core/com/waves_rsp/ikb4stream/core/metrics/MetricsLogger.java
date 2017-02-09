@@ -17,30 +17,31 @@ public class MetricsLogger {
     private final MetricsConnector metricsConnector;
     private final BatchPoints.Builder builder;
 
-    private MetricsLogger(MetricsConnector metricsConnector) {
-        Objects.requireNonNull(metricsConnector);
-        this.metricsConnector = metricsConnector;
+    private MetricsLogger() {
+        this.metricsConnector = MetricsConnector.getMetricsConnector(MetricsProperties.create());
         this.metricsConnector.getInfluxDB().enableBatch(1000, 200, TimeUnit.NANOSECONDS);
-        this.builder = BatchPoints.database(metricsConnector.getProperties().getDbName());
+        this.builder = BatchPoints.database(metricsConnector.getProperties().getDbName()).tag("async", "true");
     }
 
-    public static MetricsLogger getMetricsLogger(MetricsConnector connector) {
-        return new MetricsLogger(connector);
+    public static MetricsLogger getMetricsLogger() {
+        return new MetricsLogger();
     }
 
     /**
      * Log a data as value sent to the influx database into a specific measurement
      *
-     * @param measurement the measurement key
+     * @param field specify the field in order to build a point
      * @param data the value to stock
      */
-    public void log(String measurement, String data) {
-        Objects.requireNonNull(measurement);
+    public void log(String field, String data) {
+        Objects.requireNonNull(field);
         Objects.requireNonNull(data);
         final InfluxDB influxDB = metricsConnector.getInfluxDB();
         influxDB.setLogLevel(InfluxDB.LogLevel.BASIC);
-        Point point = Point.measurement(measurement).time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
-                .addField("reports", data).build();
+        String measurement = metricsConnector.getProperties().getMeasurement();
+        Point point = Point.measurement(measurement)
+                           .time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
+                .addField(field, data).build();
         BatchPoints points = builder.point(point).build();
         influxDB.write(points);
         LOGGER.info("indexes points : "+points.getPoints());
