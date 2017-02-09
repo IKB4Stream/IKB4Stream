@@ -59,9 +59,9 @@ public class DatabaseWriter {
 
     /**
      * This method inserts an event in the database
-     * @param event
-     * @param callback
-     * @throws JsonProcessingException
+     * @param event an event
+     * @param callback a functional interface
+     * @throws JsonProcessingException in case of problem during inserting
      */
     public void insertEvent(Event event, DatabaseWriterCallback callback) throws JsonProcessingException {
         Document document = Document.parse(mapper.writeValueAsString(event));

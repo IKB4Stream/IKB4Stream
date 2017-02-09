@@ -21,6 +21,9 @@ import java.util.stream.Collectors;
 
 import static com.mongodb.client.model.Filters.*;
 
+/**
+ * DatabaseReader class reads data (Events) from mongodb
+ */
 public class DatabaseReader implements IDatabaseReader {
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseReader.class);
     private static final DatabaseReader ourInstance = new DatabaseReader();
@@ -28,6 +31,10 @@ public class DatabaseReader implements IDatabaseReader {
     private final MongoDatabase mongoDatabase;
     private final MongoCollection<Document> mongoCollection;
 
+    /**
+     * The constructor of DatabaseReader
+     * This class is a singleton
+     */
     private DatabaseReader() {
         PropertiesManager propertiesManager = PropertiesManager.getInstance();
 
@@ -59,7 +66,7 @@ public class DatabaseReader implements IDatabaseReader {
     /**
      * Get the result of an event which intersects the bbox
      * @param callback
-     * @return
+     * @return nothing but the result is store in a ArrayList
      */
     @Override
     public void getEvent(Request request, DatabaseReaderCallback callback) {

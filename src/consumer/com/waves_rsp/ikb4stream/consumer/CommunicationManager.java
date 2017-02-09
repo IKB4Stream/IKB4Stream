@@ -16,12 +16,20 @@ import java.util.Map;
 import java.util.jar.JarEntry;
 import java.util.stream.Stream;
 
+/**
+ * CommunicationManager class ensure the communication between IKB4Stream module and WAVES
+ * @see DatabaseReader which allows request from mongodb
+ * @see ICommunication which start and stop communication
+ */
 public class CommunicationManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(CommunicationManager.class);
     private static CommunicationManager ourInstance = new CommunicationManager();
     private final Map<Thread, ICommunication> threadCommunications = new HashMap<>();
     private final DatabaseReader databaseReader;
 
+    /**
+     * the constructor of CommunicationManager
+     */
     private CommunicationManager() {
         this.databaseReader = DatabaseReader.getInstance();
     }
@@ -30,6 +38,10 @@ public class CommunicationManager {
         return ourInstance;
     }
 
+    /**
+     * This method launchs the CommunicationManager
+     * @throws IOException in case of the Stream fails
+     */
     public void start()  {
         String stringPath = PropertiesManager.getInstance().getProperty("communication.path");
         try (Stream<Path> paths = Files.walk(Paths.get(stringPath))) {
@@ -57,6 +69,9 @@ public class CommunicationManager {
         LOGGER.info("All ICommunication has been launched");
     }
 
+    /**
+     * This method stop the CommunicationManager by interrupting the current Thread
+     */
     public void stop() {
         threadCommunications.values().forEach(ICommunication::close);
         LOGGER.info("Closing communications...");

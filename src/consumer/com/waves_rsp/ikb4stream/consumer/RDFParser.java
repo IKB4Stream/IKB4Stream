@@ -38,6 +38,11 @@ public class RDFParser {
         return getDataFromMap(map);
     }
 
+    /**
+     *
+     * @param map is a map
+     * @return an AnomalyRequest from the map in parameter which contains latitude, longitude and date
+     */
     private static AnomalyRequest getDataFromMap(Map<String, Object> map) {
         Objects.requireNonNull(map);
         XSDDateTime dateTime = (XSDDateTime) map.get("at");
