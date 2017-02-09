@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 import static com.mongodb.client.model.Filters.*;
 
 /**
- * DatabaseReader class reads data (Events) from mongodb
+ * DatabaseReader class reads data (Events) from mongodb database
  */
 public class DatabaseReader implements IDatabaseReader {
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseReader.class);
@@ -56,15 +56,15 @@ public class DatabaseReader implements IDatabaseReader {
     }
 
     /**
-     * Start a connection to the MongoDB Server
-     * @return DatabaseWriter
+     *
+     * @return an instance of DatabaseReader
      */
     public static DatabaseReader getInstance() {
         return ourInstance;
     }
 
     /**
-     * Get the result of an event which intersects the bbox
+     * This method requests events from mongodb database and filters from data coming to the request object in parameter
      * @param callback
      * @return nothing but the result is store in a ArrayList
      */

@@ -17,7 +17,7 @@ import java.util.jar.JarEntry;
 import java.util.stream.Stream;
 
 /**
- * CommunicationManager class ensure the communication between IKB4Stream module and WAVES
+ * CommunicationManager class ensure the communication between IKB4Stream module and external services
  * @see DatabaseReader which allows request from mongodb
  * @see ICommunication which start and stop communication
  */
@@ -39,8 +39,7 @@ public class CommunicationManager {
     }
 
     /**
-     * This method launchs the CommunicationManager
-     * @throws IOException in case of the Stream fails
+     * This method launches the CommunicationManager
      */
     public void start()  {
         String stringPath = PropertiesManager.getInstance().getProperty("communication.path");
@@ -70,7 +69,7 @@ public class CommunicationManager {
     }
 
     /**
-     * This method stop the CommunicationManager by interrupting the current Thread
+     * This method stop the CommunicationManager properly
      */
     public void stop() {
         threadCommunications.values().forEach(ICommunication::close);

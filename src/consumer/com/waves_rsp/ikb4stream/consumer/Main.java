@@ -18,7 +18,7 @@ public class Main {
     }
 
     /**
-     *
+     *This method allows the execution of the program
      * @param args a array of string
      */
     public static void main(String[] args) {
