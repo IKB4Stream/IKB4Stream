@@ -84,6 +84,13 @@ sourceSets {
             runtimeClasspath = output + compileClasspath + runtimeClasspath
         }
     }
+    datasource_twitter {
+        java {
+            srcDirs = ['src/core', 'src/datasource/twitter']
+            compileClasspath = configurations.compile
+        }
+    }
+
 }
 
 task packageConsumerJar(type: Jar, description: 'Package the Consumer Jar') {
@@ -142,6 +149,13 @@ task packageFacebookJar(type: Jar, description: 'Package the OWM Jar') {
     from sourceSets.datasourceFacebook.output
     from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
     from { configurations.datasourceFacebookCompile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+task packageTwitterJar(type: Jar, description: 'Package the Twitter Jar') {
+    archiveName = "resources/datasource/ikb4stream-$version-datasource-twitter.jar"
+    from sourceSets.datasource_twitter.output
+    from { configurations.compile.collect {it.isDirectory() ? it : zipTree(it) } }
     with jar
 }
 
