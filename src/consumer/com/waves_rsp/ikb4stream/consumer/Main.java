@@ -3,6 +3,8 @@ package com.waves_rsp.ikb4stream.consumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Scanner;
+import java.util.Scanner;
+
 
 /**
  * Main class executes the program and launchs the CommunicationManager
