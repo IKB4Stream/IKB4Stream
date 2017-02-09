@@ -18,13 +18,17 @@ public class MetricsLogger {
     private final BatchPoints.Builder builder;
 
     private MetricsLogger() {
-        this.metricsConnector = MetricsConnector.getMetricsConnector(MetricsProperties.create());
+        this.metricsConnector = MetricsConnector.getMetricsConnector();
         this.metricsConnector.getInfluxDB().enableBatch(1000, 200, TimeUnit.NANOSECONDS);
         this.builder = BatchPoints.database(metricsConnector.getProperties().getDbName()).tag("async", "true");
     }
 
     public static MetricsLogger getMetricsLogger() {
         return new MetricsLogger();
+    }
+
+    public void close() {
+        metricsConnector.close();
     }
 
     /**
