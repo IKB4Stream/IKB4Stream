@@ -1,5 +1,8 @@
 package com.waves_rsp.ikb4stream.core.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -13,6 +16,8 @@ import java.util.jar.JarFile;
 import java.util.stream.Stream;
 
 public interface UtilManager {
+    Logger LOGGER = LoggerFactory.getLogger(UtilManager.class);
+
     static URLClassLoader getURLClassLoader(ClassLoader classLoader, Path path) {
         Objects.requireNonNull(path);
         String pathToJar = path.toString();
@@ -50,9 +55,14 @@ public interface UtilManager {
         Objects.requireNonNull(className);
         Objects.requireNonNull(cl);
         try {
-            return Class.forName(className, true, cl);
+            return Class.forName(className, false, cl);
         } catch (ClassNotFoundException e) {
-            throw new IllegalArgumentException("Class " + className + " cannot be instanced");
+            LOGGER.warn("Class " + className + " cannot be found");
+            return null;
+        } catch (NoClassDefFoundError e1) {
+            LOGGER.warn("ClassDef" + className + " cannot be found");
+            e1.printStackTrace();
+            return null;
         }
     }
 
@@ -68,7 +78,7 @@ public interface UtilManager {
     }
 
     static boolean implementInterface(Class clazz, Class interfaceClass) {
-        Objects.requireNonNull(clazz);
+        if (clazz == null) return false;
         Objects.requireNonNull(interfaceClass);
         return Arrays.stream(clazz.getInterfaces())
             .anyMatch(i -> i.equals(interfaceClass));

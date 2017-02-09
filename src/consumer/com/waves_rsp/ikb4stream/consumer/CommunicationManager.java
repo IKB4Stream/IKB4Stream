@@ -47,9 +47,7 @@ public class CommunicationManager {
             paths.forEach((Path filePath) -> {
                 if (Files.isRegularFile(filePath)) {
                     URLClassLoader cl = UtilManager.getURLClassLoader(this.getClass().getClassLoader(), filePath);
-                    Stream<JarEntry> e = UtilManager.getEntries(filePath);
-
-                    e.filter(UtilManager::checkIsClassFile)
+                    UtilManager.getEntries(filePath).filter(UtilManager::checkIsClassFile)
                             .map(UtilManager::getClassName)
                             .map(clazz -> UtilManager.loadClass(clazz, cl))
                             .filter(clazz -> UtilManager.implementInterface(clazz, ICommunication.class))
@@ -60,6 +58,7 @@ public class CommunicationManager {
                                 LOGGER.info("CommunicationManager " + iCommunication.getClass().getName() + " has been launched");
                                 threadCommunications.put(thread, iCommunication);
                             });
+                    closeURLClassLoader(cl);
                 }
             });
         } catch (IOException e) {
@@ -68,7 +67,15 @@ public class CommunicationManager {
         LOGGER.info("All ICommunication has been launched");
     }
 
-    /**
+    private void closeURLClassLoader(URLClassLoader cl) {
+        try {
+            cl.close();
+        } catch (IOException e) {
+            LOGGER.error(e.getMessage());
+        }
+    }
+
+	/**
      * This method stop the CommunicationManager properly
      */
     public void stop() {

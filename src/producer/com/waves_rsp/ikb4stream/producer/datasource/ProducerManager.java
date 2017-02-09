@@ -70,7 +70,6 @@ public class ProducerManager {
 
     /**
      * Launch all producers
-     * @throws IOException If there isn't producer.path in config.properties file in resource directory
      */
     private void launchDataProducer() {
         String stringPath = PropertiesManager.getInstance().getProperty("producer.path");
