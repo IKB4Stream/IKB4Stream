@@ -10,25 +10,10 @@ import java.util.stream.IntStream;
 
 public class MetricsTest {
 
-    @Test (expected = NullPointerException.class)
-    public void createNullMetricsLogger() {
-        MetricsLogger logger = MetricsLogger.getMetricsLogger(null);
-    }
-
-    @Test (expected = NullPointerException.class)
-    public void createNullMetricsProperties() {
-        MetricsProperties.create(null, null, null, "");
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void checkEmptyMetricsHost() {
-        MetricsProperties.create("", "", "", "");
-    }
-
     @Ignore
     @Test
     public void testPing() {
-        MetricsProperties properties = MetricsProperties.create("http://localhost:8086", "root", "root", "test");
+        MetricsProperties properties = MetricsProperties.create();
         MetricsConnector connector = MetricsConnector.getMetricsConnector(properties);
         System.out.println(connector.getInfluxDB().ping());
     }
@@ -36,24 +21,21 @@ public class MetricsTest {
     @Ignore
     @Test (expected = NullPointerException.class)
     public void addNullData() {
-        MetricsConnector connector = MetricsConnector.getMetricsConnector(MetricsProperties.create("http://localhost:8086", "root", "root", "test"));
-        MetricsLogger logger = MetricsLogger.getMetricsLogger(connector);
+        MetricsLogger logger = MetricsLogger.getMetricsLogger();
         logger.log(null, null);
     }
 
     @Ignore
-    @Test (expected = NullPointerException.class)
+    @Test
     public void addValidData() {
-        MetricsConnector connector = MetricsConnector.getMetricsConnector(MetricsProperties.create("http://localhost:8086", "root", "root", "test"));
-        MetricsLogger logger = MetricsLogger.getMetricsLogger(connector);
+        MetricsLogger logger = MetricsLogger.getMetricsLogger();
         logger.log("test_reports", "test metrics");
     }
 
     @Ignore
     @Test
     public void checkTimeWhileAddedData() {
-        MetricsConnector connector = MetricsConnector.getMetricsConnector(MetricsProperties.create("http://localhost:8086", "root", "root", "test"));
-        MetricsLogger logger = MetricsLogger.getMetricsLogger(connector);
+        MetricsLogger logger = MetricsLogger.getMetricsLogger();
         long start = System.currentTimeMillis();
         logger.log("test_reports", "test metrics1");
         logger.log("test_reports", "test metrics2");
@@ -67,8 +49,7 @@ public class MetricsTest {
     @Ignore
     @Test
     public void checkTimeWhileAddedPointData() {
-        MetricsConnector connector = MetricsConnector.getMetricsConnector(MetricsProperties.create("http://localhost:8086", "root", "root", "test"));
-        MetricsLogger logger = MetricsLogger.getMetricsLogger(connector);
+        MetricsLogger logger = MetricsLogger.getMetricsLogger();
         final int max = 10;
         Point[] points = new Point[max];
         IntStream.range(0, max).forEach(i -> {
@@ -92,8 +73,7 @@ public class MetricsTest {
         long start = System.currentTimeMillis();
         IntStream.range(0, max).forEach(i -> {
             threads[i] = new Thread(() -> {
-                MetricsConnector metricsConnector = MetricsConnector.getMetricsConnector(MetricsProperties.create("http://localhost:8086", "root", "root", "test"));
-                MetricsLogger logger = MetricsLogger.getMetricsLogger(metricsConnector);
+                MetricsLogger logger = MetricsLogger.getMetricsLogger();
                 Point[] points = new Point[max];
                 logger.log(points);
             });
@@ -113,9 +93,7 @@ public class MetricsTest {
     @Ignore
     @Test
     public void checkTimeWhileCollectData() {
-        MetricsProperties properties = MetricsProperties.create("http://localhost:8086", "root", "root", "test");
-        MetricsConnector connector = MetricsConnector.getMetricsConnector(properties);
-        MetricsLogger logger = MetricsLogger.getMetricsLogger(connector);
+        MetricsLogger logger = MetricsLogger.getMetricsLogger();
         long start = System.currentTimeMillis();
         logger.read("SELECT * FROM test_reports WHERE time < now() - 5m");
         long end = System.currentTimeMillis();
