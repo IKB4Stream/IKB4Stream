@@ -3,6 +3,8 @@ package com.waves_rsp.ikb4stream.core.metrics;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Scanner;
+
 public class Main {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
@@ -14,6 +16,25 @@ public class Main {
     public static void main(String[] args) {
         LOGGER.info("Metrics Logger start");
         MetricsLogger metricsLogger = MetricsLogger.getMetricsLogger();
-        metricsLogger.log("test_reports", "test23");
+
+        Thread listener = new Thread(() -> {
+            try(Scanner sc = new Scanner(System.in)) {
+                while(sc.hasNextLine()) {
+                    String[] tokens = sc.nextLine().split(" ");
+                    switch (tokens[0]) {
+                        case "PUSH":
+                            if(tokens.length >= 3) {
+                                metricsLogger.log(tokens[1], tokens[2]);
+                            }
+                            break;
+                        case "STOP":
+                            metricsLogger.close();
+                    }
+                }
+            }
+        });
+
+        listener.setDaemon(true);
+        listener.start();
     }
 }

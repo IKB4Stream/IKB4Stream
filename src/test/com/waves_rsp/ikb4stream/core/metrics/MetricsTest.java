@@ -13,8 +13,7 @@ public class MetricsTest {
     @Ignore
     @Test
     public void testPing() {
-        MetricsProperties properties = MetricsProperties.create();
-        MetricsConnector connector = MetricsConnector.getMetricsConnector(properties);
+        MetricsConnector connector = MetricsConnector.getMetricsConnector();
         System.out.println(connector.getInfluxDB().ping());
     }
 

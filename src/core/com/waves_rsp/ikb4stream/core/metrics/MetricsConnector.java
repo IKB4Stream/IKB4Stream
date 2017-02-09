@@ -18,8 +18,8 @@ public class MetricsConnector {
     private final InfluxDB influxDB;
     private final MetricsProperties properties;
 
-    private MetricsConnector(MetricsProperties properties) {
-        this.properties = Objects.requireNonNull(properties);
+    private MetricsConnector() {
+        this.properties = MetricsProperties.create();
         this.influxDB = InfluxDBFactory.connect(properties.getHost(), properties.getUser(), properties.getPassword());
         LOGGER.info("Connexion to the influx database "+influxDB.version()+" for metrics is started");
     }
@@ -27,19 +27,18 @@ public class MetricsConnector {
     /**
      * Instanciate the influx connector for metrics
      *
-     * @param properties define the connexions properties
      * @return metrics connector
      */
-    public static MetricsConnector getMetricsConnector(MetricsProperties properties) {
-        return new MetricsConnector(properties);
+    public static MetricsConnector getMetricsConnector() {
+        return new MetricsConnector();
     }
-    
+
     /**
-     * Close the influx connexion
+     * Close the connexion with influx
      */
     public void close() {
-        //Auto-close from influx
-        LOGGER.info("Connexion to the influx database "+influxDB.version()+" has stopped");
+        influxDB.close();
+        LOGGER.info("Connexion to the influx database "+influxDB.version()+" stopped");
     }
 
     public InfluxDB getInfluxDB() {
