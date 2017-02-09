@@ -120,5 +120,7 @@ dependencies {
     compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.6'
     compile group: 'com.rometools', name: 'rome-modules', version: '1.7.1'
     compile 'org.apache.kafka:kafka-streams:0.10.0.1'
+    compile 'edu.stanford.nlp:stanford-corenlp:3.7.0'
+    compile 'edu.stanford.nlp:stanford-corenlp:3.7.0:models-french'
     testCompile 'junit:junit:4.11'
 }
