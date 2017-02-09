@@ -15,9 +15,6 @@ import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Calendar;
-import java.util.Date;
-
 /**
  * This class writes data in mongodb database
  */
