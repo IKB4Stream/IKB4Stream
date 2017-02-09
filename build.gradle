@@ -59,6 +59,13 @@ sourceSets {
             runtimeClasspath = output + compileClasspath + runtimeClasspath
         }
     }
+    datasource_twitter {
+        java {
+            srcDirs = ['src/core', 'src/datasource/twitter']
+            compileClasspath = configurations.compile
+        }
+    }
+
 }
 
 task packageConsumerJar(type: Jar, description: 'Package the Consumer Jar') {
@@ -98,7 +105,14 @@ task packageRssJar(type: Jar, description: 'Package the RSS Jar') {
     with jar
 }
 
-task packageCommunicationKafkaJar(type: Jar, description: 'Package the Kafka Communication Jar') {
+task packageTwitterJar(type: Jar, description: 'Package the Twitter Jar') {
+    archiveName = "resources/datasource/ikb4stream-$version-datasource-twitter.jar"
+    from sourceSets.datasource_twitter.output
+    from { configurations.compile.collect {it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+task packageKafkaCommunicationJar(type: Jar, description: 'Package the Kafka Communication Jar') {
     archiveName = "resources/communication/ikb4stream-$version-communication-kafka.jar"
     from sourceSets.communicationKafka.output
     from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
