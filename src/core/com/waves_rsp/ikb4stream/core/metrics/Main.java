@@ -32,7 +32,9 @@ public class Main {
                                 }
                                 break;
                             case "STOP":
+                                LOGGER.info("influx db connexion has been stopped");
                                 metricsLogger.close();
+                                Thread.currentThread().interrupt();
                                 break;
                             default:
                                 //Do nothing

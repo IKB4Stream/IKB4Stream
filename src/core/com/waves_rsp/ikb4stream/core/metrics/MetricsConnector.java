@@ -1,13 +1,9 @@
 package com.waves_rsp.ikb4stream.core.metrics;
 
-import com.waves_rsp.ikb4stream.core.communication.ICommunication;
-import com.waves_rsp.ikb4stream.core.communication.IDatabaseReader;
 import org.influxdb.InfluxDB;
 import org.influxdb.InfluxDBFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Objects;
 
 /**
  * Defines the connector to influx database and instances it
@@ -15,12 +11,13 @@ import java.util.Objects;
 public class MetricsConnector {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MetricsConnector.class);
-    private final InfluxDB influxDB;
+    private final MetricsConnectorService connectorService;
     private final MetricsProperties properties;
 
     private MetricsConnector() {
         this.properties = MetricsProperties.create();
-        this.influxDB = InfluxDBFactory.connect(properties.getHost(), properties.getUser(), properties.getPassword());
+        InfluxDB influxDB = InfluxDBFactory.connect(properties.getHost(), properties.getUser(), properties.getPassword());
+        this.connectorService = new MetricsConnectorService(influxDB);
         LOGGER.info("Connexion to the influx database "+influxDB.version()+" for metrics is started");
     }
 
@@ -33,19 +30,39 @@ public class MetricsConnector {
         return new MetricsConnector();
     }
 
+    public void start() {
+
+    }
+
     /**
      * Close the connexion with influx
      */
     public void close() {
-        influxDB.close();
-        LOGGER.info("Connexion to the influx database "+influxDB.version()+" stopped");
+        connectorService.getInfluxDB().close();
+        LOGGER.info("Connexion to the influx database "+connectorService.getInfluxDB().version()+" stopped");
     }
 
     public InfluxDB getInfluxDB() {
-        return influxDB;
+        return this.getConnectorService().getInfluxDB();
     }
 
     public MetricsProperties getProperties() {
         return properties;
+    }
+
+    public MetricsConnectorService getConnectorService() {
+        return connectorService;
+    }
+
+    private class MetricsConnectorService {
+        private final InfluxDB influxDB;
+
+        private MetricsConnectorService(InfluxDB influxDB) {
+            this.influxDB = influxDB;
+        }
+
+        InfluxDB getInfluxDB() {
+            return influxDB;
+        }
     }
 }
