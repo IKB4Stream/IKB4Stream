@@ -13,6 +13,7 @@ import java.util.Scanner;
  */
 public class Main {
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
+    private static final ProducerManager PRODUCER_MANAGER = ProducerManager.getInstance();
 
     private Main() {
 
@@ -24,49 +25,24 @@ public class Main {
      */
     public static void main(String[] args) {
         LOGGER.info("IKB4Stream Producer Module start");
-        ProducerManager producerManager = ProducerManager.getInstance();
         try {
-            producerManager.instantiate();
+            PRODUCER_MANAGER.instantiate();
         } catch (IOException e) {
             LOGGER.error("Unable to read config file in order to create threads producer.");
             return;
         }
-
         Thread listener = new Thread(() -> {
             try(Scanner sc = new Scanner(System.in)) {
                 while(!Thread.interrupted()) {
                     if(sc.hasNextLine()) {
-                        switch (sc.nextLine()) {
-                            case "START":
-                                LOGGER.info("threads for producer started");
-                                producerManager.instantiate();
-                                break;
-                            case "RESTART":
-                                LOGGER.info("threads for producer are restarting.");
-                                producerManager.stop();
-                                producerManager.instantiate();
-                                break;
-                            case "STOP":
-                                LOGGER.info("threads have been properly stopped.");
-                                producerManager.stop();
-                                break;
-                            case "STOP -F":
-                                LOGGER.info("force stop all threads.");
-                                producerManager.forceStop();
-                                break;
-                            default:
-                                LOGGER.warn("Wrong command send, only these commands are allowed : START, RESTART, STOP, STOP -F");
-                                break;
-                        }
+                        process(sc.nextLine());
                     }
                 }
             } catch (IOException e) {
-                LOGGER.info(e.getMessage());
-            }finally {
-                producerManager.stop();
+                LOGGER.error("Unable to read config file in order to create threads producer.");
+                Thread.currentThread().interrupt();
             }
         });
-
         Runtime runtime = Runtime.getRuntime();
         try {
             listener.start();
@@ -78,5 +54,25 @@ public class Main {
         }
     }
 
+    private static void process(String command) throws IOException {
+        switch (command) {
+            case "START":
+                LOGGER.info("threads for consumer started.");
+                PRODUCER_MANAGER.instantiate();
+                break;
+            case "STOP":
+                LOGGER.info("threads have been properly stopped.");
+                PRODUCER_MANAGER.stop();
+                break;
+            case "RESTART":
+                LOGGER.info("restarted threads for consumer.");
+                PRODUCER_MANAGER.stop();
+                PRODUCER_MANAGER.instantiate();
+                break;
+            default:
+                LOGGER.warn("Wrong command send, only these commands are allowed : START, RESTART, STOP, STOP -F");
+                break;
+        }
+    }
 }
 

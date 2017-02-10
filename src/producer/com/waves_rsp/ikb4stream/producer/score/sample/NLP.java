@@ -11,8 +11,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import static com.hp.hpl.jena.vocabulary.OWL2.Annotation;
+
 
 public class NLP {
+    private NLP() {
+
+    }
 
     /**
      * Define NLP properties
@@ -47,7 +52,7 @@ public class NLP {
      * @return Map<String, String> contains nouns and verbs from the tweet
      */
     private static Map<String, String> sentencesToPOSMap(List<CoreMap> sentences) {
-        Map<String, String> posMap = new HashMap<String, String>();
+        Map<String, String> posMap = new HashMap<>();
         for (CoreMap sentence : sentences) {
             // traversing the words in the current sentence
             // a CoreLabel is a CoreMap with additional token-specific methods

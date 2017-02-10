@@ -30,10 +30,6 @@ public class MetricsConnector {
         return new MetricsConnector();
     }
 
-    public void start() {
-
-    }
-
     /**
      * Close the connexion with influx
      */

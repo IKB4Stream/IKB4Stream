@@ -19,10 +19,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class KafkaCommunication implements ICommunication {
-    private final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(KafkaCommunication.class, "resources/config.properties");
-    private final Logger LOGGER = LoggerFactory.getLogger(KafkaCommunication.class);
-    private final String KAFKA_TOPIC = PROPERTIES_MANAGER.getProperty("communications.kafka.topic");
+    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(KafkaCommunication.class, "resources/config.properties");
+    private static final Logger LOGGER = LoggerFactory.getLogger(KafkaCommunication.class);
+    private final String kafkaTopic;
     private KafkaStreams streams;
+
+    public KafkaCommunication() {
+        this.kafkaTopic = PROPERTIES_MANAGER.getProperty("communications.kafka.topic");
+    }
 
     private void getRequests(IPollCallback callback) {
         Map<String, CharSequence> props = new HashMap<>();
@@ -31,7 +35,7 @@ public class KafkaCommunication implements ICommunication {
         StreamsConfig config = new StreamsConfig(props);
 
         KStreamBuilder builder = new KStreamBuilder();
-        builder.stream(KAFKA_TOPIC)
+        builder.stream(kafkaTopic)
                 .map((key, value) -> {
                     String val = new String((byte[]) value);
                     LOGGER.trace("Request received");
@@ -59,13 +63,13 @@ public class KafkaCommunication implements ICommunication {
     @Override
     public void start(IDatabaseReader databaseReader) {
         this.getRequests(request -> {
-            System.out.println("request: "  + request);
+            LOGGER.info("Request = " + request);
             final String[] r = {"[]"};
             databaseReader.getEvent(request, (t, result) -> {
                 if(t != null) { LOGGER.error("DatabaseReader error: " + t.getMessage()); return; }
                 r[0] = result;
             });
-            System.out.println("result: " + r[0]);
+            LOGGER.info("Result = " + r[0]);
             return r[0];
         });
     }

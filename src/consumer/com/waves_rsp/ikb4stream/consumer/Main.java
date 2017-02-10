@@ -3,7 +3,6 @@ package com.waves_rsp.ikb4stream.consumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Scanner;
-import java.util.Scanner;
 
 
 /**
@@ -12,6 +11,7 @@ import java.util.Scanner;
  */
 public class Main {
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
+    private static final CommunicationManager COMMUNICATION_MANAGER = CommunicationManager.getInstance();
 
     /**
      * Private constructor to block instantiation
@@ -26,42 +26,16 @@ public class Main {
      */
     public static void main(String[] args) {
         LOGGER.info("IKB4Stream Consumer Module start");
-        CommunicationManager.getInstance().start();
-        CommunicationManager manager = CommunicationManager.getInstance();
-        manager.start();
-
+        COMMUNICATION_MANAGER.start();
         Thread listener = new Thread(() -> {
             try(Scanner sc = new Scanner(System.in)) {
                 while(!Thread.interrupted()) {
                     if (sc.hasNextLine()) {
-                        switch (sc.nextLine()) {
-                            case "START":
-                                LOGGER.info("threads for consumer started.");
-                                manager.start();
-                                break;
-                            case "STOP":
-                                LOGGER.info("threads have been properly stopped.");
-                                manager.stop();
-                                break;
-                            case "RESTART":
-                                LOGGER.info("restarted threads for consumer.");
-                                manager.stop();
-                                Thread.sleep(500);
-                                manager.start();
-                                break;
-                            default:
-                                LOGGER.warn("Wrong command send, only these commands are allowed : START, RESTART, STOP, STOP -F");
-                                break;
-                        }
+                        process(sc.nextLine());
                     }
                 }
-            } catch (InterruptedException e) {
-                LOGGER.error(e.getMessage());
-            }finally {
-                manager.stop();
             }
         });
-
         Runtime runtime = Runtime.getRuntime();
         try {
             listener.start();
@@ -70,6 +44,27 @@ public class Main {
             LOGGER.error("Hook has already running. "+ err.toString());
         }finally {
             runtime.removeShutdownHook(listener);
+        }
+    }
+
+    private static void process(String command) {
+        switch (command) {
+            case "START":
+                LOGGER.info("threads for consumer started.");
+                COMMUNICATION_MANAGER.start();
+                break;
+            case "STOP":
+                LOGGER.info("threads have been properly stopped.");
+                COMMUNICATION_MANAGER.stop();
+                break;
+            case "RESTART":
+                LOGGER.info("restarted threads for consumer.");
+                COMMUNICATION_MANAGER.stop();
+                COMMUNICATION_MANAGER.start();
+                break;
+            default:
+                LOGGER.warn("Wrong command send, only these commands are allowed : START, RESTART, STOP, STOP -F");
+                break;
         }
     }
 }

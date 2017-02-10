@@ -16,6 +16,14 @@ public class AnomalyRequest {
     private final double minLongitude;
     private final double maxLongitude;
 
+    /**
+     * The constructor of AnomalyRequest
+     * @param start is the reception date of the anomaly
+     * @param minLatitude the minimum latitude
+     * @param maxLatitude the maximum latitude
+     * @param minLongitude the minimum longitude
+     * @param maxLongitude the maximum longitude
+     */
     public AnomalyRequest(Date start, Date end, double minLatitude, double maxLatitude, double minLongitude, double maxLongitude) {
         Objects.requireNonNull(start);
         Objects.requireNonNull(end);
@@ -33,30 +41,52 @@ public class AnomalyRequest {
         this.maxLongitude = maxLongitude;
     }
 
+    /**
+     * @return the reception date of the anomaly
+     */
     public Date getStart() {
         return start;
     }
 
+    /**
+     * @return the minimum latitude
+     */
     public Date getEnd() {
         return end;
     }
 
+    /**
+     * @return the maximum latitude
+     */
     public double getMinLatitude() {
         return minLatitude;
     }
 
+    /**
+     * @return the minimum longitude
+     */
     public double getMaxLatitude() {
         return maxLatitude;
     }
 
+    /**
+     * @return the minimum longitude
+     */
     public double getMinLongitude() {
         return minLongitude;
     }
 
+    /**
+     * @return the maximum longitude
+     */
     public double getMaxLongitude() {
         return maxLongitude;
     }
 
+    /**
+     * Print information about an anomaly
+     * @return a String containing anomaly information
+     */
     @Override
     public String
     toString() {

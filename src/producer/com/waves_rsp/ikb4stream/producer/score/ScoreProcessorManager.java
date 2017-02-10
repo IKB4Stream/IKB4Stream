@@ -26,9 +26,9 @@ public class ScoreProcessorManager {
     public Event processScore(Event event) {
         Objects.requireNonNull(event);
         try {
-            String scoreProcessors = PROPERTIES_MANAGER.getProperty(event.getSource());
-            LOGGER.info(scoreProcessors + " will be applied in an event from " + event.getSource());
-            return process(getProcessors(scoreProcessors), event);
+            String scoreProcessor = PROPERTIES_MANAGER.getProperty(event.getSource());
+            LOGGER.info(scoreProcessor + " will be applied in an event from " + event.getSource());
+            return process(getProcessors(scoreProcessor), event);
         } catch (IllegalArgumentException e) {
             LOGGER.warn("There isn't any ScoreProcessor for " + event.getSource());
             return event;

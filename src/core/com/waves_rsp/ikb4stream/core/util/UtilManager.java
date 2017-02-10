@@ -15,10 +15,14 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.stream.Stream;
 
-public interface UtilManager {
-    Logger LOGGER = LoggerFactory.getLogger(UtilManager.class);
+public class UtilManager {
+    private static final Logger LOGGER = LoggerFactory.getLogger(UtilManager.class);
 
-    static URLClassLoader getURLClassLoader(ClassLoader classLoader, Path path) {
+    private UtilManager() {
+
+    }
+
+    public static URLClassLoader getURLClassLoader(ClassLoader classLoader, Path path) {
         Objects.requireNonNull(path);
         String pathToJar = path.toString();
         URLClassLoader cl;
@@ -31,7 +35,7 @@ public interface UtilManager {
         return cl;
     }
 
-    static Stream<JarEntry> getEntries(Path path) {
+    public static Stream<JarEntry> getEntries(Path path) {
         Objects.requireNonNull(path);
         String pathToJar = path.toString();
         try {
@@ -42,7 +46,7 @@ public interface UtilManager {
         }
     }
 
-    static Object newInstance(Class clazz) {
+    public static Object newInstance(Class clazz) {
         Objects.requireNonNull(clazz);
         try {
             return clazz.newInstance();
@@ -51,7 +55,7 @@ public interface UtilManager {
         }
     }
 
-    static Class loadClass(String className, URLClassLoader cl) {
+    public static Class loadClass(String className, URLClassLoader cl) {
         Objects.requireNonNull(className);
         Objects.requireNonNull(cl);
         try {
@@ -65,18 +69,18 @@ public interface UtilManager {
         }
     }
 
-    static boolean checkIsClassFile(JarEntry jar) {
+    public static boolean checkIsClassFile(JarEntry jar) {
         Objects.requireNonNull(jar);
         return !(jar.isDirectory() || !jar.getName().endsWith(".class"));
     }
 
-    static String getClassName(JarEntry jar) {
+    public static String getClassName(JarEntry jar) {
         Objects.requireNonNull(jar);
         String className = jar.getName().substring(0,jar.getName().length()-6);
         return className.replace(File.separator, ".");
     }
 
-    static boolean implementInterface(Class clazz, Class interfaceClass) {
+    public static boolean implementInterface(Class clazz, Class interfaceClass) {
         if (clazz == null) return false;
         Objects.requireNonNull(interfaceClass);
         return Arrays.stream(clazz.getInterfaces())

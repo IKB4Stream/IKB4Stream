@@ -13,19 +13,21 @@ import java.util.Map;
 
 
 public class RulesReader {
-
     private static final Logger LOGGER = LoggerFactory.getLogger(RulesReader.class);
     private static final Map<String, Integer> map = new HashMap<>();
 
+    private RulesReader() {
+
+    }
 
     /**
      * Parse file rules.json
-     * @param FILENAME
+     * @param filename
      * @return Map<String, Integer> contains Json elements within rules.json
      */
-    public static Map<String, Integer> parseJSONRules(String FILENAME) {
+    public static Map<String, Integer> parseJSONRules(String filename) {
         ObjectMapper objectMapper = new ObjectMapper();
-        File file = new File(FILENAME);
+        File file = new File(filename);
 
 
         JsonNode root = null;
@@ -41,7 +43,6 @@ public class RulesReader {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
             LOGGER.error("Rules file does not exist\n" + e.getMessage());
         }
 
