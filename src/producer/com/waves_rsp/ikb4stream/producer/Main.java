@@ -29,37 +29,48 @@ public class Main {
             producerManager.instantiate();
         } catch (IOException e) {
             LOGGER.error(e.getMessage());
+            return;
         }
 
         Thread listener = new Thread(() -> {
             try(Scanner sc = new Scanner(System.in)) {
-                while(sc.hasNextLine()) {
-                    switch (sc.nextLine()) {
-                        case "START":
-                            producerManager.instantiate();
-                            break;
-                        case "RESTART":
-                            producerManager.stop();
-                            producerManager.instantiate();
-                            break;
-                        case "STOP":
-                            producerManager.stop();
-                            break;
-                        case "STOP -F":
-                            producerManager.forceStop();
-                            break;
-                        default:
-                            //Do nothing
-                            break;
+                while(!Thread.interrupted()) {
+                    if(sc.hasNextLine()) {
+                        switch (sc.nextLine()) {
+                            case "START":
+                                producerManager.instantiate();
+                                break;
+                            case "RESTART":
+                                producerManager.stop();
+                                producerManager.instantiate();
+                                break;
+                            case "STOP":
+                                producerManager.stop();
+                                break;
+                            case "STOP -F":
+                                producerManager.forceStop();
+                                break;
+                            default:
+                                //Do nothing
+                                break;
+                        }
                     }
                 }
             } catch (IOException e) {
                 LOGGER.info(e.getMessage());
+            }finally {
+                producerManager.stop();
             }
         });
 
         Runtime runtime = Runtime.getRuntime();
-        runtime.addShutdownHook(listener);
+        try {
+            runtime.addShutdownHook(listener);
+        }catch (IllegalArgumentException err) {
+            LOGGER.error("Runtime thread hook got an error : thread already running. "+err.getMessage());
+        }finally {
+            runtime.removeShutdownHook(listener);
+        }
     }
 }
 

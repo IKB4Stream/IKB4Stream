@@ -51,11 +51,18 @@ public class Main {
                 }
             } catch (InterruptedException e) {
                 LOGGER.error(e.getMessage());
+            }finally {
+                manager.stop();
             }
         });
 
-        listener.start();
         Runtime runtime = Runtime.getRuntime();
-        runtime.addShutdownHook(listener);
+        try {
+            runtime.addShutdownHook(listener);
+        }catch (IllegalArgumentException err) {
+            LOGGER.error("Hook has already running. "+ err.toString());
+        }finally {
+            runtime.removeShutdownHook(listener);
+        }
     }
 }
