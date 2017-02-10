@@ -64,15 +64,4 @@ public class GeoCodeJacksonParser {
         return coords;
     }
 
-    public static void main(final String[] args) {
-        final String rawAddress = "Noisy le grand";
-        //return null if ther is no result for the research!!
-        LatLong lg = new GeoCodeJacksonParser().parse(rawAddress);
-        System.out.println(lg);
-        if(lg!=null){
-            System.out.println(lg.getLatitude());
-            System.out.println(lg.getLongitude());
-        }
-
-    }
 }
