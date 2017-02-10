@@ -35,16 +35,22 @@ public class Main {
                 while(!Thread.interrupted()) {
                     if (sc.hasNextLine()) {
                         switch (sc.nextLine()) {
+                            case "START":
+                                LOGGER.info("threads for consumer started.");
+                                manager.start();
+                                break;
                             case "STOP":
+                                LOGGER.info("threads have been properly stopped.");
                                 manager.stop();
                                 break;
                             case "RESTART":
+                                LOGGER.info("restarted threads for consumer.");
                                 manager.stop();
                                 Thread.sleep(500);
                                 manager.start();
                                 break;
                             default:
-                                //Do nothing
+                                LOGGER.warn("Wrong command send, only these commands are allowed : START, RESTART, STOP, STOP -F");
                                 break;
                         }
                     }
@@ -58,6 +64,7 @@ public class Main {
 
         Runtime runtime = Runtime.getRuntime();
         try {
+            listener.start();
             runtime.addShutdownHook(listener);
         }catch (IllegalArgumentException err) {
             LOGGER.error("Hook has already running. "+ err.toString());

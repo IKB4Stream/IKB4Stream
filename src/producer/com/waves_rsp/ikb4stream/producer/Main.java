@@ -28,7 +28,7 @@ public class Main {
         try {
             producerManager.instantiate();
         } catch (IOException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error("Unable to read config file in order to create threads producer.");
             return;
         }
 
@@ -38,20 +38,24 @@ public class Main {
                     if(sc.hasNextLine()) {
                         switch (sc.nextLine()) {
                             case "START":
+                                LOGGER.info("threads for producer started");
                                 producerManager.instantiate();
                                 break;
                             case "RESTART":
+                                LOGGER.info("threads for producer are restarting.");
                                 producerManager.stop();
                                 producerManager.instantiate();
                                 break;
                             case "STOP":
+                                LOGGER.info("threads have been properly stopped.");
                                 producerManager.stop();
                                 break;
                             case "STOP -F":
+                                LOGGER.info("force stop all threads.");
                                 producerManager.forceStop();
                                 break;
                             default:
-                                //Do nothing
+                                LOGGER.warn("Wrong command send, only these commands are allowed : START, RESTART, STOP, STOP -F");
                                 break;
                         }
                     }
@@ -65,6 +69,7 @@ public class Main {
 
         Runtime runtime = Runtime.getRuntime();
         try {
+            listener.start();
             runtime.addShutdownHook(listener);
         }catch (IllegalArgumentException err) {
             LOGGER.error("Runtime thread hook got an error : thread already running. "+err.getMessage());

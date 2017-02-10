@@ -25,7 +25,10 @@ public class Main {
                         switch (tokens[0]) {
                             case "PUSH":
                                 if (tokens.length >= 3) {
+                                    LOGGER.info("PUSH metrics into influx database.");
                                     metricsLogger.log(tokens[1], tokens[2]);
+                                }else {
+                                    LOGGER.warn("wrong arguments for command PUSH : PUSH <arg1> <arg2>");
                                 }
                                 break;
                             case "STOP":
@@ -40,7 +43,15 @@ public class Main {
             }
         });
 
-        listener.setDaemon(true);
         listener.start();
+        Runtime runtime = Runtime.getRuntime();
+        try {
+            listener.start();
+            runtime.addShutdownHook(listener);
+        }catch (IllegalArgumentException err) {
+            LOGGER.error("Runtime thread hook got an error : thread already running. "+err.getMessage());
+        }finally {
+            runtime.removeShutdownHook(listener);
+        }
     }
 }
