@@ -18,6 +18,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * KafkaCommunication class retrieves messages from the topic
+ */
 public class KafkaCommunication implements ICommunication {
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(KafkaCommunication.class, "resources/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(KafkaCommunication.class);
