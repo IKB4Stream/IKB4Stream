@@ -6,19 +6,9 @@ apply plugin: 'java'
 sourceCompatibility = 1.8
 
 sourceSets {
-    test {
-        java {
-            srcDirs = ['src/core', 'src/consumer', 'src/producer', 'src/test/', 'src/datasource',
-                       'src/datasource/weather', 'src/datasource/rss', 'src/communication/kafka']
-        }
-    }
-
     core {
         java {
             srcDirs = ['src/core']
-        }
-        dependencies {
-
         }
     }
 
@@ -27,17 +17,12 @@ sourceSets {
             srcDirs = ['src/consumer']
             compileClasspath += core.compileClasspath + core.output
         }
-        dependencies {
-
-        }
     }
 
     producer {
         java {
             srcDirs = ['src/producer']
             compileClasspath += core.compileClasspath + core.output
-        }
-        dependencies {
         }
     }
 
@@ -60,8 +45,18 @@ sourceSets {
             srcDirs = ['src/datasource/rss']
             compileClasspath += core.compileClasspath + core.output
         }
-        dependencies {
+    }
 
+    test {
+        java {
+            srcDirs = ['src/core', 'src/consumer', 'src/producer', 'src/test/', 'src/datasource',
+                       'src/datasource/weather', 'src/datasource/rss', 'src/communication/kafka']
+
+            compileClasspath += core.compileClasspath + core.output + consumer.compileClasspath + consumer.output +
+                    producer.compileClasspath + producer.output + communicationKafka.compileClasspath +
+                    communicationKafka.output + datasourceMeteo.compileClasspath + datasourceMeteo.output +
+                    datasourceRSS.compileClasspath + datasourceRSS.output
+            runtimeClasspath = output + compileClasspath + runtimeClasspath
         }
     }
 }
