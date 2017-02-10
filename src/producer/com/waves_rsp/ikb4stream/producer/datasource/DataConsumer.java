@@ -36,7 +36,7 @@ public class DataConsumer {
         /* Get target score */
         int targetScore = 25;
         try {
-            targetScore = Integer.parseInt(PropertiesManager.getInstance().getProperty("score.target"));
+            targetScore = Integer.parseInt(PropertiesManager.getInstance(DataConsumer.class, "resources/config.properties").getProperty("score.target"));
         } catch (IllegalArgumentException e) {
             LOGGER.warn("Use default value for score.target");
         }

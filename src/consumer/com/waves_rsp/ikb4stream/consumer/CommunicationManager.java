@@ -13,7 +13,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.jar.JarEntry;
 import java.util.stream.Stream;
 
 /**
@@ -23,6 +22,7 @@ import java.util.stream.Stream;
  */
 public class CommunicationManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(CommunicationManager.class);
+    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(CommunicationManager.class, "resources/config.properties");
     private static CommunicationManager ourInstance = new CommunicationManager();
     private final Map<Thread, ICommunication> threadCommunications = new HashMap<>();
     private final DatabaseReader databaseReader;
@@ -42,7 +42,7 @@ public class CommunicationManager {
      * This method launches the CommunicationManager
      */
     public void start()  {
-        String stringPath = PropertiesManager.getInstance().getProperty("communication.path");
+        String stringPath = PROPERTIES_MANAGER.getProperty("communication.path");
         try (Stream<Path> paths = Files.walk(Paths.get(stringPath))) {
             paths.forEach((Path filePath) -> {
                 if (Files.isRegularFile(filePath)) {

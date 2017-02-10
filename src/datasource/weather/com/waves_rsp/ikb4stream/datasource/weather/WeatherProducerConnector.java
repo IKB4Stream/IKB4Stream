@@ -10,6 +10,9 @@ import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
 import com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
+import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -20,56 +23,51 @@ import java.util.Locale;
 import java.util.Objects;
 
 public class WeatherProducerConnector implements IProducerConnector {
-
+    private final Logger LOGGER = LoggerFactory.getLogger(WeatherProducerConnector.class);
+    private final String source;
     private final URL url;
 
-    public WeatherProducerConnector(String urlString) throws MalformedURLException {
-        Objects.requireNonNull(urlString);
-        if(urlString.equals(""))
-            throw new IllegalArgumentException("Empty url found");
-        this.url = new URL(urlString);
+    public WeatherProducerConnector() {
+        try {
+            PropertiesManager propertiesManager = PropertiesManager.getInstance(WeatherProducerConnector.class, "resources/config.properties");
+            this.source = propertiesManager.getProperty("WeatherProducerConnector.source");
+            String urlString = propertiesManager.getProperty("WeatherProducerConnector.url");
+            this.url = new URL(urlString);
+        } catch (IllegalArgumentException | MalformedURLException e) {
+            LOGGER.error(e.getMessage());
+            throw new IllegalArgumentException("Invalid configuration");
+        }
     }
 
     @Override
     public void load(IDataProducer dataProducer) {
         Objects.requireNonNull(dataProducer);
-        new Thread(() -> {
+        while (!Thread.currentThread().isInterrupted()) {
             try {
                 SyndFeedInput input = new SyndFeedInput(false, Locale.FRANCE);
                 XmlReader reader = new XmlReader(url);
                 SyndFeed feed = input.build(reader);
-
                 feed.getEntries().forEach(entry -> {
-                    System.out.println(entry);
-                    String source = entry.getUri();
+                    String source = this.source;
                     Date date = entry.getPublishedDate();
                     String description = entry.getDescription().getValue();
                     GeoRSSModule module = GeoRSSUtils.getGeoRSS(entry);
-
-                    if(date == null) {
+                    if (date == null) {
                         date = Date.from(Instant.now());
                     }
-
-                    if(source == null) {
-                        source = url.getHost();
-                    }
-
-                    if(description == null) {
+                    if (description == null) {
                         description = "no description";
                     }
-
-                    if(module != null && module.getPosition() != null) {
+                    if (module != null && module.getPosition() != null) {
                         LatLong latLong = new LatLong(module.getPosition().getLatitude(), module.getPosition().getLongitude());
                         Event event = new Event(latLong, date, date, description, source);
-                        System.out.println(event);
                         dataProducer.push(event);
+                        LOGGER.info("Event " + event + " has been pushed");
                     }
                 });
-            } catch (FeedException e) {
-                throw new IllegalArgumentException(e.getMessage());
-            }catch (IOException e) {
-                throw new IllegalStateException(e.getMessage());
+            } catch (IOException | FeedException e) {
+                LOGGER.error(e.getMessage());
             }
-        }).start();
+        }
     }
 }

@@ -19,7 +19,7 @@ public class MetricsProperties {
     private static final Logger LOGGER = LoggerFactory.getLogger(MetricsProperties.class);
 
     private MetricsProperties() {
-        PropertiesManager propertiesManager = PropertiesManager.getInstance();
+        PropertiesManager propertiesManager = PropertiesManager.getInstance(MetricsProperties.class, "resources/config.properties");
         this.host = checkArgument(propertiesManager.getProperty("database.metrics.host"));
         this.user = checkArgument(propertiesManager.getProperty("database.metrics.user"));
         this.password = checkArgument(propertiesManager.getProperty("database.metrics.password"));

@@ -20,12 +20,13 @@ import java.util.stream.Stream;
 
 public class ScoreProcessorManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(ScoreProcessorManager.class);
+    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(ScoreProcessorManager.class, "resources/config.properties");
     private final Map<String,IScoreProcessor> scoreProcessors = new HashMap<>();
 
     public Event processScore(Event event) {
         Objects.requireNonNull(event);
         try {
-            String scoreProcessors = PropertiesManager.getInstance().getProperty(event.getSource());
+            String scoreProcessors = PROPERTIES_MANAGER.getProperty(event.getSource());
             LOGGER.info(scoreProcessors + " will be applied in an event from " + event.getSource());
             return process(getProcessors(scoreProcessors), event);
         } catch (IllegalArgumentException e) {
@@ -54,7 +55,7 @@ public class ScoreProcessorManager {
     }
 
     public void instanciate() {
-        String stringPath = PropertiesManager.getInstance().getProperty("scoreprocessor.path");
+        String stringPath = PROPERTIES_MANAGER.getProperty("scoreprocessor.path");
         try (Stream<Path> paths = Files.walk(Paths.get(stringPath))) {
             paths.forEach((Path filePath) -> {
                 if (Files.isRegularFile(filePath)) {

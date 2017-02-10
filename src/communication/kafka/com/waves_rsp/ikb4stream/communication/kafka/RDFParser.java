@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayInputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -79,7 +78,7 @@ public class RDFParser {
             float maxLongitude = (float) map.get("hasMaxLongitude");
             return new AnomalyRequest(start, end, minLatitude, maxLatitude, minLongitude, maxLongitude);
         } catch (NullPointerException e) {
-            LOGGER.error("Error occurred during the deserialization of RDF: " + e);
+            LOGGER.error("Error occurred during the deserialization of RDF: " + e.getMessage());
             return null;
         }
     }

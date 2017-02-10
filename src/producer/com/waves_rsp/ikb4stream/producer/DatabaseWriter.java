@@ -30,7 +30,7 @@ public class DatabaseWriter {
      * DataWriter constructor
      */
     private DatabaseWriter() {
-        PropertiesManager propertiesManager = PropertiesManager.getInstance();
+        PropertiesManager propertiesManager = PropertiesManager.getInstance(DatabaseWriter.class, "resources/config.properties");
 
         /* Get information about database */
         String host = propertiesManager.getProperty("database.host");

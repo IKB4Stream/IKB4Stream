@@ -36,7 +36,7 @@ public class DatabaseReader implements IDatabaseReader {
      * This class is a singleton
      */
     private DatabaseReader() {
-        PropertiesManager propertiesManager = PropertiesManager.getInstance();
+        PropertiesManager propertiesManager = PropertiesManager.getInstance(DatabaseReader.class, "resources/config.properties");
 
         /* Get information about Database */
         String host = propertiesManager.getProperty("database.host");

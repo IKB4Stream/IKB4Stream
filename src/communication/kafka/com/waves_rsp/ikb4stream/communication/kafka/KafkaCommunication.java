@@ -19,15 +19,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class KafkaCommunication implements ICommunication {
-    private final PropertiesManager propertiesManager = PropertiesManager.getInstance();
+    private final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(KafkaCommunication.class, "resources/config.properties");
     private final Logger LOGGER = LoggerFactory.getLogger(KafkaCommunication.class);
-    private final String KAFKA_TOPIC = propertiesManager.getProperty("communications.kafka.topic");
+    private final String KAFKA_TOPIC = PROPERTIES_MANAGER.getProperty("communications.kafka.topic");
     private KafkaStreams streams;
 
     private void getRequests(IPollCallback callback) {
         Map<String, CharSequence> props = new HashMap<>();
-        props.put(StreamsConfig.APPLICATION_ID_CONFIG, propertiesManager.getProperty("communications.kafka.application_id"));
-        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, propertiesManager.getProperty("communications.kafka.server"));
+        props.put(StreamsConfig.APPLICATION_ID_CONFIG, PROPERTIES_MANAGER.getProperty("communications.kafka.application_id"));
+        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, PROPERTIES_MANAGER.getProperty("communications.kafka.server"));
         StreamsConfig config = new StreamsConfig(props);
 
         KStreamBuilder builder = new KStreamBuilder();

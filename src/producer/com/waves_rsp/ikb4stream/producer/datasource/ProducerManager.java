@@ -17,6 +17,7 @@ import java.util.stream.Stream;
 
 public class ProducerManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProducerManager.class);
+    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(ProducerManager.class, "resources/config.properties");
     private static ProducerManager ourInstance = new ProducerManager();
     private final List<Thread> producerConnectors = new ArrayList<>();
     private final List<Thread> dataConsumers = new ArrayList<>();
@@ -49,7 +50,7 @@ public class ProducerManager {
     private void launchDataConsumer() {
         int nbThreadConsumer = 10;
         try {
-            nbThreadConsumer = Integer.parseInt(PropertiesManager.getInstance().getProperty("producer.thread"));
+            nbThreadConsumer = Integer.parseInt(PROPERTIES_MANAGER.getProperty("producer.thread"));
         } catch (IllegalArgumentException e) {
             LOGGER.warn("Use default value for producer.thread");
         }
@@ -72,7 +73,7 @@ public class ProducerManager {
      * Launch all producers
      */
     private void launchDataProducer() {
-        String stringPath = PropertiesManager.getInstance().getProperty("producer.path");
+        String stringPath = PROPERTIES_MANAGER.getProperty("producer.path");
         try (Stream<Path> paths = Files.walk(Paths.get(stringPath))) {
             paths.forEach((Path filePath) -> {
                 if (Files.isRegularFile(filePath)) {

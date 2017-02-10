@@ -10,6 +10,9 @@ import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
 import com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
+import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -19,58 +22,50 @@ import java.util.Date;
 import java.util.Objects;
 
 public class RSSProducerConnector implements IProducerConnector {
+    private final Logger LOGGER = LoggerFactory.getLogger(RSSProducerConnector.class);
+    private final String source;
     private final URL url;
+
+    public RSSProducerConnector() {
+        try {
+            PropertiesManager propertiesManager = PropertiesManager.getInstance(RSSProducerConnector.class, "resources/config.properties");
+            this.source = propertiesManager.getProperty("RSSProducerConnector.source");
+            String urlString = propertiesManager.getProperty("RSSProducerConnector.url");
+            this.url = new URL(urlString);
+        } catch (IllegalArgumentException | MalformedURLException e) {
+            LOGGER.error(e.getMessage());
+            throw new IllegalArgumentException("Invalid configuration");
+        }
+    }
 
     @Override
     public void load(IDataProducer dataProducer) {
         Objects.requireNonNull(dataProducer);
-
-        new Thread(() -> {
+        while (!Thread.currentThread().isInterrupted()) {
             try {
                 SyndFeedInput input = new SyndFeedInput();
                 SyndFeed feed = input.build(new XmlReader(this.url));
 
                 feed.getEntries().forEach(entry -> {
-                    String source = entry.getUri();
+                    String source = this.source;
                     Date startDate = entry.getPublishedDate();
                     String description = entry.getDescription().getValue();
 
                     GeoRSSModule module = GeoRSSUtils.getGeoRSS(entry);
                     if (module != null && module.getPosition() != null) {
                         LatLong latLong = new LatLong(module.getPosition().getLatitude(), module.getPosition().getLongitude());
-
-                        if (source == null)
-                            source = this.url.toString();
                         Date endDate = Date.from(Instant.now());
                         if (startDate == null)
                             startDate = endDate;
                         if (description == null)
                             description = "";
-
                         Event event = new Event(latLong, startDate, endDate, description, source);
-
                         dataProducer.push(event);
                     }
                 });
-
-            } catch (FeedException e) {
-                throw new IllegalArgumentException("Wrong url: " + this.url.toString());
-            } catch (IOException e) {
-                throw new IllegalStateException("XMl Reader can't open the file at the url " + this.url.toString());
+            } catch (IOException | FeedException e) {
+                LOGGER.error(e.getMessage());
             }
-        }).start();
-
-    }
-
-    public RSSProducerConnector(String url) throws MalformedURLException {
-        if (url.equals("")) {
-            throw new IllegalArgumentException();
-        }
-
-        try {
-            this.url = new URL(url);
-        } catch (MalformedURLException e) {
-            throw new IllegalArgumentException("Wrong url format: " + url);
         }
     }
 }
