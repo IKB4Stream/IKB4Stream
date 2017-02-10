@@ -43,7 +43,7 @@ public class EventTest {
         Event event = new Event(latLong, start, end, "Pool party", (byte) 101, "facebook");
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void noScore() throws Exception {
         LatLong latLong = new LatLong(1, 1);
         Calendar calendar = Calendar.getInstance();
@@ -59,7 +59,7 @@ public class EventTest {
         Date end = calendar.getTime();
 
         Event event = new Event(latLong, start, end, "Pool party", "eventful");
-        event.getScore();
+        assert (event.getScore() == 0);
     }
 
     @Test
