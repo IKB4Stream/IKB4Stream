@@ -5,6 +5,7 @@ import com.waves_rsp.ikb4stream.core.communication.IDatabaseReader;
 import com.waves_rsp.ikb4stream.core.communication.model.BoundingBox;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
 import com.waves_rsp.ikb4stream.core.communication.model.Request;
+import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.StreamsConfig;
@@ -18,14 +19,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class KafkaCommunication implements ICommunication {
-    private static final Logger LOGGER = LoggerFactory.getLogger(KafkaCommunication.class);
-    private static final String KAFKA_TOPIC = "ikb4RequestTopic";
+    private final PropertiesManager propertiesManager = PropertiesManager.getInstance();
+    private final Logger LOGGER = LoggerFactory.getLogger(KafkaCommunication.class);
+    private final String KAFKA_TOPIC = propertiesManager.getProperty("communications.kafka.topic");
     private KafkaStreams streams;
 
     private void getRequests(IPollCallback callback) {
         Map<String, CharSequence> props = new HashMap<>();
-        props.put(StreamsConfig.APPLICATION_ID_CONFIG, "ikb4stream-kafka-communication");
-        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        props.put(StreamsConfig.APPLICATION_ID_CONFIG, propertiesManager.getProperty("communications.kafka.application_id"));
+        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, propertiesManager.getProperty("communications.kafka.server"));
         StreamsConfig config = new StreamsConfig(props);
 
         KStreamBuilder builder = new KStreamBuilder();
@@ -57,12 +59,13 @@ public class KafkaCommunication implements ICommunication {
     @Override
     public void start(IDatabaseReader databaseReader) {
         this.getRequests(request -> {
-
+            System.out.println("request: "  + request);
             final String[] r = {"[]"};
             databaseReader.getEvent(request, (t, result) -> {
                 if(t != null) { LOGGER.error("DatabaseReader error: " + t.getMessage()); return; }
                 r[0] = result;
             });
+            System.out.println("result: " + r[0]);
             return r[0];
         });
     }

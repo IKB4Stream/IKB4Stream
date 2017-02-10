@@ -61,7 +61,6 @@ public interface UtilManager {
             return null;
         } catch (NoClassDefFoundError e1) {
             LOGGER.warn("ClassDef" + className + " cannot be found");
-            e1.printStackTrace();
             return null;
         }
     }
@@ -81,6 +80,6 @@ public interface UtilManager {
         if (clazz == null) return false;
         Objects.requireNonNull(interfaceClass);
         return Arrays.stream(clazz.getInterfaces())
-            .anyMatch(i -> i.equals(interfaceClass));
+                .anyMatch(i -> i.equals(interfaceClass));
     }
 }

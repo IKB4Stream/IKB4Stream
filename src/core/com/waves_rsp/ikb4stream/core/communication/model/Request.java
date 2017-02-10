@@ -62,4 +62,14 @@ public class Request {
     public Date getRequestReceptionDate() {
         return requestReception;
     }
+
+    @Override
+    public String toString() {
+        return "Request{" +
+                "start=" + start +
+                ", end=" + end +
+                ", boundingBox=" + boundingBox +
+                ", requestReception=" + requestReception +
+                '}';
+    }
 }

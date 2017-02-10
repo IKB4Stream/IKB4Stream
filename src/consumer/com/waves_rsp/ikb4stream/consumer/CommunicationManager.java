@@ -75,7 +75,7 @@ public class CommunicationManager {
         }
     }
 
-	/**
+    /**
      * This method stop the CommunicationManager properly
      */
     public void stop() {
