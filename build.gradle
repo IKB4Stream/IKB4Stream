@@ -90,7 +90,12 @@ sourceSets {
             compileClasspath = configurations.compile
         }
     }
-
+    datasource_twittermock {
+        java {
+            srcDirs = ['src/core', 'src/datasource/twittermock']
+            compileClasspath = configurations.compile
+        }
+    }
 }
 
 task packageConsumerJar(type: Jar, description: 'Package the Consumer Jar') {
@@ -156,6 +161,13 @@ task packageTwitterJar(type: Jar, description: 'Package the Twitter Jar') {
     archiveName = "resources/datasource/ikb4stream-$version-datasource-twitter.jar"
     from sourceSets.datasource_twitter.output
     from { configurations.compile.collect {it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+task packageTwitterMockJar(type: Jar, description: 'Package the Twitter Mock Jar') {
+    archiveName = "resources/datasource/ikb4stream-$version-datasource-twittermock.jar"
+    from sourceSets.datasource_twittermock.output
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }}
     with jar
 }
 

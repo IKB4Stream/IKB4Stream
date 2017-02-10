@@ -15,6 +15,10 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * Listen any events provided by the twitter api and load them into a IDataProducer object.
+ *
+ */
 public class TwitterProducerConnector implements IProducerConnector {
     private final PropertiesManager propertiesManager = PropertiesManager.getInstance();
     private static final Logger LOGGER = LoggerFactory.getLogger(TwitterProducerConnectorTest.class);
@@ -43,22 +47,35 @@ public class TwitterProducerConnector implements IProducerConnector {
             confBuilder.setOAuthConsumerSecret(secretConsumerToken);
             TwitterStream twitterStream = new TwitterStreamFactory(confBuilder.build()).getInstance();
 
-            FilterQuery filterQuery = new FilterQuery();
-            filterQuery.language("fr");
-            filterQuery.track("event");
-            twitterStream.filter(filterQuery);
-            StreamTwitterListener twitterListener = new StreamTwitterListener();
-            twitterStream.addListener(twitterListener);
-            if(twitterListener.getEvent().isPresent()) {
-                LOGGER.info(twitterListener.getEvent().toString());
-            }
+            while (!Thread.interrupted()) {
+                TwitterStreamListener twitterListener = new TwitterStreamListener();
+                twitterStream.addListener(twitterListener);
 
+                FilterQuery filterQuery = new FilterQuery();
+                filterQuery.track("#Versailles");
+
+                twitterStream.onStatus(status -> {
+                    String source = status.getSource();
+                    String description = status.getText();
+                    Date start = status.getCreatedAt();
+                    Date end = status.getCreatedAt();
+                    GeoLocation geoLocation = status.getGeoLocation();
+                    if (geoLocation != null) {
+                        LatLong latLong = new LatLong(geoLocation.getLatitude(), geoLocation.getLongitude());
+                        Event event = new Event(latLong, start, end, description, source);
+                        dataProducer.push(event);
+                        LOGGER.info(event.toString());
+                    }
+                }).filter(filterQuery);
+                twitterStream.user();
+                twitterStream.sample("fr");
+            }
         }catch (IllegalArgumentException | IllegalStateException err) {
             LOGGER.error(err.getMessage());
         }
     }
 
-    private class StreamTwitterListener implements StatusListener {
+    private class TwitterStreamListener implements StatusListener {
         private EventContainer container = new EventContainer();
 
         @Override
@@ -78,17 +95,17 @@ public class TwitterProducerConnector implements IProducerConnector {
 
         @Override
         public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice) {
-            //Do nothing
+            LOGGER.info(""+statusDeletionNotice.getStatusId());
         }
 
         @Override
         public void onTrackLimitationNotice(int numberOfLimitedStatuses) {
-            //Do nothing
+            LOGGER.info("number of limited status : "+numberOfLimitedStatuses);
         }
 
         @Override
         public void onScrubGeo(long userId, long upToStatusId) {
-            //Do nothing
+            LOGGER.info("user id : "+userId+", "+upToStatusId);
         }
 
         @Override
