@@ -7,9 +7,7 @@ public class TwitterProducerConnectorTest {
     @Test
     public void checkTweetsFromTwitter() {
         TwitterProducerConnector producerConnector = TwitterProducerConnector.create();
-        producerConnector.load(event -> {
-            //Do nothing
-        });
+        producerConnector.load(System.out::println);
     }
 
     @Test (expected = NullPointerException.class)

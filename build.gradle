@@ -65,7 +65,12 @@ sourceSets {
             compileClasspath = configurations.compile
         }
     }
-
+    datasource_twittermock {
+        java {
+            srcDirs = ['src/core', 'src/datasource/twittermock']
+            compileClasspath = configurations.compile
+        }
+    }
 }
 
 task packageConsumerJar(type: Jar, description: 'Package the Consumer Jar') {
@@ -112,6 +117,13 @@ task packageTwitterJar(type: Jar, description: 'Package the Twitter Jar') {
     with jar
 }
 
+task packageTwitterMockJar(type: Jar, description: 'Package the Twitter Mock Jar') {
+    archiveName = "resources/datasource/ikb4stream-$version-datasource-twittermock.jar"
+    from sourceSets.datasource_twittermock.output
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }}
+    with jar
+}
+
 task packageKafkaCommunicationJar(type: Jar, description: 'Package the Kafka Communication Jar') {
     archiveName = "resources/communication/ikb4stream-$version-communication-kafka.jar"
     from sourceSets.communicationKafka.output
@@ -119,6 +131,7 @@ task packageKafkaCommunicationJar(type: Jar, description: 'Package the Kafka Com
     from { configurations.communicationKafkaCompile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }
+
 
 task copyConfigProperties(type: Copy) {
     from 'resources/config.properties'
