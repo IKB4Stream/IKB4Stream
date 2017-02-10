@@ -12,34 +12,56 @@ sourceSets {
                        'src/datasource/weather', 'src/datasource/rss', 'src/communication/kafka']
         }
     }
-    communication_kafka {
+
+    core {
         java {
-            srcDirs = ['src/core', 'src/communication/kafka']
-            compileClasspath = configurations.compile
+            srcDirs = ['src/core']
+        }
+        dependencies {
+
         }
     }
+
     consumer {
         java {
-            srcDirs = ['src/core', 'src/consumer']
-            compileClasspath = configurations.compile
+            srcDirs = ['src/consumer']
+            compileClasspath += core.compileClasspath + core.output
+        }
+        dependencies {
+
         }
     }
+
     producer {
         java {
-            srcDirs = ['src/core', 'src/producer']
-            compileClasspath = configurations.compile
+            srcDirs = ['src/producer']
+            compileClasspath += core.compileClasspath + core.output
+        }
+        dependencies {
         }
     }
-    datasource_meteo {
+
+    communicationKafka {
         java {
-            srcDirs = ['src/core', 'src/datasource/weather']
-            compileClasspath = configurations.compile
+            srcDirs = ['src/communication/kafka']
+            compileClasspath += core.compileClasspath + core.output
         }
     }
-    datasource_rss {
+
+    datasourceMeteo {
         java {
-            srcDirs = ['src/core', 'src/datasource/rss']
-            compileClasspath = configurations.compile
+            srcDirs = ['src/datasource/weather']
+            compileClasspath += core.compileClasspath + core.output
+        }
+    }
+
+    datasourceRSS {
+        java {
+            srcDirs = ['src/datasource/rss']
+            compileClasspath += core.compileClasspath + core.output
+        }
+        dependencies {
+
         }
     }
 }
@@ -50,7 +72,7 @@ task packageConsumerJar(type: Jar, description: 'Package the Consumer Jar') {
         attributes 'Main-Class': 'com.waves_rsp.ikb4stream.consumer.Main'
     }
     from sourceSets.consumer.output
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }
 
@@ -60,28 +82,32 @@ task packageProducerJar(type: Jar, description: 'Package the Producer Jar') {
         attributes 'Main-Class': 'com.waves_rsp.ikb4stream.producer.Main'
     }
     from sourceSets.producer.output
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
+    from { configurations.producerCompile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }
 
 task packageWeatherJar(type: Jar, description: 'Package the Weather Jar') {
     archiveName = "resources/datasource/ikb4stream-$version-datasource-weather.jar"
-    from sourceSets.datasource_meteo.output
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    from sourceSets.datasourceMeteo.output
+    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
+    from { configurations.datasourceMeteoCompile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }
 
 task packageRssJar(type: Jar, description: 'Package the RSS Jar') {
     archiveName = "resources/datasource/ikb4stream-$version-datasource-rss.jar"
-    from sourceSets.datasource_rss.output
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    from sourceSets.datasourceRSS.output
+    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
+    from { configurations.datasourceRSSCompile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }
 
-task packageKafkaCommunicationJar(type: Jar, description: 'Package the Kafka Communication Jar') {
+task packageCommunicationKafkaJar(type: Jar, description: 'Package the Kafka Communication Jar') {
     archiveName = "resources/communication/ikb4stream-$version-communication-kafka.jar"
-    from sourceSets.communication_kafka.output
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    from sourceSets.communicationKafka.output
+    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
+    from { configurations.communicationKafkaCompile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }
 
@@ -95,7 +121,7 @@ task zipBuild(type: Zip) {
     from 'build/libs'
 }
 
-task packageAll(dependsOn: ['copyConfigProperties', 'packageConsumerJar', 'packageProducerJar', 'packageWeatherJar', 'packageRssJar', 'packageKafkaCommunicationJar']) {
+task packageAll(dependsOn: ['copyConfigProperties', 'packageConsumerJar', 'packageProducerJar', 'packageWeatherJar', 'packageRssJar', 'packageCommunicationKafkaJar']) {
 
 }
 
@@ -113,14 +139,30 @@ repositories {
 }
 
 dependencies {
-    compile 'org.mongodb:mongodb-driver-async:3.2.2'
-    compile 'org.apache.jena:jena-arq:2.9.3'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.8.6'
-    compile group: 'org.influxdb', name: 'influxdb-java', version: '2.5'
-    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.6'
-    compile group: 'com.rometools', name: 'rome-modules', version: '1.7.1'
-    compile 'org.apache.kafka:kafka-streams:0.10.0.1'
-    compile 'edu.stanford.nlp:stanford-corenlp:3.7.0'
-    compile 'edu.stanford.nlp:stanford-corenlp:3.7.0:models-french'
+    // core
+    coreCompile 'org.influxdb:influxdb-java:2.5'
+    coreCompile 'org.slf4j:slf4j-simple:1.7.6'
+    coreCompile 'org.apache.jena:jena-arq:2.9.3'
+    coreCompile 'com.fasterxml.jackson.core:jackson-databind:2.8.6'
+    coreCompile 'org.mongodb:mongodb-driver-async:3.2.2'
+
+    // producer
+    producerCompile 'edu.stanford.nlp:stanford-corenlp:3.7.0'
+    producerCompile 'edu.stanford.nlp:stanford-corenlp:3.7.0:models-french'
+
+    // consumer
+
+    // datasource_Meteo
+    datasourceMeteoCompile 'com.rometools:rome-modules:1.7.1'
+
+    // datasource_rss
+    datasourceRSSCompile 'com.rometools:rome-modules:1.7.1'
+
+    // communication_kafka
+    communicationKafkaCompile 'org.apache.kafka:kafka-streams:0.10.0.1'
+
+    // scoreprocessor_nlp
+
+    // tests
     testCompile 'junit:junit:4.11'
 }
