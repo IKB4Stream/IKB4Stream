@@ -40,7 +40,7 @@ public class EventTest {
         calendar.set(Calendar.DATE, 17);
         Date end = calendar.getTime();
 
-        Event event = new Event(latLong, start, end, "Pool party", (byte) 101, "facebook");
+        new Event(latLong, start, end, "Pool party", (byte) 101, "facebook");
     }
 
     @Test
@@ -59,7 +59,7 @@ public class EventTest {
         Date end = calendar.getTime();
 
         Event event = new Event(latLong, start, end, "Pool party", "eventful");
-        assert (event.getScore() == 0);
+        assert (event.getScore() == -1);
     }
 
     @Test

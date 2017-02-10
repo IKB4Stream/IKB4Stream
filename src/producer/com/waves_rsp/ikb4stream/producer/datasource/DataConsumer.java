@@ -52,7 +52,7 @@ public class DataConsumer {
      * @return True if it's greater than score
      */
     private boolean filter(Event event, int score) {
-        return event.getScore() >= score;
+        return event.getScore() >= 0 && event.getScore() >= score;
     }
 
     /**

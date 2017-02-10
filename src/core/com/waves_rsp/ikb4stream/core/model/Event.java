@@ -15,7 +15,19 @@ public class Event {
     private final String source;
 
     public Event(LatLong location, Date start, Date end, String description, String source) {
-        this(location, start, end, description, (byte) 0, source);
+        Objects.requireNonNull(location);
+        Objects.requireNonNull(start);
+        Objects.requireNonNull(end);
+        Objects.requireNonNull(description);
+        Objects.requireNonNull(source);
+        if(source.isEmpty()) { throw new IllegalArgumentException("Source argument cannot be empty."); }
+
+        this.location = location;
+        this.start = start;
+        this.end = end;
+        this.description = description;
+        this.score = -1;
+        this.source = source;
     }
 
     public Event(LatLong location, Date start, Date end, String description, byte score, String source) {
