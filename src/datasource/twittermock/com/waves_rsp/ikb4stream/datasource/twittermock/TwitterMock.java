@@ -32,7 +32,6 @@ public class TwitterMock implements IProducerConnector {
         return new TwitterMock(inputStream);
     }
 
-
     @Override
     public void load(IDataProducer dataProducer) {
         Objects.requireNonNull(dataProducer);
