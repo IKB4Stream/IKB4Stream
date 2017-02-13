@@ -6,18 +6,20 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
 
 
-public class GeoCodeJacksonParser {
+public class GeoCoderJacksonParser {
 
     private static final String LATITUDE = "lat";
     private static final String LONGITUDE = "lon";
 
     private LatLong parse(final InputStream jsonStream) {
+        Objects.requireNonNull(jsonStream);
         LatLong coordinate = null;
         final ObjectMapper mapper = new ObjectMapper();
         try {
@@ -39,6 +41,7 @@ public class GeoCodeJacksonParser {
     }
 
     public LatLong parse(String fullAddress) {
+        Objects.requireNonNull(fullAddress);
         InputStream is = null;
         LatLong coords = null;
 
@@ -52,16 +55,23 @@ public class GeoCodeJacksonParser {
                 is = geocodeUrl.openStream();
                 coords = parse(is);
             } catch (IOException ex) {
-                Logger.getLogger(GeoCodeJacksonParser.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GeoCoderJacksonParser.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
                 try {
                     is.close();
                 } catch (IOException ex) {
-                    Logger.getLogger(GeoCodeJacksonParser.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(GeoCoderJacksonParser.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
         return coords;
     }
 
+    public static void main(String [] args){
+
+        GeoCoderJacksonParser gc = new GeoCoderJacksonParser();
+        LatLong ll = gc.parse("noisy le grand");
+        System.out.println(ll.getLatitude());
+        System.out.println(ll.getLongitude());
+    }
 }
