@@ -13,10 +13,12 @@ import org.slf4j.LoggerFactory;
 public class WebCommunication implements ICommunication {
     private final PropertiesManager propertiesManager = PropertiesManager.getInstance(WebCommunication.class, "resources/config.properties");
     private final Logger LOGGER = LoggerFactory.getLogger(WebCommunication.class);
+    static IDatabaseReader databaseReader;
     private Vertx server;
 
     @Override
     public void start(IDatabaseReader databaseReader) {
+        WebCommunication.databaseReader = databaseReader;
         server = Vertx.vertx();
         DeploymentOptions deploymentOptions = new DeploymentOptions();
         int port = 8081;
@@ -30,7 +32,11 @@ public class WebCommunication implements ICommunication {
             LOGGER.info("Property 'communications.web.port' not set. Use default value for score.target");
         }
 
-        deploymentOptions.setConfig(new JsonObject().put("http.port", port).put("database", databaseReader));
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.put("http.port", port);
+
+        deploymentOptions.setConfig(jsonObject);
+
         server.deployVerticle(VertxServer.class.getName());
         LOGGER.info("WebCommunication module started");
     }
@@ -38,5 +44,12 @@ public class WebCommunication implements ICommunication {
     @Override
     public void close() {
         server.close();
+    }
+
+    public static void main(String[] args) {
+        WebCommunication webCommunication = new WebCommunication();
+        webCommunication.start((request, callback) -> {
+            System.out.println(request);
+        });
     }
 }
