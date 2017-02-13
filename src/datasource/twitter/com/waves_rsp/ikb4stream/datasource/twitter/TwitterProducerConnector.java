@@ -30,6 +30,11 @@ public class TwitterProducerConnector implements IProducerConnector {
         return new TwitterProducerConnector();
     }
 
+    /**
+     * Listen tweets from twitter with a bounding box and load them with the data producer object
+     *
+     * @param dataProducer
+     */
     @Override
     public void load(IDataProducer dataProducer) {
         Objects.requireNonNull(dataProducer);
@@ -40,39 +45,40 @@ public class TwitterProducerConnector implements IProducerConnector {
             double latitudeMin = Double.valueOf(propertiesManager.getProperty("twitter.latitude.minimum"));
             double longitudeMax = Double.valueOf(propertiesManager.getProperty("twitter.longitude.maximum"));
             double longitudeMin = Double.valueOf(propertiesManager.getProperty("twitter.longitude.minimum"));
-            BoundingBox boundingBox = new BoundingBox(new LatLong[]{new LatLong(latitudeMax, longitudeMax),
-                                                                    new LatLong(latitudeMin, longitudeMin)});
 
             TwitterStreamListener streamListener = new TwitterStreamListener(dataProducer);
             twitterStream = new TwitterStreamFactory(confBuilder.build()).getInstance();
             twitterStream.addListener(streamListener);
             FilterQuery filterQuery = new FilterQuery();
             twitterStream.filter(filterQuery);
-            Arrays.stream(boundingBox.getLatLongs()).forEach(latLong -> {
-                filterQuery.locations(new double[]{latLong.getLatitude(), latLong.getLongitude()});
-            });
+            filterQuery.locations(new double[]{latitudeMax, latitudeMin, longitudeMax, longitudeMin});
 
             twitterStream.sample("fr");
-            twitterStream.onStatus(status -> LOGGER.info(status.getText()));
 
             while(!Thread.interrupted()) {
-                Thread.sleep(1000);
+                Thread.sleep(200);
             }
-        }catch (IllegalArgumentException | IllegalStateException err) {
+        }catch (IllegalArgumentException err) {
+            LOGGER.error(err.getMessage());
+            Thread.currentThread().interrupt();
+        }catch (IllegalStateException err) {
             LOGGER.error(err.getMessage());
             Thread.currentThread().interrupt();
             return;
-        } catch (InterruptedException e) {
-            LOGGER.error("Current thread has been interrupted. ");
-            Thread.interrupted();
+        }catch (InterruptedException e) {
+            LOGGER.error("Current thread has been interrupted : "+e.toString());
+            Thread.currentThread().interrupt();
             return;
-        } finally {
+        }finally {
             if(twitterStream != null) {
                 twitterStream.shutdown();
             }
         }
     }
 
+    /**
+     * Load properties for twitter connector
+     */
     private void loadTwitterProperties() {
         try {
             String keyAuthToken = propertiesManager.getProperty("twitter.key.auth.accesstoken");
@@ -90,6 +96,9 @@ public class TwitterProducerConnector implements IProducerConnector {
         }
     }
 
+    /**
+     * A status listener in order to get tweets with the method onStatus
+     */
     private class TwitterStreamListener implements StatusListener {
         private final IDataProducer dataProducer;
 
