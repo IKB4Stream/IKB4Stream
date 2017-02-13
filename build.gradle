@@ -106,6 +106,13 @@ task packageCommunicationKafkaJar(type: Jar, description: 'Package the Kafka Com
     with jar
 }
 
+task packageWebCommunicationJar(type: Jar, description: 'Package the Web Communication Jar') {
+    archiveName = "resources/communication/ikb4stream-$version-communication-web.jar"
+    from sourceSets.communication_web.output
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 task copyConfigProperties(type: Copy) {
     from 'resources/config.properties'
     into 'build/libs/resources/'
@@ -140,6 +147,8 @@ dependencies {
     coreCompile 'org.apache.jena:jena-arq:2.9.3'
     coreCompile 'com.fasterxml.jackson.core:jackson-databind:2.8.6'
     coreCompile 'org.mongodb:mongodb-driver-async:3.2.2'
+
+    coreCompile group: 'io.vertx', name: 'vertx-web', version: '3.0.0'
 
     // producer
     producerCompile 'edu.stanford.nlp:stanford-corenlp:3.7.0'
