@@ -41,10 +41,10 @@ public class TwitterProducerConnector implements IProducerConnector {
         TwitterStream twitterStream = null;
         try {
             loadTwitterProperties();
-            double latitudeMax = Double.valueOf(propertiesManager.getProperty("twitter.latitude.maximum"));
-            double latitudeMin = Double.valueOf(propertiesManager.getProperty("twitter.latitude.minimum"));
-            double longitudeMax = Double.valueOf(propertiesManager.getProperty("twitter.longitude.maximum"));
-            double longitudeMin = Double.valueOf(propertiesManager.getProperty("twitter.longitude.minimum"));
+            double latitudeMax = Double.valueOf(propertiesManager.getProperty("latitude.maximum"));
+            double latitudeMin = Double.valueOf(propertiesManager.getProperty("latitude.minimum"));
+            double longitudeMax = Double.valueOf(propertiesManager.getProperty("longitude.maximum"));
+            double longitudeMin = Double.valueOf(propertiesManager.getProperty("longitude.minimum"));
 
             TwitterStreamListener streamListener = new TwitterStreamListener(dataProducer);
             twitterStream = new TwitterStreamFactory(confBuilder.build()).getInstance();
