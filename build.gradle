@@ -33,6 +33,13 @@ sourceSets {
         }
     }
 
+    communicationWeb {
+        java {
+            srcDirs = ['src/communication/web']
+            compileClasspath += core.compileClasspath + core.output
+        }
+    }
+
     datasourceMeteo {
         java {
             srcDirs = ['src/datasource/weather']
@@ -50,12 +57,13 @@ sourceSets {
     test {
         java {
             srcDirs = ['src/core', 'src/consumer', 'src/producer', 'src/test/', 'src/datasource',
-                       'src/datasource/weather', 'src/datasource/rss', 'src/communication/kafka']
+                       'src/datasource/weather', 'src/datasource/rss', 'src/communication/kafka', 'src/communication/web']
 
             compileClasspath += core.compileClasspath + core.output + consumer.compileClasspath + consumer.output +
                     producer.compileClasspath + producer.output + communicationKafka.compileClasspath +
                     communicationKafka.output + datasourceMeteo.compileClasspath + datasourceMeteo.output +
-                    datasourceRSS.compileClasspath + datasourceRSS.output
+                    datasourceRSS.compileClasspath + datasourceRSS.output +
+                    communicationWeb.compileClasspath + communicationWeb.output
             runtimeClasspath = output + compileClasspath + runtimeClasspath
         }
     }
@@ -106,10 +114,11 @@ task packageCommunicationKafkaJar(type: Jar, description: 'Package the Kafka Com
     with jar
 }
 
-task packageWebCommunicationJar(type: Jar, description: 'Package the Web Communication Jar') {
+task packageCommunicationWebJar(type: Jar, description: 'Package the Web Communication Jar') {
     archiveName = "resources/communication/ikb4stream-$version-communication-web.jar"
-    from sourceSets.communication_web.output
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    from sourceSets.communicationWeb.output
+    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
+    from { configurations.communicationWebCompile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }
 
@@ -123,7 +132,7 @@ task zipBuild(type: Zip) {
     from 'build/libs'
 }
 
-task packageAll(dependsOn: ['copyConfigProperties', 'packageConsumerJar', 'packageProducerJar', 'packageWeatherJar', 'packageRssJar', 'packageCommunicationKafkaJar']) {
+task packageAll(dependsOn: ['copyConfigProperties', 'packageConsumerJar', 'packageProducerJar', 'packageWeatherJar', 'packageRssJar', 'packageCommunicationKafkaJar', 'packageCommunicationWebJar']) {
 
 }
 
@@ -148,7 +157,6 @@ dependencies {
     coreCompile 'com.fasterxml.jackson.core:jackson-databind:2.8.6'
     coreCompile 'org.mongodb:mongodb-driver-async:3.2.2'
 
-    coreCompile group: 'io.vertx', name: 'vertx-web', version: '3.0.0'
 
     // producer
     producerCompile 'edu.stanford.nlp:stanford-corenlp:3.7.0'
@@ -164,6 +172,10 @@ dependencies {
 
     // communication_kafka
     communicationKafkaCompile 'org.apache.kafka:kafka-streams:0.10.0.1'
+
+    // communicationWeb
+    communicationWebCompile 'io.vertx:vertx-web:3.0.0'
+
 
     // scoreprocessor_nlp
 

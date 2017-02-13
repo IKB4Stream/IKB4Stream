@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class WebCommunication implements ICommunication {
-    private final PropertiesManager propertiesManager = PropertiesManager.getInstance();
+    private final PropertiesManager propertiesManager = PropertiesManager.getInstance(WebCommunication.class, "resources/config.properties");
     private final Logger LOGGER = LoggerFactory.getLogger(WebCommunication.class);
     private Vertx server;
 
