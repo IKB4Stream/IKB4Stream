@@ -23,6 +23,7 @@ public class TwitterProducerConnectorTest {
         producerConnector.load(null);
     }
 
+    @Ignore
     @Test
     public void checkIllegalProperties() {
         try {
