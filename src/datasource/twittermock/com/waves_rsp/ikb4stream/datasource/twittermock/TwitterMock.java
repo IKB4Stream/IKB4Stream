@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Objects;
 
+
 public class TwitterMock implements IProducerConnector {
     private static final Logger LOGGER = LoggerFactory.getLogger(TwitterMock.class);
     private final InputStream inputStream;
@@ -62,6 +63,7 @@ public class TwitterMock implements IProducerConnector {
                 LOGGER.error("something went wrong with the tweet reading");
                 return;
             }finally {
+                Thread.currentThread().interrupt();
                 try {
                     inputStream.close();
                 } catch (IOException e) {
