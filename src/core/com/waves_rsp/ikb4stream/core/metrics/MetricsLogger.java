@@ -17,12 +17,19 @@ public class MetricsLogger {
     private final MetricsConnector metricsConnector;
     private final BatchPoints.Builder batchPointsBuilder;
 
+    /**
+     *
+     */
     private MetricsLogger() {
         this.metricsConnector = MetricsConnector.getMetricsConnector();
         this.metricsConnector.getInfluxDB().enableBatch(1000, 200, TimeUnit.NANOSECONDS);
         this.batchPointsBuilder = BatchPoints.database(metricsConnector.getProperties().getDbName()).tag("async", "true");
     }
 
+    /**
+     * Get instance of singleton MetricsLogger
+     * @return An unique instance of MetricsLogger
+     */
     public static MetricsLogger getMetricsLogger() {
         return new MetricsLogger();
     }
@@ -39,6 +46,7 @@ public class MetricsLogger {
      *
      * @param field specify the field in order to build a point
      * @param data the value to stock
+     * @throws NullPointerException if {@param field} or {@param data} is null
      */
     public void log(String field, String data) {
         Objects.requireNonNull(field);
@@ -56,8 +64,8 @@ public class MetricsLogger {
 
     /**
      * Log a collections of point and send them into influx database
-     *
      * @param points the points to check metrics
+     * @throws NullPointerException if {@param points} is null
      */
     public void log(Point... points) {
         Objects.requireNonNull(points);
@@ -72,8 +80,8 @@ public class MetricsLogger {
 
     /**
      * Read the result of a request to read data loaded into influxdb
-     *
      * @param request the specific request
+     * @throws NullPointerException if {@param request} is null
      */
     public void read(String request) {
         Objects.requireNonNull(request);

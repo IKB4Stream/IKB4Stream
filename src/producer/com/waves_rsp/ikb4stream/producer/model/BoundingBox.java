@@ -13,6 +13,8 @@ public class BoundingBox {
     /**
      * The BoundingBox Constructor
      * @param points an array of LatLong
+     * @throws NullPointerException if {@param points} is null
+     * @throws IllegalArgumentException {@param points} size is lower than 1
      */
     public BoundingBox(LatLong[] points) {
         Objects.requireNonNull(points);

@@ -1,14 +1,16 @@
 package com.waves_rsp.ikb4stream.core.model;
 
-import java.util.Objects;
-
 public class LatLong {
     private final double latitude;
     private final double longitude;
 
+    /**
+     * Create a LatLong
+     * @param latitude
+     * @param longitude
+     * @throws IllegalArgumentException if {@param latitude} is not between -90 an 90, or {@param longitude} is not between -180 and 180
+     */
     public LatLong(double latitude, double longitude) {
-        Objects.requireNonNull(latitude);
-        Objects.requireNonNull(longitude);
         if(latitude < -90 || latitude > 90) {
             throw new IllegalArgumentException("Latitude must be between -90° and +90° inclusive.");
         }
@@ -20,10 +22,18 @@ public class LatLong {
         this.longitude = longitude;
     }
 
+    /**
+     * Get latitude
+     * @return latitude
+     */
     public double getLatitude() {
         return latitude;
     }
 
+    /**
+     * Get longitude
+     * @return longitude
+     */
     public double getLongitude() {
         return longitude;
     }

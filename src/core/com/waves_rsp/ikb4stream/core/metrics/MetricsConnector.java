@@ -18,12 +18,11 @@ public class MetricsConnector {
         this.properties = MetricsProperties.create();
         InfluxDB influxDB = InfluxDBFactory.connect(properties.getHost(), properties.getUser(), properties.getPassword());
         this.connectorService = new MetricsConnectorService(influxDB);
-        LOGGER.info("Connexion to the influx database "+influxDB.version()+" for metrics is started");
+        LOGGER.info("Connexion to the influx database " + influxDB.version() + " for metrics is started");
     }
 
     /**
-     * Instanciates the influx connector for metrics
-     *
+     * Instantiates the influx connector for metrics
      * @return metrics connector
      */
     public static MetricsConnector getMetricsConnector() {
@@ -35,7 +34,7 @@ public class MetricsConnector {
      */
     public void close() {
         connectorService.getInfluxDB().close();
-        LOGGER.info("Connexion to the influx database "+connectorService.getInfluxDB().version()+" stopped");
+        LOGGER.info("Connexion to the influx database " + connectorService.getInfluxDB().version() + " stopped");
     }
 
     public InfluxDB getInfluxDB() {

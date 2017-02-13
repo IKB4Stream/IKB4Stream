@@ -64,6 +64,10 @@ public class Main {
                 LOGGER.info("threads have been properly stopped.");
                 PRODUCER_MANAGER.stop();
                 break;
+            case "FORCESTOP":
+                LOGGER.info("threads have been forced stop.");
+                PRODUCER_MANAGER.forceStop();
+                break;
             case "RESTART":
                 LOGGER.info("restarted threads for consumer.");
                 PRODUCER_MANAGER.stop();

@@ -19,9 +19,9 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 public class ScoreProcessorManager {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ScoreProcessorManager.class);
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(ScoreProcessorManager.class, "resources/config.properties");
-    private final Map<String,IScoreProcessor> scoreProcessors = new HashMap<>();
+    private static final Logger LOGGER = LoggerFactory.getLogger(ScoreProcessorManager.class);
+     private final Map<String,IScoreProcessor> scoreProcessors = new HashMap<>();
 
     public Event processScore(Event event) {
         Objects.requireNonNull(event);

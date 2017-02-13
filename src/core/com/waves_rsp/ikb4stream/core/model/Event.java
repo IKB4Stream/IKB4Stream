@@ -14,6 +14,16 @@ public class Event {
     private final byte score;
     private final String source;
 
+    /**
+     * Create an Event without score
+     * @param location the location of the event, defined by a LatLong
+     * @param start The moment when the event begins
+     * @param end End of the event, or the current date
+     * @param description the event content. For instance, the message of a tweet.
+     * @param source from which datasource the event is provided
+     * @throws NullPointerException If a param is null
+     * @throws IllegalArgumentException If {@param source} is empty
+     */
     public Event(LatLong location, Date start, Date end, String description, String source) {
         Objects.requireNonNull(location);
         Objects.requireNonNull(start);
@@ -30,6 +40,17 @@ public class Event {
         this.source = source;
     }
 
+    /**
+     * Create an Event with a score
+     * @param location the location of the event, defined by a LatLong
+     * @param start The moment when the event begins
+     * @param end End of the event, or the current date
+     * @param description the event content. For instance, the message of a tweet.
+     * @param score Score of this event between 0 and 100
+     * @param source from which datasource the event is provided
+     * @throws NullPointerException If one params is null
+     * @throws IllegalArgumentException If {@param source} is empty or {@param score} is not between 0 and 100
+     */
     public Event(LatLong location, Date start, Date end, String description, byte score, String source) {
         Objects.requireNonNull(location);
         Objects.requireNonNull(start);
@@ -47,26 +68,50 @@ public class Event {
         this.source = source;
     }
 
+    /**
+     * Get location of this event
+     * @return LatLong to represent the position of this Event
+     */
     public LatLong getLocation() {
         return location;
     }
 
+    /**
+     * Get the moment when the event begins
+     * @return start date
+     */
     public Date getStart() {
         return start;
     }
 
+    /**
+     * Get the moment when the end of the event
+     * @return end date
+     */
     public Date getEnd() {
         return end;
     }
 
+    /**
+     * Get description of this event
+     * @return description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Get source from which datasource, this event is provided
+     * @return source
+     */
     public String getSource() {
         return source;
     }
 
+    /**
+     * Get score of this event after score processing
+     * @return score or -1 if this event hasn't been analysed by score processor
+     */
     public byte getScore() {
         return score;
     }

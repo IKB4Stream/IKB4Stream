@@ -9,13 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayInputStream;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
- * Created by ikb4stream on 07/02/17.
  * Parser class to parseFile RDF file
  */
 public class RDFParser {
@@ -27,7 +23,8 @@ public class RDFParser {
 
     /**
      * @param anomalyFileName the rdf anomaly file's name
-     * @return an AnomalyNode object which contains information about latitude, longitude and date
+     * @return an {@link AnomalyRequest} object which contains information about latitude, longitude and date
+     * @throws IllegalStateException If RDF is not literal
      */
     public static AnomalyRequest parseFile(String anomalyFileName) {
         Objects.requireNonNull(anomalyFileName);
@@ -37,7 +34,12 @@ public class RDFParser {
         model.listStatements().forEachRemaining(statement -> {
             RDFNode rdfNode = statement.getObject();
             if(rdfNode.isLiteral()) {
-                map.put(statement.getPredicate().getLocalName(), statement.getObject().asLiteral().getValue());
+                try {
+                    map.put(statement.getPredicate().getLocalName(), statement.getObject().asLiteral().getValue());
+                } catch (Exception e) {
+                    LOGGER.error("RDF statement is not literal");
+                    throw new IllegalStateException(e.getMessage());
+                }
             }
         });
 
@@ -45,9 +47,14 @@ public class RDFParser {
         return getDataFromMap(map);
     }
 
+    /**
+     * Parse RDF input as string
+     * @param input RDF values as String
+     * @return an {@link AnomalyRequest} object which contains information about latitude, longitude and date
+     * @throws IllegalStateException If RDF is not literal
+     */
     public static AnomalyRequest parse(String input) {
         Objects.requireNonNull(input);
-
         Model model = ModelFactory.createDefaultModel();
         model.read(new ByteArrayInputStream(input.getBytes()), null, "TURTLE");
 
@@ -55,7 +62,12 @@ public class RDFParser {
         model.listStatements().forEachRemaining(statement -> {
             RDFNode rdfNode = statement.getObject();
             if(rdfNode.isLiteral()) {
-                map.put(statement.getPredicate().getLocalName(), statement.getObject().asLiteral().getValue());
+                try {
+                    map.put(statement.getPredicate().getLocalName(), statement.getObject().asLiteral().getValue());
+                } catch (Exception e) {
+                    LOGGER.error("RDF statement is not literal");
+                    throw new IllegalStateException(e.getMessage());
+                }
             }
         });
 
@@ -63,9 +75,17 @@ public class RDFParser {
         return getDataFromMap(map);
     }
 
+    /**
+     * Get an AnomalyRequest from Map< String, Object >
+     * @param map {@link AnomalyRequest} represented as Map Object
+     * @return {@link AnomalyRequest} object which contains information about latitude, longitude and date
+     * @throws NullPointerException if {@param map} is null
+     * @throws IllegalArgumentException if {@param map} doesn't have needed values
+     */
     private static AnomalyRequest getDataFromMap(Map<String, Object> map) {
         try {
             Objects.requireNonNull(map);
+            checkValid(map);
             XSDDateTime startdt = (XSDDateTime) map.get("start");
             XSDDateTime enddt = (XSDDateTime) map.get("end");
             Date start = new Date();
@@ -80,6 +100,38 @@ public class RDFParser {
         } catch (NullPointerException e) {
             LOGGER.error("Error occurred during the deserialization of RDF: " + e.getMessage());
             return null;
+        }
+    }
+
+    /**
+     * Check if {@param map} has needed values
+     * @param map Map to check
+     * @throws IllegalArgumentException If {@param map} doesn't have all information
+     */
+    private static void checkValid(Map<String, Object> map) {
+        if (map.get("start") == null) {
+            LOGGER.warn("start is null");
+            throw new IllegalArgumentException("start is null");
+        }
+        if (map.get("end") == null) {
+            LOGGER.warn("end is null");
+            throw new IllegalArgumentException("end is null");
+        }
+        if (map.get("hasMinLatitude") == null) {
+            LOGGER.warn("hasMinLatitude is null");
+            throw new IllegalArgumentException("hasMinLatitude is null");
+        }
+        if (map.get("hasMaxLatitude") == null) {
+            LOGGER.warn("hasMaxLatitude is null");
+            throw new IllegalArgumentException("hasMaxLatitude is null");
+        }
+        if (map.get("hasMinLongitude") == null) {
+            LOGGER.warn("hasMinLongitude is null");
+            throw new IllegalArgumentException("hasMinLongitude is null");
+        }
+        if (map.get("hasMaxLongitude") == null) {
+            LOGGER.warn("hasMaxLongitude is null");
+            throw new IllegalArgumentException("hasMaxLongitude is null");
         }
     }
 

@@ -15,38 +15,48 @@ import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Objects;
+
 /**
  * This class writes data in mongodb database
  */
 public class DatabaseWriter {
+    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(DatabaseWriter.class, "resources/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseWriter.class);
-    private static final DatabaseWriter ourInsance = new DatabaseWriter();
-    private final MongoClient mongoClient;
-    private final MongoDatabase mongoDatabase;
+    private static final DatabaseWriter DATABASE_WRITER = new DatabaseWriter();
     private final MongoCollection<Document> mongoCollection;
     private final ObjectMapper mapper = new ObjectMapper();
+    private final MongoDatabase mongoDatabase;
+    private final MongoClient mongoClient;
 
     /**
      * DataWriter constructor
      */
     private DatabaseWriter() {
-        PropertiesManager propertiesManager = PropertiesManager.getInstance(DatabaseWriter.class, "resources/config.properties");
-
-        /* Get information about database */
-        String host = propertiesManager.getProperty("database.host");
-        String datasource = propertiesManager.getProperty("database.datasource");
-        String collection = propertiesManager.getProperty("database.collection");
-
-        if (host == null || datasource == null || collection == null) {
-            LOGGER.error("DatabaseWriter error cannot get database information");
-            throw new IllegalStateException("Configuration file doesn't have any information about database");
-        }
-
-        this.mongoClient = MongoClients.create(host);
-        this.mongoDatabase = mongoClient.getDatabase(datasource);
-        this.mongoCollection = mongoDatabase.getCollection(collection);
-
+        checkConfiguration();
+        this.mongoClient = MongoClients.create(PROPERTIES_MANAGER.getProperty("database.host"));
+        this.mongoDatabase = mongoClient.getDatabase(PROPERTIES_MANAGER.getProperty("database.datasource"));
+        this.mongoCollection = mongoDatabase.getCollection(PROPERTIES_MANAGER.getProperty("database.collection"));
         LOGGER.info("DatabaseWriter has been instantiate");
+    }
+
+    /**
+     * Check configuration of Database
+     * @throws IllegalStateException if database configuration is not set
+     */
+    private static void checkConfiguration() {
+        if (PROPERTIES_MANAGER.getProperty("database.host") == null) {
+            LOGGER.error("DatabaseReader error cannot get database.host information");
+            throw new IllegalStateException("Configuration file doesn't have database.host information");
+        }
+        if (PROPERTIES_MANAGER.getProperty("database.datasource") == null) {
+            LOGGER.error("DatabaseReader error cannot get database.datasource information");
+            throw new IllegalStateException("Configuration file doesn't have database.datasource information");
+        }
+        if (PROPERTIES_MANAGER.getProperty("database.collection") == null) {
+            LOGGER.error("DatabaseReader error cannot get database.collection information");
+            throw new IllegalStateException("Configuration file doesn't have database.collection information");
+        }
     }
 
     /**
@@ -54,7 +64,7 @@ public class DatabaseWriter {
      * @return DatabaseWriter
      */
     public static DatabaseWriter getInstance() {
-        return ourInsance;
+        return DATABASE_WRITER;
     }
 
     /**
@@ -62,17 +72,23 @@ public class DatabaseWriter {
      * @param event an event
      * @param callback a functional interface
      * @throws JsonProcessingException in case of problem during inserting
+     * @throws NullPointerException if {@param event} or {@param callback} is null
      */
-    public void insertEvent(Event event, DatabaseWriterCallback callback) throws JsonProcessingException {
-        Document document = Document.parse(mapper.writeValueAsString(event));
-
+    public void insertEvent(Event event, DatabaseWriterCallback callback) {
+        Objects.requireNonNull(event);
+        Objects.requireNonNull(callback);
+        Document document = null;
+        try {
+            document = Document.parse(mapper.writeValueAsString(event));
+        } catch (JsonProcessingException e) {
+            LOGGER.error("Invalid format of event not inserted");
+        }
         document.remove("start");
         document.remove("end");
         document.remove("location");
         document.append("start", event.getStart().getTime());
         document.append("end", event.getEnd().getTime());
         document.append("location", new Point(new Position(event.getLocation().getLatitude(), event.getLocation().getLongitude())));
-
         this.mongoCollection.insertOne(document, (result, t) -> callback.onResult(t));
     }
 }

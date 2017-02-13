@@ -4,11 +4,9 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * Created by ikb4stream on 07/02/17.
  * Represents an anomaly request received from Kafka. An anomaly request is represented by values like date, latitude (max and min) and longitude (max and min)
  */
 public class AnomalyRequest {
-
     private final Date start;
     private final Date end;
     private final double minLatitude;
@@ -23,6 +21,8 @@ public class AnomalyRequest {
      * @param maxLatitude the maximum latitude
      * @param minLongitude the minimum longitude
      * @param maxLongitude the maximum longitude
+     * @throws NullPointerException If {@param start} or {@param end} is null
+     * @throws IllegalArgumentException If {@param minLatitude} is greater than {@param maxLatitude} or {@param minLongitude} is greater than {@param maxLongitude}
      */
     public AnomalyRequest(Date start, Date end, double minLatitude, double maxLatitude, double minLongitude, double maxLongitude) {
         Objects.requireNonNull(start);
@@ -88,8 +88,7 @@ public class AnomalyRequest {
      * @return a String containing anomaly information
      */
     @Override
-    public String
-    toString() {
+    public String toString() {
         return "AnomalyRequest{" +
                 "start=" + start +
                 ", end=" + end +

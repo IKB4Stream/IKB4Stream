@@ -37,6 +37,8 @@ public class DataConsumer {
         int targetScore = 25;
         try {
             targetScore = Integer.parseInt(PropertiesManager.getInstance(DataConsumer.class, "resources/config.properties").getProperty("score.target"));
+        } catch (NumberFormatException e) {
+            LOGGER.warn("score.target is not a number, use default value");
         } catch (IllegalArgumentException e) {
             LOGGER.warn("Use default value for score.target");
         }
@@ -62,16 +64,15 @@ public class DataConsumer {
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 Event event = dataQueue.pop();
-                Event eventClone = scoreProcessorManager.processScore(event);
-                if (filter(eventClone, targetScore)) {
-                    databaseWriter.insertEvent(eventClone, t -> LOGGER.error(t.getMessage()));
+                if (event != null) {
+                    Event eventClone = scoreProcessorManager.processScore(event);
+                    if (filter(eventClone, targetScore)) {
+                        databaseWriter.insertEvent(eventClone, t -> LOGGER.error(t.getMessage()));
+                    }
                 }
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-            } catch (JsonProcessingException e) {
-                LOGGER.error(e.getMessage());
             }
         }
-
     }
 }

@@ -25,8 +25,9 @@ import static com.mongodb.client.model.Filters.*;
  * DatabaseReader class reads data (Events) from mongodb database
  */
 public class DatabaseReader implements IDatabaseReader {
+    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(DatabaseReader.class, "resources/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseReader.class);
-    private static final DatabaseReader ourInstance = new DatabaseReader();
+    private static final DatabaseReader DATABASE_READER = new DatabaseReader();
     private final MongoClient mongoClient;
     private final MongoDatabase mongoDatabase;
     private final MongoCollection<Document> mongoCollection;
@@ -36,31 +37,38 @@ public class DatabaseReader implements IDatabaseReader {
      * This class is a singleton
      */
     private DatabaseReader() {
-        PropertiesManager propertiesManager = PropertiesManager.getInstance(DatabaseReader.class, "resources/config.properties");
-
-        /* Get information about Database */
-        String host = propertiesManager.getProperty("database.host");
-        String datasource = propertiesManager.getProperty("database.datasource");
-        String collection = propertiesManager.getProperty("database.collection");
-
-        if (host == null || datasource == null || collection == null) {
-            LOGGER.error("DatabaseReader error cannot get database information");
-            throw new IllegalStateException("Configuration file doesn't have any information about database");
-        }
-
-        this.mongoClient = MongoClients.create(host);
-        this.mongoDatabase = mongoClient.getDatabase(datasource);
-        this.mongoCollection = mongoDatabase.getCollection(collection);
-
+        checkConfiguration();
+        this.mongoClient = MongoClients.create(PROPERTIES_MANAGER.getProperty("database.host"));
+        this.mongoDatabase = mongoClient.getDatabase(PROPERTIES_MANAGER.getProperty("database.datasource"));
+        this.mongoCollection = mongoDatabase.getCollection(PROPERTIES_MANAGER.getProperty("database.collection"));
         LOGGER.info("DatabaseReader has been instantiate");
     }
 
     /**
-     *
+     * Check configuration of Database
+     * @throws IllegalStateException if database configuration is not set
+     */
+    private static void checkConfiguration() {
+        if (PROPERTIES_MANAGER.getProperty("database.host") == null) {
+            LOGGER.error("DatabaseReader error cannot get database.host information");
+            throw new IllegalStateException("Configuration file doesn't have database.host information");
+        }
+        if (PROPERTIES_MANAGER.getProperty("database.datasource") == null) {
+            LOGGER.error("DatabaseReader error cannot get database.datasource information");
+            throw new IllegalStateException("Configuration file doesn't have database.datasource information");
+        }
+        if (PROPERTIES_MANAGER.getProperty("database.collection") == null) {
+            LOGGER.error("DatabaseReader error cannot get database.collection information");
+            throw new IllegalStateException("Configuration file doesn't have database.collection information");
+        }
+    }
+
+    /**
+     * Get instance of Singleton DatabaseReader
      * @return an instance of DatabaseReader
      */
     public static DatabaseReader getInstance() {
-        return ourInstance;
+        return DATABASE_READER;
     }
 
     /**

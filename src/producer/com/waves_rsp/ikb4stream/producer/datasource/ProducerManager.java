@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class ProducerManager {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ProducerManager.class);
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(ProducerManager.class, "resources/config.properties");
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProducerManager.class);
     private static ProducerManager ourInstance = new ProducerManager();
     private final List<Thread> producerConnectors = new ArrayList<>();
     private final List<Thread> dataConsumers = new ArrayList<>();
@@ -51,6 +51,8 @@ public class ProducerManager {
         int nbThreadConsumer = 10;
         try {
             nbThreadConsumer = Integer.parseInt(PROPERTIES_MANAGER.getProperty("producer.thread"));
+        } catch (NumberFormatException e) {
+            LOGGER.warn("producer.thread is not a number, use default value");
         } catch (IllegalArgumentException e) {
             LOGGER.warn("Use default value for producer.thread");
         }

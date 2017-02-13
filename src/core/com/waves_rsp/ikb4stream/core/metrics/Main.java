@@ -36,6 +36,10 @@ public class Main {
         }
     }
 
+    /**
+     * Process command to Main Metrics
+     * @param command Command to process
+     */
     private static void process(String command) {
         String[] tokens = command.split(" ");
         switch (tokens[0]) {

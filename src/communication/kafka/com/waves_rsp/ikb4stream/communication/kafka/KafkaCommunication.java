@@ -31,10 +31,22 @@ public class KafkaCommunication implements ICommunication {
         this.kafkaTopic = PROPERTIES_MANAGER.getProperty("communications.kafka.topic");
     }
 
+    /**
+     * Get requests from Kafka
+     * @param callback Method to call after getting request
+     * @throws IllegalStateException if there is an invalid configuration of Kafka
+     */
     private void getRequests(IPollCallback callback) {
         Map<String, CharSequence> props = new HashMap<>();
-        props.put(StreamsConfig.APPLICATION_ID_CONFIG, PROPERTIES_MANAGER.getProperty("communications.kafka.application_id"));
-        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, PROPERTIES_MANAGER.getProperty("communications.kafka.server"));
+        try {
+            props.put(StreamsConfig.APPLICATION_ID_CONFIG, PROPERTIES_MANAGER.getProperty("communications.kafka.application_id"));
+            props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, PROPERTIES_MANAGER.getProperty("communications.kafka.server"));
+        } catch (IllegalArgumentException e) {
+            LOGGER.error("Error values in properties file not found:\n" +
+                    "\t- communications.kafka.application_id\n" +
+                    "\t- communications.kafka.serve\n");
+            throw new IllegalStateException(e.getMessage());
+        }
         StreamsConfig config = new StreamsConfig(props);
 
         KStreamBuilder builder = new KStreamBuilder();
@@ -44,25 +56,33 @@ public class KafkaCommunication implements ICommunication {
                     LOGGER.trace("Request received");
                     AnomalyRequest anomalyRequest = RDFParser.parse(val);
                     return new KeyValue<>(key, new Request(
-                        anomalyRequest.getStart(),
-                        anomalyRequest.getEnd(),
-                        new BoundingBox(new LatLong[]{
-                            new LatLong(anomalyRequest.getMinLatitude(), anomalyRequest.getMinLongitude()),
-                            new LatLong(anomalyRequest.getMaxLatitude(), anomalyRequest.getMinLongitude()),
-                            new LatLong(anomalyRequest.getMaxLatitude(), anomalyRequest.getMaxLongitude()),
-                            new LatLong(anomalyRequest.getMinLatitude(), anomalyRequest.getMaxLongitude()),
-                            new LatLong(anomalyRequest.getMinLatitude(), anomalyRequest.getMinLongitude()),
-                        }),
-                        Date.from(Instant.now()))
+                            anomalyRequest.getStart(),
+                            anomalyRequest.getEnd(),
+                            new BoundingBox(new LatLong[]{
+                                    new LatLong(anomalyRequest.getMinLatitude(), anomalyRequest.getMinLongitude()),
+                                    new LatLong(anomalyRequest.getMaxLatitude(), anomalyRequest.getMinLongitude()),
+                                    new LatLong(anomalyRequest.getMaxLatitude(), anomalyRequest.getMaxLongitude()),
+                                    new LatLong(anomalyRequest.getMinLatitude(), anomalyRequest.getMaxLongitude()),
+                                    new LatLong(anomalyRequest.getMinLatitude(), anomalyRequest.getMinLongitude()),
+                            }),
+                            Date.from(Instant.now()))
                     );
                 })
                 .filter((key, value) -> value != null) // Filter all non valid RDF.
                 .map((key, value) -> new KeyValue<>(key, callback.onNewRequest(value)));
 
         this.streams = new KafkaStreams(builder, config);
-        this.streams.start();
+        try {
+            this.streams.start();
+        } catch (IllegalStateException e) {
+            LOGGER.warn("Kafka stream process was already started");
+        }
     }
 
+    /**
+     * Start kafka communication
+     * @param databaseReader Connection to database to get Event
+     */
     @Override
     public void start(IDatabaseReader databaseReader) {
         this.getRequests(request -> {
@@ -77,8 +97,15 @@ public class KafkaCommunication implements ICommunication {
         });
     }
 
+    /**
+     * Close Kafka connection
+     */
     @Override
     public void close() {
-        this.streams.close();
+        try {
+            this.streams.close();
+        } catch (IllegalStateException e) {
+            LOGGER.warn("Kafka stream process has not started yet");
+        }
     }
 }

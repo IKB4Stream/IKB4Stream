@@ -16,6 +16,7 @@ public class DataQueue {
     /**
      * Push a new event
      * @param event you want to add
+     * @throws NullPointerException if {@param event} is null
      */
     public void push(Event event) {
         Objects.requireNonNull(event);

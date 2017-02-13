@@ -40,8 +40,9 @@ public class CommunicationManager {
 
     /**
      * This method launches the CommunicationManager
+     * @throws IllegalArgumentException if communication.path is not set
      */
-    public void start()  {
+    public void start() {
         String stringPath = PROPERTIES_MANAGER.getProperty("communication.path");
         try (Stream<Path> paths = Files.walk(Paths.get(stringPath))) {
             paths.forEach((Path filePath) -> {

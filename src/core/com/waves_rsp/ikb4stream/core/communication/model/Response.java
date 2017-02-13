@@ -18,6 +18,7 @@ public class Response {
      * The response constructor
      * @param events list of events
      * @param request an anomaly
+     * @throws NullPointerException if {@param events} or {@param request} is null
      */
     public Response(List<Event> events, Request request) {
         Objects.requireNonNull(events);

@@ -6,10 +6,7 @@ import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 import static com.hp.hpl.jena.vocabulary.OWL2.Annotation;
 
@@ -35,8 +32,10 @@ public class NLP {
      * Uses specified properties to get sentences
      * @param tweetPost
      * @return List<CoreMap>
+     * @throws NullPointerException if {@param tweetPost} is null
      */
     private static List<CoreMap> getSentences(String tweetPost) {
+        Objects.requireNonNull(tweetPost);
         // creates a StanfordCoreNLP object, with POS tagging, parsing, and coreference resolution
         StanfordCoreNLP pipeline = new StanfordCoreNLP(setProperties());
         // create an empty Annotation just with the given text
@@ -50,8 +49,10 @@ public class NLP {
      * Tokenize (NLP) the tweet and keep only noun and verbs in the Map
      * @param sentences
      * @return Map<String, String> contains nouns and verbs from the tweet
+     * @throws NullPointerException if {@param sentences} is null
      */
     private static Map<String, String> sentencesToPOSMap(List<CoreMap> sentences) {
+        Objects.requireNonNull(sentences);
         Map<String, String> posMap = new HashMap<>();
         for (CoreMap sentence : sentences) {
             // traversing the words in the current sentence
@@ -73,8 +74,10 @@ public class NLP {
      * Apply the NLP algorithm on a tweet. Keep only distinct words from the tweet.
      * @param tweetPost
      * @return Map<String, String> contains nouns and verbs from the tweet
+     * @throws NullPointerException if {@param tweetPost} is null
      */
     public static Map<String, String> applyNLPtoTweet(String tweetPost) {
+        Objects.requireNonNull(tweetPost);
         // these are all the sentences in this document
         // a CoreMap is essentially a Map that uses class objects as keys and has values with custom types
         List<CoreMap> sentences = getSentences(tweetPost);

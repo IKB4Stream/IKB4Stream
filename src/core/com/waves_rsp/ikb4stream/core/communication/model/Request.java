@@ -18,6 +18,7 @@ public class Request {
      * @param end is the end date of an anomaly
      * @param boundingBox coordinates
      * @param requestReception is the reception date of the request
+     * @throws NullPointerException If one of params is null
      */
     public Request(Date start, Date end, BoundingBox boundingBox, Date requestReception) {
         Objects.requireNonNull(start);
