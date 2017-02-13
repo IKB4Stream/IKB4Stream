@@ -176,6 +176,7 @@ dependencies {
     // communicationWeb
     communicationWebCompile 'io.vertx:vertx-web:3.0.0'
 
+    compile group: 'com.restfb', name: 'restfb', version: '1.34.1'
 
     // scoreprocessor_nlp
 
