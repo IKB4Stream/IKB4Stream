@@ -10,14 +10,32 @@ import io.vertx.core.json.JsonObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Objects;
+
+/**
+ * Web communication connector that handles REST requests
+ */
 public class WebCommunication implements ICommunication {
     private final PropertiesManager propertiesManager = PropertiesManager.getInstance(WebCommunication.class, "resources/config.properties");
-    private final Logger LOGGER = LoggerFactory.getLogger(WebCommunication.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(WebCommunication.class);
     static IDatabaseReader databaseReader;
     private Vertx server;
 
+    /**
+     * Overrides default constructor
+     */
+    public WebCommunication() {
+        // Do nothing
+    }
+
+    /**
+     * Starts the server, implemented by vertx.
+     * @param databaseReader
+     * @throws NullPointerException if {@param databaseReader} is null
+     */
     @Override
     public void start(IDatabaseReader databaseReader) {
+        Objects.requireNonNull(databaseReader);
         WebCommunication.databaseReader = databaseReader;
         server = Vertx.vertx();
         DeploymentOptions deploymentOptions = new DeploymentOptions();
@@ -25,7 +43,7 @@ public class WebCommunication implements ICommunication {
         try {
             propertiesManager.getProperty("communications.web.port");
             port = Integer.parseInt(propertiesManager.getProperty("communications.web.port"));
-        } catch (java.lang.NumberFormatException e) {
+        } catch (NumberFormatException e) {
             LOGGER.error("Invalid 'communications.web.port' value");
             return;
         } catch (IllegalArgumentException e) {
@@ -41,15 +59,14 @@ public class WebCommunication implements ICommunication {
         LOGGER.info("WebCommunication module started");
     }
 
+    /**
+     * Closes the server if it is started.
+     */
     @Override
     public void close() {
-        server.close();
-    }
-
-    public static void main(String[] args) {
-        WebCommunication webCommunication = new WebCommunication();
-        webCommunication.start((request, callback) -> {
-            System.out.println(request);
-        });
+        if (server != null) {
+            server.close();
+        }
+        LOGGER.info("WebCommunication module stopped");
     }
 }

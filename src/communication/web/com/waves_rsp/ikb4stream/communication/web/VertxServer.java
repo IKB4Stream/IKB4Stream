@@ -20,7 +20,7 @@ import java.util.Date;
  * This server relies on Vertx, to handle the REST requests. It is instanciated by the web communication connector.
  */
 public class VertxServer extends AbstractVerticle {
-    private final Logger LOGGER = LoggerFactory.getLogger(VertxServer.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(VertxServer.class);
     private IDatabaseReader databaseReader = WebCommunication.databaseReader;
 
     /**
