@@ -44,12 +44,7 @@ public class Main {
         String[] tokens = command.split(" ");
         switch (tokens[0]) {
             case "PUSH":
-                if (tokens.length >= 3) {
-                    LOGGER.info("PUSH metrics into influx database.");
-                    METRICS_LOGGER.log(tokens[1], tokens[2]);
-                }else {
-                    LOGGER.warn("wrong arguments for command PUSH : PUSH <arg1> <arg2>");
-                }
+                processPush(tokens);
                 break;
             case "STOP":
                 LOGGER.info("influx db connexion has been stopped");
@@ -59,6 +54,15 @@ public class Main {
             default:
                 //Do nothing
                 break;
+        }
+    }
+
+    private static void processPush(String[] tokens) {
+        if (tokens.length >= 3) {
+            LOGGER.info("PUSH metrics into influx database.");
+            METRICS_LOGGER.log(tokens[1], tokens[2]);
+        }else {
+            LOGGER.warn("wrong arguments for command PUSH : PUSH <arg1> <arg2>");
         }
     }
 }

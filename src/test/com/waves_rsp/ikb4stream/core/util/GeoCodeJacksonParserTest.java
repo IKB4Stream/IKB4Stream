@@ -4,18 +4,21 @@ import com.waves_rsp.ikb4stream.core.model.LatLong;
 import org.junit.Assert;
 import org.junit.Test;
 
-/**
- * Created by ikb4stream on 13/02/17.
- */
 public class GeoCodeJacksonParserTest {
+    @Test
+    public void testCreate() {
+        new GeoCoderJacksonParser();
+    }
+
+
     @Test(expected = NullPointerException.class)
-    public void nullAddress() {
+    public void testNullAddress() {
         new GeoCoderJacksonParser().parse(null);
     }
 
 
     @Test
-    public void checkResultFromFullName(){
+    public void testResultFromFullName(){
         GeoCoderJacksonParser gc = new GeoCoderJacksonParser();
         LatLong ll = gc.parse("noisy le grand");
         Assert.assertTrue(ll.getLatitude() >=48 && ll.getLatitude() <=49);

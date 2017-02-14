@@ -1,6 +1,5 @@
 package com.waves_rsp.ikb4stream.producer.datasource;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
 import com.waves_rsp.ikb4stream.producer.DatabaseWriter;
@@ -64,11 +63,9 @@ public class DataConsumer {
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 Event event = dataQueue.pop();
-                if (event != null) {
-                    Event eventClone = scoreProcessorManager.processScore(event);
-                    if (filter(eventClone, targetScore)) {
-                        databaseWriter.insertEvent(eventClone, t -> LOGGER.error(t.getMessage()));
-                    }
+                Event eventClone = scoreProcessorManager.processScore(event);
+                if (filter(eventClone, targetScore)) {
+                    databaseWriter.insertEvent(eventClone, t -> LOGGER.error(t.getMessage()));
                 }
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();

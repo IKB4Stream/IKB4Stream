@@ -4,47 +4,26 @@ import com.hp.hpl.jena.datatypes.xsd.XSDDateTime;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.RDFNode;
-import com.hp.hpl.jena.util.FileManager;
+import java.io.ByteArrayInputStream;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.ByteArrayInputStream;
-import java.util.*;
 
 /**
- * Parser class to parseFile RDF file
+ * Parser class to parse stream RDF
  */
 public class RDFParser {
     private static final Logger LOGGER = LoggerFactory.getLogger(RDFParser.class);
 
+    /**
+     * Private constructor, this class provides only static method
+     */
     private RDFParser() {
 
-    }
-
-    /**
-     * @param anomalyFileName the rdf anomaly file's name
-     * @return an {@link AnomalyRequest} object which contains information about latitude, longitude and date
-     * @throws IllegalStateException If RDF is not literal
-     */
-    public static AnomalyRequest parseFile(String anomalyFileName) {
-        Objects.requireNonNull(anomalyFileName);
-        Model model = FileManager.get().loadModel(anomalyFileName);
-
-        Map<String, Object> map = new HashMap<>();
-        model.listStatements().forEachRemaining(statement -> {
-            RDFNode rdfNode = statement.getObject();
-            if(rdfNode.isLiteral()) {
-                try {
-                    map.put(statement.getPredicate().getLocalName(), statement.getObject().asLiteral().getValue());
-                } catch (Exception e) {
-                    LOGGER.error("RDF statement is not literal");
-                    throw new IllegalStateException(e.getMessage());
-                }
-            }
-        });
-
-        model.close();
-        return getDataFromMap(map);
     }
 
     /**
@@ -112,24 +91,30 @@ public class RDFParser {
         if (map.get("start") == null) {
             LOGGER.warn("start is null");
             throw new IllegalArgumentException("start is null");
-        }
-        if (map.get("end") == null) {
+        } else if (map.get("end") == null) {
             LOGGER.warn("end is null");
             throw new IllegalArgumentException("end is null");
+        } else {
+            checkPositionValid(map);
         }
+    }
+
+    /**
+     * Check position valid
+     * @param map Map to check
+     * @throws IllegalArgumentException if {@param map} is invalid
+     */
+    private static void checkPositionValid(Map<String, Object> map) {
         if (map.get("hasMinLatitude") == null) {
             LOGGER.warn("hasMinLatitude is null");
             throw new IllegalArgumentException("hasMinLatitude is null");
-        }
-        if (map.get("hasMaxLatitude") == null) {
+        } else if (map.get("hasMaxLatitude") == null) {
             LOGGER.warn("hasMaxLatitude is null");
             throw new IllegalArgumentException("hasMaxLatitude is null");
-        }
-        if (map.get("hasMinLongitude") == null) {
+        } else if (map.get("hasMinLongitude") == null) {
             LOGGER.warn("hasMinLongitude is null");
             throw new IllegalArgumentException("hasMinLongitude is null");
-        }
-        if (map.get("hasMaxLongitude") == null) {
+        } else if (map.get("hasMaxLongitude") == null) {
             LOGGER.warn("hasMaxLongitude is null");
             throw new IllegalArgumentException("hasMaxLongitude is null");
         }

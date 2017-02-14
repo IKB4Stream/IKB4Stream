@@ -77,18 +77,17 @@ public class DatabaseWriter {
     public void insertEvent(Event event, DatabaseWriterCallback callback) {
         Objects.requireNonNull(event);
         Objects.requireNonNull(callback);
-        Document document = null;
         try {
-            document = Document.parse(mapper.writeValueAsString(event));
+            Document document = Document.parse(mapper.writeValueAsString(event));
+            document.remove("start");
+            document.remove("end");
+            document.remove("location");
+            document.append("start", event.getStart().getTime());
+            document.append("end", event.getEnd().getTime());
+            document.append("location", new Point(new Position(event.getLocation().getLatitude(), event.getLocation().getLongitude())));
+            this.mongoCollection.insertOne(document, (result, t) -> callback.onResult(t));
         } catch (JsonProcessingException e) {
             LOGGER.error("Invalid format of event not inserted");
         }
-        document.remove("start");
-        document.remove("end");
-        document.remove("location");
-        document.append("start", event.getStart().getTime());
-        document.append("end", event.getEnd().getTime());
-        document.append("location", new Point(new Position(event.getLocation().getLatitude(), event.getLocation().getLongitude())));
-        this.mongoCollection.insertOne(document, (result, t) -> callback.onResult(t));
     }
 }

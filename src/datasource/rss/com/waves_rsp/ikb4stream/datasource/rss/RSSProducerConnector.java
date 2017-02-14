@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.Objects;
 
 public class RSSProducerConnector implements IProducerConnector {
-    private final Logger LOGGER = LoggerFactory.getLogger(RSSProducerConnector.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RSSProducerConnector.class);
     private final String source;
     private final URL url;
 
@@ -47,18 +47,18 @@ public class RSSProducerConnector implements IProducerConnector {
                 SyndFeed feed = input.build(new XmlReader(this.url));
 
                 feed.getEntries().forEach(entry -> {
-                    String source = this.source;
                     Date startDate = entry.getPublishedDate();
                     String description = entry.getDescription().getValue();
+                    if (description == null)
+                        description = "";
+
+                    Date endDate = Date.from(Instant.now());
+                    if (startDate == null)
+                        startDate = endDate;
 
                     GeoRSSModule module = GeoRSSUtils.getGeoRSS(entry);
                     if (module != null && module.getPosition() != null) {
                         LatLong latLong = new LatLong(module.getPosition().getLatitude(), module.getPosition().getLongitude());
-                        Date endDate = Date.from(Instant.now());
-                        if (startDate == null)
-                            startDate = endDate;
-                        if (description == null)
-                            description = "";
                         Event event = new Event(latLong, startDate, endDate, description, source);
                         dataProducer.push(event);
                     }

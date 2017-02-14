@@ -23,7 +23,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 public class WeatherProducerConnector implements IProducerConnector {
-    private final Logger LOGGER = LoggerFactory.getLogger(WeatherProducerConnector.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(WeatherProducerConnector.class);
     private final String source;
     private final URL url;
 
@@ -31,8 +31,7 @@ public class WeatherProducerConnector implements IProducerConnector {
         try {
             PropertiesManager propertiesManager = PropertiesManager.getInstance(WeatherProducerConnector.class, "resources/config.properties");
             this.source = propertiesManager.getProperty("WeatherProducerConnector.source");
-            String urlString = propertiesManager.getProperty("WeatherProducerConnector.url");
-            this.url = new URL(urlString);
+            this.url = new URL(propertiesManager.getProperty("WeatherProducerConnector.url"));
         } catch (IllegalArgumentException | MalformedURLException e) {
             LOGGER.error(e.getMessage());
             throw new IllegalArgumentException("Invalid configuration");
@@ -48,7 +47,6 @@ public class WeatherProducerConnector implements IProducerConnector {
                 XmlReader reader = new XmlReader(url);
                 SyndFeed feed = input.build(reader);
                 feed.getEntries().forEach(entry -> {
-                    String source = this.source;
                     Date date = entry.getPublishedDate();
                     String description = entry.getDescription().getValue();
                     GeoRSSModule module = GeoRSSUtils.getGeoRSS(entry);

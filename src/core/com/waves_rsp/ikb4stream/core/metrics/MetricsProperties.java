@@ -87,33 +87,13 @@ public class MetricsProperties {
     private static void checkValid() {
         try {
             PROPERTIES_MANAGER.getProperty("database.metrics.host");
-        } catch (IllegalArgumentException e) {
-            LOGGER.error("database.metrics.host is not set");
-            throw new IllegalStateException("Invalid configuration: database.metrics.host");
-        }
-        try {
             PROPERTIES_MANAGER.getProperty("database.metrics.user");
-        } catch (IllegalArgumentException e) {
-            LOGGER.error("database.metrics.user is not set");
-            throw new IllegalStateException("Invalid configuration: database.metrics.user");
-        }
-        try {
             PROPERTIES_MANAGER.getProperty("database.metrics.password");
-        } catch (IllegalArgumentException e) {
-            LOGGER.error("database.metrics.password is not set");
-            throw new IllegalStateException("Invalid configuration: database.metrics.password");
-        }
-        try {
             PROPERTIES_MANAGER.getProperty("database.metrics.datasource");
-        } catch (IllegalArgumentException e) {
-            LOGGER.error("database.metrics.datasource is not set");
-            throw new IllegalStateException("Invalid configuration: database.metrics.datasource");
-        }
-        try {
             PROPERTIES_MANAGER.getProperty("database.metrics.measurement");
         } catch (IllegalArgumentException e) {
-            LOGGER.error("database.metrics.measurement is not set");
-            throw new IllegalStateException("Invalid configuration: database.metrics.measurement");
+            LOGGER.error(e.getMessage());
+            throw new IllegalStateException(e.getMessage());
         }
     }
 }
