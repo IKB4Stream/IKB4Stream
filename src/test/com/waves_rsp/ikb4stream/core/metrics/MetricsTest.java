@@ -14,7 +14,7 @@ public class MetricsTest {
     @Test
     public void testPing() {
         MetricsConnector connector = MetricsConnector.getMetricsConnector();
-        System.out.println(connector.getInfluxDB().ping());
+        connector.getInfluxDB().ping();
     }
 
     @Ignore
