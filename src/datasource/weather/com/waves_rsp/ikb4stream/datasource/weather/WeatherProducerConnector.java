@@ -2,6 +2,7 @@ package com.waves_rsp.ikb4stream.datasource.weather;
 
 import com.rometools.modules.georss.GeoRSSModule;
 import com.rometools.modules.georss.GeoRSSUtils;
+import com.rometools.modules.yahooweather.YWeatherFeedModule;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
@@ -44,6 +45,7 @@ public class WeatherProducerConnector implements IProducerConnector {
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 SyndFeedInput input = new SyndFeedInput(false, Locale.FRANCE);
+                URL url = new URL(YWeatherFeedModule.URI);
                 XmlReader reader = new XmlReader(url);
                 SyndFeed feed = input.build(reader);
                 feed.getEntries().forEach(entry -> {

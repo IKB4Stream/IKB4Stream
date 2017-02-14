@@ -2,6 +2,9 @@ package com.waves_rsp.ikb4stream.datasource.dbpedia;
 
 import com.hp.hpl.jena.query.*;
 import com.hp.hpl.jena.rdf.model.*;
+import com.hp.hpl.jena.rdf.model.impl.PropertyImpl;
+import com.hp.hpl.jena.vocabulary.RDF;
+import com.sun.xml.internal.bind.v2.runtime.property.PropertyFactory;
 import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
 import com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector;
 import com.waves_rsp.ikb4stream.core.model.Event;
@@ -14,11 +17,17 @@ import java.time.Instant;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 
+/**
+ * Search rdf data from dbpedia service from a sparql query
+ */
 public class DBpediaProducerConnector implements IProducerConnector {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DBpediaProducerConnector.class);
     private final PropertiesManager propertiesManager = PropertiesManager.getInstance();
 
+    /**
+     * Instantiate from static method
+     */
     private DBpediaProducerConnector() {
 
     }
@@ -27,7 +36,11 @@ public class DBpediaProducerConnector implements IProducerConnector {
         return new DBpediaProducerConnector();
     }
 
-
+    /**
+     * Sent the sparql query to dbpedia service and load rdf data parsed into IDataProducer object
+     *
+     * @param dataProducer
+     */
     @Override
     public void load(IDataProducer dataProducer) {
         Objects.requireNonNull(dataProducer);
@@ -41,7 +54,7 @@ public class DBpediaProducerConnector implements IProducerConnector {
                 double longitudeMin = Double.valueOf(propertiesManager.getProperty("longitude.minimum"));
 
                 String resource = propertiesManager.getProperty("dbpedia.resource");
-                int limit = Integer.valueOf(propertiesManager.getProperty("dbpedia.limit"));
+                int limit = Integer.valueOf(propertiesManager.getProperty("dbpedia.result.limit"));
 
                 String query = "prefix db-owl: <http://dbpedia.org/ontology/>\n" +
                         "prefix url-resource: <http://fr.dbpedia.org/resource/>\n" +
@@ -52,8 +65,8 @@ public class DBpediaProducerConnector implements IProducerConnector {
                         "   ?evenements db-owl:wikiPageWikiLink url-resource:"+resource+" .\n" +
                         "   OPTIONAL {\n" +
                         "      ?evenements prop-fr:latitude ?latitude .\n" +
-                        "      ?evenements prop-fr:périodicité \"annuelle\"@fr.\n" +
                         "      ?evenements prop-fr:longitude ?longitude .\n" +
+                        "      ?evenements prop-fr:périodicité \"annuelle\"@fr .\n" +
                         "      ?evenements prop-fr:titre ?title .\n" +
                         "      ?evenements prop-fr:comments ?descritpion .\n" +
                         "      FILTER (\n" +
@@ -63,28 +76,21 @@ public class DBpediaProducerConnector implements IProducerConnector {
                         "         ?longitude < "+longitudeMax+"\n" +
                         "      )\n" +
                         "   }\n" +
-                        "} LIMIT "+limit+"";
+                        "} LIMIT "+limit;
 
                 Query request = QueryFactory.create(query);
                 qexec = QueryExecutionFactory.sparqlService(service, request);
                 ResultSet resultSet = qexec.execSelect();
 
-                while(resultSet.hasNext()) {
-                    QuerySolution solution = resultSet.nextSolution();
-                    Literal latitudeLiteral = solution.getLiteral("latitude");
-                    Literal longitudeLiteral = solution.getLiteral("longitude");
-                    Literal periodicite = solution.getLiteral("periodicite");
-                    Literal title = solution.getLiteral("title");
-                    Literal description = solution.getLiteral("description");
-
-                    if(isValidLiterals(latitudeLiteral, longitudeLiteral, periodicite, title, description)) {
-                        LOGGER.debug(latitudeLiteral.getValue().toString());
-                        LatLong latLong = new LatLong(latitudeLiteral.getDouble(), longitudeLiteral.getDouble());
-                        Date date = Date.from(Instant.parse(periodicite.getString()));
-                        Event event = new Event(latLong, date, date, description.getString(), title.getString());
-                        dataProducer.push(event);
+                Map<String, Object> map = new HashMap<>();
+                ResultSetFormatter.toModel(resultSet).listStatements().forEachRemaining(statement -> {
+                    RDFNode rdfNode = statement.getObject();
+                    if(rdfNode.isLiteral()) {
+                        map.put(statement.getObject().asLiteral().getString(), statement.getObject().toString());
                     }
-                }
+                });
+
+                map.values().forEach(value -> LOGGER.info(value.toString()));
 
             }catch (IllegalArgumentException err) {
                 LOGGER.error("bad properties loaded.");
@@ -103,7 +109,16 @@ public class DBpediaProducerConnector implements IProducerConnector {
         }
     }
 
-    private static boolean isValidLiterals(Literal... literals) {
-        return Arrays.stream(literals).anyMatch(Objects::nonNull);
+    private static LatLong getLatLongFromMap(Map<String, Object> map) {
+        double latitude = (double) map.get("latitude");
+        double longitude = (double) map.get("longitude");
+        return new LatLong(latitude, longitude);
+    }
+
+    private static Event getEventFromMap(LatLong latLong, Map<String, Object> map) {
+        String description = (String) map.get("description");
+        String source = (String) map.get("title");
+        Date date = Date.from(Instant.now());
+        return new Event(latLong, date, date, description, source);
     }
 }
