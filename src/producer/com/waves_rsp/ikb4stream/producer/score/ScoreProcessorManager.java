@@ -58,7 +58,7 @@ public class ScoreProcessorManager {
         String stringPath = PROPERTIES_MANAGER.getProperty("scoreprocessor.path");
         try (Stream<Path> paths = Files.walk(Paths.get(stringPath))) {
             paths.forEach((Path filePath) -> {
-                if (Files.isRegularFile(filePath)) {
+                if (Files.isRegularFile(filePath) && filePath.endsWith(".jar")) {
                     URLClassLoader cl = UtilManager.getURLClassLoader(this.getClass().getClassLoader(), filePath);
                     UtilManager.getEntries(filePath).filter(UtilManager::checkIsClassFile)
                             .map(UtilManager::getClassName)
