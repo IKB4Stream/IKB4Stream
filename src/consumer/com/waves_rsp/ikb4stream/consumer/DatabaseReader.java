@@ -28,9 +28,10 @@ public class DatabaseReader implements IDatabaseReader {
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(DatabaseReader.class, "resources/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseReader.class);
     private static final DatabaseReader DATABASE_READER = new DatabaseReader();
-    private final MongoClient mongoClient;
-    private final MongoDatabase mongoDatabase;
     private final MongoCollection<Document> mongoCollection;
+    private final MongoDatabase mongoDatabase;
+    private final MongoClient mongoClient;
+    private final int limit;
 
     /**
      * The constructor of DatabaseReader
@@ -41,6 +42,14 @@ public class DatabaseReader implements IDatabaseReader {
         this.mongoClient = MongoClients.create(PROPERTIES_MANAGER.getProperty("database.host"));
         this.mongoDatabase = mongoClient.getDatabase(PROPERTIES_MANAGER.getProperty("database.datasource"));
         this.mongoCollection = mongoDatabase.getCollection(PROPERTIES_MANAGER.getProperty("database.collection"));
+        int tmp = 50000;
+        try {
+            tmp = Integer.parseInt(PROPERTIES_MANAGER.getProperty("database.limit"));
+        } catch (IllegalArgumentException e) {
+            // NumberFormatException is a subclass of IllegalArgumentException
+            LOGGER.warn("Use default database.limit");
+        }
+        this.limit = tmp;
         LOGGER.info("DatabaseReader has been instantiate");
     }
 
@@ -49,17 +58,13 @@ public class DatabaseReader implements IDatabaseReader {
      * @throws IllegalStateException if database configuration is not set
      */
     private static void checkConfiguration() {
-        if (PROPERTIES_MANAGER.getProperty("database.host") == null) {
-            LOGGER.error("DatabaseReader error cannot get database.host information");
-            throw new IllegalStateException("Configuration file doesn't have database.host information");
-        }
-        if (PROPERTIES_MANAGER.getProperty("database.datasource") == null) {
-            LOGGER.error("DatabaseReader error cannot get database.datasource information");
-            throw new IllegalStateException("Configuration file doesn't have database.datasource information");
-        }
-        if (PROPERTIES_MANAGER.getProperty("database.collection") == null) {
-            LOGGER.error("DatabaseReader error cannot get database.collection information");
-            throw new IllegalStateException("Configuration file doesn't have database.collection information");
+        try {
+            PROPERTIES_MANAGER.getProperty("database.host");
+            PROPERTIES_MANAGER.getProperty("database.datasource");
+            PROPERTIES_MANAGER.getProperty("database.collection");
+        } catch (IllegalArgumentException e) {
+            LOGGER.error(e.getMessage());
+            throw new IllegalStateException(e.getMessage());
         }
     }
 
@@ -73,7 +78,8 @@ public class DatabaseReader implements IDatabaseReader {
 
     /**
      * This method requests events from mongodb database and filters from data coming to the request object in parameter
-     * @param callback
+     * @param request Request to apply to Mongo
+     * @param callback Callback method call after select operation
      * @return nothing but the result is store in a ArrayList
      */
     @Override
@@ -82,14 +88,17 @@ public class DatabaseReader implements IDatabaseReader {
                 .map(l -> new Position(l.getLatitude(), l.getLongitude()))
                 .collect(Collectors.toList());
 
-        this.mongoCollection.find(and(
-            geoIntersects("location", new Polygon(polygon)),
-            gte("start", request.getStart().getTime()),
-            lte("end", request.getEnd().getTime())
-        )).into(new ArrayList<Document>(),
-                (result, t) -> callback.onResult(
-                        t,
-                        "[" + result.stream().map(d -> d.toJson()).collect(Collectors.joining(", ")) + "]"
-                ));
+        this.mongoCollection
+                .find(and(
+                        geoIntersects("location", new Polygon(polygon)),
+                        gte("start", request.getStart().getTime()),
+                        lte("end", request.getEnd().getTime())
+                ))
+                .limit(limit)
+                .into(new ArrayList<Document>(),
+                        (result, t) -> callback.onResult(
+                                t,
+                                "[" + result.stream().map(d -> d.toJson()).collect(Collectors.joining(", ")) + "]"
+                        ));
     }
 }

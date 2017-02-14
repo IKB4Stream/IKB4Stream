@@ -45,17 +45,13 @@ public class DatabaseWriter {
      * @throws IllegalStateException if database configuration is not set
      */
     private static void checkConfiguration() {
-        if (PROPERTIES_MANAGER.getProperty("database.host") == null) {
-            LOGGER.error("DatabaseReader error cannot get database.host information");
-            throw new IllegalStateException("Configuration file doesn't have database.host information");
-        }
-        if (PROPERTIES_MANAGER.getProperty("database.datasource") == null) {
-            LOGGER.error("DatabaseReader error cannot get database.datasource information");
-            throw new IllegalStateException("Configuration file doesn't have database.datasource information");
-        }
-        if (PROPERTIES_MANAGER.getProperty("database.collection") == null) {
-            LOGGER.error("DatabaseReader error cannot get database.collection information");
-            throw new IllegalStateException("Configuration file doesn't have database.collection information");
+        try {
+            PROPERTIES_MANAGER.getProperty("database.host");
+            PROPERTIES_MANAGER.getProperty("database.datasource");
+            PROPERTIES_MANAGER.getProperty("database.collection");
+        } catch (IllegalArgumentException e) {
+            LOGGER.error(e.getMessage());
+            throw new IllegalStateException(e.getMessage());
         }
     }
 
