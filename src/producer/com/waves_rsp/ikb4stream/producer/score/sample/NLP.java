@@ -8,8 +8,6 @@ import edu.stanford.nlp.util.CoreMap;
 
 import java.util.*;
 
-import static com.hp.hpl.jena.vocabulary.OWL2.Annotation;
-
 
 public class NLP {
     private NLP() {
@@ -84,4 +82,17 @@ public class NLP {
         return sentencesToPOSMap(sentences);
     }
 
+    /**
+     * Apply the NLP algorithm on a facebook content.
+     * @param facebookPost
+     * @return Map<String, String> contains nouns and verbs from the tweet
+     * @throws NullPointerException if {@param facebookPost} is null
+     */
+    public static Map<String, String> applyNLPtoFacebook(String facebookPost) {
+        Objects.requireNonNull(facebookPost);
+        // these are all the sentences in this document
+        // a CoreMap is essentially a Map that uses class objects as keys and has values with custom types
+        List<CoreMap> sentences = getSentences(facebookPost);
+        return sentencesToPOSMap(sentences);
+    }
 }
