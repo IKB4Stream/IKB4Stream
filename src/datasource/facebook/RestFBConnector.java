@@ -15,7 +15,7 @@ import java.util.Objects;
  * RestFBConnector class provides events link to a word form coordinates
  */
 public class RestFBConnector {
-    private final Logger LOGGER = LoggerFactory.getLogger(RestFBConnector.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RestFBConnector.class);
     private final String source;
     private final String pageAccessToken;
 
@@ -24,8 +24,6 @@ public class RestFBConnector {
             PropertiesManager propertiesManager = PropertiesManager.getInstance(RestFBConnector.class, "resources/config.properties");
             this.source = propertiesManager.getProperty("FacebookProducerConnector.source");
             this.pageAccessToken = propertiesManager.getProperty("FacebookProducerConnector.token");
-            System.out.println(source);
-            System.out.println(pageAccessToken);
         } catch (IllegalArgumentException e) {
             LOGGER.error(e.getMessage());
             throw new IllegalArgumentException("Invalid configuration");
@@ -40,9 +38,8 @@ public class RestFBConnector {
      * @return a list of events form Facebook events and coodinates
      */
 
-    public List<com.waves_rsp.ikb4stream.core.model.Event> SearchWordFromGeolocation(String word, int limit, double latitude, double longitude) {
+    public List<com.waves_rsp.ikb4stream.core.model.Event> searchWordFromGeolocation(String word, int limit, double latitude, double longitude) {
         Objects.requireNonNull(word);
-        if (word != null) {
             List<com.waves_rsp.ikb4stream.core.model.Event> events = new ArrayList<>();
             FacebookClient facebookClient = new DefaultFacebookClient(this.pageAccessToken, Version.LATEST);
             Connection<Event> publicSearch = facebookClient.fetchConnection("search", Event.class,
@@ -60,8 +57,6 @@ public class RestFBConnector {
                 }
             }
             return events;
-        }
-        return null;
     }
 
     /**
