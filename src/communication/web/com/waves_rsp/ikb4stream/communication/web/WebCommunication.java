@@ -36,7 +36,7 @@ public class WebCommunication implements ICommunication {
     @Override
     public void start(IDatabaseReader databaseReader) {
         Objects.requireNonNull(databaseReader);
-        WebCommunication.databaseReader = databaseReader;
+        configureDatabaseReader(databaseReader);
         server = Vertx.vertx();
         DeploymentOptions deploymentOptions = new DeploymentOptions();
         int port = 8081;
@@ -57,6 +57,14 @@ public class WebCommunication implements ICommunication {
 
         server.deployVerticle(VertxServer.class.getName());
         LOGGER.info("WebCommunication module started");
+    }
+
+    /**
+     * Set the static databaseReader of WebCommunication
+     * @param dbReader IDatabaseReader to set in WebCommunication
+     */
+    private static void configureDatabaseReader(IDatabaseReader dbReader) {
+        databaseReader = dbReader;
     }
 
     /**

@@ -35,7 +35,7 @@ sourceSets {
 
     communicationWeb {
         java {
-            srcDirs = ['src/communication/web']
+            srcDirs = ['src/core', 'src/communication/web']
             compileClasspath += core.compileClasspath + core.output
         }
     }
