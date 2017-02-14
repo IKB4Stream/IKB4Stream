@@ -1,6 +1,6 @@
 package com.waves_rsp.ikb4stream.datasource.twitter;
 
-import com.waves_rsp.ikb4stream.core.communication.model.BoundingBox;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
 import com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector;
 import com.waves_rsp.ikb4stream.core.model.Event;
@@ -11,7 +11,9 @@ import org.slf4j.LoggerFactory;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.Objects;
 
 /**
  * Listen any events provided by the twitter api and load them into a IDataProducer object.
@@ -112,13 +114,24 @@ public class TwitterProducerConnector implements IProducerConnector {
             String description = status.getText();
             Date start = status.getCreatedAt();
             Date end = status.getCreatedAt();
-            LOGGER.info(status.getText());
+
+            LOGGER.info(source+""+status.getText());
+            User user = status.getUser();
+
             GeoLocation geoLocation = status.getGeoLocation();
-            if(geoLocation != null) {
-                LatLong latLong = new LatLong(geoLocation.getLatitude(), geoLocation.getLongitude());
-                Event event = new Event(latLong, start, end, description, source);
-                this.dataProducer.push(event);
-                LOGGER.info(event.toString());
+
+            if(geoLocation != null && user.isVerified()) {
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.append("description", description);
+                    jsonObject.append("user_certified", user.isVerified());
+                    LatLong latLong = new LatLong(geoLocation.getLatitude(), geoLocation.getLongitude());
+                    Event event = new Event(latLong, start, end, jsonObject.toString(), source);
+                    this.dataProducer.push(event);
+                    LOGGER.info(event.toString());
+                } catch (JSONException e) {
+                    LOGGER.error(e.getMessage());
+                }
             }
         }
 
