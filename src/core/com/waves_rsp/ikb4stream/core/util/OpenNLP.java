@@ -18,10 +18,7 @@ import org.slf4j.LoggerFactory;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class OpenNLP {
 
@@ -88,11 +85,11 @@ public class OpenNLP {
         return nameFinder.find(tokens);
     }
 
-    private static List<String> lemmatize(String text) throws IOException {
+    private static Map<String, String> lemmatize(String text) throws IOException {
         Objects.requireNonNull(text);
-        InputStream inputStream = new FileInputStream(PATH_DICTIONARIES + "ADJ.txt");
+        InputStream inputStream = new FileInputStream(PATH_DICTIONARIES + "lemma_dict.txt");
         DictionaryLemmatizer lemmatizer = new SimpleLemmatizer(inputStream);
-        List<String> lemmatizedTokens = new ArrayList<>();
+        Map<String, String> lemmatizedTokens = new HashMap<>();
         // Split tweet text content in sentences
         String[] sentences = detectSentences(text);
         // For each sentence, tokenize and tag before lemmatizing
@@ -104,13 +101,30 @@ public class OpenNLP {
             // Get lemmatize form of each token
             for (int i = 0; i < learnableTokens.length; i++) {
                 System.out.println("lemma : " + lemmatizer.lemmatize(learnableTokens[i], tags[i]) + " " + tags[i]);
-                lemmatizedTokens.add(lemmatizer.lemmatize(learnableTokens[i], tags[i]));
+                //lemmatizedTokens.add(lemmatizer.lemmatize(learnableTokens[i], tags[i]));
+                lemmatizedTokens.put(lemmatizer.lemmatize(learnableTokens[i], tags[i]), tags[i]);
             }
         }
         inputStream.close();
         return lemmatizedTokens;
     }
 
+    public static List<String> applyNLPlemma(String post){
+        Objects.requireNonNull(post);
+        Map<String, String> input = null;
+        List<String> output = new ArrayList<>();
+        try {
+            input = lemmatize(post);
+            input.forEach((w,pos)->{
+                if ((pos.contains("N") || pos.contains("V")) && !pos.equals("PONCT")){
+                    output.add(w);
+                }
+            });
+        } catch (IOException e) {
+            LOGGER.error(e.getMessage());
+        }
+        return output;
+    }
     /**
      * Apply the NLP ner (name entity recognizer) algorithm on a text. Keep only distinct words from the tweet.
      *
@@ -165,7 +179,7 @@ public class OpenNLP {
 
         String testLoc = "Nous étions présents à l'école tous les jours. Je m'était aperçu qu'il était absent.";
 
-        List<String> lemmatizedTokens = lemmatize(testLoc);
+        List<String> lemmatizedTokens = applyNLPlemma(testLoc);
         for (String s : lemmatizedTokens)
             System.out.println(s);
     }
