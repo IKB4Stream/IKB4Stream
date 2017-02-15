@@ -1,5 +1,6 @@
 package com.waves_rsp.ikb4stream.producer.datasource;
 
+import com.waves_rsp.ikb4stream.core.metrics.MetricsLogger;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
 import com.waves_rsp.ikb4stream.producer.DatabaseWriter;
@@ -13,7 +14,7 @@ public class DataConsumer {
     private final DatabaseWriter databaseWriter;
     private final DataQueue dataQueue;
     private final int targetScore;
-
+    private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
 
     private DataConsumer(ScoreProcessorManager scoreProcessorManager, DatabaseWriter databaseWriter, DataQueue dataQueue, int targetScore) {
         this.scoreProcessorManager = scoreProcessorManager;
@@ -65,7 +66,10 @@ public class DataConsumer {
                 Event event = dataQueue.pop();
                 Event eventClone = scoreProcessorManager.processScore(event);
                 if (filter(eventClone, targetScore)) {
-                    databaseWriter.insertEvent(eventClone, t -> LOGGER.error(t.getMessage()));
+                    databaseWriter.insertEvent(eventClone, t -> {
+                        METRICS_LOGGER.log("event_scored", ""+eventClone.getScore());
+                        LOGGER.error(t.getMessage());
+                    });
                 }
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();

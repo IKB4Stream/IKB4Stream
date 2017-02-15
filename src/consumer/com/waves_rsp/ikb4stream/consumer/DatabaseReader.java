@@ -9,6 +9,7 @@ import com.mongodb.client.model.geojson.Position;
 import com.waves_rsp.ikb4stream.core.communication.DatabaseReaderCallback;
 import com.waves_rsp.ikb4stream.core.communication.IDatabaseReader;
 import com.waves_rsp.ikb4stream.core.communication.model.Request;
+import com.waves_rsp.ikb4stream.core.metrics.MetricsLogger;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
 import org.bson.Document;
 import org.slf4j.Logger;
@@ -32,6 +33,7 @@ public class DatabaseReader implements IDatabaseReader {
     private final MongoDatabase mongoDatabase;
     private final MongoClient mongoClient;
     private final int limit;
+    private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
 
     /**
      * The constructor of DatabaseReader
@@ -88,6 +90,7 @@ public class DatabaseReader implements IDatabaseReader {
                 .map(l -> new Position(l.getLatitude(), l.getLongitude()))
                 .collect(Collectors.toList());
 
+        final long start = System.currentTimeMillis();
         this.mongoCollection
                 .find(and(
                         geoIntersects("location", new Polygon(polygon)),
@@ -96,9 +99,14 @@ public class DatabaseReader implements IDatabaseReader {
                 ))
                 .limit(limit)
                 .into(new ArrayList<Document>(),
-                        (result, t) -> callback.onResult(
-                                t,
-                                "[" + result.stream().map(d -> d.toJson()).collect(Collectors.joining(", ")) + "]"
-                        ));
+                        (result, t) -> {
+                            long end = System.currentTimeMillis();
+                            METRICS_LOGGER.log("result", ""+(end - start));
+                            LOGGER.info("get event request has been sent to mongo.");
+                            callback.onResult(
+                                    t,
+                                    "[" + result.stream().map(d -> d.toJson()).collect(Collectors.joining(", ")) + "]"
+                            );
+                });
     }
 }
