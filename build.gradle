@@ -281,9 +281,6 @@ dependencies {
     coreCompile 'com.fasterxml.jackson.core:jackson-databind:2.8.6'
     coreCompile 'org.mongodb:mongodb-driver-async:3.2.2'
     coreCompile  group: 'org.apache.opennlp', name: 'opennlp-tools', version: '1.6.0'
-    //TODO Suppresssion
-    coreCompile 'edu.stanford.nlp:stanford-corenlp:3.7.0'
-    coreCompile 'edu.stanford.nlp:stanford-corenlp:3.7.0:models-french'
 
     // producer
 
@@ -317,6 +314,7 @@ dependencies {
 
     //scoring
     scoringCompile 'org.twitter4j:twitter4j-stream:4.0.6'
+    scoringCompile group: 'com.restfb', name: 'restfb', version: '1.34.1'
 
     // tests
     testCompile 'junit:junit:4.11'
