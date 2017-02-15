@@ -133,7 +133,7 @@ public class OpenNLP {
     }
 
     /**
-     * Apply the NLP ner (name entity recognizer) algorithm on a text. Keep only distinct words from the tweet.
+     * Apply the eNLP ner (name entity recognizer) algorithm on a text. Keep only distinct words from the tweet.
      *
      * @param post to analyze
      * @param ner  ENUM : LOCATION, ORGANIZATION or PERSON : type of NER analyse
