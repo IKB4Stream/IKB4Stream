@@ -93,7 +93,8 @@ sourceSets {
         java {
             srcDirs = ['src/core', 'src/consumer', 'src/producer', 'src/test/', 'src/datasource',
                        'src/datasource/weather', 'src/datasource/rss', 'src/communication/kafka',
-                       'src/datasource/twitter', 'src/datasource/twittermock', 'src/datasource/dbpedia']
+                       'src/datasource/twitter', 'src/datasource/twittermock', 'src/datasource/dbpedia',
+                        'src/datasource/facebook', 'src/communication/web']
 
             compileClasspath += core.compileClasspath + core.output + consumer.compileClasspath + consumer.output +
                     producer.compileClasspath + producer.output + communicationKafka.compileClasspath +
@@ -101,7 +102,9 @@ sourceSets {
                     datasourceRSS.compileClasspath + datasourceRSS.output +
                     datasourceTwittermock.compileClasspath + datasourceTwittermock.output +
                     datasourceTwitter.compileClasspath + datasourceTwitter.output +
-                    datasourceDbpedia.output + datasourceDbpedia.compileClasspath
+                    datasourceDbpedia.output + datasourceDbpedia.compileClasspath +
+                    datasourceFacebook.output + datasourceFacebook.compileClasspath +
+                    communicationWeb.output + communicationWeb.compileClasspath
 
             runtimeClasspath = output + compileClasspath + runtimeClasspath
         }
@@ -221,7 +224,7 @@ task zipBuild(type: Zip) {
     from 'build/libs'
 }
 
-task packageAll(dependsOn: ['copyConfigProperties', 'packageConsumerJar', 'packageProducerJar', 'packageWeatherJar', 'packageRssJar', 'packageKafkaCommunicationJar', 'packageTwitterJar', 'packageTwitterMockJar', 'packageDbpediaJar']) {
+task packageAll(dependsOn: ['copyConfigProperties', 'packageConsumerJar', 'packageProducerJar', 'packageWeatherJar', 'packageRssJar', 'packageKafkaCommunicationJar', 'packageTwitterJar', 'packageTwitterMockJar', 'packageDbpediaJar', 'packageFacebookJar', 'packageCommunicationWebJar']) {
 
 }
 
@@ -279,8 +282,6 @@ dependencies {
 
     // communicationWeb
     communicationWebCompile 'io.vertx:vertx-web:3.0.0'
-
-
 
     // scoreprocessor_nlp
 

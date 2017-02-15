@@ -55,7 +55,6 @@ public class DBpediaProducerConnector implements IProducerConnector {
                 double longitudeMax = Double.valueOf(propertiesManager.getProperty("longitude.maximum"));
                 double longitudeMin = Double.valueOf(propertiesManager.getProperty("longitude.minimum"));
 
-                String language = propertiesManager.getProperty("dbpedia.language");
                 String resource = propertiesManager.getProperty("dbpedia.resource");
                 int limit = Integer.valueOf(propertiesManager.getProperty("dbpedia.limit"));
 
@@ -99,18 +98,18 @@ public class DBpediaProducerConnector implements IProducerConnector {
                     RDFNode labelNode = qs.get("label");
                     Event event = getEventFromRDFNodes(latitudeNode, longitudeNode, startDateNode, endDateNode, descriptionNode, labelNode);
 
-                    if(event != null) {
-                        dataProducer.push(event);
-                    }
+                    pushIfValidEvent(dataProducer, event);
                 }
             }catch (IllegalArgumentException err) {
                 LOGGER.error("bad properties loaded.");
-                return;
+                throw new IllegalStateException(err.getMessage());
             }catch (IllegalStateException err) {
                 LOGGER.error(err.getMessage());
+                Thread.currentThread().interrupt();
                 return;
             }catch (DateTimeParseException dtp) {
                 LOGGER.error("bad date format given.");
+                throw new IllegalStateException(dtp.getMessage());
             } finally{
                 Thread.currentThread().interrupt();
                 if(qexec != null) {
@@ -173,5 +172,11 @@ public class DBpediaProducerConnector implements IProducerConnector {
         }
 
         return null;
+    }
+
+    private void pushIfValidEvent(IDataProducer dataProducer, Event event) {
+        if(event != null) {
+            dataProducer.push(event);
+        }
     }
 }

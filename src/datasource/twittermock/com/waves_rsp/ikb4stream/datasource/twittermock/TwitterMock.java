@@ -42,8 +42,7 @@ public class TwitterMock implements IProducerConnector {
     public void load(IDataProducer dataProducer) {
         Objects.requireNonNull(dataProducer);
         ObjectMapper mapper = new ObjectMapper();
-        JsonParser parser = null;
-        JsonToken token = null;
+        JsonParser parser;
 
         try {
             parser = mapper.getFactory().createParser(this.inputStream);
@@ -54,15 +53,10 @@ public class TwitterMock implements IProducerConnector {
 
         while(!Thread.interrupted()) {
             try {
-                while((token = parser.nextToken()) == JsonToken.START_OBJECT) {
+                while(parser.nextToken() == JsonToken.START_OBJECT) {
                     ObjectNode objectNode = mapper.readTree(parser);
                     Event event = getEventFromJson(objectNode);
-                    if(event != null) {
-                        dataProducer.push(event);
-                        LOGGER.info("Event "+event.toString()+" was correctly pushed");
-                    }else {
-                        LOGGER.error("An event was discard (missing field)");
-                    }
+                    pushIfValidEvent(dataProducer, event);
                 }
             } catch (IOException e) {
                 LOGGER.error("something went wrong with the tweet reading");
@@ -87,7 +81,7 @@ public class TwitterMock implements IProducerConnector {
     private static Event getEventFromJson(ObjectNode objectNode) {
         Date startDate = Date.from(Instant.ofEpochMilli(objectNode.findValue("timestamp_ms").asLong()));
         Date endDate = Date.from(Instant.now());
-        String description = "No description found";
+        String description;
         String source = "Twitter";
         JsonNode jsonNode = objectNode.findValue("place");
         JsonNode jsonCoordinates = jsonNode.findValue("coordinates");
@@ -98,6 +92,21 @@ public class TwitterMock implements IProducerConnector {
         }catch (IllegalArgumentException | NullPointerException err) {
             LOGGER.error(err.getMessage());
             return null;
+        }
+    }
+
+    /**
+     * Push a valid event into the data producer object
+     *
+     * @param dataProducer
+     * @param event
+     */
+    private void pushIfValidEvent(IDataProducer dataProducer, Event event) {
+        if(event != null) {
+            dataProducer.push(event);
+            LOGGER.info("Event "+event.toString()+" was correctly pushed");
+        }else {
+            LOGGER.error("An event was discard (missing field)");
         }
     }
 

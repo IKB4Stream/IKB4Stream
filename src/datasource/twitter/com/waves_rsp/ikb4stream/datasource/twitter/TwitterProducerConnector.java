@@ -86,6 +86,7 @@ public class TwitterProducerConnector implements IProducerConnector {
             confBuilder.setJSONStoreEnabled(true);
         }catch (IllegalArgumentException err) {
             LOGGER.error(err.getMessage());
+            throw new IllegalArgumentException(err.getMessage());
         }
     }
 

@@ -49,7 +49,6 @@ public class FacebookProducerConnector implements IProducerConnector {
      * @param longitude a long
      * @return a list of events form Facebook events and coodinates
      */
-
     public List<com.waves_rsp.ikb4stream.core.model.Event> searchWordFromGeolocation(String word, int limit, double latitude, double longitude) {
         Objects.requireNonNull(word);
             List<com.waves_rsp.ikb4stream.core.model.Event> events = new ArrayList<>();

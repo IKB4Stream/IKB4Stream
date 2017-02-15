@@ -2,7 +2,6 @@ package com.waves_rsp.ikb4stream.datasource.weather;
 
 import com.rometools.modules.georss.GeoRSSModule;
 import com.rometools.modules.georss.GeoRSSUtils;
-import com.rometools.modules.yahooweather.YWeatherFeedModule;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
