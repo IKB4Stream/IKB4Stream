@@ -66,7 +66,7 @@ public class GeoCoderJacksonParser {
         }
         return coords;
     }
-
+    
     /**
      * Parse json stream to get a LatLong
      * @param jsonStream json stream data

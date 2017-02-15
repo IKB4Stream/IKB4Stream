@@ -33,6 +33,13 @@ sourceSets {
         }
     }
 
+    communicationWeb {
+        java {
+            srcDirs = ['src/core', 'src/communication/web']
+            compileClasspath += core.compileClasspath + core.output
+        }
+    }
+
     datasourceMeteo {
         java {
             srcDirs = ['src/core', 'src/datasource/weather']
@@ -43,6 +50,20 @@ sourceSets {
     datasourceRSS {
         java {
             srcDirs = ['src/core', 'src/datasource/rss']
+            compileClasspath += core.compileClasspath + core.output
+        }
+    }
+
+    datasourceOWM {
+        java {
+            srcDirs = ['src/core', 'src/datasource/owm']
+            compileClasspath += core.compileClasspath + core.output
+        }
+    }
+
+    datasourceFacebook {
+        java {
+            srcDirs = ['src/core', 'src/datasource/facebook']
             compileClasspath += core.compileClasspath + core.output
         }
     }
@@ -110,6 +131,9 @@ task packageProducerJar(type: Jar, description: 'Package the Producer Jar') {
 
 task packageWeatherJar(type: Jar, description: 'Package the Weather Jar') {
     archiveName = "resources/datasource/ikb4stream-$version-datasource-weather.jar"
+    manifest {
+        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.datasource.rss.WeatherProducerConnector'
+    }
     from sourceSets.datasourceMeteo.output
     from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
     from { configurations.datasourceMeteoCompile.collect { it.isDirectory() ? it : zipTree(it) } }
@@ -118,9 +142,28 @@ task packageWeatherJar(type: Jar, description: 'Package the Weather Jar') {
 
 task packageRssJar(type: Jar, description: 'Package the RSS Jar') {
     archiveName = "resources/datasource/ikb4stream-$version-datasource-rss.jar"
+    manifest {
+        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.datasource.rss.RSSProducerConnector'
+    }
     from sourceSets.datasourceRSS.output
     from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
     from { configurations.datasourceRSSCompile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+task packageOwmJar(type: Jar, description: 'Package the OWM Jar') {
+    archiveName = "resources/datasource/ikb4stream-$version-datasource-owm.jar"
+    from sourceSets.datasourceOWM.output
+    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
+    from { configurations.datasourceOWMCompile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+task packageFacebookJar(type: Jar, description: 'Package the OWM Jar') {
+    archiveName = "resources/datasource/ikb4stream-$version-datasource-facebook.jar"
+    from sourceSets.datasourceFacebook.output
+    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
+    from { configurations.datasourceFacebookCompile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }
 
@@ -148,9 +191,23 @@ task packageDbpediaJar(type: Jar, description: 'Package the Dbpedia Jar') {
 
 task packageKafkaCommunicationJar(type: Jar, description: 'Package the Kafka Communication Jar') {
     archiveName = "resources/communication/ikb4stream-$version-communication-kafka.jar"
+    manifest {
+        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.communication.kafka.KafkaCommunication'
+    }
     from sourceSets.communicationKafka.output
     from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
     from { configurations.communicationKafkaCompile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+task packageCommunicationWebJar(type: Jar, description: 'Package the Web Communication Jar') {
+    archiveName = "resources/communication/ikb4stream-$version-communication-web.jar"
+    manifest {
+        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.communication.web.WebCommunication'
+    }
+    from sourceSets.communicationWeb.output
+    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
+    from { configurations.communicationWebCompile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }
 
@@ -179,7 +236,11 @@ task testAll(type: Test) {
 
 repositories {
     mavenCentral()
+    maven{
+        url 'https://oss.sonatype.org/content/groups/public/'
+    }
 }
+
 
 dependencies {
     // core
@@ -188,6 +249,7 @@ dependencies {
     coreCompile 'org.apache.jena:jena-arq:2.9.3'
     coreCompile 'com.fasterxml.jackson.core:jackson-databind:2.8.6'
     coreCompile 'org.mongodb:mongodb-driver-async:3.2.2'
+
 
     // producer
     producerCompile 'edu.stanford.nlp:stanford-corenlp:3.7.0'
@@ -206,8 +268,19 @@ dependencies {
     // datasource_rss
     datasourceRSSCompile 'com.rometools:rome-modules:1.7.1'
 
+    //datasource_OPWweather
+    datasourceOWMCompile 'org.bitpipeline.lib:owm-lib:2.1.3-SNAPSHOT'
+
+    //datasource_facebook
+    datasourceFacebookCompile 'com.restfb:restfb:1.34.1'
+
     // communication_kafka
     communicationKafkaCompile 'org.apache.kafka:kafka-streams:0.10.0.1'
+
+    // communicationWeb
+    communicationWebCompile 'io.vertx:vertx-web:3.0.0'
+
+
 
     // scoreprocessor_nlp
 
