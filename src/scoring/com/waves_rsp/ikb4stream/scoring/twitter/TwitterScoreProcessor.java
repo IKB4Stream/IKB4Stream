@@ -35,16 +35,36 @@ public class TwitterScoreProcessor implements IScoreProcessor {
         return score;
     }
 
+    /**
+     * Check if the word is a hashtag
+     *
+     * @param word to analyze
+     * @return true if the word begin with '#'
+     */
     private boolean isHashtag(String word) {
         return word.startsWith("#");
     }
 
+    /**
+     * Parse a JSONObject from a tweet and check if the twitter account is certified
+     *
+     * @param json JSONObject to parse
+     * @return true if the twitter account is certified
+     * @throws JSONException
+     */
     private boolean isCertified(JSONObject json) throws JSONException {
         String isCertified = json.getString("user_certified");
         isCertified = isCertified.substring(1, isCertified.length() - 1);
         return isCertified.equals("true");
     }
 
+    /**
+     * Parse a JSONObject from a tweet and extract the tweet description
+     *
+     * @param json JSONObject to parse
+     * @return the description of a tweet
+     * @throws JSONException
+     */
     private String getParseDescription(JSONObject json) throws JSONException {
         return json.getString("description");
     }
@@ -62,7 +82,7 @@ public class TwitterScoreProcessor implements IScoreProcessor {
         Objects.requireNonNull(event);
         String tweet = "";
         byte score = 0;
-        boolean isHashtag = false;
+        boolean isHashtag;
 
         try {
             JSONObject jsonTweet = new JSONObject(event.getDescription());
@@ -88,7 +108,7 @@ public class TwitterScoreProcessor implements IScoreProcessor {
                         System.out.print(" # " + rulesMap.get(word)*COEFF_HASHTAG);//TODO
                     } else {
                         score += rulesMap.get(word);
-                        System.out.print(rulesMap.get(tweetWord.getKey()));//TODO
+                        System.out.print(rulesMap.get(word));//TODO
                     }
                 }
                 System.out.println("\n");
