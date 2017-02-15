@@ -1,10 +1,8 @@
 package com.waves_rsp.ikb4stream.datasource.dbpedia;
 
 import com.hp.hpl.jena.query.*;
-import com.hp.hpl.jena.rdf.model.*;
-import com.hp.hpl.jena.rdf.model.impl.PropertyImpl;
-import com.hp.hpl.jena.vocabulary.RDF;
-import com.sun.xml.internal.bind.v2.runtime.property.PropertyFactory;
+import com.hp.hpl.jena.rdf.model.RDFNode;
+import com.hp.hpl.jena.rdf.model.Resource;
 import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
 import com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector;
 import com.waves_rsp.ikb4stream.core.model.Event;
@@ -15,7 +13,10 @@ import org.slf4j.LoggerFactory;
 
 import java.time.Instant;
 import java.time.format.DateTimeParseException;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Search rdf data from dbpedia service from a sparql query
@@ -23,7 +24,7 @@ import java.util.*;
 public class DBpediaProducerConnector implements IProducerConnector {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DBpediaProducerConnector.class);
-    private final PropertiesManager propertiesManager = PropertiesManager.getInstance();
+    private final PropertiesManager propertiesManager = PropertiesManager.getInstance(DBpediaProducerConnector.class);
 
     /**
      * Instantiate from static method
@@ -54,26 +55,24 @@ public class DBpediaProducerConnector implements IProducerConnector {
                 double longitudeMin = Double.valueOf(propertiesManager.getProperty("longitude.minimum"));
 
                 String resource = propertiesManager.getProperty("dbpedia.resource");
-                int limit = Integer.valueOf(propertiesManager.getProperty("dbpedia.result.limit"));
+                int limit = Integer.valueOf(propertiesManager.getProperty("dbpedia.limit"));
 
                 String query = "prefix db-owl: <http://dbpedia.org/ontology/>\n" +
                         "prefix url-resource: <http://fr.dbpedia.org/resource/>\n" +
                         "prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
                         "prefix prop-fr: <http://fr.dbpedia.org/property/>\n" +
+                        "prefix  dc: <http://purl.org/dc/elements/1.1/> \n" +
                         "select * where {\n" +
                         "   ?evenements rdf:type db-owl:Event .\n" +
                         "   ?evenements db-owl:wikiPageWikiLink url-resource:"+resource+" .\n" +
                         "   OPTIONAL {\n" +
                         "      ?evenements prop-fr:latitude ?latitude .\n" +
                         "      ?evenements prop-fr:longitude ?longitude .\n" +
-                        "      ?evenements prop-fr:périodicité \"annuelle\"@fr .\n" +
-                        "      ?evenements prop-fr:titre ?title .\n" +
-                        "      ?evenements prop-fr:comments ?descritpion .\n" +
                         "      FILTER (\n" +
-                        "         ?latitude >= "+latitudeMin+" &&\n" +
+                        "         ?latitude >= "+latitudeMin+" && \n" +
                         "         ?latitude < "+latitudeMax+" &&       \n" +
-                        "         ?longitude >= "+longitudeMin+" &&\n" +
-                        "         ?longitude < "+longitudeMax+"\n" +
+                        "         ?longitude >= "+longitudeMin+" && \n" +
+                        "         ?longitude < "+longitudeMax+" \n" +
                         "      )\n" +
                         "   }\n" +
                         "} LIMIT "+limit;
@@ -82,15 +81,18 @@ public class DBpediaProducerConnector implements IProducerConnector {
                 qexec = QueryExecutionFactory.sparqlService(service, request);
                 ResultSet resultSet = qexec.execSelect();
 
-                Map<String, Object> map = new HashMap<>();
+                /*
+                final Map<String, Object> map = new HashMap<>();
                 ResultSetFormatter.toModel(resultSet).listStatements().forEachRemaining(statement -> {
                     RDFNode rdfNode = statement.getObject();
-                    if(rdfNode.isLiteral()) {
-                        map.put(statement.getObject().asLiteral().getString(), statement.getObject().toString());
+                    if(rdfNode.isResource()) {
+                        rdfNode.asResource().listProperties().forEachRemaining(property -> {
+                            RDFNode propertyNode = property.getObject();
+                            map.put(propertyNode.toString(), property.getString());
+                        });
                     }
                 });
-
-                map.values().forEach(value -> LOGGER.info(value.toString()));
+                    */
 
             }catch (IllegalArgumentException err) {
                 LOGGER.error("bad properties loaded.");
@@ -109,13 +111,10 @@ public class DBpediaProducerConnector implements IProducerConnector {
         }
     }
 
-    private static LatLong getLatLongFromMap(Map<String, Object> map) {
+    private static Event getEventFromMap(Map<String, Object> map) {
         double latitude = (double) map.get("latitude");
         double longitude = (double) map.get("longitude");
-        return new LatLong(latitude, longitude);
-    }
-
-    private static Event getEventFromMap(LatLong latLong, Map<String, Object> map) {
+        LatLong latLong = new LatLong(latitude, longitude);
         String description = (String) map.get("description");
         String source = (String) map.get("title");
         Date date = Date.from(Instant.now());
