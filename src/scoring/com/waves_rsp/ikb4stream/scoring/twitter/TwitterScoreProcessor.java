@@ -3,7 +3,7 @@ package com.waves_rsp.ikb4stream.scoring.twitter;
 import com.waves_rsp.ikb4stream.core.datasource.model.IScoreProcessor;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
-import com.waves_rsp.ikb4stream.core.util.NLP;
+import com.waves_rsp.ikb4stream.core.util.OpenNLP;
 import com.waves_rsp.ikb4stream.core.util.RulesReader;
 import org.slf4j.LoggerFactory;
 import twitter4j.JSONException;
@@ -87,23 +87,19 @@ public class TwitterScoreProcessor implements IScoreProcessor {
         try {
             JSONObject jsonTweet = new JSONObject(event.getDescription());
             tweet = getParseDescription(jsonTweet);
-            System.out.println("tweet : " + tweet);
-            Map<String, String> tweetMap = NLP.applyNLPtoTweet(tweet);
+            System.out.println("tweet : " + tweet); //TODO
+            List<String> tweetMap = OpenNLP.applyNLPlemma(tweet);
             Map<String, Integer> rulesMap = RulesReader.parseJSONRules(FILENAME);
 
-
-            Iterator tweetWords = tweetMap.entrySet().iterator();
-            while (tweetWords.hasNext()) {
-                Map.Entry tweetWord = (Map.Entry) tweetWords.next();
-                System.out.print("Word : " + tweetWord.getKey()); //TODO
-                String word = tweetWord.getKey().toString();
+            for(String word : tweetMap){
+                System.out.print("Word : " + word); //TODO
                 if(isHashtag =isHashtag(word)){
                     word = word.substring(1);
                 }
                 if (rulesMap.containsKey(word)) {
                     System.out.print(" - score : ");//TODO
-                    //if tweetWord is a hashtag
                     if (isHashtag) {
+                        //if tweetWord is a hashtag
                         score += rulesMap.get(word) * COEFF_HASHTAG;
                         System.out.print(" # " + rulesMap.get(word)*COEFF_HASHTAG);//TODO
                     } else {
@@ -114,13 +110,34 @@ public class TwitterScoreProcessor implements IScoreProcessor {
                 System.out.println("\n");
             }
 
+            /*
+            Iterator tweetWords = tweetMap.entrySet().iterator();
+            while (tweetWords.hasNext()) {
+                Map.Entry tweetWord = (Map.Entry) tweetWords.next();
+                System.out.print("Word : " + tweetWord.getKey()); //TODO
+                String word = tweetWord.getKey().toString();
+                if(isHashtag =isHashtag(word)){
+                    word = word.substring(1);
+                }
+                if (rulesMap.containsKey(word)) {
+                    System.out.print(" - score : ");//TODO
+                    if (isHashtag) {
+                        //if tweetWord is a hashtag
+                        score += rulesMap.get(word) * COEFF_HASHTAG;
+                        System.out.print(" # " + rulesMap.get(word)*COEFF_HASHTAG);//TODO
+                    } else {
+                        score += rulesMap.get(word);
+                        System.out.print(rulesMap.get(word));//TODO
+                    }
+                }
+                System.out.println("\n");
+            }*/
+
             //Score x COEFF_VERIFY_ACCOUNT if the twitter is certified
             if (isCertified(jsonTweet)) {
                 System.out.println("CERTIFIED");
                 score *= COEFF_VERIFY_ACCOUNT;
             }
-
-
         } catch (JSONException e) {
             LOGGER.error("Wrong JsonObject from Twitter Connector\n" + e.getMessage());
         }
