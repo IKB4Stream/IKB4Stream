@@ -21,9 +21,10 @@ import java.util.Objects;
 
 public class OpenNLP {
 
-    public enum nerOptions{
+    public enum nerOptions {
         LOCATION, PERSON, ORGANIZATION
     }
+
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenNLP.class);
 
     private static String[] detectSentences(String text) throws IOException {
@@ -75,15 +76,16 @@ public class OpenNLP {
 
     /**
      * Apply the NLP ner (name entity recognizer) algorithm on a text. Keep only distinct words from the tweet.
-     * @param post  to analyze
-     * @param ner ENUM : LOCATION, ORGANIZATION or PERSON : type of NER analyse
+     *
+     * @param post to analyze
+     * @param ner  ENUM : LOCATION, ORGANIZATION or PERSON : type of NER analyse
      * @return List of selected words by NER
      */
     public static List<String> applyNLPner(String post, nerOptions ner) {
         Objects.requireNonNull(post);
         Objects.requireNonNull(ner);
         List<String> words = new ArrayList<>();
-        Span[] spans ;
+        Span[] spans;
         try {
             String sentences[] = detectSentences(post);
             for (String sentence : sentences) {

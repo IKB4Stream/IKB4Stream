@@ -1,4 +1,4 @@
-package com.waves_rsp.ikb4stream.producer.score.sample;
+package com.waves_rsp.ikb4stream.core.util;
 
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
