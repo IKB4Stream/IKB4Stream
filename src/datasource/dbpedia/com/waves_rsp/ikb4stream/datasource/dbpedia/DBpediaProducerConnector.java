@@ -27,7 +27,7 @@ public class DBpediaProducerConnector implements IProducerConnector {
     private final PropertiesManager propertiesManager = PropertiesManager.getInstance(DBpediaProducerConnector.class);
 
     /**
-     * Instantiate from static method
+     * Instantiate DBpediaProducerConnector object from static method
      */
     private DBpediaProducerConnector() {
 
