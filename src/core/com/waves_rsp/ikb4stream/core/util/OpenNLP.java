@@ -109,22 +109,29 @@ public class OpenNLP {
         return lemmatizedTokens;
     }
 
-    public static List<String> applyNLPlemma(String post){
+    public static List<String> applyNLPlemma(String post) {
         Objects.requireNonNull(post);
-        Map<String, String> input = null;
+        Map<String, String> input = new HashMap<>();
         List<String> output = new ArrayList<>();
         try {
             input = lemmatize(post);
-            input.forEach((w,pos)->{
-                if ((pos.contains("N") || pos.contains("V")) && !pos.equals("PONCT")){
+            input.forEach((w, pos) -> {
+                if (w.startsWith("#")) {
+                    //if it's a hashtag
                     output.add(w);
+                } else {
+                    if ((pos.contains("N") || pos.contains("V")) && !pos.equals("PONCT")) {
+                        output.add(w);
+                    }
                 }
+
             });
         } catch (IOException e) {
             LOGGER.error(e.getMessage());
         }
         return output;
     }
+
     /**
      * Apply the NLP ner (name entity recognizer) algorithm on a text. Keep only distinct words from the tweet.
      *
