@@ -56,7 +56,7 @@ public class TwitterProducerConnector implements IProducerConnector {
             twitterStream.sample("fr");
 
             while(!Thread.interrupted()) {
-                Thread.sleep(200);
+
             }
         }catch (IllegalArgumentException err) {
             LOGGER.error(err.getMessage());
@@ -65,11 +65,8 @@ public class TwitterProducerConnector implements IProducerConnector {
             LOGGER.error(err.getMessage());
             Thread.currentThread().interrupt();
             return;
-        }catch (InterruptedException e) {
-            LOGGER.error("Current thread has been interrupted : "+e.toString());
-            Thread.currentThread().interrupt();
-            return;
         }finally {
+            Thread.currentThread().interrupt();
             if(twitterStream != null) {
                 twitterStream.shutdown();
             }
@@ -113,12 +110,12 @@ public class TwitterProducerConnector implements IProducerConnector {
             Date start = status.getCreatedAt();
             Date end = status.getCreatedAt();
 
-            LOGGER.info(source+""+status.getText());
+            LOGGER.info(""+status.getText());
             User user = status.getUser();
 
             GeoLocation geoLocation = status.getGeoLocation();
 
-            if(geoLocation != null && user.isVerified()) {
+            if(geoLocation != null) {
                 JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.append("description", description);

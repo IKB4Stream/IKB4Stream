@@ -40,7 +40,9 @@ public class Main {
         Runtime runtime = Runtime.getRuntime();
         try {
             listener.start();
-            runtime.addShutdownHook(listener);
+            if(runtime.removeShutdownHook(listener)) {
+                runtime.addShutdownHook(listener);
+            }
         }catch (IllegalArgumentException err) {
             LOGGER.error("Hook has already running. "+ err.toString());
         }finally {

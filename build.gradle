@@ -14,35 +14,35 @@ sourceSets {
 
     consumer {
         java {
-            srcDirs = ['src/consumer']
+            srcDirs = ['src/core', 'src/consumer']
             compileClasspath += core.compileClasspath + core.output
         }
     }
 
     producer {
         java {
-            srcDirs = ['src/producer']
+            srcDirs = ['src/core', 'src/producer']
             compileClasspath += core.compileClasspath + core.output
         }
     }
 
     communicationKafka {
         java {
-            srcDirs = ['src/communication/kafka']
+            srcDirs = ['src/core', 'src/communication/kafka']
             compileClasspath += core.compileClasspath + core.output
         }
     }
 
     datasourceMeteo {
         java {
-            srcDirs = ['src/datasource/weather']
+            srcDirs = ['src/core', 'src/datasource/weather']
             compileClasspath += core.compileClasspath + core.output
         }
     }
 
     datasourceRSS {
         java {
-            srcDirs = ['src/datasource/rss']
+            srcDirs = ['src/core', 'src/datasource/rss']
             compileClasspath += core.compileClasspath + core.output
         }
     }

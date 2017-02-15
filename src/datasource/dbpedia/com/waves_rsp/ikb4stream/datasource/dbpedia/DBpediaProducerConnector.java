@@ -2,7 +2,6 @@ package com.waves_rsp.ikb4stream.datasource.dbpedia;
 
 import com.hp.hpl.jena.query.*;
 import com.hp.hpl.jena.rdf.model.RDFNode;
-import com.hp.hpl.jena.rdf.model.Resource;
 import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
 import com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector;
 import com.waves_rsp.ikb4stream.core.model.Event;
@@ -11,11 +10,14 @@ import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -54,20 +56,27 @@ public class DBpediaProducerConnector implements IProducerConnector {
                 double longitudeMax = Double.valueOf(propertiesManager.getProperty("longitude.maximum"));
                 double longitudeMin = Double.valueOf(propertiesManager.getProperty("longitude.minimum"));
 
+                String language = propertiesManager.getProperty("dbpedia.language");
                 String resource = propertiesManager.getProperty("dbpedia.resource");
                 int limit = Integer.valueOf(propertiesManager.getProperty("dbpedia.limit"));
 
                 String query = "prefix db-owl: <http://dbpedia.org/ontology/>\n" +
                         "prefix url-resource: <http://fr.dbpedia.org/resource/>\n" +
+                        "PREFIX dbo: <http://dbpedia.org/ontology/> \n" +
+                        "prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
                         "prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
                         "prefix prop-fr: <http://fr.dbpedia.org/property/>\n" +
-                        "prefix  dc: <http://purl.org/dc/elements/1.1/> \n" +
+                        "prefix  dc: <http://purl.org/dc/elements/1.1/>\n" +
                         "select * where {\n" +
                         "   ?evenements rdf:type db-owl:Event .\n" +
                         "   ?evenements db-owl:wikiPageWikiLink url-resource:"+resource+" .\n" +
                         "   OPTIONAL {\n" +
                         "      ?evenements prop-fr:latitude ?latitude .\n" +
                         "      ?evenements prop-fr:longitude ?longitude .\n" +
+                        "      ?evenements rdfs:comment ?description .\n" +
+                        "      ?evenements dbo:startDate ?startDate .\n " +
+                        "      ?evenements dbo:endDate ?endDate .\n" +
+                        "      ?evenements rdfs:label ?label .\n" +
                         "      FILTER (\n" +
                         "         ?latitude >= "+latitudeMin+" && \n" +
                         "         ?latitude < "+latitudeMax+" &&       \n" +
@@ -81,19 +90,20 @@ public class DBpediaProducerConnector implements IProducerConnector {
                 qexec = QueryExecutionFactory.sparqlService(service, request);
                 ResultSet resultSet = qexec.execSelect();
 
-                /*
-                final Map<String, Object> map = new HashMap<>();
-                ResultSetFormatter.toModel(resultSet).listStatements().forEachRemaining(statement -> {
-                    RDFNode rdfNode = statement.getObject();
-                    if(rdfNode.isResource()) {
-                        rdfNode.asResource().listProperties().forEachRemaining(property -> {
-                            RDFNode propertyNode = property.getObject();
-                            map.put(propertyNode.toString(), property.getString());
-                        });
-                    }
-                });
-                    */
+                while(resultSet.hasNext()) {
+                    QuerySolution qs = resultSet.nextSolution();
+                    RDFNode latitudeNode = qs.get("latitude");
+                    RDFNode longitudeNode = qs.get("longitude");
+                    RDFNode descriptionNode = qs.get("description");
+                    RDFNode startDateNode = qs.get("startDate");
+                    RDFNode endDateNode = qs.get("endDate");
+                    RDFNode labelNode = qs.get("label");
+                    Event event = getEventFromRDFNodes(latitudeNode, longitudeNode, startDateNode, endDateNode, descriptionNode, labelNode);
 
+                    if(event != null) {
+                        dataProducer.push(event);
+                    }
+                }
             }catch (IllegalArgumentException err) {
                 LOGGER.error("bad properties loaded.");
                 return;
@@ -111,13 +121,32 @@ public class DBpediaProducerConnector implements IProducerConnector {
         }
     }
 
-    private static Event getEventFromMap(Map<String, Object> map) {
-        double latitude = (double) map.get("latitude");
-        double longitude = (double) map.get("longitude");
-        LatLong latLong = new LatLong(latitude, longitude);
-        String description = (String) map.get("description");
-        String source = (String) map.get("title");
-        Date date = Date.from(Instant.now());
-        return new Event(latLong, date, date, description, source);
+    private static boolean checkRDFNodes(RDFNode... rdfNodes) {
+        return Arrays.stream(rdfNodes).anyMatch(Objects::nonNull);
+    }
+
+    private static LatLong getLatlongFromRDFNodes(RDFNode latitudeNode, RDFNode longitudeNode) {
+        double latitude = latitudeNode.asLiteral().getDouble();
+        double longitude = longitudeNode.asLiteral().getDouble();
+        return new LatLong(latitude, longitude);
+    }
+
+    private static Event getEventFromRDFNodes(RDFNode latitudeNode, RDFNode longitudeNode, RDFNode startDate, RDFNode endDate, RDFNode descriptionNode, RDFNode labelNode) {
+        if(checkRDFNodes(latitudeNode, longitudeNode, startDate, endDate, descriptionNode)) {
+           try {
+                LatLong latLong = getLatlongFromRDFNodes(latitudeNode, longitudeNode);
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date start = dateFormat.parse(startDate.asLiteral().getString());
+                Date end = dateFormat.parse(endDate.asLiteral().getString());
+                String desc = descriptionNode.asLiteral().getString();
+                String label = labelNode.asLiteral().getString();
+                return new Event(latLong, start, end, desc, label);
+            } catch (ParseException e) {
+                LOGGER.error(e.getMessage());
+                return null;
+            }
+        }
+
+        return null;
     }
 }
