@@ -1,7 +1,11 @@
 package com.waves_rsp.ikb4stream.core.util;
 
+import opennlp.tools.lemmatizer.DictionaryLemmatizer;
+import opennlp.tools.lemmatizer.SimpleLemmatizer;
 import opennlp.tools.namefind.NameFinderME;
 import opennlp.tools.namefind.TokenNameFinderModel;
+import opennlp.tools.postag.POSModel;
+import opennlp.tools.postag.POSTaggerME;
 import opennlp.tools.sentdetect.SentenceDetectorME;
 import opennlp.tools.sentdetect.SentenceModel;
 import opennlp.tools.tokenize.Tokenizer;
@@ -21,6 +25,9 @@ import java.util.Objects;
 
 public class OpenNLP {
 
+    private static final String PATH_BINARIES = "resources/opennlp-models/binaries/";
+    private static final String PATH_DICTIONARIES = "resources/opennlp-models/dictionaries/";
+
     public enum nerOptions {
         LOCATION, PERSON, ORGANIZATION
     }
@@ -29,7 +36,7 @@ public class OpenNLP {
 
     private static String[] detectSentences(String text) throws IOException {
         Objects.requireNonNull(text);
-        InputStream inputStream = new FileInputStream("resources/opennlp-models/fr/fr-sent.bin");
+        InputStream inputStream = new FileInputStream(PATH_BINARIES + "fr-sent.bin");
         SentenceModel model = new SentenceModel(inputStream);
         SentenceDetectorME detector = new SentenceDetectorME(model);
         inputStream.close();
@@ -38,17 +45,25 @@ public class OpenNLP {
 
     private static String[] learnableTokenize(String text) throws IOException {
         Objects.requireNonNull(text);
-        InputStream inputStream = new FileInputStream("resources/opennlp-models/fr/fr-token.bin");
+        InputStream inputStream = new FileInputStream(PATH_BINARIES + "fr-token.bin");
         TokenizerModel model = new TokenizerModel(inputStream);
         Tokenizer tokenizer = new TokenizerME(model);
         inputStream.close();
         return tokenizer.tokenize(text);
     }
 
+    private static String[] posTagging(String[] tokens) throws IOException {
+        Objects.requireNonNull(tokens);
+        InputStream inputStream = new FileInputStream(PATH_BINARIES + "fr-pos-maxent-2.bin");
+        POSModel model = new POSModel(inputStream);
+        POSTaggerME tagger = new POSTaggerME(model);
+        inputStream.close();
+        return tagger.tag(tokens);
+    }
 
     private static Span[] findOrganizationName(String[] tokens) throws IOException {
         Objects.requireNonNull(tokens);
-        InputStream inputStream = new FileInputStream("resources/opennlp-models/fr/fr-ner-organization.bin");
+        InputStream inputStream = new FileInputStream(PATH_BINARIES + "fr-ner-organization.bin");
         TokenNameFinderModel model = new TokenNameFinderModel(inputStream);
         NameFinderME nameFinder = new NameFinderME(model);
         inputStream.close();
@@ -57,7 +72,7 @@ public class OpenNLP {
 
     private static Span[] findLocationName(String[] tokens) throws IOException {
         Objects.requireNonNull(tokens);
-        InputStream inputStream = new FileInputStream("resources/opennlp-models/fr/fr-ner-location.bin");
+        InputStream inputStream = new FileInputStream(PATH_BINARIES + "fr-ner-location.bin");
         TokenNameFinderModel model = new TokenNameFinderModel(inputStream);
         NameFinderME nameFinder = new NameFinderME(model);
         inputStream.close();
@@ -66,13 +81,35 @@ public class OpenNLP {
 
     private static Span[] findPersonName(String[] tokens) throws IOException {
         Objects.requireNonNull(tokens);
-        InputStream inputStream = new FileInputStream("resources/opennlp-models/fr/fr-ner-person.bin");
+        InputStream inputStream = new FileInputStream(PATH_BINARIES + "fr-ner-person.bin");
         TokenNameFinderModel model = new TokenNameFinderModel(inputStream);
         NameFinderME nameFinder = new NameFinderME(model);
         inputStream.close();
         return nameFinder.find(tokens);
     }
 
+    private static List<String> lemmatize(String text) throws IOException {
+        Objects.requireNonNull(text);
+        InputStream inputStream = new FileInputStream(PATH_DICTIONARIES + "ADJ.txt");
+        DictionaryLemmatizer lemmatizer = new SimpleLemmatizer(inputStream);
+        List<String> lemmatizedTokens = new ArrayList<>();
+        // Split tweet text content in sentences
+        String[] sentences = detectSentences(text);
+        // For each sentence, tokenize and tag before lemmatizing
+        for (String sentence : sentences) {
+            // Split each sentence in tokens
+            String[] learnableTokens = learnableTokenize(sentence);
+            // Get tag for each token
+            String[] tags = posTagging(learnableTokens);
+            // Get lemmatize form of each token
+            for (int i = 0; i < learnableTokens.length; i++) {
+                System.out.println("lemma : " + lemmatizer.lemmatize(learnableTokens[i], tags[i]) + " " + tags[i]);
+                lemmatizedTokens.add(lemmatizer.lemmatize(learnableTokens[i], tags[i]));
+            }
+        }
+        inputStream.close();
+        return lemmatizedTokens;
+    }
 
     /**
      * Apply the NLP ner (name entity recognizer) algorithm on a text. Keep only distinct words from the tweet.
@@ -105,15 +142,12 @@ public class OpenNLP {
                         LOGGER.warn("Bad NER option.\n use : 'LOCATION', 'PERSON' or 'ORGANIZATION'");
                         return words; //return empty list
                 }
-
                 //Add each entity in the list 'words'
                 Arrays.asList(Span.spansToStrings(spans, learnableTokens)).forEach(sp -> words.add(sp));
             }
         } catch (IOException e) {
             LOGGER.error(e.getMessage());
         }
-
-
         return words;
     }
 
@@ -129,17 +163,10 @@ public class OpenNLP {
                 ", par arrêté interministériel. En Ile-de-France, toute montée des eaux rapide fait craindre une nouvelle " +
                 "crue centennale comme en 1910.";
 
-        String testLoc = "Il y a une fuite d'eau à Paris, il y a urgence. ";
+        String testLoc = "Nous étions présents à l'école tous les jours. Je m'était aperçu qu'il était absent.";
 
-        List<String> entity = applyNLPner(testLoc, nerOptions.LOCATION);
-        //List<String> entityOrg = applyNLPner(testLoc, nerOptions.ORGANIZATION);
-
-        System.out.println("\n*** ENTITY ***");
-        for (String s : entity) {
-            System.out.print(s + " - ");
-        }
-        //List<String> person = applyNLPtoTweet(paragraphFR, "person");
-        //List<String> org = applyNLPtoTweet(paragraphFR, "organization");
-
+        List<String> lemmatizedTokens = lemmatize(testLoc);
+        for (String s : lemmatizedTokens)
+            System.out.println(s);
     }
 }
