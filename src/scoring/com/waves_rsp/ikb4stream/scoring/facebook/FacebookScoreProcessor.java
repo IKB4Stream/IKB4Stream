@@ -3,13 +3,13 @@ package com.waves_rsp.ikb4stream.scoring.facebook;
 import com.waves_rsp.ikb4stream.core.datasource.model.IScoreProcessor;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
-import com.waves_rsp.ikb4stream.core.util.NLP;
+import com.waves_rsp.ikb4stream.core.util.OpenNLP;
 import com.waves_rsp.ikb4stream.core.util.RulesReader;
 import com.waves_rsp.ikb4stream.producer.score.ScoreProcessorManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -30,6 +30,7 @@ public class FacebookScoreProcessor implements IScoreProcessor {
 
     /**
      * Process score of an event from Facebook
+     *
      * @param event an event without score
      * @return Event with a score after NLP processing
      * @throws NullPointerException if {@param event} is null
@@ -38,17 +39,16 @@ public class FacebookScoreProcessor implements IScoreProcessor {
     public Event processScore(Event event) {
         Objects.requireNonNull(event);
         String content = event.getDescription();
-        Map<String, String> fbMap = NLP.applyNLPtoFacebook(content);
+        List<String> fbList = OpenNLP.applyNLPlemma(content);
         Map<String, Integer> rulesMap = RulesReader.parseJSONRules(ruleFilename);
         byte score = 0;
 
-        Iterator fbWords = fbMap.entrySet().iterator();
-        while (fbWords.hasNext()) {
-            Map.Entry fbWord = (Map.Entry) fbWords.next();
-            if (rulesMap.containsKey(fbWord.getKey())) {
-                score += rulesMap.get(fbWord.getKey());
+        for (String word : fbList) {
+            if (rulesMap.containsKey(word)) {
+                score += rulesMap.get(word);
             }
         }
+
         if (score > 100) {
             score = 100;
         }
