@@ -1,4 +1,4 @@
-package com.waves_rsp.ikb4stream.producer.score.sample;
+package com.waves_rsp.ikb4stream.core.util;
 
 
 import com.fasterxml.jackson.databind.JsonNode;
