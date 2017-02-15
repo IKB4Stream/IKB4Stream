@@ -47,28 +47,42 @@ sourceSets {
         }
     }
 
+    datasourceTwitter {
+        java {
+            srcDirs = ['src/core', 'src/datasource/twitter']
+            compileClasspath += core.compileClasspath + core.output
+        }
+    }
+
+    datasourceTwittermock {
+        java {
+            srcDirs = ['src/core', 'src/datasource/twittermock']
+            compileClasspath += core.compileClasspath + core.output
+        }
+    }
+
+    datasourceDbpedia {
+        java {
+            srcDirs = ['src/core', 'src/datasource/dbpedia']
+            compileClasspath += core.compileClasspath + core.output
+        }
+    }
+
     test {
         java {
             srcDirs = ['src/core', 'src/consumer', 'src/producer', 'src/test/', 'src/datasource',
-                       'src/datasource/weather', 'src/datasource/rss', 'src/communication/kafka']
+                       'src/datasource/weather', 'src/datasource/rss', 'src/communication/kafka',
+                       'src/datasource/twitter', 'src/datasource/twittermock', 'src/datasource/dbpedia']
 
             compileClasspath += core.compileClasspath + core.output + consumer.compileClasspath + consumer.output +
                     producer.compileClasspath + producer.output + communicationKafka.compileClasspath +
                     communicationKafka.output + datasourceMeteo.compileClasspath + datasourceMeteo.output +
-                    datasourceRSS.compileClasspath + datasourceRSS.output
+                    datasourceRSS.compileClasspath + datasourceRSS.output +
+                    datasourceTwittermock.compileClasspath + datasourceTwittermock.output +
+                    datasourceTwitter.compileClasspath + datasourceTwitter.output +
+                    datasourceDbpedia.output + datasourceDbpedia.compileClasspath
+
             runtimeClasspath = output + compileClasspath + runtimeClasspath
-        }
-    }
-    datasource_twitter {
-        java {
-            srcDirs = ['src/core', 'src/datasource/twitter']
-            compileClasspath = configurations.compile
-        }
-    }
-    datasource_twittermock {
-        java {
-            srcDirs = ['src/core', 'src/datasource/twittermock']
-            compileClasspath = configurations.compile
         }
     }
 }
@@ -112,15 +126,23 @@ task packageRssJar(type: Jar, description: 'Package the RSS Jar') {
 
 task packageTwitterJar(type: Jar, description: 'Package the Twitter Jar') {
     archiveName = "resources/datasource/ikb4stream-$version-datasource-twitter.jar"
-    from sourceSets.datasource_twitter.output
-    from { configurations.compile.collect {it.isDirectory() ? it : zipTree(it) } }
+    from sourceSets.datasourceTwitter.output
+    from { configurations.coreCompile.collect {it.isDirectory() ? it : zipTree(it) }}
+    from { configurations.datasourceTwitterCompile.collect { it.isDirectory() ? it : zipTree(it) }}
     with jar
 }
 
 task packageTwitterMockJar(type: Jar, description: 'Package the Twitter Mock Jar') {
     archiveName = "resources/datasource/ikb4stream-$version-datasource-twittermock.jar"
-    from sourceSets.datasource_twittermock.output
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }}
+    from sourceSets.datasourceTwittermock.output
+    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) }}
+    with jar
+}
+
+task packageDbpediaJar(type: Jar, description: 'Package the Dbpedia Jar') {
+    archiveName = "resources/datasource/ikb4stream-$version-datasource-dbpedia.jar"
+    from sourceSets.datasourceDbpedia.output
+    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) }}
     with jar
 }
 
@@ -132,7 +154,6 @@ task packageKafkaCommunicationJar(type: Jar, description: 'Package the Kafka Com
     with jar
 }
 
-
 task copyConfigProperties(type: Copy) {
     from 'resources/config.properties'
     into 'build/libs/resources/'
@@ -143,7 +164,7 @@ task zipBuild(type: Zip) {
     from 'build/libs'
 }
 
-task packageAll(dependsOn: ['copyConfigProperties', 'packageConsumerJar', 'packageProducerJar', 'packageWeatherJar', 'packageRssJar', 'packageCommunicationKafkaJar']) {
+task packageAll(dependsOn: ['copyConfigProperties', 'packageConsumerJar', 'packageProducerJar', 'packageWeatherJar', 'packageRssJar', 'packageKafkaCommunicationJar', 'packageTwitterJar', 'packageTwitterMockJar', 'packageDbpediaJar']) {
 
 }
 
@@ -173,6 +194,11 @@ dependencies {
     producerCompile 'edu.stanford.nlp:stanford-corenlp:3.7.0:models-french'
 
     // consumer
+
+    //datasourceDbpedia
+
+    //datasourceTwitter
+    datasourceTwitterCompile 'org.twitter4j:twitter4j-stream:4.0.6'
 
     // datasource_Meteo
     datasourceMeteoCompile 'com.rometools:rome-modules:1.7.1'

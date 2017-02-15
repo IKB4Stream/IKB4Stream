@@ -1,6 +1,5 @@
 package com.waves_rsp.ikb4stream.datasource.twitter;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
 import com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector;
 import com.waves_rsp.ikb4stream.core.model.Event;
@@ -11,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
 
@@ -20,8 +18,8 @@ import java.util.Objects;
  *
  */
 public class TwitterProducerConnector implements IProducerConnector {
-    private final PropertiesManager propertiesManager = PropertiesManager.getInstance();
-    private static final Logger LOGGER = LoggerFactory.getLogger(TwitterProducerConnectorTest.class);
+    private final PropertiesManager propertiesManager = PropertiesManager.getInstance(TwitterProducerConnector.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TwitterProducerConnector.class);
     private final ConfigurationBuilder confBuilder = new ConfigurationBuilder();
 
     private TwitterProducerConnector() {
