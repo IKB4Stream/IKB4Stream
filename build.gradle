@@ -54,15 +54,32 @@ sourceSets {
         }
     }
 
+    datasourceOWM {
+        java {
+            srcDirs = ['src/core', 'src/datasource/owm']
+            compileClasspath += core.compileClasspath + core.output
+        }
+    }
+
+    datasourceFacebook {
+        java {
+            srcDirs = ['src/core', 'src/datasource/facebook']
+            compileClasspath += core.compileClasspath + core.output
+        }
+    }
+
     test {
         java {
             srcDirs = ['src/core', 'src/consumer', 'src/producer', 'src/test/', 'src/datasource',
-                       'src/datasource/weather', 'src/datasource/rss', 'src/communication/kafka', 'src/communication/web']
+                       'src/datasource/weather', 'src/datasource/rss', 'src/datasource/owm', 'src/datasource/facebook',
+                       'src/communication/kafka', 'src/communication/web']
 
             compileClasspath += core.compileClasspath + core.output + consumer.compileClasspath + consumer.output +
                     producer.compileClasspath + producer.output + communicationKafka.compileClasspath +
                     communicationKafka.output + datasourceMeteo.compileClasspath + datasourceMeteo.output +
                     datasourceRSS.compileClasspath + datasourceRSS.output +
+                    datasourceOWM.compileClasspath + datasourceOWM.output +
+                    datasourceFacebook.compileClasspath + datasourceFacebook.output +
                     communicationWeb.compileClasspath + communicationWeb.output
             runtimeClasspath = output + compileClasspath + runtimeClasspath
         }
@@ -112,6 +129,22 @@ task packageRssJar(type: Jar, description: 'Package the RSS Jar') {
     with jar
 }
 
+task packageOwmJar(type: Jar, description: 'Package the OWM Jar') {
+    archiveName = "resources/datasource/ikb4stream-$version-datasource-owm.jar"
+    from sourceSets.datasourceOWM.output
+    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
+    from { configurations.datasourceOWMCompile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+task packageFacebookJar(type: Jar, description: 'Package the OWM Jar') {
+    archiveName = "resources/datasource/ikb4stream-$version-datasource-facebook.jar"
+    from sourceSets.datasourceFacebook.output
+    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
+    from { configurations.datasourceFacebookCompile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 task packageCommunicationKafkaJar(type: Jar, description: 'Package the Kafka Communication Jar') {
     archiveName = "resources/communication/ikb4stream-$version-communication-kafka.jar"
     manifest {
@@ -144,7 +177,7 @@ task zipBuild(type: Zip) {
     from 'build/libs'
 }
 
-task packageAll(dependsOn: ['copyConfigProperties', 'packageConsumerJar', 'packageProducerJar', 'packageWeatherJar', 'packageRssJar', 'packageCommunicationKafkaJar', 'packageCommunicationWebJar']) {
+task packageAll(dependsOn: ['copyConfigProperties', 'packageConsumerJar', 'packageProducerJar', 'packageWeatherJar', 'packageRssJar', 'packageOwmJar', 'packageFacebookJar', 'packageCommunicationKafkaJar', 'packageCommunicationWebJar']) {
 
 }
 
@@ -159,7 +192,11 @@ task testAll(type: Test) {
 
 repositories {
     mavenCentral()
+    maven{
+        url 'https://oss.sonatype.org/content/groups/public/'
+    }
 }
+
 
 dependencies {
     // core
@@ -182,13 +219,19 @@ dependencies {
     // datasource_rss
     datasourceRSSCompile 'com.rometools:rome-modules:1.7.1'
 
+    //datasource_OPWweather
+    datasourceOWMCompile 'org.bitpipeline.lib:owm-lib:2.1.3-SNAPSHOT'
+
+    //datasource_facebook
+    datasourceFacebookCompile 'com.restfb:restfb:1.34.1'
+
     // communication_kafka
     communicationKafkaCompile 'org.apache.kafka:kafka-streams:0.10.0.1'
 
     // communicationWeb
     communicationWebCompile 'io.vertx:vertx-web:3.0.0'
 
-    compile group: 'com.restfb', name: 'restfb', version: '1.34.1'
+
 
     // scoreprocessor_nlp
 
