@@ -22,7 +22,7 @@ import java.util.Objects;
 public class OpenNLP {
 
     public enum nerOptions{
-        LOCATION, PERSON, ORGANIZATION, PERSO
+        LOCATION, PERSON, ORGANIZATION
     }
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenNLP.class);
 
@@ -44,14 +44,6 @@ public class OpenNLP {
         return tokenizer.tokenize(text);
     }
 
-    private static Span[] findPersoName(String[] tokens) throws IOException {
-        Objects.requireNonNull(tokens);
-        InputStream inputStream = new FileInputStream("resources/opennlp-models/fr/fr-ner-location_handmade.bin");
-        TokenNameFinderModel model = new TokenNameFinderModel(inputStream);
-        NameFinderME nameFinder = new NameFinderME(model);
-        inputStream.close();
-        return nameFinder.find(tokens);
-    }
 
     private static Span[] findOrganizationName(String[] tokens) throws IOException {
         Objects.requireNonNull(tokens);
@@ -106,9 +98,6 @@ public class OpenNLP {
                         break;
                     case "PERSON":
                         spans = findPersonName(learnableTokens);
-                        break;
-                    case "PERSO":
-                        spans = findPersoName(learnableTokens);
                         break;
                     default:
                         LOGGER.warn("Bad NER option.\n use : 'LOCATION', 'PERSON' or 'ORGANIZATION'");
