@@ -92,6 +92,9 @@ task packageProducerJar(type: Jar, description: 'Package the Producer Jar') {
 
 task packageWeatherJar(type: Jar, description: 'Package the Weather Jar') {
     archiveName = "resources/datasource/ikb4stream-$version-datasource-weather.jar"
+    manifest {
+        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.datasource.rss.WeatherProducerConnector'
+    }
     from sourceSets.datasourceMeteo.output
     from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
     from { configurations.datasourceMeteoCompile.collect { it.isDirectory() ? it : zipTree(it) } }
@@ -100,6 +103,9 @@ task packageWeatherJar(type: Jar, description: 'Package the Weather Jar') {
 
 task packageRssJar(type: Jar, description: 'Package the RSS Jar') {
     archiveName = "resources/datasource/ikb4stream-$version-datasource-rss.jar"
+    manifest {
+        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.datasource.rss.RSSProducerConnector'
+    }
     from sourceSets.datasourceRSS.output
     from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
     from { configurations.datasourceRSSCompile.collect { it.isDirectory() ? it : zipTree(it) } }
@@ -108,6 +114,9 @@ task packageRssJar(type: Jar, description: 'Package the RSS Jar') {
 
 task packageCommunicationKafkaJar(type: Jar, description: 'Package the Kafka Communication Jar') {
     archiveName = "resources/communication/ikb4stream-$version-communication-kafka.jar"
+    manifest {
+        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.communication.kafka.KafkaCommunication'
+    }
     from sourceSets.communicationKafka.output
     from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
     from { configurations.communicationKafkaCompile.collect { it.isDirectory() ? it : zipTree(it) } }
@@ -116,6 +125,9 @@ task packageCommunicationKafkaJar(type: Jar, description: 'Package the Kafka Com
 
 task packageCommunicationWebJar(type: Jar, description: 'Package the Web Communication Jar') {
     archiveName = "resources/communication/ikb4stream-$version-communication-web.jar"
+    manifest {
+        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.communication.web.WebCommunication'
+    }
     from sourceSets.communicationWeb.output
     from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
     from { configurations.communicationWebCompile.collect { it.isDirectory() ? it : zipTree(it) } }

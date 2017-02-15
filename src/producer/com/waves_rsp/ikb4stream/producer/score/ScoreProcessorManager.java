@@ -3,24 +3,26 @@ package com.waves_rsp.ikb4stream.producer.score;
 import com.waves_rsp.ikb4stream.core.datasource.model.IScoreProcessor;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
+import com.waves_rsp.ikb4stream.core.util.JarLoader;
 import com.waves_rsp.ikb4stream.core.util.UtilManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class ScoreProcessorManager {
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(ScoreProcessorManager.class, "resources/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(ScoreProcessorManager.class);
+    private final ClassLoader parent = ScoreProcessorManager.class.getClassLoader();
     private final Map<String,IScoreProcessor> scoreProcessors = new HashMap<>();
 
     public Event processScore(Event event) {
@@ -56,20 +58,13 @@ public class ScoreProcessorManager {
 
     public void instanciate() {
         String stringPath = PROPERTIES_MANAGER.getProperty("scoreprocessor.path");
+
         try (Stream<Path> paths = Files.walk(Paths.get(stringPath))) {
             paths.forEach((Path filePath) -> {
-                if (Files.isRegularFile(filePath) && filePath.endsWith(".jar")) {
-                    URLClassLoader cl = UtilManager.getURLClassLoader(this.getClass().getClassLoader(), filePath);
-                    UtilManager.getEntries(filePath).filter(UtilManager::checkIsClassFile)
-                            .map(UtilManager::getClassName)
-                            .map(clazz -> UtilManager.loadClass(clazz, cl))
-                            .filter(clazz -> UtilManager.implementInterface(clazz, IScoreProcessor.class))
-                            .forEach(clazz -> {
-                                String jarName = filePath.getFileName().toString();
-                                scoreProcessors.put(jarName, (IScoreProcessor) UtilManager.newInstance(clazz));
-                                LOGGER.info("ScoreProcessor " + jarName + " has been launched");
-                            });
-                    closeURLClassLoader(cl);
+                if (Files.isRegularFile(filePath)) {
+                    JarLoader jarLoader = JarLoader.createJarLoader(filePath.toString());
+                    String jarName = filePath.getFileName().toString();
+                    launchModule(jarName, jarLoader);
                 }
             });
         } catch (IOException e) {
@@ -77,11 +72,29 @@ public class ScoreProcessorManager {
         }
     }
 
-    private void closeURLClassLoader(URLClassLoader cl) {
-        try {
-            cl.close();
-        } catch (IOException e) {
-            LOGGER.error(e.getMessage());
+    /**
+     * Launch module
+     * @param jarLoader JarLoader that represents module
+     */
+    private void launchModule(String jarName, JarLoader jarLoader) {
+        if (jarLoader != null) {
+            List<String> classes = jarLoader.getClasses();
+            List<URL> urls = jarLoader.getUrls();
+            AccessController.doPrivileged((PrivilegedAction<Object>) () -> {
+                ClassLoader classLoader = new URLClassLoader(
+                        urls.toArray(new URL[urls.size()]),
+                        parent);
+
+                classes.stream()
+                        .map(c -> UtilManager.loadClass(c, classLoader))
+                        .filter(c -> UtilManager.implementInterface(c, IScoreProcessor.class))
+                        .forEach(clazz -> {
+                            scoreProcessors.put(jarName, (IScoreProcessor) UtilManager.newInstance(clazz));
+                            LOGGER.info("ScoreProcessor " + jarName + " has been launched");
+                        });
+
+                return null;
+            });
         }
     }
 }

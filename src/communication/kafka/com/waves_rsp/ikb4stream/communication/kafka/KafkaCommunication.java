@@ -48,7 +48,6 @@ public class KafkaCommunication implements ICommunication {
             throw new IllegalStateException(e.getMessage());
         }
         StreamsConfig config = new StreamsConfig(props);
-
         KStreamBuilder builder = new KStreamBuilder();
         builder.stream(kafkaTopic)
                 .map((key, value) -> {

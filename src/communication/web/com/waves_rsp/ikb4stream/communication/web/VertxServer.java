@@ -53,7 +53,7 @@ public class VertxServer extends AbstractVerticle {
      * @param rc RoutingContext, which contains the request, and the response
      */
     private void getAnomalies(RoutingContext rc) {
-        // curl http://localhost:8081/anomaly -X GET -H "Content-Type: application/json" -d '{"start":1487004295000,"end":1487004295000, "boundingBox":{"points": [{"latitude":10, "longitude":20},{"latitude":15, "longitude":25}]}, "requestReception":1487004295000}'
+        // curl http://localhost:8081/anomaly -X GET -H "Content-Type: application/json" -d '{"start":1487004295000,"end":1487004295000, "boundingBox":{"points": [{"latitude":10, "longitude":20},{"latitude":15, "longitude":25},{"latitude":25, "longitude":30},{"latitude":10, "longitude":20}]}, "requestReception":1487004295000}'
         Request request = parseRequest(rc.getBodyAsJson());
 
         rc.response().putHeader("content-type", "application/json");

@@ -2,15 +2,19 @@ package com.waves_rsp.ikb4stream.producer.datasource;
 
 import com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
+import com.waves_rsp.ikb4stream.core.util.JarLoader;
 import com.waves_rsp.ikb4stream.core.util.UtilManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -18,6 +22,7 @@ import java.util.stream.Stream;
 public class ProducerManager {
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(ProducerManager.class, "resources/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(ProducerManager.class);
+    private final ClassLoader parent = ProducerManager.class.getClassLoader();
     private static ProducerManager ourInstance = new ProducerManager();
     private final List<Thread> producerConnectors = new ArrayList<>();
     private final List<Thread> dataConsumers = new ArrayList<>();
@@ -78,33 +83,44 @@ public class ProducerManager {
         String stringPath = PROPERTIES_MANAGER.getProperty("producer.path");
         try (Stream<Path> paths = Files.walk(Paths.get(stringPath))) {
             paths.forEach((Path filePath) -> {
-                if (Files.isRegularFile(filePath) && filePath.endsWith(".jar")) {
-                    URLClassLoader cl = UtilManager.getURLClassLoader(this.getClass().getClassLoader(), filePath);
-                    UtilManager.getEntries(filePath).filter(UtilManager::checkIsClassFile)
-                            .map(UtilManager::getClassName)
-                            .map(clazz -> UtilManager.loadClass(clazz, cl))
-                            .filter(clazz -> UtilManager.implementInterface(clazz, IProducerConnector.class))
-                            .forEach(clazz -> {
-                                IProducerConnector producerConnector = (IProducerConnector) UtilManager.newInstance(clazz);
-                                Thread thread = new Thread(() -> producerConnector.load(new DataProducer(dataQueue)));
-                                thread.start();
-                                LOGGER.info("Producer " + producerConnector.getClass().getName() + " has been launched");
-                                producerConnectors.add(thread);
-                            });
-                    closeURLClassLoader(cl);
+                if (Files.isRegularFile(filePath)) {
+                    JarLoader jarLoader = JarLoader.createJarLoader(filePath.toString());
+                    launchModule(jarLoader);
                 }
             });
         } catch (IOException e) {
             LOGGER.error(e.getMessage());
         }
-        LOGGER.info("All producer has been launched");
     }
 
-    private void closeURLClassLoader(URLClassLoader cl) {
-        try {
-            cl.close();
-        } catch (IOException e1) {
-            LOGGER.error(e1.getMessage());
+    /**
+     * Launch module
+     * @param jarLoader JarLoader that represents module
+     */
+    private void launchModule(JarLoader jarLoader) {
+        if (jarLoader != null) {
+            List<String> classes = jarLoader.getClasses();
+            List<URL> urls = jarLoader.getUrls();
+            AccessController.doPrivileged((PrivilegedAction<Object>) () -> {
+                ClassLoader classLoader = new URLClassLoader(
+                        urls.toArray(new URL[urls.size()]),
+                        parent);
+
+                classes.stream()
+                        .map(c -> UtilManager.loadClass(c, classLoader))
+                        .filter(c -> UtilManager.implementInterface(c, IProducerConnector.class))
+                        .forEach(clazz -> {
+                            IProducerConnector producerConnector = (IProducerConnector) UtilManager.newInstance(clazz);
+                            Thread thread = new Thread(() -> producerConnector.load(new DataProducer(dataQueue)));
+                            thread.setContextClassLoader(classLoader);
+                            thread.setName(producerConnector.getClass().getName());
+                            thread.start();
+                            LOGGER.info("Producer " + producerConnector.getClass().getName() + " has been launched");
+                            producerConnectors.add(thread);
+                        });
+
+                return null;
+            });
         }
     }
 
