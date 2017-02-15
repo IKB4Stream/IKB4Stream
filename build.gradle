@@ -26,6 +26,13 @@ sourceSets {
         }
     }
 
+    scoring {
+        java {
+            srcDirs = ['src/core', 'src/scoring']
+            compileClasspath += core.compileClasspath + core.output
+        }
+    }
+
     communicationKafka {
         java {
             srcDirs = ['src/core', 'src/communication/kafka']
@@ -91,7 +98,8 @@ sourceSets {
 
     test {
         java {
-            srcDirs = ['src/core', 'src/consumer', 'src/producer', 'src/test/', 'src/datasource',
+            srcDirs = ['src/core', 'src/consumer', 'src/producer', 'src/test/', 'src/datasource', 'src/communication/web',
+                       'src/scoring',
                        'src/datasource/weather', 'src/datasource/rss', 'src/communication/kafka',
                        'src/datasource/twitter', 'src/datasource/twittermock', 'src/datasource/dbpedia',
                         'src/datasource/facebook', 'src/communication/web']
@@ -104,7 +112,7 @@ sourceSets {
                     datasourceTwitter.compileClasspath + datasourceTwitter.output +
                     datasourceDbpedia.output + datasourceDbpedia.compileClasspath +
                     datasourceFacebook.output + datasourceFacebook.compileClasspath +
-                    communicationWeb.output + communicationWeb.compileClasspath
+                    communicationWeb.output + communicationWeb.compileClasspath + scoring.compileClasspath + scoring.output
 
             runtimeClasspath = output + compileClasspath + runtimeClasspath
         }
@@ -272,11 +280,13 @@ dependencies {
     coreCompile 'org.apache.jena:jena-arq:2.9.3'
     coreCompile 'com.fasterxml.jackson.core:jackson-databind:2.8.6'
     coreCompile 'org.mongodb:mongodb-driver-async:3.2.2'
-
+    coreCompile  group: 'org.apache.opennlp', name: 'opennlp-tools', version: '1.6.0'
+    //TODO Suppresssion
+    coreCompile 'edu.stanford.nlp:stanford-corenlp:3.7.0'
+    coreCompile 'edu.stanford.nlp:stanford-corenlp:3.7.0:models-french'
 
     // producer
-    producerCompile 'edu.stanford.nlp:stanford-corenlp:3.7.0'
-    producerCompile 'edu.stanford.nlp:stanford-corenlp:3.7.0:models-french'
+
 
     // consumer
 
