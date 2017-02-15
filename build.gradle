@@ -315,10 +315,12 @@ dependencies {
 
     // scoreprocessor_nlp
 
+    //scoring
+    scoringCompile 'org.twitter4j:twitter4j-stream:4.0.6'
+
     // tests
     testCompile 'junit:junit:4.11'
 }
-
 
 configurations.all {
     exclude group: "org.slf4j", module: "slf4j-log4j12"

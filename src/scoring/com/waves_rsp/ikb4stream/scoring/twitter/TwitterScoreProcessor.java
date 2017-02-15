@@ -2,15 +2,20 @@ package com.waves_rsp.ikb4stream.scoring.twitter;
 
 import com.waves_rsp.ikb4stream.core.datasource.model.IScoreProcessor;
 import com.waves_rsp.ikb4stream.core.model.Event;
+import com.waves_rsp.ikb4stream.core.model.LatLong;
 import com.waves_rsp.ikb4stream.core.util.NLP;
 import com.waves_rsp.ikb4stream.core.util.RulesReader;
+import org.slf4j.LoggerFactory;
+import twitter4j.JSONException;
+import twitter4j.JSONObject;
 
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Objects;
+import java.io.IOException;
+import java.util.*;
 
 
 public class TwitterScoreProcessor implements IScoreProcessor {
+
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(TwitterScoreProcessor.class);
     private static final String FILENAME = "rules.json";
     private static byte MAX_SCORE = 100;
     private static int COEFF_HASHTAG = 2;
@@ -34,6 +39,16 @@ public class TwitterScoreProcessor implements IScoreProcessor {
         return word.startsWith("#");
     }
 
+    private boolean isCertified(JSONObject json) throws JSONException {
+        String isCertified = json.getString("user_certified");
+        isCertified = isCertified.substring(1, isCertified.length() - 1);
+        return isCertified.equals("true");
+    }
+
+    private String getParseDescription(JSONObject json) throws JSONException {
+        return json.getString("description");
+    }
+
 
     /**
      * Process score of an event from Twitter
@@ -45,26 +60,76 @@ public class TwitterScoreProcessor implements IScoreProcessor {
     @Override
     public Event processScore(Event event) {
         Objects.requireNonNull(event);
-        String tweet = event.getDescription();
-        Map<String, String> tweetMap = NLP.applyNLPtoTweet(tweet);
-        Map<String, Integer> rulesMap = RulesReader.parseJSONRules(FILENAME);
+        String tweet = "";
         byte score = 0;
+        boolean isHashtag = false;
 
-        Iterator tweetWords = tweetMap.entrySet().iterator();
-        while (tweetWords.hasNext()) {
-            Map.Entry tweetWord = (Map.Entry) tweetWords.next();
-            if (rulesMap.containsKey(tweetWord.getKey())) {
-                //if tweetWord is a hashtag
-                score += rulesMap.get(tweetWord.getKey()) * COEFF_HASHTAG;
-            } else {
-                score += rulesMap.get(tweetWord.getKey());
+        try {
+            JSONObject jsonTweet = new JSONObject(event.getDescription());
+            tweet = getParseDescription(jsonTweet);
+            System.out.println("tweet : " + tweet);
+            Map<String, String> tweetMap = NLP.applyNLPtoTweet(tweet);
+            Map<String, Integer> rulesMap = RulesReader.parseJSONRules(FILENAME);
+
+
+            Iterator tweetWords = tweetMap.entrySet().iterator();
+            while (tweetWords.hasNext()) {
+                Map.Entry tweetWord = (Map.Entry) tweetWords.next();
+                System.out.print("Word : " + tweetWord.getKey()); //TODO
+                String word = tweetWord.getKey().toString();
+                if(isHashtag =isHashtag(word)){
+                    word = word.substring(1);
+                }
+                if (rulesMap.containsKey(word)) {
+                    System.out.print(" - score : ");//TODO
+                    //if tweetWord is a hashtag
+                    if (isHashtag) {
+                        score += rulesMap.get(word) * COEFF_HASHTAG;
+                        System.out.print(" # " + rulesMap.get(word)*COEFF_HASHTAG);//TODO
+                    } else {
+                        score += rulesMap.get(word);
+                        System.out.print(rulesMap.get(tweetWord.getKey()));//TODO
+                    }
+                }
+                System.out.println("\n");
             }
+
+            //Score x COEFF_VERIFY_ACCOUNT if the twitter is certified
+            if (isCertified(jsonTweet)) {
+                System.out.println("CERTIFIED");
+                score *= COEFF_VERIFY_ACCOUNT;
+            }
+
+
+        } catch (JSONException e) {
+            LOGGER.error("Wrong JsonObject from Twitter Connector\n" + e.getMessage());
+        }
+        return new Event(event.getLocation(), event.getStart(), event.getEnd(), tweet, verifyMaxScore(score), event.getSource());
+    }
+
+    public static void main(String[] args) throws IOException {
+        String description = "Roger, il y a une fuite d'eau à Paris #eau";
+        boolean isVerified = true;
+
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.append("description", description);
+
+            jsonObject.append("user_certified", isVerified);
+            Date date = Calendar.getInstance().getTime();
+            Event event = new Event(new LatLong(2, 3), date, date, jsonObject.toString(), "Twitter");
+
+            System.out.println(jsonObject.toString());
+
+            TwitterScoreProcessor tsp = new TwitterScoreProcessor();
+            Event e = tsp.processScore(event);
+            System.out.println(e.getDescription());
+            System.out.println("SCORE : " + e.getScore());
+        } catch (JSONException e) {
+
         }
 
 
-        //Score x COEFF_VERIFY_ACCOUNT if the twitter is certified
-        //TODO
-        return new Event(event.getLocation(), event.getStart(), event.getEnd(), tweet, verifyMaxScore(score), event.getSource());
     }
 }
 
