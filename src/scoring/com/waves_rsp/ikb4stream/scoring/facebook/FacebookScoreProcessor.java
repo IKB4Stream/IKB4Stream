@@ -5,7 +5,6 @@ import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
 import com.waves_rsp.ikb4stream.core.util.OpenNLP;
 import com.waves_rsp.ikb4stream.core.util.RulesReader;
-import com.waves_rsp.ikb4stream.producer.score.ScoreProcessorManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +14,7 @@ import java.util.Objects;
 
 
 public class FacebookScoreProcessor implements IScoreProcessor {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ScoreProcessorManager.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FacebookScoreProcessor.class);
     private final String ruleFilename;
 
     public FacebookScoreProcessor() {
