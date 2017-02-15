@@ -110,29 +110,6 @@ public class TwitterScoreProcessor implements IScoreProcessor {
                 System.out.println("\n");
             }
 
-            /*
-            Iterator tweetWords = tweetMap.entrySet().iterator();
-            while (tweetWords.hasNext()) {
-                Map.Entry tweetWord = (Map.Entry) tweetWords.next();
-                System.out.print("Word : " + tweetWord.getKey()); //TODO
-                String word = tweetWord.getKey().toString();
-                if(isHashtag =isHashtag(word)){
-                    word = word.substring(1);
-                }
-                if (rulesMap.containsKey(word)) {
-                    System.out.print(" - score : ");//TODO
-                    if (isHashtag) {
-                        //if tweetWord is a hashtag
-                        score += rulesMap.get(word) * COEFF_HASHTAG;
-                        System.out.print(" # " + rulesMap.get(word)*COEFF_HASHTAG);//TODO
-                    } else {
-                        score += rulesMap.get(word);
-                        System.out.print(rulesMap.get(word));//TODO
-                    }
-                }
-                System.out.println("\n");
-            }*/
-
             //Score x COEFF_VERIFY_ACCOUNT if the twitter is certified
             if (isCertified(jsonTweet)) {
                 System.out.println("CERTIFIED");
@@ -144,6 +121,7 @@ public class TwitterScoreProcessor implements IScoreProcessor {
         return new Event(event.getLocation(), event.getStart(), event.getEnd(), tweet, verifyMaxScore(score), event.getSource());
     }
 
+    //TODO : supress Main
     public static void main(String[] args) throws IOException {
         String description = "Roger, il y a une fuite d'eau à Paris #eau";
         boolean isVerified = true;
