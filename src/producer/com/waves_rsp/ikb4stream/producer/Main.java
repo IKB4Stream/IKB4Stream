@@ -46,7 +46,9 @@ public class Main {
         Runtime runtime = Runtime.getRuntime();
         try {
             listener.start();
-            runtime.addShutdownHook(listener);
+            if(runtime.removeShutdownHook(listener)) {
+                runtime.addShutdownHook(listener);
+            }
         }catch (IllegalArgumentException err) {
             LOGGER.error("Runtime thread hook got an error : thread already running. "+err.getMessage());
         }finally {
