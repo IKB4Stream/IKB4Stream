@@ -33,6 +33,11 @@ public class TwitterMock implements IProducerConnector {
         return new TwitterMock(inputStream);
     }
 
+    /**
+     * Load data registered into a json twitter file and parse them to create event
+     *
+     * @param dataProducer
+     */
     @Override
     public void load(IDataProducer dataProducer) {
         Objects.requireNonNull(dataProducer);
@@ -73,6 +78,12 @@ public class TwitterMock implements IProducerConnector {
         }
     }
 
+    /**
+     * Parse an object node in order to create an Event object
+     *
+     * @param objectNode
+     * @return null if an IllegalArgumentException or NullPointerException has been thrown, else the Event object created
+     */
     private static Event getEventFromJson(ObjectNode objectNode) {
         Date startDate = Date.from(Instant.ofEpochMilli(objectNode.findValue("timestamp_ms").asLong()));
         Date endDate = Date.from(Instant.now());
@@ -90,6 +101,12 @@ public class TwitterMock implements IProducerConnector {
         }
     }
 
+    /**
+     * Create LatLong from a jsonNode object and parse it to get GPS coordinates
+     *
+     * @param jsonCoordinates
+     * @return latlong object
+     */
     private static LatLong jsonToLatLong(JsonNode jsonCoordinates) {
         JsonNode main = jsonCoordinates.elements().next();
         JsonNode coords = main.elements().next();

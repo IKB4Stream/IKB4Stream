@@ -58,14 +58,10 @@ public class TwitterProducerConnector implements IProducerConnector {
             while(!Thread.interrupted()) {
 
             }
-        }catch (IllegalArgumentException err) {
+        }catch (IllegalArgumentException | IllegalStateException err) {
             LOGGER.error(err.getMessage());
-            Thread.currentThread().interrupt();
-        }catch (IllegalStateException err) {
-            LOGGER.error(err.getMessage());
-            Thread.currentThread().interrupt();
-            return;
-        }finally {
+            throw new IllegalStateException(err.getMessage());
+        } finally {
             Thread.currentThread().interrupt();
             if(twitterStream != null) {
                 twitterStream.shutdown();

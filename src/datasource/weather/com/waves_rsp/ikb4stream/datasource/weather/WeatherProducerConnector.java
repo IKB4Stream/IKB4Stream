@@ -28,6 +28,9 @@ public class WeatherProducerConnector implements IProducerConnector {
     private final String source;
     private final URL url;
 
+    /**
+     * Instantiate the WeatherProducerConnector object with load properties to connect to the RSS flow
+     */
     public WeatherProducerConnector() {
         try {
             PropertiesManager propertiesManager = PropertiesManager.getInstance(WeatherProducerConnector.class, "resources/config.properties");
@@ -39,13 +42,17 @@ public class WeatherProducerConnector implements IProducerConnector {
         }
     }
 
+    /**
+     * Check a RSS flow from an
+     *
+     * @param dataProducer
+     */
     @Override
     public void load(IDataProducer dataProducer) {
         Objects.requireNonNull(dataProducer);
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 SyndFeedInput input = new SyndFeedInput(false, Locale.FRANCE);
-                URL url = new URL(YWeatherFeedModule.URI);
                 XmlReader reader = new XmlReader(url);
                 SyndFeed feed = input.build(reader);
                 feed.getEntries().forEach(entry -> {
@@ -67,6 +74,7 @@ public class WeatherProducerConnector implements IProducerConnector {
                 });
             } catch (IOException | FeedException e) {
                 LOGGER.error(e.getMessage());
+                return;
             }
         }
     }
