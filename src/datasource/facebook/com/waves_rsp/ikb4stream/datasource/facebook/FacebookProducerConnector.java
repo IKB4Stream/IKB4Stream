@@ -92,12 +92,12 @@ public class FacebookProducerConnector implements IProducerConnector {
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 List<com.waves_rsp.ikb4stream.core.model.Event> events = searchWordFromGeolocation(word, limit, lat, lon);
-                if (events.size() != 0) {
-                    events.stream().forEach(e -> dataProducer.push(e));
-                }
+                events.stream().forEach(dataProducer::push);
                 Thread.sleep(20000);
-            }catch (InterruptedException e){
+            } catch (InterruptedException e) {
                 LOGGER.error(e.getMessage());
+            } finally {
+                Thread.currentThread().interrupt();
             }
         }
     }
