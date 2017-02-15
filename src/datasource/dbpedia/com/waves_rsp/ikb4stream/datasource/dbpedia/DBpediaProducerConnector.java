@@ -40,7 +40,8 @@ public class DBpediaProducerConnector implements IProducerConnector {
     }
 
     /**
-     * Sent the sparql query to dbpedia service and load rdf data parsed into IDataProducer object
+     * Sent the sparql query to dbpedia service and load rdf data parsed into IDataProducer object.
+     * The dbpedia service return a rdf response with nodes corresponding to the fields requested
      *
      * @param dataProducer
      */
@@ -121,16 +122,42 @@ public class DBpediaProducerConnector implements IProducerConnector {
         }
     }
 
+    /**
+     * Check if the RDFNodes are null or not
+     *
+     * @param rdfNodes
+     * @return true if the rdf nodes are not null
+     */
     private static boolean checkRDFNodes(RDFNode... rdfNodes) {
         return Arrays.stream(rdfNodes).anyMatch(Objects::nonNull);
     }
 
+    /**
+     * Parse specific RDFNodes in order to get GPS data with latitude and longitude
+     *
+     * @param latitudeNode
+     * @param longitudeNode
+     * @return latlong object with the coordinates
+     */
     private static LatLong getLatlongFromRDFNodes(RDFNode latitudeNode, RDFNode longitudeNode) {
         double latitude = latitudeNode.asLiteral().getDouble();
         double longitude = longitudeNode.asLiteral().getDouble();
         return new LatLong(latitude, longitude);
     }
 
+    /**
+     * Parse specific nodes in order to create an Event object.
+     * Check the date from startDate and endDate RDF nodes.
+     * Retrieve the label and description from labelNode and descriptionNode.
+     *
+     * @param latitudeNode
+     * @param longitudeNode
+     * @param startDate
+     * @param endDate
+     * @param descriptionNode
+     * @param labelNode
+     * @return null if the checkRDFNodes is false or a ParseException has been caught, else the Even object
+     */
     private static Event getEventFromRDFNodes(RDFNode latitudeNode, RDFNode longitudeNode, RDFNode startDate, RDFNode endDate, RDFNode descriptionNode, RDFNode labelNode) {
         if(checkRDFNodes(latitudeNode, longitudeNode, startDate, endDate, descriptionNode)) {
            try {
