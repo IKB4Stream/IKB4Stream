@@ -25,7 +25,7 @@ public class TwitterScoreProcessor implements IScoreProcessor {
     /**
      * Check that the score can't overtake @MAX_SCORE
      *
-     * @param score calculated by NLP processing
+     * @param score calculated by OpenNLP processing
      * @return score (max = @MAX_SCORE)
      */
     private byte verifyMaxScore(byte score) {
@@ -74,7 +74,7 @@ public class TwitterScoreProcessor implements IScoreProcessor {
      * Process score of an event from Twitter
      *
      * @param event an event without score
-     * @return Event with a score after NLP processing
+     * @return Event with a score after OpenNLP processing
      * @throws NullPointerException if {@param event} is null
      */
     @Override

@@ -32,7 +32,7 @@ public class FacebookScoreProcessor implements IScoreProcessor {
      * Process score of an event from Facebook
      *
      * @param event an event without score
-     * @return Event with a score after NLP processing
+     * @return Event with a score after OpenNLP processing
      * @throws NullPointerException if {@param event} is null
      */
     @Override
