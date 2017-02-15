@@ -1,10 +1,11 @@
-package com.waves_rsp.ikb4stream.producer.score;
+package com.waves_rsp.ikb4stream.scoring.facebook;
 
 import com.waves_rsp.ikb4stream.core.datasource.model.IScoreProcessor;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
-import com.waves_rsp.ikb4stream.producer.score.sample.NLP;
-import com.waves_rsp.ikb4stream.producer.score.sample.RulesReader;
+import com.waves_rsp.ikb4stream.core.util.NLP;
+import com.waves_rsp.ikb4stream.core.util.RulesReader;
+import com.waves_rsp.ikb4stream.producer.score.ScoreProcessorManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
