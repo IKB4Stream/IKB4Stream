@@ -103,12 +103,20 @@ sourceSets {
         }
     }
 
+    scoringMock {
+        java {
+            srcDirs = ['src/core', 'src/scoring/mock']
+            compileClasspath += core.compileClasspath + core.output
+        }
+    }
+
     test {
         java {
             srcDirs = ['src/core', 'src/consumer', 'src/producer', 'src/test/', 'src/datasource', 'src/scoring',
                        'src/communication/web', 'src/datasource/weather', 'src/datasource/rss', 'src/communication/kafka',
                        'src/datasource/twitter', 'src/datasource/twittermock', 'src/datasource/dbpedia',
-                        'src/datasource/facebook', 'src/communication/web', 'src/scoring/facebook', 'src/scoring/twitter']
+                        'src/datasource/facebook', 'src/communication/web', 'src/scoring/facebook', 'src/scoring/twitter',
+                        'src/scoring/mock']
 
             compileClasspath += core.compileClasspath + core.output + consumer.compileClasspath + consumer.output +
                     producer.compileClasspath + producer.output + communicationKafka.compileClasspath +
@@ -120,7 +128,8 @@ sourceSets {
                     datasourceFacebook.output + datasourceFacebook.compileClasspath +
                     communicationWeb.output + communicationWeb.compileClasspath +
                     scoringFacebook.compileClasspath + scoringFacebook.output +
-                    scoringTwitter.compileClasspath + scoringTwitter.output
+                    scoringTwitter.compileClasspath + scoringTwitter.output +
+                    scoringMock.compileClasspath + scoringMock.output
 
             runtimeClasspath = output + compileClasspath + runtimeClasspath
         }
@@ -275,6 +284,16 @@ task packageTwitterScoringJar(type: Jar, description: 'Package the Twitter Scori
     with jar
 }
 
+task packageMockScoringJar(type: Jar, description: 'Package the Mock Scoring Jar') {
+    archiveName = "resources/scoreprocessor/mock/ikb4stream-$version-scoring-mock.jar"
+    manifest {
+        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.scoring.mock.MockScoreProcessor'
+    }
+    from sourceSets.scoringMock.output
+    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 task copyConfigProperties(type: Copy) {
     from 'resources/'
     into 'build/libs/resources/'
@@ -286,7 +305,7 @@ task zipBuild(type: Zip) {
     from 'build/libs'
 }
 
-task packageAll(dependsOn: ['copyConfigProperties', 'packageConsumerJar', 'packageProducerJar', 'packageWeatherJar', 'packageRssJar', 'packageKafkaCommunicationJar', 'packageTwitterJar', 'packageDbpediaJar', 'packageFacebookJar', 'packageCommunicationWebJar', 'packageFacebookScoringJar', 'packageTwitterScoringJar']) {
+task packageAll(dependsOn: ['copyConfigProperties', 'packageConsumerJar', 'packageProducerJar', 'packageWeatherJar', 'packageRssJar', 'packageKafkaCommunicationJar', 'packageTwitterJar', 'packageDbpediaJar', 'packageFacebookJar', 'packageCommunicationWebJar', 'packageFacebookScoringJar', 'packageTwitterScoringJar', 'packageMockScoringJar']) {
 
 }
 
