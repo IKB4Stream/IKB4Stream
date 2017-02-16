@@ -26,13 +26,6 @@ sourceSets {
         }
     }
 
-    scoring {
-        java {
-            srcDirs = ['src/core', 'src/scoring']
-            compileClasspath += core.compileClasspath + core.output
-        }
-    }
-
     communicationKafka {
         java {
             srcDirs = ['src/core', 'src/communication/kafka']
@@ -96,13 +89,26 @@ sourceSets {
         }
     }
 
+    scoringFacebook {
+        java {
+            srcDirs = ['src/core', 'src/scoring/facebook']
+            compileClasspath += core.compileClasspath + core.output
+        }
+    }
+
+    scoringTwitter {
+        java {
+            srcDirs = ['src/core', 'src/scoring/twitter']
+            compileClasspath += core.compileClasspath + core.output
+        }
+    }
+
     test {
         java {
-            srcDirs = ['src/core', 'src/consumer', 'src/producer', 'src/test/', 'src/datasource', 'src/communication/web',
-                       'src/scoring',
-                       'src/datasource/weather', 'src/datasource/rss', 'src/communication/kafka',
+            srcDirs = ['src/core', 'src/consumer', 'src/producer', 'src/test/', 'src/datasource', 'src/scoring',
+                       'src/communication/web', 'src/datasource/weather', 'src/datasource/rss', 'src/communication/kafka',
                        'src/datasource/twitter', 'src/datasource/twittermock', 'src/datasource/dbpedia',
-                        'src/datasource/facebook', 'src/communication/web']
+                        'src/datasource/facebook', 'src/communication/web', 'src/scoring/facebook', 'src/scoring/twitter']
 
             compileClasspath += core.compileClasspath + core.output + consumer.compileClasspath + consumer.output +
                     producer.compileClasspath + producer.output + communicationKafka.compileClasspath +
@@ -112,11 +118,20 @@ sourceSets {
                     datasourceTwitter.compileClasspath + datasourceTwitter.output +
                     datasourceDbpedia.output + datasourceDbpedia.compileClasspath +
                     datasourceFacebook.output + datasourceFacebook.compileClasspath +
-                    communicationWeb.output + communicationWeb.compileClasspath + scoring.compileClasspath + scoring.output
+                    communicationWeb.output + communicationWeb.compileClasspath +
+                    scoringFacebook.compileClasspath + scoringFacebook.output +
+                    scoringTwitter.compileClasspath + scoringTwitter.output
 
             runtimeClasspath = output + compileClasspath + runtimeClasspath
         }
     }
+}
+
+task packageCoreJar(type: Jar, description: 'Package the Core Jar') {
+    archiveName = "ikb4stream-$version-core.jar"
+    from sourceSets.core.output
+    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }
 
 task packageConsumerJar(type: Jar, description: 'Package the Consumer Jar') {
@@ -141,7 +156,7 @@ task packageProducerJar(type: Jar, description: 'Package the Producer Jar') {
 }
 
 task packageWeatherJar(type: Jar, description: 'Package the Weather Jar') {
-    archiveName = "resources/datasource/ikb4stream-$version-datasource-weather.jar"
+    archiveName = "resources/datasource/weather/ikb4stream-$version-datasource-weather.jar"
     manifest {
         attributes 'Module-Class': 'com.waves_rsp.ikb4stream.datasource.rss.WeatherProducerConnector'
     }
@@ -152,7 +167,7 @@ task packageWeatherJar(type: Jar, description: 'Package the Weather Jar') {
 }
 
 task packageRssJar(type: Jar, description: 'Package the RSS Jar') {
-    archiveName = "resources/datasource/ikb4stream-$version-datasource-rss.jar"
+    archiveName = "resources/datasource/rss/ikb4stream-$version-datasource-rss.jar"
     manifest {
         attributes 'Module-Class': 'com.waves_rsp.ikb4stream.datasource.rss.RSSProducerConnector'
     }
@@ -163,7 +178,7 @@ task packageRssJar(type: Jar, description: 'Package the RSS Jar') {
 }
 
 task packageOwmJar(type: Jar, description: 'Package the OWM Jar') {
-    archiveName = "resources/datasource/ikb4stream-$version-datasource-owm.jar"
+    archiveName = "resources/datasource/owm/ikb4stream-$version-datasource-owm.jar"
     manifest {
         attributes 'Module-Class': 'com.waves_rsp.ikb4stream.datasource.owm.OWMProducerConnector'
     }
@@ -173,8 +188,8 @@ task packageOwmJar(type: Jar, description: 'Package the OWM Jar') {
     with jar
 }
 
-task packageFacebookJar(type: Jar, description: 'Package the OWM Jar') {
-    archiveName = "resources/datasource/ikb4stream-$version-datasource-facebook.jar"
+task packageFacebookJar(type: Jar, description: 'Package the Facebook Jar') {
+    archiveName = "resources/datasource/facebook/ikb4stream-$version-datasource-facebook.jar"
     manifest {
         attributes 'Module-Class': 'com.waves_rsp.ikb4stream.datasource.facebook.FacebookProducerConnector'
     }
@@ -185,7 +200,7 @@ task packageFacebookJar(type: Jar, description: 'Package the OWM Jar') {
 }
 
 task packageTwitterJar(type: Jar, description: 'Package the Twitter Jar') {
-    archiveName = "resources/datasource/ikb4stream-$version-datasource-twitter.jar"
+    archiveName = "resources/datasource/twitter/ikb4stream-$version-datasource-twitter.jar"
     manifest {
         attributes 'Module-Class': 'com.waves_rsp.ikb4stream.datasource.twitter.TwitterProducerConnector'
     }
@@ -197,7 +212,7 @@ task packageTwitterJar(type: Jar, description: 'Package the Twitter Jar') {
 
 
 task packageTwitterMockJar(type: Jar, description: 'Package the Twitter Mock Jar') {
-    archiveName = "resources/datasource/ikb4stream-$version-datasource-twittermock.jar"
+    archiveName = "resources/datasource/twittermock/ikb4stream-$version-datasource-twittermock.jar"
     manifest {
         attributes 'Module-Class': 'com.waves_rsp.ikb4stream.datasource.twittermock.TwitterMock'
     }
@@ -207,7 +222,7 @@ task packageTwitterMockJar(type: Jar, description: 'Package the Twitter Mock Jar
 }
 
 task packageDbpediaJar(type: Jar, description: 'Package the Dbpedia Jar') {
-    archiveName = "resources/datasource/ikb4stream-$version-datasource-dbpedia.jar"
+    archiveName = "resources/datasource/dbpedia/ikb4stream-$version-datasource-dbpedia.jar"
     manifest {
         attributes 'Module-Class': 'com.waves_rsp.ikb4stream.datasource.dbpedia.DBpediaProducerConnector'
     }
@@ -217,7 +232,7 @@ task packageDbpediaJar(type: Jar, description: 'Package the Dbpedia Jar') {
 }
 
 task packageKafkaCommunicationJar(type: Jar, description: 'Package the Kafka Communication Jar') {
-    archiveName = "resources/communication/ikb4stream-$version-communication-kafka.jar"
+    archiveName = "resources/communication/kafka/ikb4stream-$version-communication-kafka.jar"
     manifest {
         attributes 'Module-Class': 'com.waves_rsp.ikb4stream.communication.kafka.KafkaCommunication'
     }
@@ -228,7 +243,7 @@ task packageKafkaCommunicationJar(type: Jar, description: 'Package the Kafka Com
 }
 
 task packageCommunicationWebJar(type: Jar, description: 'Package the Web Communication Jar') {
-    archiveName = "resources/communication/ikb4stream-$version-communication-web.jar"
+    archiveName = "resources/communication/web/ikb4stream-$version-communication-web.jar"
     manifest {
         attributes 'Module-Class': 'com.waves_rsp.ikb4stream.communication.web.WebCommunication'
     }
@@ -238,10 +253,32 @@ task packageCommunicationWebJar(type: Jar, description: 'Package the Web Communi
     with jar
 }
 
+task packageFacebookScoringJar(type: Jar, description: 'Package the Facebook Scoring Jar') {
+    archiveName = "resources/scoreprocessor/facebook/ikb4stream-$version-scoring-facebook.jar"
+    manifest {
+        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.scoring.facebook.FacebookScoreProcessor'
+    }
+    from sourceSets.scoringFacebook.output
+    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
+    from { configurations.scoringFacebookCompile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+task packageTwitterScoringJar(type: Jar, description: 'Package the Twitter Scoring Jar') {
+    archiveName = "resources/scoreprocessor/twitter/ikb4stream-$version-scoring-twitter.jar"
+    manifest {
+        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.scoring.twitter.TwitterScoreProcessor'
+    }
+    from sourceSets.scoringTwitter.output
+    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
+    from { configurations.scoringTwitterCompile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 task copyConfigProperties(type: Copy) {
-    from 'resources/config.properties'
-    from 'resources/logback.xml'
+    from 'resources/'
     into 'build/libs/resources/'
+    exclude('**/*.ttl')
 }
 
 task zipBuild(type: Zip) {
@@ -249,7 +286,7 @@ task zipBuild(type: Zip) {
     from 'build/libs'
 }
 
-task packageAll(dependsOn: ['copyConfigProperties', 'packageConsumerJar', 'packageProducerJar', 'packageWeatherJar', 'packageRssJar', 'packageKafkaCommunicationJar', 'packageTwitterJar', 'packageDbpediaJar', 'packageFacebookJar', 'packageCommunicationWebJar']) {
+task packageAll(dependsOn: ['copyConfigProperties', 'packageConsumerJar', 'packageProducerJar', 'packageWeatherJar', 'packageRssJar', 'packageKafkaCommunicationJar', 'packageTwitterJar', 'packageDbpediaJar', 'packageFacebookJar', 'packageCommunicationWebJar', 'packageFacebookScoringJar', 'packageTwitterScoringJar']) {
 
 }
 
@@ -313,9 +350,11 @@ dependencies {
 
     // scoreprocessor_nlp
 
-    //scoring
-    scoringCompile 'org.twitter4j:twitter4j-stream:4.0.6'
-    scoringCompile group: 'com.restfb', name: 'restfb', version: '1.34.1'
+    //scoring_twitter
+    scoringTwitterCompile 'org.twitter4j:twitter4j-stream:4.0.6'
+
+    // scoring_facebook
+    scoringFacebookCompile group: 'com.restfb', name: 'restfb', version: '1.34.1'
 
     // tests
     testCompile 'junit:junit:4.11'

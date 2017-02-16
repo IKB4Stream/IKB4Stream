@@ -29,7 +29,7 @@ public class FacebookProducerConnector implements IProducerConnector {
 
     public FacebookProducerConnector() {
         try {
-            PropertiesManager propertiesManager = PropertiesManager.getInstance(FacebookProducerConnector.class, "resources/config.properties");
+            PropertiesManager propertiesManager = PropertiesManager.getInstance(FacebookProducerConnector.class, "resources/datasource/facebook/config.properties");
             this.source = propertiesManager.getProperty("FacebookProducerConnector.source");
             this.pageAccessToken = propertiesManager.getProperty("FacebookProducerConnector.token");
             this.word =  propertiesManager.getProperty("FacebookProducerConnector.word");
@@ -38,7 +38,7 @@ public class FacebookProducerConnector implements IProducerConnector {
             this.lon =  Double.valueOf(propertiesManager.getProperty("FacebookProducerConnector.longitude"));
         } catch (IllegalArgumentException e) {
             LOGGER.error(e.getMessage());
-            throw new IllegalArgumentException("Invalid configuration");
+            throw new IllegalStateException("Invalid configuration");
         }
     }
 

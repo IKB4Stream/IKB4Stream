@@ -18,7 +18,7 @@ import java.util.Objects;
  *
  */
 public class TwitterProducerConnector implements IProducerConnector {
-    private final PropertiesManager propertiesManager = PropertiesManager.getInstance(TwitterProducerConnector.class);
+    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(TwitterProducerConnector.class, "resources/datasource/twitter/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(TwitterProducerConnector.class);
     private final ConfigurationBuilder confBuilder = new ConfigurationBuilder();
 
@@ -40,10 +40,10 @@ public class TwitterProducerConnector implements IProducerConnector {
         TwitterStream twitterStream = null;
         try {
             loadTwitterProperties();
-            double latitudeMax = Double.valueOf(propertiesManager.getProperty("latitude.maximum"));
-            double latitudeMin = Double.valueOf(propertiesManager.getProperty("latitude.minimum"));
-            double longitudeMax = Double.valueOf(propertiesManager.getProperty("longitude.maximum"));
-            double longitudeMin = Double.valueOf(propertiesManager.getProperty("longitude.minimum"));
+            double latitudeMax = Double.valueOf(PROPERTIES_MANAGER.getProperty("twitter.latitude.maximum"));
+            double latitudeMin = Double.valueOf(PROPERTIES_MANAGER.getProperty("twitter.latitude.minimum"));
+            double longitudeMax = Double.valueOf(PROPERTIES_MANAGER.getProperty("twitter.longitude.maximum"));
+            double longitudeMin = Double.valueOf(PROPERTIES_MANAGER.getProperty("twitter.longitude.minimum"));
 
             TwitterStreamListener streamListener = new TwitterStreamListener(dataProducer);
             twitterStream = new TwitterStreamFactory(confBuilder.build()).getInstance();
@@ -74,10 +74,10 @@ public class TwitterProducerConnector implements IProducerConnector {
      */
     private void loadTwitterProperties() {
         try {
-            String keyAuthToken = propertiesManager.getProperty("twitter.key.auth.accesstoken");
-            String secretAuthToken = propertiesManager.getProperty("twitter.secret.auth.accesstoken");
-            String keyConsumerToken = propertiesManager.getProperty("twitter.key.consumer.accesstoken");
-            String secretConsumerToken = propertiesManager.getProperty("twitter.secret.consumer.accesstoken");
+            String keyAuthToken = PROPERTIES_MANAGER.getProperty("twitter.key.auth.accesstoken");
+            String secretAuthToken = PROPERTIES_MANAGER.getProperty("twitter.secret.auth.accesstoken");
+            String keyConsumerToken = PROPERTIES_MANAGER.getProperty("twitter.key.consumer.accesstoken");
+            String secretConsumerToken = PROPERTIES_MANAGER.getProperty("twitter.secret.consumer.accesstoken");
 
             confBuilder.setOAuthAccessToken(keyAuthToken);
             confBuilder.setOAuthAccessTokenSecret(secretAuthToken);

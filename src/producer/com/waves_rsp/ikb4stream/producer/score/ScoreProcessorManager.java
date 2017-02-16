@@ -23,42 +23,34 @@ public class ScoreProcessorManager {
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(ScoreProcessorManager.class, "resources/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(ScoreProcessorManager.class);
     private final ClassLoader parent = ScoreProcessorManager.class.getClassLoader();
-    private final Map<String,IScoreProcessor> scoreProcessors = new HashMap<>();
+    private final Map<List<String>,IScoreProcessor> scoreProcessors = new HashMap<>();
 
     public Event processScore(Event event) {
         Objects.requireNonNull(event);
-        try {
-            String scoreProcessor = PROPERTIES_MANAGER.getProperty(event.getSource());
-            LOGGER.info(scoreProcessor + " will be applied in an event from " + event.getSource());
-            return process(getProcessors(scoreProcessor), event);
-        } catch (IllegalArgumentException e) {
-            LOGGER.warn("There isn't any ScoreProcessor for " + event.getSource());
-            return event;
-        }
+        List<IScoreProcessor> sp = findIScoreProcessor(event.getSource());
+        return process(sp, event);
     }
 
-    private String[] getProcessors(String scoreProcessors) {
-        Objects.requireNonNull(scoreProcessors);
-        return scoreProcessors.split(",");
+    private List<IScoreProcessor> findIScoreProcessor(String source) {
+        List<IScoreProcessor> score = new ArrayList<>();
+        scoreProcessors.keySet().stream()
+                .filter(list -> list.contains(source))
+                .forEach(list -> score.add(scoreProcessors.get(list)));
+        return score;
     }
 
-    private Event process(String[] scoreProcessor, Event event) {
+    private static Event process(List<IScoreProcessor> scoreProcessor, Event event) {
         Objects.requireNonNull(scoreProcessor);
-        Arrays.stream(scoreProcessor).forEach(Objects::requireNonNull);
         Objects.requireNonNull(event);
         Event tmp = event;
-        for (String stringSp : scoreProcessor) {
-            IScoreProcessor sp = scoreProcessors.get(stringSp);
-            if (sp != null) {
+        for (IScoreProcessor sp : scoreProcessor) {
                 tmp = sp.processScore(tmp);
-            }
         }
         return tmp;
     }
 
     public void instanciate() {
         String stringPath = PROPERTIES_MANAGER.getProperty("scoreprocessor.path");
-
         try (Stream<Path> paths = Files.walk(Paths.get(stringPath))) {
             paths.forEach((Path filePath) -> {
                 if (Files.isRegularFile(filePath)) {
@@ -73,23 +65,23 @@ public class ScoreProcessorManager {
     }
 
     /**
-     * Launch module
+     * Launch module of ScoreProcessor
      * @param jarLoader JarLoader that represents module
      */
     private void launchModule(String jarName, JarLoader jarLoader) {
         if (jarLoader != null) {
-            List<String> classes = jarLoader.getClasses();
             List<URL> urls = jarLoader.getUrls();
             AccessController.doPrivileged((PrivilegedAction<Object>) () -> {
                 ClassLoader classLoader = new URLClassLoader(
                         urls.toArray(new URL[urls.size()]),
                         parent);
-
+                List<String> classes = jarLoader.getClasses();
                 classes.stream()
                         .map(c -> UtilManager.loadClass(c, classLoader))
                         .filter(c -> UtilManager.implementInterface(c, IScoreProcessor.class))
                         .forEach(clazz -> {
-                            scoreProcessors.put(jarName, (IScoreProcessor) UtilManager.newInstance(clazz));
+                            IScoreProcessor iScoreProcessor = (IScoreProcessor) UtilManager.newInstance(clazz);
+                            scoreProcessors.put(iScoreProcessor.getSources(), iScoreProcessor);
                             LOGGER.info("ScoreProcessor " + jarName + " has been launched");
                         });
 

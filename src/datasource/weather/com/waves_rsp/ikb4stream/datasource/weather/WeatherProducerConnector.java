@@ -32,12 +32,12 @@ public class WeatherProducerConnector implements IProducerConnector {
      */
     public WeatherProducerConnector() {
         try {
-            PropertiesManager propertiesManager = PropertiesManager.getInstance(WeatherProducerConnector.class, "resources/config.properties");
+            PropertiesManager propertiesManager = PropertiesManager.getInstance(WeatherProducerConnector.class, "resources/datasource/weather/config.properties");
             this.source = propertiesManager.getProperty("WeatherProducerConnector.source");
             this.url = new URL(propertiesManager.getProperty("WeatherProducerConnector.url"));
         } catch (IllegalArgumentException | MalformedURLException e) {
             LOGGER.error(e.getMessage());
-            throw new IllegalArgumentException("Invalid configuration");
+            throw new IllegalStateException("Invalid configuration");
         }
     }
 

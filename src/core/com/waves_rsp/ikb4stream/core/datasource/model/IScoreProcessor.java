@@ -2,7 +2,8 @@ package com.waves_rsp.ikb4stream.core.datasource.model;
 
 import com.waves_rsp.ikb4stream.core.model.Event;
 
-@FunctionalInterface
+import java.util.List;
+
 public interface IScoreProcessor {
 
     /**
@@ -11,4 +12,10 @@ public interface IScoreProcessor {
      * @return an event with score gave by processScore
      */
     Event processScore(Event event);
+
+    /**
+     * List all sources that ScoreProcessor can be use
+     * @return List of sources
+     */
+    List<String> getSources();
 }

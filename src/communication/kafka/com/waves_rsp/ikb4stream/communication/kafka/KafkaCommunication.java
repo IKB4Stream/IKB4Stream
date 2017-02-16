@@ -3,8 +3,8 @@ package com.waves_rsp.ikb4stream.communication.kafka;
 import com.waves_rsp.ikb4stream.core.communication.ICommunication;
 import com.waves_rsp.ikb4stream.core.communication.IDatabaseReader;
 import com.waves_rsp.ikb4stream.core.communication.model.BoundingBox;
-import com.waves_rsp.ikb4stream.core.model.LatLong;
 import com.waves_rsp.ikb4stream.core.communication.model.Request;
+import com.waves_rsp.ikb4stream.core.model.LatLong;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.KeyValue;
@@ -22,7 +22,7 @@ import java.util.Map;
  * KafkaCommunication class retrieves messages from the topic
  */
 public class KafkaCommunication implements ICommunication {
-    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(KafkaCommunication.class, "resources/config.properties");
+    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(KafkaCommunication.class, "resources/communication/kafka/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(KafkaCommunication.class);
     private final String kafkaTopic;
     private KafkaStreams streams;

@@ -28,13 +28,13 @@ public class RSSProducerConnector implements IProducerConnector {
 
     public RSSProducerConnector() {
         try {
-            PropertiesManager propertiesManager = PropertiesManager.getInstance(RSSProducerConnector.class, "resources/config.properties");
+            PropertiesManager propertiesManager = PropertiesManager.getInstance(RSSProducerConnector.class, "resources/datasource/rss/config.properties");
             this.source = propertiesManager.getProperty("RSSProducerConnector.source");
             String urlString = propertiesManager.getProperty("RSSProducerConnector.url");
             this.url = new URL(urlString);
         } catch (IllegalArgumentException | MalformedURLException e) {
             LOGGER.error(e.getMessage());
-            throw new IllegalArgumentException("Invalid configuration");
+            throw new IllegalStateException("Invalid configuration");
         }
     }
 

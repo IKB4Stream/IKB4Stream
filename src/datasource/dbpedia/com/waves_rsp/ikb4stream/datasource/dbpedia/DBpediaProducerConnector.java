@@ -22,15 +22,35 @@ import java.util.Objects;
  * Search rdf data from dbpedia service from a sparql query
  */
 public class DBpediaProducerConnector implements IProducerConnector {
-
     private static final Logger LOGGER = LoggerFactory.getLogger(DBpediaProducerConnector.class);
-    private final PropertiesManager propertiesManager = PropertiesManager.getInstance(DBpediaProducerConnector.class);
+    private final String source;
+    private final String service;
+    private final double latitudeMax;
+    private final double latitudeMin ;
+    private final double longitudeMax;
+    private final double longitudeMin;
+    private final String resource;
+    private final int limit;
+
 
     /**
      * Instantiate DBpediaProducerConnector object from static method
      */
     public DBpediaProducerConnector() {
-        //Do nothing
+        try {
+            PropertiesManager propertiesManager = PropertiesManager.getInstance(DBpediaProducerConnector.class, "resources/datasource/dbpedia/config.properties");
+            source = propertiesManager.getProperty("dbpedia.source");
+            service = propertiesManager.getProperty("dbpedia.service");
+            latitudeMax = Double.valueOf(propertiesManager.getProperty("dbpedia.latitude.maximum"));
+            latitudeMin = Double.valueOf(propertiesManager.getProperty("dbpedia.latitude.minimum"));
+            longitudeMax = Double.valueOf(propertiesManager.getProperty("dbpedia.longitude.maximum"));
+            longitudeMin = Double.valueOf(propertiesManager.getProperty("dbpedia.longitude.minimum"));
+            resource = propertiesManager.getProperty("dbpedia.resource");
+            limit = Integer.valueOf(propertiesManager.getProperty("dbpedia.limit"));
+        } catch (IllegalArgumentException e) {
+            LOGGER.error(e.getMessage());
+            throw new IllegalStateException(e.getMessage());
+        }
     }
 
     /**
@@ -45,15 +65,6 @@ public class DBpediaProducerConnector implements IProducerConnector {
         while(!Thread.interrupted()) {
             QueryExecution qexec = null;
             try {
-                String service = propertiesManager.getProperty("dbpedia.service");
-                double latitudeMax = Double.valueOf(propertiesManager.getProperty("latitude.maximum"));
-                double latitudeMin = Double.valueOf(propertiesManager.getProperty("latitude.minimum"));
-                double longitudeMax = Double.valueOf(propertiesManager.getProperty("longitude.maximum"));
-                double longitudeMin = Double.valueOf(propertiesManager.getProperty("longitude.minimum"));
-
-                String resource = propertiesManager.getProperty("dbpedia.resource");
-                int limit = Integer.valueOf(propertiesManager.getProperty("dbpedia.limit"));
-
                 String query = "prefix db-owl: <http://dbpedia.org/ontology/>\n" +
                         "prefix url-resource: <http://fr.dbpedia.org/resource/>\n" +
                         "PREFIX dbo: <http://dbpedia.org/ontology/> \n" +
@@ -63,7 +74,7 @@ public class DBpediaProducerConnector implements IProducerConnector {
                         "prefix  dc: <http://purl.org/dc/elements/1.1/>\n" +
                         "select * where {\n" +
                         "   ?evenements rdf:type db-owl:Event .\n" +
-                        "   ?evenements db-owl:wikiPageWikiLink url-resource:"+resource+" .\n" +
+                        "   ?evenements db-owl:wikiPageWikiLink url-resource:" + resource + " .\n" +
                         "   OPTIONAL {\n" +
                         "      ?evenements prop-fr:latitude ?latitude .\n" +
                         "      ?evenements prop-fr:longitude ?longitude .\n" +
@@ -91,15 +102,10 @@ public class DBpediaProducerConnector implements IProducerConnector {
                     RDFNode descriptionNode = qs.get("description");
                     RDFNode startDateNode = qs.get("startDate");
                     RDFNode endDateNode = qs.get("endDate");
-                    RDFNode labelNode = qs.get("label");
-                    Event event = getEventFromRDFNodes(latitudeNode, longitudeNode, startDateNode, endDateNode, descriptionNode, labelNode);
-
+                    Event event = getEventFromRDFNodes(latitudeNode, longitudeNode, startDateNode, endDateNode, descriptionNode, source);
                     pushIfValidEvent(dataProducer, event);
                 }
-            }catch (IllegalArgumentException err) {
-                LOGGER.error("bad properties loaded.");
-                throw new IllegalStateException(err.getMessage());
-            }catch (IllegalStateException err) {
+            } catch (IllegalStateException err) {
                 LOGGER.error(err.getMessage());
                 Thread.currentThread().interrupt();
                 return;
@@ -148,18 +154,17 @@ public class DBpediaProducerConnector implements IProducerConnector {
      * @param startDate
      * @param endDate
      * @param descriptionNode
-     * @param labelNode
+     * @param label
      * @return null if the checkRDFNodes is false or a ParseException has been caught, else the Even object
      */
-    private static Event getEventFromRDFNodes(RDFNode latitudeNode, RDFNode longitudeNode, RDFNode startDate, RDFNode endDate, RDFNode descriptionNode, RDFNode labelNode) {
+    private static Event getEventFromRDFNodes(RDFNode latitudeNode, RDFNode longitudeNode, RDFNode startDate, RDFNode endDate, RDFNode descriptionNode, String label) {
         if(checkRDFNodes(latitudeNode, longitudeNode, startDate, endDate, descriptionNode)) {
-           try {
+            try {
                 LatLong latLong = getLatlongFromRDFNodes(latitudeNode, longitudeNode);
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 Date start = dateFormat.parse(startDate.asLiteral().getString());
                 Date end = dateFormat.parse(endDate.asLiteral().getString());
                 String desc = descriptionNode.asLiteral().getString();
-                String label = labelNode.asLiteral().getString();
                 return new Event(latLong, start, end, desc, label);
             } catch (ParseException e) {
                 LOGGER.error(e.getMessage());

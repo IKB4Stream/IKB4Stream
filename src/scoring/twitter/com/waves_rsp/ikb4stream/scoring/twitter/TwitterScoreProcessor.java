@@ -2,21 +2,20 @@ package com.waves_rsp.ikb4stream.scoring.twitter;
 
 import com.waves_rsp.ikb4stream.core.datasource.model.IScoreProcessor;
 import com.waves_rsp.ikb4stream.core.model.Event;
+import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
 import com.waves_rsp.ikb4stream.core.util.OpenNLP;
 import com.waves_rsp.ikb4stream.core.util.RulesReader;
 import org.slf4j.LoggerFactory;
 import twitter4j.JSONException;
 import twitter4j.JSONObject;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 
 public class TwitterScoreProcessor implements IScoreProcessor {
-
+    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(TwitterScoreProcessor.class, "resources/scoreprocessor/twitter/config.properties");
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(TwitterScoreProcessor.class);
-    private static final String FILENAME = "rules.json";
+    private final String filename;
     private static final byte MAX_SCORE = 100;
     private static final int COEFF_HASHTAG = 2;
     private static final int COEFF_VERIFY_ACCOUNT = 2;
@@ -26,7 +25,13 @@ public class TwitterScoreProcessor implements IScoreProcessor {
      * Override default constructor
      */
     public TwitterScoreProcessor() {
-        // Do nothing
+
+        try {
+            filename = PROPERTIES_MANAGER.getProperty("twitter.rules.file");
+        } catch (IllegalArgumentException e) {
+            LOGGER.error(e.getMessage());
+            throw new IllegalStateException(e.getMessage());
+        }
     }
 
     /**
@@ -95,7 +100,7 @@ public class TwitterScoreProcessor implements IScoreProcessor {
             JSONObject jsonTweet = new JSONObject(event.getDescription());
             tweet = getParseDescription(jsonTweet);
             List<String> tweetMap = OpenNLP.applyNLPlemma(tweet);
-            Map<String, Integer> rulesMap = RulesReader.parseJSONRules(FILENAME);
+            Map<String, Integer> rulesMap = RulesReader.parseJSONRules(filename);
 
             score = scoreWords(score, tweetMap, rulesMap);
 
@@ -108,6 +113,18 @@ public class TwitterScoreProcessor implements IScoreProcessor {
             throw new IllegalArgumentException("Wrong description of event");
         }
         return new Event(event.getLocation(), event.getStart(), event.getEnd(), tweet, verifyMaxScore(score), event.getSource());
+    }
+
+    @Override
+    public List<String> getSources() {
+        List<String> sources = new ArrayList<>();
+        try {
+            String allSources = PROPERTIES_MANAGER.getProperty("twitter.scoring.sources");
+            sources.addAll(Arrays.asList(allSources.split(",")));
+        } catch (IllegalArgumentException e) {
+            LOGGER.warn(e.getMessage());
+        }
+        return sources;
     }
 
     private byte scoreWords(byte score, List<String> tweetMap, Map<String, Integer> rulesMap) {

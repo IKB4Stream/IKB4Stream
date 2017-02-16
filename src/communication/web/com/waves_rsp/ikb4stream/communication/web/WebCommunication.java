@@ -16,7 +16,7 @@ import java.util.Objects;
  * Web communication connector that handles REST requests
  */
 public class WebCommunication implements ICommunication {
-    private final PropertiesManager propertiesManager = PropertiesManager.getInstance(WebCommunication.class, "resources/config.properties");
+    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(WebCommunication.class, "resources/communication/web/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(WebCommunication.class);
     static IDatabaseReader databaseReader;
     private Vertx server;
@@ -41,8 +41,8 @@ public class WebCommunication implements ICommunication {
         DeploymentOptions deploymentOptions = new DeploymentOptions();
         int port = 8081;
         try {
-            propertiesManager.getProperty("communications.web.port");
-            port = Integer.parseInt(propertiesManager.getProperty("communications.web.port"));
+            PROPERTIES_MANAGER.getProperty("communications.web.port");
+            port = Integer.parseInt(PROPERTIES_MANAGER.getProperty("communications.web.port"));
         } catch (NumberFormatException e) {
             LOGGER.error("Invalid 'communications.web.port' value");
             return;

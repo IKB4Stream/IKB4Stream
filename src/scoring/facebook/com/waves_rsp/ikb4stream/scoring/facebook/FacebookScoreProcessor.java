@@ -8,19 +8,17 @@ import com.waves_rsp.ikb4stream.core.util.RulesReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 
 public class FacebookScoreProcessor implements IScoreProcessor {
+    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(FacebookScoreProcessor.class, "resources/scoreprocessor/facebook/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(FacebookScoreProcessor.class);
     private final String ruleFilename;
 
     public FacebookScoreProcessor() {
-        PropertiesManager propertiesManager = PropertiesManager.getInstance(FacebookScoreProcessor.class, "resources/config.properties");
         try {
-            ruleFilename = propertiesManager.getProperty("facebook.rules.file");
+            ruleFilename = PROPERTIES_MANAGER.getProperty("facebook.rules.file");
         } catch (IllegalArgumentException e) {
             LOGGER.error(e.getMessage());
             throw new IllegalStateException(e.getMessage());
@@ -52,5 +50,17 @@ public class FacebookScoreProcessor implements IScoreProcessor {
             score = 100;
         }
         return new Event(event.getLocation(), event.getStart(), event.getEnd(), content, score, event.getSource());
+    }
+
+    @Override
+    public List<String> getSources() {
+        List<String> sources = new ArrayList<>();
+        try {
+            String allSources = PROPERTIES_MANAGER.getProperty("facebook.scoring.sources");
+            sources.addAll(Arrays.asList(allSources.split(",")));
+        } catch (IllegalArgumentException e) {
+            LOGGER.warn(e.getMessage());
+        }
+        return sources;
     }
 }
