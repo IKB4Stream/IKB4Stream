@@ -21,6 +21,7 @@ public class TwitterProducerConnector implements IProducerConnector {
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(TwitterProducerConnector.class, "resources/datasource/twitter/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(TwitterProducerConnector.class);
     private final ConfigurationBuilder confBuilder = new ConfigurationBuilder();
+    private final String source = PROPERTIES_MANAGER.getProperty("twitter.source");
 
     /**
      * Instantiate the object
@@ -102,7 +103,6 @@ public class TwitterProducerConnector implements IProducerConnector {
 
         @Override
         public void onStatus(Status status) {
-            String source = status.getSource();
             String description = status.getText();
             Date start = status.getCreatedAt();
             Date end = status.getCreatedAt();

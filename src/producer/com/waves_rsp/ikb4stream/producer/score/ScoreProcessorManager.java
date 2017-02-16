@@ -44,7 +44,7 @@ public class ScoreProcessorManager {
         Objects.requireNonNull(event);
         Event tmp = event;
         for (IScoreProcessor sp : scoreProcessor) {
-                tmp = sp.processScore(tmp);
+            tmp = sp.processScore(tmp);
         }
         return tmp;
     }
