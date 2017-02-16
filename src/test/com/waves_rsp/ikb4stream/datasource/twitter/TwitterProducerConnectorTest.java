@@ -10,13 +10,13 @@ public class TwitterProducerConnectorTest {
 
     @Test
     public void testCreateTwitter() {
-        TwitterProducerConnector.getInstance();
+        new TwitterProducerConnector();
     }
 
 
     @Test
     public void checkTweetsFromTwitter() {
-        TwitterProducerConnector producerConnector = TwitterProducerConnector.getInstance();
+        TwitterProducerConnector producerConnector = new TwitterProducerConnector();
         Thread t = new Thread(() -> producerConnector.load(dataProducer -> {
             //Do nothing
         }));
@@ -32,7 +32,7 @@ public class TwitterProducerConnectorTest {
 
     @Test (expected = NullPointerException.class)
     public void checkNullDataProducer() {
-        TwitterProducerConnector producerConnector = TwitterProducerConnector.getInstance();
+        TwitterProducerConnector producerConnector = new TwitterProducerConnector();
         producerConnector.load(null);
     }
 
@@ -40,7 +40,7 @@ public class TwitterProducerConnectorTest {
     @Test
     public void checkIllegalProperties() {
         try {
-            TwitterProducerConnector producerConnector = TwitterProducerConnector.getInstance();
+            TwitterProducerConnector producerConnector = new TwitterProducerConnector();
             producerConnector.load(dataProducer -> {
                 //Do nothing
             });
@@ -53,7 +53,7 @@ public class TwitterProducerConnectorTest {
     public void runTwitterConnectorWithPoolThreads() {
         Thread[] threads = new Thread[10];
         IntStream.range(0, threads.length).forEach(i -> threads[i] = new Thread(() -> {
-            TwitterProducerConnector producerConnector = TwitterProducerConnector.getInstance();
+            TwitterProducerConnector producerConnector = new TwitterProducerConnector();
             producerConnector.load(dataProducer -> {
                 //Do nothing
             });
@@ -73,7 +73,7 @@ public class TwitterProducerConnectorTest {
     @Ignore
     @Test
     public void checkIllegalArgumentFromLoader() {
-        TwitterProducerConnector producerConnector = TwitterProducerConnector.getInstance();
+        TwitterProducerConnector producerConnector = new TwitterProducerConnector();
         try {
             producerConnector.load(dataProducer -> {
 

@@ -195,6 +195,7 @@ task packageTwitterJar(type: Jar, description: 'Package the Twitter Jar') {
     with jar
 }
 
+
 task packageTwitterMockJar(type: Jar, description: 'Package the Twitter Mock Jar') {
     archiveName = "resources/datasource/ikb4stream-$version-datasource-twittermock.jar"
     manifest {
@@ -248,7 +249,7 @@ task zipBuild(type: Zip) {
     from 'build/libs'
 }
 
-task packageAll(dependsOn: ['copyConfigProperties', 'packageConsumerJar', 'packageProducerJar', 'packageWeatherJar', 'packageRssJar', 'packageKafkaCommunicationJar', 'packageTwitterJar', 'packageTwitterMockJar', 'packageDbpediaJar', 'packageFacebookJar', 'packageCommunicationWebJar']) {
+task packageAll(dependsOn: ['copyConfigProperties', 'packageConsumerJar', 'packageProducerJar', 'packageWeatherJar', 'packageRssJar', 'packageKafkaCommunicationJar', 'packageTwitterJar', 'packageDbpediaJar', 'packageFacebookJar', 'packageCommunicationWebJar']) {
 
 }
 

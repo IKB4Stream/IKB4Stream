@@ -27,13 +27,13 @@ public class TwitterMockTest {
     @Test
     public void withNoErrorTest(){
         InputStream iS = new ByteArrayInputStream(TWEETS.getBytes(StandardCharsets.UTF_8));
-        TwitterMock tm = TwitterMock.getInstance(iS);
+        TwitterMock tm = new TwitterMock(iS);
         tm.load(System.out::println);
     }
 
     @Test (expected = NullPointerException.class)
     public void nullInputStreamTest() {
-        TwitterMock tm = TwitterMock.getInstance(null);
+        TwitterMock tm = new TwitterMock(null);
         tm.load(dataProducer -> {
             //Nothing
         });
@@ -43,7 +43,7 @@ public class TwitterMockTest {
     public void badInputStreamTest() {
         String s = "HelloWorld!";
         InputStream iS = new ByteArrayInputStream(s.getBytes(StandardCharsets.UTF_8));
-        TwitterMock tm = TwitterMock.getInstance(iS);
+        TwitterMock tm = new TwitterMock(iS);
         Thread t = new Thread(() -> {
             tm.load(dataProducer -> {
 
@@ -64,14 +64,14 @@ public class TwitterMockTest {
     @Test(expected = NullPointerException.class)
     public void nullDataProducerTest() {
         InputStream iS = new ByteArrayInputStream(TWEETS.getBytes(StandardCharsets.UTF_8));
-        TwitterMock tm = TwitterMock.getInstance(iS);
+        TwitterMock tm = new TwitterMock(iS);
         tm.load(null);
     }
 
     @Test
     public void testWithoutError() {
         InputStream iS = new ByteArrayInputStream(TWEETS.getBytes(StandardCharsets.UTF_8));
-        TwitterMock tm = TwitterMock.getInstance(iS);
+        TwitterMock tm = new TwitterMock(iS);
         Thread t = new Thread(() -> {
             tm.load(dataProducer -> {
                 //Do nothing

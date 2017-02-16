@@ -29,12 +29,8 @@ public class DBpediaProducerConnector implements IProducerConnector {
     /**
      * Instantiate DBpediaProducerConnector object from static method
      */
-    private DBpediaProducerConnector() {
-
-    }
-
-    public static DBpediaProducerConnector getInstance() {
-        return new DBpediaProducerConnector();
+    public DBpediaProducerConnector() {
+        //Do nothing
     }
 
     /**

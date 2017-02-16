@@ -24,13 +24,9 @@ public class TwitterMock implements IProducerConnector {
     private static final Logger LOGGER = LoggerFactory.getLogger(TwitterMock.class);
     private final InputStream inputStream;
 
-    private TwitterMock(InputStream inputStream) {
+    public TwitterMock(InputStream inputStream) {
         Objects.requireNonNull(inputStream);
         this.inputStream = inputStream;
-    }
-
-    public static TwitterMock getInstance(InputStream inputStream) {
-        return new TwitterMock(inputStream);
     }
 
     /**

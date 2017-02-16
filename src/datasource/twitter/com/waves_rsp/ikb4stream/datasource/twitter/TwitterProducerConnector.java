@@ -22,12 +22,11 @@ public class TwitterProducerConnector implements IProducerConnector {
     private static final Logger LOGGER = LoggerFactory.getLogger(TwitterProducerConnector.class);
     private final ConfigurationBuilder confBuilder = new ConfigurationBuilder();
 
-    private TwitterProducerConnector() {
-
-    }
-
-    public static TwitterProducerConnector getInstance() {
-        return new TwitterProducerConnector();
+    /**
+     * Instantiate the object
+     */
+    public TwitterProducerConnector() {
+        //Do nothing
     }
 
     /**

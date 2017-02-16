@@ -8,13 +8,13 @@ public class DBpediaProducerTest {
 
     @Test (expected = NullPointerException.class)
     public void checkNullProducer() {
-        DBpediaProducerConnector dBpediaProducerConnector = DBpediaProducerConnector.getInstance();
+        DBpediaProducerConnector dBpediaProducerConnector = new DBpediaProducerConnector();
         dBpediaProducerConnector.load(null);
     }
 
     @Test
     public void checkProducerResults() {
-        DBpediaProducerConnector dBpediaProducerConnector = DBpediaProducerConnector.getInstance();
+        DBpediaProducerConnector dBpediaProducerConnector = new DBpediaProducerConnector();
         dBpediaProducerConnector.load(dataProducer -> {
             //Do nothing
         });
@@ -23,7 +23,7 @@ public class DBpediaProducerTest {
     @Test
     public void checkIllegalArgument() {
         try {
-            DBpediaProducerConnector producerConnector = DBpediaProducerConnector.getInstance();
+            DBpediaProducerConnector producerConnector = new DBpediaProducerConnector();
             producerConnector.load(dataProducer -> {
                 //Do nothing
             });
@@ -34,7 +34,7 @@ public class DBpediaProducerTest {
 
     @Test
     public void checkThreadForDataProducer() {
-        final DBpediaProducerConnector producerConnector = DBpediaProducerConnector.getInstance();
+        final DBpediaProducerConnector producerConnector = new DBpediaProducerConnector();
         Thread thread = new Thread(() -> {
            producerConnector.load(dataProducer -> {
                //Do nothing
@@ -58,7 +58,7 @@ public class DBpediaProducerTest {
         Thread[] threads = new Thread[10];
         for (int i=0; i < threads.length; i++) {
             threads[i] = new Thread(() -> {
-                DBpediaProducerConnector producerConnector = DBpediaProducerConnector.getInstance();
+                DBpediaProducerConnector producerConnector = new DBpediaProducerConnector();
                 try {
                     producerConnector.load(dataProducer -> {
                         //Do nothing
