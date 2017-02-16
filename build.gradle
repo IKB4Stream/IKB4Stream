@@ -156,6 +156,9 @@ task packageRssJar(type: Jar, description: 'Package the RSS Jar') {
 
 task packageOwmJar(type: Jar, description: 'Package the OWM Jar') {
     archiveName = "resources/datasource/ikb4stream-$version-datasource-owm.jar"
+    manifest {
+        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.datasource.owm.OWMProducerConnector'
+    }
     from sourceSets.datasourceOWM.output
     from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
     from { configurations.datasourceOWMCompile.collect { it.isDirectory() ? it : zipTree(it) } }
@@ -164,6 +167,9 @@ task packageOwmJar(type: Jar, description: 'Package the OWM Jar') {
 
 task packageFacebookJar(type: Jar, description: 'Package the OWM Jar') {
     archiveName = "resources/datasource/ikb4stream-$version-datasource-facebook.jar"
+    manifest {
+        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.datasource.facebook.FacebookProducerConnector'
+    }
     from sourceSets.datasourceFacebook.output
     from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
     from { configurations.datasourceFacebookCompile.collect { it.isDirectory() ? it : zipTree(it) } }
@@ -172,6 +178,9 @@ task packageFacebookJar(type: Jar, description: 'Package the OWM Jar') {
 
 task packageTwitterJar(type: Jar, description: 'Package the Twitter Jar') {
     archiveName = "resources/datasource/ikb4stream-$version-datasource-twitter.jar"
+    manifest {
+        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.datasource.twitter.TwitterProducerConnector'
+    }
     from sourceSets.datasourceTwitter.output
     from { configurations.coreCompile.collect {it.isDirectory() ? it : zipTree(it) }}
     from { configurations.datasourceTwitterCompile.collect { it.isDirectory() ? it : zipTree(it) }}
@@ -180,6 +189,9 @@ task packageTwitterJar(type: Jar, description: 'Package the Twitter Jar') {
 
 task packageTwitterMockJar(type: Jar, description: 'Package the Twitter Mock Jar') {
     archiveName = "resources/datasource/ikb4stream-$version-datasource-twittermock.jar"
+    manifest {
+        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.datasource.twittermock.TwitterMock'
+    }
     from sourceSets.datasourceTwittermock.output
     from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) }}
     with jar
@@ -187,6 +199,9 @@ task packageTwitterMockJar(type: Jar, description: 'Package the Twitter Mock Jar
 
 task packageDbpediaJar(type: Jar, description: 'Package the Dbpedia Jar') {
     archiveName = "resources/datasource/ikb4stream-$version-datasource-dbpedia.jar"
+    manifest {
+        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.datasource.dbpedia.DBpediaProducerConnector'
+    }
     from sourceSets.datasourceDbpedia.output
     from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) }}
     with jar
