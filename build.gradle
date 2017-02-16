@@ -114,7 +114,7 @@ sourceSets {
         java {
             srcDirs = ['src/core', 'src/consumer', 'src/producer', 'src/test/', 'src/datasource', 'src/scoring',
                        'src/communication/web', 'src/datasource/weather', 'src/datasource/rss', 'src/communication/kafka',
-                       'src/datasource/twitter', 'src/datasource/twittermock', 'src/datasource/dbpedia',
+                       'src/datasource/twitter', 'src/datasource/twittermock', 'src/datasource/dbpedia', 'src/datasource/owm',
                         'src/datasource/facebook', 'src/communication/web', 'src/scoring/facebook', 'src/scoring/twitter',
                         'src/scoring/mock']
 
@@ -126,10 +126,13 @@ sourceSets {
                     datasourceTwitter.compileClasspath + datasourceTwitter.output +
                     datasourceDbpedia.output + datasourceDbpedia.compileClasspath +
                     datasourceFacebook.output + datasourceFacebook.compileClasspath +
+					datasourceOWM.output + datasourceOWM.compileClasspath +
                     communicationWeb.output + communicationWeb.compileClasspath +
                     scoringFacebook.compileClasspath + scoringFacebook.output +
                     scoringTwitter.compileClasspath + scoringTwitter.output +
                     scoringMock.compileClasspath + scoringMock.output
+                    
+>>>>>>> add weather connector branch
 
             runtimeClasspath = output + compileClasspath + runtimeClasspath
         }
@@ -305,7 +308,7 @@ task zipBuild(type: Zip) {
     from 'build/libs'
 }
 
-task packageAll(dependsOn: ['copyConfigProperties', 'packageConsumerJar', 'packageProducerJar', 'packageWeatherJar', 'packageRssJar', 'packageKafkaCommunicationJar', 'packageTwitterJar', 'packageDbpediaJar', 'packageFacebookJar', 'packageCommunicationWebJar', 'packageFacebookScoringJar', 'packageTwitterScoringJar', 'packageMockScoringJar']) {
+task packageAll(dependsOn: ['copyConfigProperties', 'packageConsumerJar', 'packageProducerJar', 'packageWeatherJar', 'packageRssJar', 'packageKafkaCommunicationJar', 'packageTwitterJar', 'packageDbpediaJar', 'packageFacebookJar', 'packageOwmJar', 'packageCommunicationWebJar', 'packageFacebookScoringJar', 'packageTwitterScoringJar', 'packageMockScoringJar']) {
 
 }
 
@@ -356,9 +359,10 @@ dependencies {
     datasourceRSSCompile 'com.rometools:rome-modules:1.7.1'
 
     //datasource_OPWweather
-    datasourceOWMCompile 'org.bitpipeline.lib:owm-lib:2.1.3-SNAPSHOT'
-
-    //datasource_facebook
+	datasourceOWMCompile 'net.aksingh:owm-japis:2.5.0.3'
+    datasourceOWMCompile 'org.json:json:20140107'
+    
+	//datasource_facebook
     datasourceFacebookCompile 'com.restfb:restfb:1.34.1'
 
     // communication_kafka
