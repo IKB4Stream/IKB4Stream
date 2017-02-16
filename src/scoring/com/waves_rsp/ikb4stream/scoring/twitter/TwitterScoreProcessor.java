@@ -104,9 +104,8 @@ public class TwitterScoreProcessor implements IScoreProcessor {
     }
 
     private byte scoreWords(byte score, List<String> tweetMap, Map<String, Integer> rulesMap) {
-        boolean isHashtag;
         for(String word : tweetMap){
-            isHashtag = isHashtag(word);
+            boolean isHashtag = isHashtag(word);
             if(isHashtag(word)){
                 word = word.substring(1);
             }
