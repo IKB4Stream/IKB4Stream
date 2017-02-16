@@ -131,8 +131,6 @@ sourceSets {
                     scoringFacebook.compileClasspath + scoringFacebook.output +
                     scoringTwitter.compileClasspath + scoringTwitter.output +
                     scoringMock.compileClasspath + scoringMock.output
-                    
->>>>>>> add weather connector branch
 
             runtimeClasspath = output + compileClasspath + runtimeClasspath
         }
@@ -358,11 +356,13 @@ dependencies {
     // datasource_rss
     datasourceRSSCompile 'com.rometools:rome-modules:1.7.1'
 
-    //datasource_OPWweather
-	datasourceOWMCompile 'net.aksingh:owm-japis:2.5.0.3'
-    datasourceOWMCompile 'org.json:json:20140107'
     
-	//datasource_facebook
+	//datasource_OPWweather
+    datasourceOWMCompile 'net.aksingh:owm-japis:2.5.0.3'
+    datasourceOWMCompile 'org.json:json:20140107'
+    //datasourceOWMCompile 'org.apache.httpcomponents:httpclient:4.2.3'
+
+    //datasource_facebook
     datasourceFacebookCompile 'com.restfb:restfb:1.34.1'
 
     // communication_kafka
