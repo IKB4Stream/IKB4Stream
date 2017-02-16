@@ -152,7 +152,7 @@ public class OpenNLP {
             String[] tags = posTagging(learnableTokens);
             // Get lemmatize form of each token
             for (int i = 0; i < learnableTokens.length; i++) {
-                if (tags[i].startsWith("V") & tags[i].length() > 1) {
+                if (tags[i].startsWith("V") && tags[i].length() > 1) {
                     //if the POStag start with V, we just keep the tag V for simplify the lemmatization with the dictionnary
                      tags[i] = "V";
                 }
