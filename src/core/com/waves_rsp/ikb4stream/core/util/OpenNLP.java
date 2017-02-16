@@ -181,7 +181,7 @@ public class OpenNLP {
                     //if it's a hashtag
                     output.add(w);
                 } else {
-                    if ((pos.startsWith("N") || pos.startsWith("V"))) {
+                    if (pos.startsWith("N") || pos.startsWith("V")) {
                         output.add(w);
                     }
                 }
@@ -206,7 +206,7 @@ public class OpenNLP {
         List<String> words = new ArrayList<>();
         Span[] spans;
         try {
-            String sentences[] = detectSentences(post);
+            String[] sentences = detectSentences(post);
             for (String sentence : sentences) {
                 String[] learnableTokens = learnableTokenize(sentence);
                 switch (ner.toString()) {
@@ -224,7 +224,7 @@ public class OpenNLP {
                         return words; //return empty list
                 }
                 //Add each entity in the list 'words'
-                Arrays.asList(Span.spansToStrings(spans, learnableTokens)).forEach(sp -> words.add(sp));
+                Arrays.asList(Span.spansToStrings(spans, learnableTokens)).forEach(words::add);
             }
         } catch (IOException e) {
             LOGGER.error(e.getMessage());

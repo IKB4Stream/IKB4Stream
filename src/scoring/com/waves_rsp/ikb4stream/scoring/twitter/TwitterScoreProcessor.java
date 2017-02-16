@@ -23,6 +23,13 @@ public class TwitterScoreProcessor implements IScoreProcessor {
 
 
     /**
+     * Override default constructor
+     */
+    public TwitterScoreProcessor() {
+        // Do nothing
+    }
+
+    /**
      * Check that the score can't overtake @MAX_SCORE
      *
      * @param score calculated by OpenNLP processing
@@ -76,13 +83,13 @@ public class TwitterScoreProcessor implements IScoreProcessor {
      * @param event an event without score
      * @return Event with a score after OpenNLP processing
      * @throws NullPointerException if {@param event} is null
+     * @throws IllegalArgumentException if {@param event} is invalid
      */
     @Override
     public Event processScore(Event event) {
         Objects.requireNonNull(event);
         String tweet = "";
         byte score = 0;
-        boolean isHashtag;
 
         try {
             JSONObject jsonTweet = new JSONObject(event.getDescription());
@@ -104,6 +111,7 @@ public class TwitterScoreProcessor implements IScoreProcessor {
     }
 
     private byte scoreWords(byte score, List<String> tweetMap, Map<String, Integer> rulesMap) {
+        byte scoreTmp = score;
         for(String word : tweetMap){
             boolean isHashtag = isHashtag(word);
             if(isHashtag(word)){
@@ -112,13 +120,13 @@ public class TwitterScoreProcessor implements IScoreProcessor {
             if (rulesMap.containsKey(word)) {
                 if (isHashtag) {
                     //if tweetWord is a hashtag
-                    score += rulesMap.get(word) * COEFF_HASHTAG;
+                    scoreTmp += rulesMap.get(word) * COEFF_HASHTAG;
                 } else {
-                    score += rulesMap.get(word);
+                    scoreTmp += rulesMap.get(word);
                 }
             }
         }
-        return score;
+        return scoreTmp;
     }
 }
 
