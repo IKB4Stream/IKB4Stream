@@ -55,12 +55,13 @@ public class TwitterProducerConnector implements IProducerConnector {
 
             twitterStream.sample("fr");
 
-            while(!Thread.interrupted()) {
-
-            }
+            Thread.currentThread().join();
         }catch (IllegalArgumentException | IllegalStateException err) {
             LOGGER.error(err.getMessage());
             throw new IllegalStateException(err.getMessage());
+        } catch (InterruptedException e) {
+            LOGGER.info("Close twitter");
+            Thread.currentThread().interrupt();
         } finally {
             Thread.currentThread().interrupt();
             if(twitterStream != null) {

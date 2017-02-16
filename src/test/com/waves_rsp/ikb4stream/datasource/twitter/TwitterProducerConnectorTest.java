@@ -8,17 +8,26 @@ import java.util.stream.IntStream;
 
 public class TwitterProducerConnectorTest {
 
-    @Ignore
+    @Test
+    public void testCreateTwitter() {
+        TwitterProducerConnector.getInstance();
+    }
+
+
     @Test
     public void checkTweetsFromTwitter() {
         TwitterProducerConnector producerConnector = TwitterProducerConnector.getInstance();
-        long start = System.currentTimeMillis();
-        producerConnector.load(dataProducer -> {
+        Thread t = new Thread(() -> producerConnector.load(dataProducer -> {
             //Do nothing
-        });
-        long end = System.currentTimeMillis();
-        long result = end - start;
-      //  Assert.assertTrue(result < 1000);
+        }));
+        t.start();
+        try {
+            Thread.sleep(5000);
+            t.interrupt();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Test (expected = NullPointerException.class)
@@ -40,23 +49,20 @@ public class TwitterProducerConnectorTest {
         }
     }
 
-    @Ignore
     @Test
     public void runTwitterConnectorWithPoolThreads() {
         Thread[] threads = new Thread[10];
-        IntStream.range(0, threads.length).forEach(i -> {
-            threads[i] = new Thread(() -> {
-                TwitterProducerConnector producerConnector = TwitterProducerConnector.getInstance();
-                producerConnector.load(dataProducer -> {
-                    //Do nothing
-                });
+        IntStream.range(0, threads.length).forEach(i -> threads[i] = new Thread(() -> {
+            TwitterProducerConnector producerConnector = TwitterProducerConnector.getInstance();
+            producerConnector.load(dataProducer -> {
+                //Do nothing
             });
-        });
+        }));
 
         Arrays.stream(threads).forEach(Thread::start);
 
         try {
-            Thread.sleep(100);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             //Do nothing
         }finally {
