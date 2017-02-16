@@ -4,6 +4,7 @@ import com.waves_rsp.ikb4stream.core.model.Event;
 
 @FunctionalInterface
 public interface IScoreProcessor {
+
     /**
      * This method create a score to the event in param
      * @param event an event without score

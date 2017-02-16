@@ -36,11 +36,12 @@ public class GeoCoderJacksonParser {
 
     /**
      * Get a LatLong from an address
+     *
      * @param address Address to find
      * @return Return a LatLong position of {@param address}
-     * @throws NullPointerException if {@param address} is null
+     * @throws NullPointerException     if {@param address} is null
      * @throws IllegalArgumentException if {@param address} is invalid
-     * @throws IllegalStateException if geocode.url is invalid
+     * @throws IllegalStateException    if geocode.url is invalid
      */
     public LatLong parse(String address) {
         Objects.requireNonNull(address);
@@ -66,14 +67,15 @@ public class GeoCoderJacksonParser {
         }
         return coords;
     }
-    
+
     /**
      * Parse json stream to get a LatLong
+     *
      * @param jsonStream json stream data
      * @return LatLong in json
-     * @throws NullPointerException if {@param jsonStream} is null
+     * @throws NullPointerException     if {@param jsonStream} is null
      * @throws IllegalArgumentException if {@param jsonStream} cannot be parse
-     * @throws IllegalStateException if InputStream has been interrupt
+     * @throws IllegalStateException    if InputStream has been interrupt
      */
     private static LatLong parse(InputStream jsonStream) {
         Objects.requireNonNull(jsonStream);
@@ -94,6 +96,7 @@ public class GeoCoderJacksonParser {
 
     /**
      * Create LatLong from Longitude and Latitude
+     *
      * @param dealData List of Map which has city and its position
      * @return LatLong of a position
      */
@@ -111,6 +114,7 @@ public class GeoCoderJacksonParser {
 
     /**
      * Close InputStream
+     *
      * @param is InputSteram to close
      */
     private static void closeInputStream(InputStream is) {
@@ -125,11 +129,12 @@ public class GeoCoderJacksonParser {
 
     /**
      * Create a URL to request Geocode API
+     *
      * @param address Address to find with API
      * @return Complete URL
-     * @throws NullPointerException if {@param address} is null
+     * @throws NullPointerException     if {@param address} is null
      * @throws IllegalArgumentException if {@param address} is invalid
-     * @throws IllegalStateException if there isn't geocode.url in property file
+     * @throws IllegalStateException    if there isn't geocode.url in property file
      */
     private static URL createURL(String address) {
         Objects.requireNonNull(address);

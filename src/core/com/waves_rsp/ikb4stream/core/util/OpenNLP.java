@@ -23,7 +23,7 @@ import java.util.*;
 public class OpenNLP {
 
     private static final String PATH_BINARIES = "resources/opennlp-models/binaries/";
-    private static final String PATH_DICTIONARIES = "resources/opennlp-models/dictionaries/";
+    private static final String PATH_DICTIONARIES = "resources/opennlp-models/dictionaries/lemma_dict_lefff";
 
     /**
      * Enum the ner options
@@ -36,6 +36,7 @@ public class OpenNLP {
 
     /**
      * OpenNLP : split a text in sentences
+     *
      * @param text to analyze
      * @return an array of sentences
      * @throws IOException if the binaries doesn't exits
@@ -138,7 +139,8 @@ public class OpenNLP {
      */
     private static Map<String, String> lemmatize(String text) throws IOException {
         Objects.requireNonNull(text);
-        InputStream inputStream = new FileInputStream(PATH_DICTIONARIES + "lemma_dict.txt");
+        StringBuilder sb = new StringBuilder(); //TODO
+        InputStream inputStream = new FileInputStream(PATH_DICTIONARIES );
         DictionaryLemmatizer lemmatizer = new SimpleLemmatizer(inputStream);
         Map<String, String> lemmatizedTokens = new HashMap<>();
         // Split tweet text content in sentences
@@ -151,16 +153,16 @@ public class OpenNLP {
             String[] tags = posTagging(learnableTokens);
             // Get lemmatize form of each token
             for (int i = 0; i < learnableTokens.length; i++) {
-                if (tags[i].startsWith("V") & tags[i].length() > 1){
+                if (tags[i].startsWith("V") & tags[i].length() > 1) {
                     //if the POStag start with V, we just keep the tag V for simplify the lemmatization with the dictionnary
-                    System.out.println("transform : " + lemmatizer.lemmatize(learnableTokens[i], tags[i]) + " " + tags[i] + " --> V"); //TODO
-                    tags[i] = "V";
+                     tags[i] = "V";
                 }
-                System.out.println("lemma : " + lemmatizer.lemmatize(learnableTokens[i], tags[i]) + " " + tags[i]); //TODO
+                sb.append(lemmatizer.lemmatize(learnableTokens[i], tags[i])).append(" ").append(tags[i]).append("\n"); //TODO
 
                 lemmatizedTokens.put(lemmatizer.lemmatize(learnableTokens[i], tags[i]), tags[i]);
             }
         }
+        Main.writeFile("lemma_dico_v2", sb.toString() );
         inputStream.close();
         return lemmatizedTokens;
     }
@@ -182,7 +184,7 @@ public class OpenNLP {
                     //if it's a hashtag
                     output.add(w);
                 } else {
-                    if ((pos.contains("N") || pos.contains("V")) && !pos.equals("PONCT")) {
+                    if ((pos.startsWith("N") || pos.startsWith("V"))) {
                         output.add(w);
                     }
                 }
@@ -209,7 +211,6 @@ public class OpenNLP {
         try {
             String sentences[] = detectSentences(post);
             for (String sentence : sentences) {
-                System.out.println(sentence);
                 String[] learnableTokens = learnableTokenize(sentence);
                 switch (ner.toString()) {
                     case "LOCATION":
@@ -234,22 +235,4 @@ public class OpenNLP {
         return words;
     }
 
-    public static void main(String[] args) throws IOException {
-        String paragraphFR = "Il y a une fuite d'eau à Marseille et dans le quartier du château de Versailles dans la ville de Paris. " +
-                "C'est EDF Suez qui transmet l'information au ministère de la ville de Londres. " +
-                "Parce qu'il n'y pas l'ONU. L'adresse de Charles Aznavour est 10 Rue d'Uzès, 75002 Paris, France.";
-
-        String test = "Les orages, la grêle et les intempéries qui touchent le pays sont parfois si violents que  Météo" +
-                " France  émet des alertes  vigilance. Ainsi lors au mois de mai 2016, les fortes pluies ont donné lieu " +
-                "à des records de  pluviométrie, suivie de crues et inondations dans le Centre et le Loiret sur le Loing," +
-                " puis la Seine à Paris. Ces événements peuvent être reconnus par l'Etat comme une catastrophe naturelle " +
-                ", par arrêté interministériel. En Ile-de-France, toute montée des eaux rapide fait craindre une nouvelle " +
-                "crue centennale comme en 1910.";
-
-        String testLoc = "Nous étions présents à l'école tous les jours. Je m'était aperçu qu'il était absent. Cependant j'ai eu un aperçu de son travail.";
-
-        List<String> lemmatizedTokens = applyNLPlemma(testLoc);
-        for (String s : lemmatizedTokens)
-            System.out.println(s);
-    }
 }
