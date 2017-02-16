@@ -139,7 +139,6 @@ public class OpenNLP {
      */
     private static Map<String, String> lemmatize(String text) throws IOException {
         Objects.requireNonNull(text);
-        StringBuilder sb = new StringBuilder(); //TODO
         InputStream inputStream = new FileInputStream(PATH_DICTIONARIES );
         DictionaryLemmatizer lemmatizer = new SimpleLemmatizer(inputStream);
         Map<String, String> lemmatizedTokens = new HashMap<>();
@@ -157,12 +156,10 @@ public class OpenNLP {
                     //if the POStag start with V, we just keep the tag V for simplify the lemmatization with the dictionnary
                      tags[i] = "V";
                 }
-                sb.append(lemmatizer.lemmatize(learnableTokens[i], tags[i])).append(" ").append(tags[i]).append("\n"); //TODO
 
                 lemmatizedTokens.put(lemmatizer.lemmatize(learnableTokens[i], tags[i]), tags[i]);
             }
         }
-        Main.writeFile("lemma_dico_v2", sb.toString() );
         inputStream.close();
         return lemmatizedTokens;
     }
