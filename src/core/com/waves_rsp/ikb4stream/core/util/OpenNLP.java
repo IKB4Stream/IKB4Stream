@@ -25,12 +25,21 @@ public class OpenNLP {
     private static final String PATH_BINARIES = "resources/opennlp-models/binaries/";
     private static final String PATH_DICTIONARIES = "resources/opennlp-models/dictionaries/";
 
+    /**
+     * Enum the ner options
+     */
     public enum nerOptions {
         LOCATION, PERSON, ORGANIZATION
     }
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenNLP.class);
 
+    /**
+     * OpenNLP : split a text in sentences
+     * @param text to analyze
+     * @return an array of sentences
+     * @throws IOException if the binaries doesn't exits
+     */
     private static String[] detectSentences(String text) throws IOException {
         Objects.requireNonNull(text);
         InputStream inputStream = new FileInputStream(PATH_BINARIES + "fr-sent.bin");
@@ -40,6 +49,13 @@ public class OpenNLP {
         return detector.sentDetect(text);
     }
 
+    /**
+     * OpenNLP : learnableTokenize. The function tokenize a text
+     *
+     * @param text to tokenize
+     * @return an array of words
+     * @throws IOException if the binaries doesn't exits
+     */
     private static String[] learnableTokenize(String text) throws IOException {
         Objects.requireNonNull(text);
         InputStream inputStream = new FileInputStream(PATH_BINARIES + "fr-token.bin");
@@ -49,6 +65,13 @@ public class OpenNLP {
         return tokenizer.tokenize(text);
     }
 
+    /**
+     * OpenNLP : posTagging affect a tag to each word (V, NC, NP, ADJ...)
+     *
+     * @param tokens is a tokenize text
+     * @return an array of posTag
+     * @throws IOException if the binaries doesn't exits
+     */
     private static String[] posTagging(String[] tokens) throws IOException {
         Objects.requireNonNull(tokens);
         InputStream inputStream = new FileInputStream(PATH_BINARIES + "fr-pos-maxent-2.bin");
@@ -58,6 +81,13 @@ public class OpenNLP {
         return tagger.tag(tokens);
     }
 
+    /**
+     * OpenNLP : name entity recognizer function. Detect organizations names.
+     *
+     * @param tokens are an array of string to analyze
+     * @return an array of entity detected as an organization
+     * @throws IOException if the binaries doesn't exits
+     */
     private static Span[] findOrganizationName(String[] tokens) throws IOException {
         Objects.requireNonNull(tokens);
         InputStream inputStream = new FileInputStream(PATH_BINARIES + "fr-ner-organization.bin");
@@ -67,6 +97,13 @@ public class OpenNLP {
         return nameFinder.find(tokens);
     }
 
+    /**
+     * OpenNLP : name entity recognizer function. Detect locations names.
+     *
+     * @param tokens are an array of string to analyze
+     * @return an array of entity detected as a location
+     * @throws IOException if the binaries doesn't exits
+     */
     private static Span[] findLocationName(String[] tokens) throws IOException {
         Objects.requireNonNull(tokens);
         InputStream inputStream = new FileInputStream(PATH_BINARIES + "fr-ner-location.bin");
@@ -76,6 +113,13 @@ public class OpenNLP {
         return nameFinder.find(tokens);
     }
 
+    /**
+     * OpenNLP : name entity recognizer function. Detect persons names.
+     *
+     * @param tokens are an array of string to analyze
+     * @return an array of entity detected as a personnality
+     * @throws IOException if the binaries doesn't exits
+     */
     private static Span[] findPersonName(String[] tokens) throws IOException {
         Objects.requireNonNull(tokens);
         InputStream inputStream = new FileInputStream(PATH_BINARIES + "fr-ner-person.bin");
@@ -85,6 +129,13 @@ public class OpenNLP {
         return nameFinder.find(tokens);
     }
 
+    /**
+     * OpenNLP : lemmatization. The function simplify the step of POStagging for the verbs category.
+     *
+     * @param text to lemmatize
+     * @return Map of each lemmatize word with the POStag associate
+     * @throws IOException if the dictionnary doesn't exits
+     */
     private static Map<String, String> lemmatize(String text) throws IOException {
         Objects.requireNonNull(text);
         InputStream inputStream = new FileInputStream(PATH_DICTIONARIES + "lemma_dict.txt");
@@ -100,8 +151,13 @@ public class OpenNLP {
             String[] tags = posTagging(learnableTokens);
             // Get lemmatize form of each token
             for (int i = 0; i < learnableTokens.length; i++) {
-                System.out.println("lemma : " + lemmatizer.lemmatize(learnableTokens[i], tags[i]) + " " + tags[i]);
-                //lemmatizedTokens.add(lemmatizer.lemmatize(learnableTokens[i], tags[i]));
+                if (tags[i].startsWith("V") & tags[i].length() > 1){
+                    //if the POStag start with V, we just keep the tag V for simplify the lemmatization with the dictionnary
+                    System.out.println("transform : " + lemmatizer.lemmatize(learnableTokens[i], tags[i]) + " " + tags[i] + " --> V"); //TODO
+                    tags[i] = "V";
+                }
+                System.out.println("lemma : " + lemmatizer.lemmatize(learnableTokens[i], tags[i]) + " " + tags[i]); //TODO
+
                 lemmatizedTokens.put(lemmatizer.lemmatize(learnableTokens[i], tags[i]), tags[i]);
             }
         }
@@ -109,9 +165,15 @@ public class OpenNLP {
         return lemmatizedTokens;
     }
 
+    /**
+     * Apply the OpenNLP Lemmatization with a dictionnary. Keep only words with the verbs and nouns.
+     *
+     * @param post is the text to lemmatize
+     * @return list of selected words.
+     */
     public static List<String> applyNLPlemma(String post) {
         Objects.requireNonNull(post);
-        Map<String, String> input = new HashMap<>();
+        Map<String, String> input;
         List<String> output = new ArrayList<>();
         try {
             input = lemmatize(post);
@@ -133,7 +195,7 @@ public class OpenNLP {
     }
 
     /**
-     * Apply the eNLP ner (name entity recognizer) algorithm on a text. Keep only distinct words from the tweet.
+     * Apply the ÖpenNLP ner (name entity recognizer) algorithm on a text. Keep only distinct words from a text.
      *
      * @param post to analyze
      * @param ner  ENUM : LOCATION, ORGANIZATION or PERSON : type of NER analyse
@@ -184,7 +246,7 @@ public class OpenNLP {
                 ", par arrêté interministériel. En Ile-de-France, toute montée des eaux rapide fait craindre une nouvelle " +
                 "crue centennale comme en 1910.";
 
-        String testLoc = "Nous étions présents à l'école tous les jours. Je m'était aperçu qu'il était absent.";
+        String testLoc = "Nous étions présents à l'école tous les jours. Je m'était aperçu qu'il était absent. Cependant j'ai eu un aperçu de son travail.";
 
         List<String> lemmatizedTokens = applyNLPlemma(testLoc);
         for (String s : lemmatizedTokens)
