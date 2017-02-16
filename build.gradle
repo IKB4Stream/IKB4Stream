@@ -231,6 +231,7 @@ task packageCommunicationWebJar(type: Jar, description: 'Package the Web Communi
 
 task copyConfigProperties(type: Copy) {
     from 'resources/config.properties'
+    from 'resources/logback.xml'
     into 'build/libs/resources/'
 }
 
@@ -250,6 +251,7 @@ task ci(dependsOn: ['packageAll', 'zipBuild']) {
 task testAll(type: Test) {
     testClassesDir = sourceSets.test.output.classesDir
     classpath = sourceSets.test.runtimeClasspath
+
 }
 
 repositories {
@@ -259,11 +261,14 @@ repositories {
     }
 }
 
-
 dependencies {
     // core
     coreCompile 'org.influxdb:influxdb-java:2.5'
+
+    coreCompile 'ch.qos.logback:logback-core:1.1.3'
+    coreCompile "ch.qos.logback:logback-classic:1.1.3"
     coreCompile 'org.slf4j:slf4j-simple:1.7.6'
+
     coreCompile 'org.apache.jena:jena-arq:2.9.3'
     coreCompile 'com.fasterxml.jackson.core:jackson-databind:2.8.6'
     coreCompile 'org.mongodb:mongodb-driver-async:3.2.2'
@@ -302,4 +307,10 @@ dependencies {
 
     // tests
     testCompile 'junit:junit:4.11'
+}
+
+
+configurations.all {
+    exclude group: "org.slf4j", module: "slf4j-log4j12"
+    exclude group: "log4j", module: "log4j"
 }

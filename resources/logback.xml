@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+    <property name="LOGS_FOLDER" value="/home/ikb4stream/IdeaProjects/IKB4STREAM/log" />
+    <property name="LOGS_TO_COLLECT_FOLDER" value="/home/ikb4stream/IdeaProjects/IKB4STREAM/log" />
+
+    <appender name="log-file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS_FOLDER}/my-application.log</file>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS_TO_COLLECT_FOLDER}/my-application.%d{yyyyMMdd}.log</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy/MM/dd HH:mm:ss,SSS} [%thread] %-5level %logger{36} - %m %throwable{0}%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="audit-file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS_FOLDER}/my-application-audit.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS_TO_COLLECT_FOLDER}/my-application-audit.%d{yyyyMMdd}.log.gzip</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%m %throwable{0}%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="troubleshooting-file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS_FOLDER}/my-application-troubleshooting.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${LOGS_FOLDER}/my-application-troubleshooting.%i.log</fileNamePattern>
+            <maxIndex>10</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>10MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>%d{yyyy/MM/dd HH:mm:ss,SSS} [%thread] %-5level %logger{36} - %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.waves_rsp.ikb4stream" additivity="false" level="TRACE">
+        <appender-ref ref="audit-file" />
+    </logger>
+
+    <root level="WARN">
+        <appender-ref ref="log-file" />
+        <appender-ref ref="troubleshooting-file" />
+    </root>
+</configuration>
