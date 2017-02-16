@@ -18,14 +18,7 @@ public class TwitterScoreProcessorTest {
     private final String source = "Twitter";
     private final LatLong latlong = new LatLong(2, 3);
 
-    /*
-        @Test(expected = JSONException.class)
-        public void wrongEventToTwitterScoreProcessor() {
-            String wrongDesc = "not good enough";
-            Event event = new Event(latlong, date, date, wrongDesc, source);
-            tsp.processScore(event);
-        }
-    */
+
     @Test(expected = NullPointerException.class)
     public void nullProcessScore() {
         tsp.processScore(null);
@@ -63,5 +56,4 @@ public class TwitterScoreProcessorTest {
         Event event = new Event(latlong, date, date, jsonObject.toString(), source);
         assertEquals(0, tsp.processScore(event).getScore());
     }
-
 }
