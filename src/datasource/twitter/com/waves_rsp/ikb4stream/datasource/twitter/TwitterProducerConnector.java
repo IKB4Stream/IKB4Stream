@@ -10,8 +10,10 @@ import org.slf4j.LoggerFactory;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Listen any events provided by the twitter api and load them into a IDataProducer object.
@@ -50,13 +52,13 @@ public class TwitterProducerConnector implements IProducerConnector {
             twitterStream = new TwitterStreamFactory(confBuilder.build()).getInstance();
             twitterStream.addListener(streamListener);
             FilterQuery filterQuery = new FilterQuery();
-            filterQuery.locations(new double[]{latitudeMax, latitudeMin, longitudeMax, longitudeMin});
+            filterQuery.locations(new double[]{longitudeMin, latitudeMin, longitudeMax, latitudeMax});
             twitterStream.filter(filterQuery);
             twitterStream.sample("fr");
 
             Thread.currentThread().join();
         }catch (IllegalArgumentException | IllegalStateException err) {
-            LOGGER.error(err.getMessage());
+            LOGGER.error("Error loading : " + err.getMessage());
             throw new IllegalStateException(err.getMessage());
         } catch (InterruptedException e) {
             LOGGER.info("Close twitter");
@@ -85,7 +87,7 @@ public class TwitterProducerConnector implements IProducerConnector {
             confBuilder.setOAuthConsumerSecret(secretConsumerToken);
             confBuilder.setJSONStoreEnabled(true);
         }catch (IllegalArgumentException err) {
-            LOGGER.error(err.getMessage());
+            LOGGER.error("Load Twitter Properties = " + err.getMessage());
             throw new IllegalArgumentException(err.getMessage());
         }
     }
@@ -105,21 +107,35 @@ public class TwitterProducerConnector implements IProducerConnector {
             String description = status.getText();
             Date start = status.getCreatedAt();
             Date end = status.getCreatedAt();
-
-            LOGGER.info(""+status.getText());
             User user = status.getUser();
 
-            GeoLocation geoLocation = status.getGeoLocation();
+            Double latitude = null;
+            Double longitude = null;
 
-            if(geoLocation != null) {
+            if (status.getGeoLocation() != null) {
+                latitude = status.getGeoLocation().getLatitude();
+                longitude = status.getGeoLocation().getLongitude();
+            } else if (status.getPlace() != null && status.getPlace().getBoundingBoxCoordinates() != null) {
+                Optional<GeoLocation[]> first = Arrays.stream(status.getPlace().getBoundingBoxCoordinates()).findFirst();
+                if (first.isPresent()) {
+                   Optional<GeoLocation> g = Arrays.stream(first.get()).findFirst();
+                   if (g.isPresent()) {
+                       GeoLocation location = g.get();
+                       latitude = location.getLatitude();
+                       longitude = location.getLongitude();
+                   }
+                }
+            }
+
+            if(latitude != null) {
                 JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.append("description", description);
                     jsonObject.append("user_certified", user.isVerified());
-                    LatLong latLong = new LatLong(geoLocation.getLatitude(), geoLocation.getLongitude());
+                    LatLong latLong = new LatLong(latitude, longitude);
                     Event event = new Event(latLong, start, end, jsonObject.toString(), source);
                     this.dataProducer.push(event);
-                    LOGGER.info(event.toString());
+                    LOGGER.info("Event inserted : " + event);
                 } catch (JSONException e) {
                     LOGGER.error(e.getMessage());
                 }

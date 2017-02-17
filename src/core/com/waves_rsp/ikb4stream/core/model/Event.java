@@ -153,6 +153,7 @@ public class Event {
                 ", end=" + end +
                 ", description='" + description + '\'' +
                 ", score=" + score +
+                ", source = " + source +
                 '}';
     }
 }
