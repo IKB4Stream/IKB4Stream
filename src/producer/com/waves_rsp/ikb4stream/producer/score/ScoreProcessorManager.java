@@ -25,13 +25,33 @@ public class ScoreProcessorManager {
     private final ClassLoader parent = ScoreProcessorManager.class.getClassLoader();
     private final Map<List<String>,IScoreProcessor> scoreProcessors = new HashMap<>();
 
+    /**
+     * Override default constructor
+     */
+    public ScoreProcessorManager() {
+        // Do nothing more
+    }
+
+    /**
+     * Process NLP Algorithm to an event
+     * @param event Event to score
+     * @return Copy of {@param event} with a new score
+     * @throws NullPointerException if {@param event} is null
+     */
     public Event processScore(Event event) {
         Objects.requireNonNull(event);
         List<IScoreProcessor> sp = findIScoreProcessor(event.getSource());
         return process(sp, event);
     }
 
+    /**
+     * Find ScoreProcessor to apply to a datasource
+     * @param source Origin of the datasource
+     * @return List of all ScoreProcessor to apply
+     * @throws NullPointerException if {@param source} is null
+     */
     private List<IScoreProcessor> findIScoreProcessor(String source) {
+        Objects.requireNonNull(source);
         List<IScoreProcessor> score = new ArrayList<>();
         scoreProcessors.keySet().stream()
                 .filter(list -> list.contains(source))
@@ -39,6 +59,13 @@ public class ScoreProcessorManager {
         return score;
     }
 
+    /**
+     * Apply all ScoreProcessor to the Event
+     * @param scoreProcessor List of all scoreprocessor to apply
+     * @param event Event to process
+     * @return Copy of {@param event} with its score process
+     * @throws NullPointerException if {@param scoreProcessor} or {@param event} is null
+     */
     private static Event process(List<IScoreProcessor> scoreProcessor, Event event) {
         Objects.requireNonNull(scoreProcessor);
         Objects.requireNonNull(event);
@@ -49,6 +76,9 @@ public class ScoreProcessorManager {
         return tmp;
     }
 
+    /**
+     * Get all ScoreProcessor
+     */
     public void instanciate() {
         String stringPath = PROPERTIES_MANAGER.getProperty("scoreprocessor.path");
         try (Stream<Path> paths = Files.walk(Paths.get(stringPath))) {

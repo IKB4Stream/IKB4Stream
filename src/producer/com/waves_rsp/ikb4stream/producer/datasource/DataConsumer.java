@@ -30,6 +30,7 @@ public class DataConsumer {
     public static DataConsumer createDataConsumer(DataQueue dataQueue) {
         /* Create ScoreProcessorManager */
         ScoreProcessorManager scoreProcessorManager = new ScoreProcessorManager();
+        scoreProcessorManager.instanciate();
 
         DatabaseWriter databaseWriter = DatabaseWriter.getInstance();
 
