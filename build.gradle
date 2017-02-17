@@ -346,7 +346,7 @@ task testAll(type: Test) {
 
 cobertura {
     coverageDirs = [file("build")]
-    coverageSourceDirs = [file("src")]
+    coverageSourceDirs = [file("src/communication"),file("src/consumer"),file("src/producer"),file("src/core")]
 }
 
 repositories {
