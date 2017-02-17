@@ -1,3 +1,7 @@
+plugins {
+    id "net.saliman.cobertura" version "2.4.0"
+}
+
 group 'com.waves.ikb4stream'
 version '1.0-SNAPSHOT'
 
@@ -338,14 +342,15 @@ task ci(dependsOn: ['packageAll', 'zipBuild']) {
 task testAll(type: Test) {
     testClassesDir = sourceSets.test.output.classesDir
     classpath = sourceSets.test.runtimeClasspath
+}
 
+cobertura {
+    coverageDirs = [file("build")]
+    coverageSourceDirs = [file("src")]
 }
 
 repositories {
     mavenCentral()
-    maven{
-        url 'https://oss.sonatype.org/content/groups/public/'
-    }
 }
 
 dependencies {
@@ -360,6 +365,7 @@ dependencies {
     coreCompile 'com.fasterxml.jackson.core:jackson-databind:2.8.6'
     coreCompile 'org.mongodb:mongodb-driver-async:3.2.2'
     coreCompile  group: 'org.apache.opennlp', name: 'opennlp-tools', version: '1.6.0'
+
 
     // producer
 
