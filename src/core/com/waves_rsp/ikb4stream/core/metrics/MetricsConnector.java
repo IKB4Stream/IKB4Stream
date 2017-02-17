@@ -15,10 +15,24 @@ public class MetricsConnector {
     private final MetricsConnectorService connectorService;
     private final MetricsProperties properties;
 
+    public boolean isConnexionEnabled() {
+        return isConnexionEnabled;
+    }
+
+    private final boolean isConnexionEnabled;
+
     private MetricsConnector() {
         this.properties = MetricsProperties.create();
+        this.isConnexionEnabled = Boolean.valueOf(PROPERTIES_MANAGER.getProperty("database.connexion.enabled"));
+
+        if(!isConnexionEnabled) {
+            LOGGER.warn("can't connect to the influxdb.");
+            this.connectorService = null;
+            return;
+        }
         InfluxDB influxDB = InfluxDBFactory.connect(properties.getHost(), properties.getUser(), properties.getPassword());
-        try {
+
+		try {
             String collection = PROPERTIES_MANAGER.getProperty("database.metrics.datasource");
             influxDB.createDatabase(collection);
         } catch (IllegalArgumentException e) {
@@ -40,8 +54,10 @@ public class MetricsConnector {
      * Close the connexion with influx
      */
     public void close() {
-        connectorService.getInfluxDB().close();
-        LOGGER.info("Connexion to the influx database " + connectorService.getInfluxDB().version() + " stopped");
+        if(connectorService!= null && connectorService.getInfluxDB() != null) {
+            connectorService.getInfluxDB().close();
+            LOGGER.info("Connexion to the influx database " + connectorService.getInfluxDB().version() + " stopped");
+        }
     }
 
     public InfluxDB getInfluxDB() {

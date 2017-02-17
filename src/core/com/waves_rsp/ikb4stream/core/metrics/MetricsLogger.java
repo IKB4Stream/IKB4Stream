@@ -18,11 +18,17 @@ public class MetricsLogger {
     private final BatchPoints.Builder batchPointsBuilder;
 
     /**
-     *
+     * Instantiate MetricsLogger object
      */
     private MetricsLogger() {
         this.metricsConnector = MetricsConnector.getMetricsConnector();
-        this.metricsConnector.getInfluxDB().enableBatch(1000, 200, TimeUnit.NANOSECONDS);
+        if(!this.metricsConnector.isConnexionEnabled()) {
+            LOGGER.warn("influxdb connexion disabled");
+            this.batchPointsBuilder = null;
+            return;
+        }
+
+        this.metricsConnector.getInfluxDB().enableBatch(1000, 20, TimeUnit.NANOSECONDS);
         this.batchPointsBuilder = BatchPoints.database(metricsConnector.getProperties().getDbName()).tag("async", "true");
     }
 
@@ -51,15 +57,18 @@ public class MetricsLogger {
     public void log(String field, String data) {
         Objects.requireNonNull(field);
         Objects.requireNonNull(data);
-        final InfluxDB influxDB = metricsConnector.getInfluxDB();
-        influxDB.setLogLevel(InfluxDB.LogLevel.BASIC);
-        String measurement = metricsConnector.getProperties().getMeasurement();
-        Point point = Point.measurement(measurement)
-                           .time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
-                .addField(field, data).build();
-        BatchPoints points = batchPointsBuilder.point(point).build();
-        influxDB.write(points);
-        LOGGER.info("indexes points : "+points.getPoints());
+
+        if(!this.metricsConnector.isConnexionEnabled()) {
+            final InfluxDB influxDB = metricsConnector.getInfluxDB();
+            influxDB.setLogLevel(InfluxDB.LogLevel.BASIC);
+            String measurement = metricsConnector.getProperties().getMeasurement();
+            Point point = Point.measurement(measurement)
+                    .time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
+                    .addField(field, data).build();
+            BatchPoints points = batchPointsBuilder.point(point).build();
+            influxDB.write(points);
+            LOGGER.info("indexes points : " + points.getPoints());
+        }
     }
 
     /**
@@ -69,13 +78,15 @@ public class MetricsLogger {
      */
     public void log(Point... points) {
         Objects.requireNonNull(points);
-        final InfluxDB influxDB = metricsConnector.getInfluxDB();
-        influxDB.setLogLevel(InfluxDB.LogLevel.BASIC);
-        BatchPoints.Builder builder = BatchPoints.database(metricsConnector.getProperties().getDbName());
-        builder.points(points);
-        BatchPoints batchPoints = builder.build();
-        influxDB.write(batchPoints);
-        batchPoints.getPoints().stream().map(Point::lineProtocol).forEach(point -> LOGGER.info("push metrics point "+point));
+        if(!this.metricsConnector.isConnexionEnabled()) {
+            final InfluxDB influxDB = metricsConnector.getInfluxDB();
+            influxDB.setLogLevel(InfluxDB.LogLevel.BASIC);
+            BatchPoints.Builder builder = BatchPoints.database(metricsConnector.getProperties().getDbName());
+            builder.points(points);
+            BatchPoints batchPoints = builder.build();
+            influxDB.write(batchPoints);
+            batchPoints.getPoints().stream().map(Point::lineProtocol).forEach(point -> LOGGER.info("push metrics point " + point));
+        }
     }
 
     /**
@@ -85,9 +96,11 @@ public class MetricsLogger {
      */
     public void read(String request) {
         Objects.requireNonNull(request);
-        final Query query = new Query(request, metricsConnector.getProperties().getDbName());
-        QueryResult fixes = this.metricsConnector.getInfluxDB().query(query);
-        List<QueryResult.Result> resultsList = fixes.getResults();
-        resultsList.stream().filter(results -> results.getSeries() != null).forEach(results -> results.getSeries().forEach(series -> LOGGER.info(series.toString())));
+        if(!this.metricsConnector.isConnexionEnabled()) {
+            final Query query = new Query(request, metricsConnector.getProperties().getDbName());
+            QueryResult fixes = this.metricsConnector.getInfluxDB().query(query);
+            List<QueryResult.Result> resultsList = fixes.getResults();
+            resultsList.stream().filter(results -> results.getSeries() != null).forEach(results -> results.getSeries().forEach(series -> LOGGER.info(series.toString())));
+        }
     }
 }
