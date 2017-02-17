@@ -50,9 +50,8 @@ public class TwitterProducerConnector implements IProducerConnector {
             twitterStream = new TwitterStreamFactory(confBuilder.build()).getInstance();
             twitterStream.addListener(streamListener);
             FilterQuery filterQuery = new FilterQuery();
-            twitterStream.filter(filterQuery);
             filterQuery.locations(new double[]{latitudeMax, latitudeMin, longitudeMax, longitudeMin});
-
+            twitterStream.filter(filterQuery);
             twitterStream.sample("fr");
 
             Thread.currentThread().join();
