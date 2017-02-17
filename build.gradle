@@ -89,6 +89,13 @@ sourceSets {
         }
     }
 
+    datasourceOpenAgenda {
+        java {
+            srcDirs = ['src/core', 'src/datasource/openagenda']
+            compileClasspath += core.compileClasspath + core.output
+        }
+    }
+
     scoringFacebook {
         java {
             srcDirs = ['src/core', 'src/scoring/facebook']
@@ -115,7 +122,7 @@ sourceSets {
             srcDirs = ['src/core', 'src/consumer', 'src/producer', 'src/test/', 'src/datasource', 'src/scoring',
                        'src/communication/web', 'src/datasource/weather', 'src/datasource/rss', 'src/communication/kafka',
                        'src/datasource/twitter', 'src/datasource/twittermock', 'src/datasource/dbpedia', 'src/datasource/owm',
-                        'src/datasource/facebook', 'src/communication/web', 'src/scoring/facebook', 'src/scoring/twitter',
+                        'src/datasource/facebook', 'src/datasource/openagenda', 'src/communication/web', 'src/scoring/facebook', 'src/scoring/twitter',
                         'src/scoring/mock']
 
             compileClasspath += core.compileClasspath + core.output + consumer.compileClasspath + consumer.output +
@@ -127,6 +134,7 @@ sourceSets {
                     datasourceDbpedia.output + datasourceDbpedia.compileClasspath +
                     datasourceFacebook.output + datasourceFacebook.compileClasspath +
 					datasourceOWM.output + datasourceOWM.compileClasspath +
+                    datasourceOpenAgenda.output + datasourceOpenAgenda.compileClasspath +
                     communicationWeb.output + communicationWeb.compileClasspath +
                     scoringFacebook.compileClasspath + scoringFacebook.output +
                     scoringTwitter.compileClasspath + scoringTwitter.output +
@@ -241,6 +249,16 @@ task packageDbpediaJar(type: Jar, description: 'Package the Dbpedia Jar') {
     with jar
 }
 
+task packageOpenAgendaJar(type: Jar, description: 'Package the OpenAgenda Jar') {
+    archiveName = "resources/datasource/openagenda/ikb4stream-$version-datasource-openagenda.jar"
+    manifest {
+        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.datasource.openagenda.OpenAgendaProducerConnector'
+    }
+    from sourceSets.datasourceOpenAgenda.output
+    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) }}
+    with jar
+}
+
 task packageKafkaCommunicationJar(type: Jar, description: 'Package the Kafka Communication Jar') {
     archiveName = "resources/communication/kafka/ikb4stream-$version-communication-kafka.jar"
     manifest {
@@ -306,7 +324,11 @@ task zipBuild(type: Zip) {
     from 'build/libs'
 }
 
-task packageAll(dependsOn: ['copyConfigProperties', 'packageConsumerJar', 'packageProducerJar', 'packageWeatherJar', 'packageRssJar', 'packageKafkaCommunicationJar', 'packageTwitterJar', 'packageDbpediaJar', 'packageFacebookJar', 'packageOwmJar', 'packageCommunicationWebJar', 'packageFacebookScoringJar', 'packageTwitterScoringJar', 'packageMockScoringJar']) {
+<<<<<<< HEAD
+task packageAll(dependsOn: ['copyConfigProperties', 'packageConsumerJar', 'packageProducerJar', 'packageWeatherJar', 
+    'packageRssJar', 'packageKafkaCommunicationJar', 'packageTwitterJar', 'packageDbpediaJar', 'packageFacebookJar', 
+    'packageOwmJar', 'packageOpenAgendaJar', 'packageCommunicationWebJar', 'packageFacebookScoringJar', 'packageTwitterScoringJar', 
+    'packageMockScoringJar']) {
 
 }
 
