@@ -7,6 +7,7 @@ import com.mongodb.async.client.MongoClients;
 import com.mongodb.async.client.MongoCollection;
 import com.mongodb.async.client.MongoDatabase;
 import com.mongodb.client.model.geojson.Point;
+import com.mongodb.client.model.geojson.Polygon;
 import com.mongodb.client.model.geojson.Position;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
@@ -15,7 +16,10 @@ import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * This class writes data in mongodb database
@@ -80,10 +84,17 @@ public class DatabaseWriter {
             document.remove("location");
             document.append("start", event.getStart().getTime());
             document.append("end", event.getEnd().getTime());
-            document.append("location", new Point(new Position(event.getLocation().getLatitude(), event.getLocation().getLongitude())));
+            if(event.getLocation().length == 1) {
+                document.append("location", new Point(new Position(
+                        event.getLocation()[0].getLatitude(), event.getLocation()[0].getLongitude())));
+            } else {
+                List<Position> positions = Arrays.asList(event.getLocation()).stream()
+                        .map(p -> new Position(p.getLatitude(), p.getLongitude())).collect(Collectors.toList());
+                document.append("location", new Polygon(positions));
+            }
             this.mongoCollection.insertOne(document, (result, t) -> callback.onResult(t));
         } catch (JsonProcessingException e) {
-            LOGGER.error("Invalid format of event not inserted");
+            LOGGER.error("Invalid event format: event not inserted in database.");
         }
     }
 }

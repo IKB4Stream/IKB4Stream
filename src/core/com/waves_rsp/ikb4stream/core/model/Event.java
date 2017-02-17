@@ -7,7 +7,7 @@ import java.util.Objects;
  * Event class represents an event with starting date and end date
  */
 public class Event {
-    private final LatLong location;
+    private final LatLong[] location;
     private final Date start;
     private final Date end;
     private final String description;
@@ -31,6 +31,33 @@ public class Event {
         Objects.requireNonNull(description);
         Objects.requireNonNull(source);
         if(source.isEmpty()) { throw new IllegalArgumentException("Source argument cannot be empty."); }
+
+        this.location = new LatLong[] {location};
+        this.start = start;
+        this.end = end;
+        this.description = description;
+        this.score = -1;
+        this.source = source;
+    }
+
+    /**
+     * Create an Event without score
+     * @param location the location of the event, defined by a BondingBox (LatLong[])
+     * @param start The moment when the event begins
+     * @param end End of the event, or the current date
+     * @param description the event content. For instance, the message of a tweet.
+     * @param source from which datasource the event is provided
+     * @throws NullPointerException If a param is null
+     * @throws IllegalArgumentException If {@param source} is empty
+     */
+    public Event(LatLong[] location, Date start, Date end, String description, String source) {
+        Objects.requireNonNull(location);
+        Objects.requireNonNull(start);
+        Objects.requireNonNull(end);
+        Objects.requireNonNull(description);
+        Objects.requireNonNull(source);
+        if(source.isEmpty()) { throw new IllegalArgumentException("Source argument cannot be empty."); }
+        if(location[0] != location[location.length - 1]) { throw new IllegalArgumentException("BoundingBox is not closed."); }
 
         this.location = location;
         this.start = start;
@@ -60,6 +87,35 @@ public class Event {
         if(source.isEmpty()) { throw new IllegalArgumentException("Source argument cannot be empty."); }
         if(score < 0 || score > 100) { throw new IllegalArgumentException("Score need to be between 0 and 100."); }
 
+        this.location = new LatLong[] {location};
+        this.start = start;
+        this.end = end;
+        this.description = description;
+        this.score = score;
+        this.source = source;
+    }
+
+    /**
+     * Create an Event with a score
+     * @param location the location of the event, defined by a BondingBox (LatLong[])
+     * @param start The moment when the event begins
+     * @param end End of the event, or the current date
+     * @param description the event content. For instance, the message of a tweet.
+     * @param score Score of this event between 0 and 100
+     * @param source from which datasource the event is provided
+     * @throws NullPointerException If one params is null
+     * @throws IllegalArgumentException If {@param source} is empty or {@param score} is not between 0 and 100
+     */
+    public Event(LatLong[] location, Date start, Date end, String description, byte score, String source) {
+        Objects.requireNonNull(location);
+        Objects.requireNonNull(start);
+        Objects.requireNonNull(end);
+        Objects.requireNonNull(description);
+        Objects.requireNonNull(source);
+        if(source.isEmpty()) { throw new IllegalArgumentException("Source argument cannot be empty."); }
+        if(score < 0 || score > 100) { throw new IllegalArgumentException("Score need to be between 0 and 100."); }
+        if(location[0] != location[location.length - 1]) { throw new IllegalArgumentException("BoundingBox is not closed."); }
+
         this.location = location;
         this.start = start;
         this.end = end;
@@ -70,9 +126,9 @@ public class Event {
 
     /**
      * Get location of this event
-     * @return LatLong to represent the position of this Event
+     * @return LatLong[] to represent the position of this Event
      */
-    public LatLong getLocation() {
+    public LatLong[] getLocation() {
         return location;
     }
 
