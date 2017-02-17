@@ -47,9 +47,9 @@ public class OWMProducerConnector implements IProducerConnector{
 
     /**
      *
-     * @param latitude
-     * @param longitude
-     * @return
+     * @param latitude coordinate
+     * @param longitude coordinate
+     * @return an Event which contains information about current weather
      * @throws IOException
      */
     private Event getCurrentWeather(double latitude, double longitude) {
@@ -90,12 +90,5 @@ public class OWMProducerConnector implements IProducerConnector{
                 Thread.currentThread().interrupt();
             }
         }
-    }
-
-    public static void main(String [] args) throws IOException {
-        OWMProducerConnector owm = new OWMProducerConnector();
-        Event event = owm.getCurrentWeather(48.8781161065379,2.22459235221894);
-        System.out.println(event.toString());
-        System.out.println(new Date(1487260493000L));
     }
 }
