@@ -1,5 +1,6 @@
 package com.waves_rsp.ikb4stream.core.metrics;
 
+import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
 import org.influxdb.InfluxDB;
 import org.influxdb.InfluxDBFactory;
 import org.slf4j.Logger;
@@ -9,7 +10,7 @@ import org.slf4j.LoggerFactory;
  * Defines the connector to influx database and instances it
  */
 public class MetricsConnector {
-
+    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(MetricsConnector.class);
     private static final Logger LOGGER = LoggerFactory.getLogger(MetricsConnector.class);
     private final MetricsConnectorService connectorService;
     private final MetricsProperties properties;
@@ -17,6 +18,12 @@ public class MetricsConnector {
     private MetricsConnector() {
         this.properties = MetricsProperties.create();
         InfluxDB influxDB = InfluxDBFactory.connect(properties.getHost(), properties.getUser(), properties.getPassword());
+        try {
+            String collection = PROPERTIES_MANAGER.getProperty("database.metrics.datasource");
+            influxDB.createDatabase(collection);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalStateException(e.getMessage());
+        }
         this.connectorService = new MetricsConnectorService(influxDB);
         LOGGER.info("Connexion to the influx database " + influxDB.version() + " for metrics is started");
     }
