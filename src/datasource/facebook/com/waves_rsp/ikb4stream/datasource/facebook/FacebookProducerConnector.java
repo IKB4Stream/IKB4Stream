@@ -51,24 +51,27 @@ public class FacebookProducerConnector implements IProducerConnector {
      */
     private List<com.waves_rsp.ikb4stream.core.model.Event> searchWordFromGeolocation(String word, int limit, double latitude, double longitude) {
         Objects.requireNonNull(word);
-            List<com.waves_rsp.ikb4stream.core.model.Event> events = new ArrayList<>();
-            FacebookClient facebookClient = new DefaultFacebookClient(this.pageAccessToken, Version.LATEST);
-            Connection<Event> publicSearch = facebookClient.fetchConnection("search", Event.class,
-                    Parameter.with("q", word),
-                    Parameter.with("type", "event"),
-                    Parameter.with("limit", limit),
-                    Parameter.with("place&center", latitude + "," + longitude));
+        List<com.waves_rsp.ikb4stream.core.model.Event> events = new ArrayList<>();
+        FacebookClient facebookClient = new DefaultFacebookClient(this.pageAccessToken, Version.LATEST);
+        Connection<Event> publicSearch = facebookClient.fetchConnection("search", Event.class,
+                Parameter.with("q", word),
+                Parameter.with("type", "event"),
+                Parameter.with("limit", limit),
+                Parameter.with("place&center", latitude + "," + longitude));
 
-            for (int i = 0; i < publicSearch.getData().size(); i++) {
-                if (isValidEvent(publicSearch.getData().get(i))) {
-                    LatLong ll = new LatLong(publicSearch.getData().get(i).getPlace().getLocation().getLatitude(), publicSearch.getData().get(i).getPlace().getLocation().getLongitude());
-                    Date start = publicSearch.getData().get(i).getStartTime();
-                    Date end = publicSearch.getData().get(i).getEndTime();
-                    String description = publicSearch.getData().get(i).getDescription();
-                    events.add(new com.waves_rsp.ikb4stream.core.model.Event(ll, start, end, description, source));
-                }
+        publicSearch.getData().forEach(eventData -> {
+            if(isValidEvent(eventData)) {
+                double latitudeEv = eventData.getPlace().getLocation().getLatitude();
+                double longitudeEv = eventData.getPlace().getLocation().getLongitude();
+                LatLong latLong = new LatLong(latitudeEv, longitudeEv);
+                Date start = eventData.getStartTime();
+                Date end = eventData.getEndTime();
+                String description = eventData.getDescription();
+                events.add(new com.waves_rsp.ikb4stream.core.model.Event(latLong, start, end, description, source));
             }
-            return events;
+        });
+
+        return events;
     }
 
     /**
