@@ -3,6 +3,7 @@ package com.waves_rsp.ikb4stream.datasource.openagenda;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
 import com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector;
 import com.waves_rsp.ikb4stream.core.model.Event;
@@ -17,41 +18,77 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 public class OpenAgendaProducerConnector implements IProducerConnector {
-
+    private static final String UTF8 = "utf-8";
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(OpenAgendaProducerConnector.class, "resources/datasource/openagenda/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenAgendaProducerConnector.class);
+    private final String source;
+    private final String propDateStart;
+    private final String propDateEnd;
     private final String bbox;
 
     public OpenAgendaProducerConnector() {
-        double latMax = Double.valueOf(PROPERTIES_MANAGER.getProperty("openagenda.latitude.maximum"));
-        double latMin = Double.valueOf(PROPERTIES_MANAGER.getProperty("openagenda.latitude.minimum"));
-        double lonMax = Double.valueOf(PROPERTIES_MANAGER.getProperty("openagenda.longitude.maximum"));
-        double lonMin = Double.valueOf(PROPERTIES_MANAGER.getProperty("openagenda.longitude.minimum"));
-        this.bbox = "(" + latMin + "," + lonMin + "),(" + latMax + "," + lonMin + "),(" + latMax + "," + lonMax + ")," +
-                "(" + latMin + "," + lonMax + "),(" + latMin + "," + lonMin + ")";
+        try {
+            this.source = PROPERTIES_MANAGER.getProperty("openagenda.source");
+            this.propDateStart = PROPERTIES_MANAGER.getProperty("openagenda.date_start");
+            this.propDateEnd = PROPERTIES_MANAGER.getProperty("openagenda.date_end");
+            double latMax = Double.valueOf(PROPERTIES_MANAGER.getProperty("openagenda.latitude.maximum"));
+            double latMin = Double.valueOf(PROPERTIES_MANAGER.getProperty("openagenda.latitude.minimum"));
+            double lonMax = Double.valueOf(PROPERTIES_MANAGER.getProperty("openagenda.longitude.maximum"));
+            double lonMin = Double.valueOf(PROPERTIES_MANAGER.getProperty("openagenda.longitude.minimum"));
+            this.bbox = "(" + latMin + "," + lonMin + "),(" + latMax + "," + lonMin + "),(" + latMax + "," + lonMax + ")," +
+                    "(" + latMin + "," + lonMax + "),(" + latMin + "," + lonMin + ")";
+        } catch (IllegalArgumentException e) {
+            LOGGER.error(e.getMessage());
+            throw new IllegalStateException("Invalid configuration");
+        }
+
     }
 
 
     @Override
     public void load(IDataProducer dataProducer) {
         Objects.requireNonNull(dataProducer);
-
-
+        while (!Thread.currentThread().isInterrupted()) {
+            try {
+                List<com.waves_rsp.ikb4stream.core.model.Event> events = searchEvents();
+                events.stream().forEach(dataProducer::push);
+                Thread.sleep(20000);
+            } catch (InterruptedException e) {
+                LOGGER.error(e.getMessage());
+            } finally {
+                Thread.currentThread().interrupt();
+            }
+        }
     }
 
     private URL createURL() {
         URL url;
         try {
-            String bboxEncode = URLEncoder.encode(this.bbox, "utf-8");
+            //bbox
+            String bboxEncode = URLEncoder.encode(this.bbox, UTF8);
             String baseURL = PROPERTIES_MANAGER.getProperty("openagenda.url");
+            StringBuilder formatURL = new StringBuilder();
+            formatURL.append(baseURL).append("&geofilter.polygon=").append(bboxEncode);
 
-            String formatURL = baseURL + "&geofilter.polygon=" + bboxEncode;
-            url = new URL(formatURL);
+
+            if (!propDateStart.isEmpty()) {
+                String dateStartEncode = URLEncoder.encode(this.propDateStart, UTF8);
+                formatURL.append("&refine.date_start=").append(dateStartEncode);
+            }
+            if (!propDateEnd.isEmpty()) {
+                String dateEndEncode = URLEncoder.encode(this.propDateEnd, UTF8);
+                formatURL.append("&refine.date_end=").append(dateEndEncode);
+            }
+            url = new URL(formatURL.toString());
         } catch (MalformedURLException | UnsupportedEncodingException e) {
             LOGGER.error(e.getMessage());
             throw new IllegalArgumentException(e.getMessage());
@@ -60,42 +97,33 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
     }
 
 
-    public List<Event> searchEvents() {
+    private List<Event> searchEvents() {
         List<Event> events = new ArrayList<>();
-        InputStream is = null;
+        InputStream is;
         ObjectMapper mapper = new ObjectMapper();
         ObjectMapper fieldMapper = new ObjectMapper();
-        JsonNode root = null;
 
         try {
             is = createURL().openStream();
-            root = mapper.readTree(is);
-            //root keyword
+            JsonNode root = mapper.readTree(is);
+            //root
             JsonNode recordsNode = root.path("records");
+            for (JsonNode knode : recordsNode) {
+                JsonNode fieldsNode = knode.path("fields");
+                String transform = "{\"fields\": [" + fieldsNode.toString() + "]}";
+                JsonNode rootBis = fieldMapper.readTree(transform);
+                JsonNode fieldsRoodNode = rootBis.path("fields");
 
-            if (recordsNode.isArray()) {
-                for (JsonNode knode : recordsNode) {
-                    JsonNode fieldsNode = knode.path("fields");
-                    String transform = "{\"fields\": [" + fieldsNode.toString() + "]}";
-                    JsonNode rootBis = fieldMapper.readTree(transform);
-                    JsonNode fieldsRoodNode = rootBis.path("fields");
-                    if (fieldsRoodNode.isArray()) {
-                        for (JsonNode subknode : fieldsRoodNode) {
+                for (JsonNode subknode : fieldsRoodNode) {
+                    String latlon = subknode.path("latlon").toString();
+                    String title = subknode.path("title").asText();
+                    String description = subknode.path("description").asText() + " " + subknode.path("free_text").asText();
+                    String dateStart = subknode.path("date_start").asText();
+                    String dateEnd = subknode.path("date_end").asText();
+                    String city = subknode.path("city").asText();
+                    String address = subknode.path("address").asText();
 
-                            //TODO : Create Event !!
-                            String latlon = subknode.path("latlon").asText();
-                            String title = subknode.path("title").asText();
-                            String description = subknode.path("description").asText();
-                            String free_text = subknode.path("free_text").asText();
-                            String date_start = subknode.path("date_start").asText();
-                            String date_end = subknode.path("date_end").asText();
-                            String city = subknode.path("city").asText();
-                            String address = subknode.path("address").asText();
-                            AgendaEvent agendaEvent = new AgendaEvent(latlon, title, description, free_text, date_start, date_end, city, address);
-                            createEvent(agendaEvent);
-
-                        }//end for
-                    }
+                    events.add(createEvent(latlon, title, description, dateStart, dateEnd, city, address));
 
                 }
             }
@@ -105,27 +133,29 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
         return events;
     }
 
-    private Event createEvent(AgendaEvent agendaEvent) {
-        System.out.println(agendaEvent.getLatlon());
-        String[] coord = agendaEvent.getLatlon().substring(1, agendaEvent.getLatlon().length()-1).split(",");
+
+    private Event createEvent(String latlon, String title, String description, String dateStart, String dateEnd, String city, String address) {
+        String[] coord = latlon.substring(1, latlon.length() - 1).split(",");
         LatLong latLong = new LatLong(Double.parseDouble(coord[0]), Double.parseDouble(coord[1]));
+        DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
 
-        //TODO :create JSON Object for build the description of an event
-        //return an event
-
-        //return new Event(latLong, /*TODO.......*/);
-        return null;
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectNode jsonDescription = objectMapper.createObjectNode();
+        jsonDescription.put("title", title);
+        jsonDescription.put("description", description);
+        jsonDescription.put("city", city);
+        jsonDescription.put("address", address);
+        Date start;
+        Date end;
+        try {
+            start = df.parse(dateStart);
+            end = df.parse(dateEnd);
+        } catch (ParseException e) {
+            LOGGER.error(e.getMessage());
+            throw new IllegalArgumentException("Wrong date format from open agenda connector");
+        }
+        return new Event(latLong, start, end, jsonDescription.toString(), this.source);
     }
 
-
-    public static void main(String[] args) throws IOException {
-
-        OpenAgendaProducerConnector obj = new OpenAgendaProducerConnector();
-
-
-        obj.searchEvents();
-
-
-    }
 }
 
