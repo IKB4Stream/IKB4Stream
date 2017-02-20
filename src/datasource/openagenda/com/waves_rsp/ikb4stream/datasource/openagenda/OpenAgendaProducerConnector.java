@@ -59,7 +59,7 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
         Objects.requireNonNull(dataProducer);
         while (!Thread.currentThread().isInterrupted()) {
             try {
-                List<com.waves_rsp.ikb4stream.core.model.Event> events = searchEvents();
+                List<Event> events = searchEvents();
                 events.stream().forEach(dataProducer::push);
                 Thread.sleep(20000);
             } catch (InterruptedException e) {
@@ -78,7 +78,6 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
             String baseURL = PROPERTIES_MANAGER.getProperty("openagenda.url");
             StringBuilder formatURL = new StringBuilder();
             formatURL.append(baseURL).append("&geofilter.polygon=").append(bboxEncode);
-
 
             if (!propDateStart.isEmpty()) {
                 String dateStartEncode = URLEncoder.encode(this.propDateStart, UTF8);
