@@ -3,22 +3,20 @@ package com.aves_rsp.ikb4stream.datasource.owm;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.waves_rsp.ikb4stream.core.model.Event;
-import net.aksingh.owmjapis.CurrentWeather;
-import net.aksingh.owmjapis.OpenWeatherMap;
 import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
 import com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector;
+import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
+import net.aksingh.owmjapis.CurrentWeather;
+import net.aksingh.owmjapis.OpenWeatherMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.util.Date;
 import java.util.Objects;
 
-/**
- * Created by ikb4stream on 15/02/17.
- */
 public class OWMProducerConnector implements IProducerConnector{
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(OWMProducerConnector.class, "resources/datasource/owm/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(OWMProducerConnector.class);
@@ -40,26 +38,26 @@ public class OWMProducerConnector implements IProducerConnector{
             this.openWeatherMap.setLang(OpenWeatherMap.Language.FRENCH);
         } catch (IllegalArgumentException e) {
             LOGGER.error(e.getMessage());
-            throw new IllegalArgumentException("Invalid configuration");
+            throw new IllegalArgumentException("Invalid configuration\n" + e);
         }
     }
 
     /**
+     * Get the current weather from OpenWeatherMap
      *
-     * @param latitude coordinate
-     * @param longitude coordinate
      * @return an Event which contains information about current weather
      * @throws IOException
      */
-    private Event getCurrentWeather(double latitude, double longitude) {
+    private Event getCurrentWeather() {
         Objects.requireNonNull(latitude);
         Objects.requireNonNull(longitude);
         ObjectMapper  objectMapper = new ObjectMapper();
-        CurrentWeather currentWeather = openWeatherMap.currentWeatherByCoordinates((float)latitude, (float)longitude);
+        CurrentWeather currentWeather = openWeatherMap.currentWeatherByCoordinates((float)this.latitude, (float)this.longitude);
 
         try{
             JsonNode jn = objectMapper.readTree(currentWeather.getRawResponse());
             String description = currentWeather.getRawResponse().toString();
+
             LatLong latLong = new LatLong(Double.valueOf(jn.path("coord").path("lat").toString()), Double.valueOf(jn.path("coord").path("lon").toString()));
             Date start = new Date(Long.valueOf(jn.path("dt").toString())*1000);
             Date end = new Date(start.getTime()+requestInterval-1000);
@@ -87,7 +85,7 @@ public class OWMProducerConnector implements IProducerConnector{
         Objects.requireNonNull(dataProducer);
         while (!Thread.currentThread().isInterrupted()) {
             try {
-                Event event = getCurrentWeather(this.latitude, this.longitude);
+                Event event = getCurrentWeather();
                 if(event!= null) {
                     dataProducer.push(event);
                 }
