@@ -347,9 +347,9 @@ task zipBuild(type: Zip) {
     from 'build/libs'
 }
 
-task packageAll(dependsOn: ['copyConfigProperties', 'packageConsumerJar', 'packageProducerJar', 'packageWeatherJar', 
-    'packageRssJar', 'packageKafkaCommunicationJar', 'packageTwitterJar', 'packageDbpediaJar', 'packageFacebookJar', 
-    'packageOwmJar', 'packageOpenAgendaJar', 'packageCommunicationWebJar', 'packageFacebookScoringJar', 'packageTwitterScoringJar', 
+task packageAll(dependsOn: ['copyConfigProperties', 'packageConsumerJar', 'packageProducerJar', 'packageWeatherJar',
+    'packageRssJar', 'packageKafkaCommunicationJar', 'packageTwitterJar', 'packageDbpediaJar', 'packageFacebookJar',
+    'packageOwmJar', 'packageOpenAgendaJar', 'packageCommunicationWebJar', 'packageFacebookScoringJar', 'packageTwitterScoringJar',
     'packageMockScoringJar']) {
 }
 
