@@ -2,10 +2,8 @@ package com.waves_rsp.ikb4stream.communication.kafka;
 
 import com.waves_rsp.ikb4stream.core.communication.ICommunication;
 import com.waves_rsp.ikb4stream.core.communication.IDatabaseReader;
-import com.waves_rsp.ikb4stream.core.communication.model.BoundingBox;
-import com.waves_rsp.ikb4stream.core.communication.model.Request;
-import com.waves_rsp.ikb4stream.core.model.LatLong;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
+import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.StreamsConfig;
@@ -13,8 +11,6 @@ import org.apache.kafka.streams.kstream.KStreamBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.time.Instant;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,11 +20,13 @@ import java.util.Map;
 public class KafkaCommunication implements ICommunication {
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(KafkaCommunication.class, "resources/communication/kafka/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(KafkaCommunication.class);
-    private final String kafkaTopic;
+    private final String kafkaRequestTopic;
+    private final String kafkaResponseTopic;
     private KafkaStreams streams;
 
     public KafkaCommunication() {
-        this.kafkaTopic = PROPERTIES_MANAGER.getProperty("communications.kafka.topic");
+        this.kafkaRequestTopic = PROPERTIES_MANAGER.getProperty("communications.kafka.request_topic");
+        this.kafkaResponseTopic = PROPERTIES_MANAGER.getProperty("communications.kafka.response_topic");
     }
 
     /**
@@ -37,38 +35,28 @@ public class KafkaCommunication implements ICommunication {
      * @throws IllegalStateException if there is an invalid configuration of Kafka
      */
     private void getRequests(IPollCallback callback) {
-        Map<String, CharSequence> props = new HashMap<>();
+        Map<String, Object> props = new HashMap<>();
         try {
             props.put(StreamsConfig.APPLICATION_ID_CONFIG, PROPERTIES_MANAGER.getProperty("communications.kafka.application_id"));
             props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, PROPERTIES_MANAGER.getProperty("communications.kafka.server"));
+            props.put(StreamsConfig.NUM_STREAM_THREADS_CONFIG, PROPERTIES_MANAGER.getProperty("communications.kafka.stream_thread_nb"));
+            props.put("linger.ms", 10);
+            props.put("batch.size", 1);
         } catch (IllegalArgumentException e) {
             LOGGER.error("Error values in properties file not found:\n" +
                     "\t- communications.kafka.application_id\n" +
                     "\t- communications.kafka.serve\n");
             throw new IllegalStateException(e.getMessage());
         }
+
         StreamsConfig config = new StreamsConfig(props);
         KStreamBuilder builder = new KStreamBuilder();
-        builder.stream(kafkaTopic)
-                .map((key, value) -> {
-                    String val = new String((byte[]) value);
-                    LOGGER.trace("Request received");
-                    AnomalyRequest anomalyRequest = RDFParser.parse(val);
-                    return new KeyValue<>(key, new Request(
-                            anomalyRequest.getStart(),
-                            anomalyRequest.getEnd(),
-                            new BoundingBox(new LatLong[]{
-                                    new LatLong(anomalyRequest.getMinLatitude(), anomalyRequest.getMinLongitude()),
-                                    new LatLong(anomalyRequest.getMaxLatitude(), anomalyRequest.getMinLongitude()),
-                                    new LatLong(anomalyRequest.getMaxLatitude(), anomalyRequest.getMaxLongitude()),
-                                    new LatLong(anomalyRequest.getMinLatitude(), anomalyRequest.getMaxLongitude()),
-                                    new LatLong(anomalyRequest.getMinLatitude(), anomalyRequest.getMinLongitude()),
-                            }),
-                            Date.from(Instant.now()))
-                    );
-                })
+
+        builder.stream(Serdes.String(), Serdes.String(), kafkaRequestTopic)
+                .map((key, value) -> new KeyValue<>(key, RDFParser.parse(value)))
                 .filter((key, value) -> value != null) // Filter all non valid RDF.
-                .map((key, value) -> new KeyValue<>(key, callback.onNewRequest(value)));
+                .map((key, value) -> new KeyValue<>(key, callback.onNewRequest(value).getBytes()))
+                .to(kafkaResponseTopic);
 
         this.streams = new KafkaStreams(builder, config);
         try {

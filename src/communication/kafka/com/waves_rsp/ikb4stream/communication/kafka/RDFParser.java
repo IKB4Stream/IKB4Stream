@@ -5,10 +5,15 @@ import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 import java.io.ByteArrayInputStream;
+import java.time.Instant;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
+import com.waves_rsp.ikb4stream.core.communication.model.BoundingBox;
+import com.waves_rsp.ikb4stream.core.communication.model.Request;
+import com.waves_rsp.ikb4stream.core.model.LatLong;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,10 +34,10 @@ public class RDFParser {
     /**
      * Parse RDF input as string
      * @param input RDF values as String
-     * @return an {@link AnomalyRequest} object which contains information about latitude, longitude and date
+     * @return an {@link Request} object which contains information about latitude, longitude and date
      * @throws IllegalStateException If RDF is not literal
      */
-    public static AnomalyRequest parse(String input) {
+    public static Request parse(String input) {
         Objects.requireNonNull(input);
         Model model = ModelFactory.createDefaultModel();
         model.read(new ByteArrayInputStream(input.getBytes()), null, "TURTLE");
@@ -56,12 +61,12 @@ public class RDFParser {
 
     /**
      * Get an AnomalyRequest from Map< String, Object >
-     * @param map {@link AnomalyRequest} represented as Map Object
-     * @return {@link AnomalyRequest} object which contains information about latitude, longitude and date
+     * @param map {@link Request} represented as Map Object
+     * @return {@link Request} object which contains information about latitude, longitude and date
      * @throws NullPointerException if {@param map} is null
      * @throws IllegalArgumentException if {@param map} doesn't have needed values
      */
-    private static AnomalyRequest getDataFromMap(Map<String, Object> map) {
+    private static Request getDataFromMap(Map<String, Object> map) {
         try {
             Objects.requireNonNull(map);
             checkValid(map);
@@ -75,7 +80,18 @@ public class RDFParser {
             float maxLatitude = (float) map.get("hasMaxLatitude");
             float minLongitude = (float) map.get("hasMinLongitude");
             float maxLongitude = (float) map.get("hasMaxLongitude");
-            return new AnomalyRequest(start, end, minLatitude, maxLatitude, minLongitude, maxLongitude);
+
+            return new Request(
+                    start,
+                    end,
+                    new BoundingBox(new LatLong[]{
+                            new LatLong(minLatitude, minLongitude),
+                            new LatLong(maxLatitude, minLongitude),
+                            new LatLong(maxLatitude, maxLongitude),
+                            new LatLong(minLatitude, maxLongitude),
+                            new LatLong(minLatitude, minLongitude),
+                    }),
+                    Date.from(Instant.now()));
         } catch (NullPointerException e) {
             LOGGER.error("Error occurred during the deserialization of RDF: " + e.getMessage());
             return null;
