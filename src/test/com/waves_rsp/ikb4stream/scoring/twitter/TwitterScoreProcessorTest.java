@@ -9,7 +9,7 @@ import twitter4j.JSONObject;
 import java.util.Calendar;
 import java.util.Date;
 
-import static org.junit.Assert.assertEquals;
+import static junit.framework.Assert.assertEquals;
 
 public class TwitterScoreProcessorTest {
     private final TwitterScoreProcessor tsp = new TwitterScoreProcessor();

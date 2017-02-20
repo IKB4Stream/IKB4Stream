@@ -8,7 +8,7 @@ public class OWMScoreProcessorTest {
     private final String source = "OpenWeatherMap";
 
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void nullProcessScore() {
         tsp.processScore(null);
     }
