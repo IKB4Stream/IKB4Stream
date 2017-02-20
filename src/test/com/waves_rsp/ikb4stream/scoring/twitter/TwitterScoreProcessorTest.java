@@ -1,8 +1,7 @@
-package com.waves_rsp.ikb4stream.scoring;
+package com.waves_rsp.ikb4stream.scoring.twitter;
 
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
-import com.waves_rsp.ikb4stream.scoring.twitter.TwitterScoreProcessor;
 import org.junit.Test;
 import twitter4j.JSONException;
 import twitter4j.JSONObject;
@@ -10,7 +9,7 @@ import twitter4j.JSONObject;
 import java.util.Calendar;
 import java.util.Date;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 public class TwitterScoreProcessorTest {
     private final TwitterScoreProcessor tsp = new TwitterScoreProcessor();

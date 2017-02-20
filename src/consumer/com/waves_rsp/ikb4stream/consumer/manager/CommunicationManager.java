@@ -77,18 +77,18 @@ public class CommunicationManager {
                 ClassLoader classLoader = new URLClassLoader(
                         urls.toArray(new URL[urls.size()]),
                         parent);
-
                 classes.stream()
                         .map(c -> UtilManager.loadClass(c, classLoader))
                         .filter(c -> UtilManager.implementInterface(c, ICommunication.class))
                         .forEach(clazz -> {
                             ICommunication iCommunication = (ICommunication) UtilManager.newInstance(clazz);
-                            Thread thread = new Thread(() -> iCommunication.start(databaseReader));
-                            thread.setContextClassLoader(classLoader);
-                            thread.setName(iCommunication.getClass().getName());
-                            thread.start();
-                            LOGGER.info("CommunicationManager " + iCommunication.getClass().getName() + " has been launched");
-                            threadCommunications.put(thread, iCommunication);
+                            if (iCommunication.isActive()) {
+                                Thread thread = new Thread(() -> iCommunication.start(databaseReader));
+                                thread.setContextClassLoader(classLoader);
+                                thread.setName(iCommunication.getClass().getName());
+                                thread.start();
+                                threadCommunications.put(thread, iCommunication);
+                            }
                         });
 
                 return null;

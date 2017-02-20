@@ -77,4 +77,13 @@ public class WebCommunication implements ICommunication {
         }
         LOGGER.info("WebCommunication module stopped");
     }
+
+    @Override
+    public boolean isActive() {
+        try {
+            return Boolean.valueOf(PROPERTIES_MANAGER.getProperty("communications.web.enable"));
+        } catch (IllegalArgumentException e) {
+            return true;
+        }
+    }
 }

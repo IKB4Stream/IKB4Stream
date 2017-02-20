@@ -10,4 +10,10 @@ public interface ICommunication {
      * Called at closure.
      */
     void close();
+
+    /**
+     * Called to know if module should be launch
+     * @return True if Communication module must be started
+     */
+    boolean isActive();
 }

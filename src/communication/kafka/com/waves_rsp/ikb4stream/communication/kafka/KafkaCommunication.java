@@ -107,4 +107,13 @@ public class KafkaCommunication implements ICommunication {
             LOGGER.warn("Kafka stream process has not started yet");
         }
     }
+
+    @Override
+    public boolean isActive() {
+        try {
+            return Boolean.valueOf(PROPERTIES_MANAGER.getProperty("communications.kafka.enable"));
+        } catch (IllegalArgumentException e) {
+            return true;
+        }
+    }
 }
