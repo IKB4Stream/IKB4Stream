@@ -6,6 +6,8 @@ import org.influxdb.InfluxDBFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Optional;
+
 /**
  * Defines the connector to influx database and instances it
  */
@@ -14,32 +16,30 @@ public class MetricsConnector {
     private static final Logger LOGGER = LoggerFactory.getLogger(MetricsConnector.class);
     private final MetricsConnectorService connectorService;
     private final MetricsProperties properties;
-
-    public boolean isConnexionEnabled() {
-        return isConnexionEnabled;
-    }
-
     private final boolean isConnexionEnabled;
+
+
 
     private MetricsConnector() {
         this.properties = MetricsProperties.create();
         this.isConnexionEnabled = Boolean.valueOf(PROPERTIES_MANAGER.getProperty("database.connexion.enabled"));
+        LOGGER.info("is influxdb connexion enabled : "+isConnexionEnabled);
 
         if(!isConnexionEnabled) {
-            LOGGER.warn("can't connect to the influxdb.");
+            LOGGER.warn("Connexion to influxdb disabled.");
             this.connectorService = null;
-            return;
-        }
-        InfluxDB influxDB = InfluxDBFactory.connect(properties.getHost(), properties.getUser(), properties.getPassword());
+        }else {
+            InfluxDB influxDB = InfluxDBFactory.connect(properties.getHost(), properties.getUser(), properties.getPassword());
 
-		try {
-            String collection = PROPERTIES_MANAGER.getProperty("database.metrics.datasource");
-            influxDB.createDatabase(collection);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalStateException(e.getMessage());
+            try {
+                String collection = PROPERTIES_MANAGER.getProperty("database.metrics.datasource");
+                influxDB.createDatabase(collection);
+            } catch (IllegalArgumentException e) {
+                throw new IllegalStateException(e.getMessage());
+            }
+            this.connectorService = new MetricsConnectorService(influxDB);
+            LOGGER.info("Connexion to the influx database " + influxDB.version() + " for metrics is started");
         }
-        this.connectorService = new MetricsConnectorService(influxDB);
-        LOGGER.info("Connexion to the influx database " + influxDB.version() + " for metrics is started");
     }
 
     /**
@@ -55,13 +55,21 @@ public class MetricsConnector {
      */
     public void close() {
         if(connectorService!= null && connectorService.getInfluxDB() != null) {
+            connectorService.getInfluxDB().disableBatch();
             connectorService.getInfluxDB().close();
             LOGGER.info("Connexion to the influx database " + connectorService.getInfluxDB().version() + " stopped");
         }
     }
 
+    public boolean isConnexionEnabled() {
+        return isConnexionEnabled;
+    }
+
+
     public InfluxDB getInfluxDB() {
-        return this.getConnectorService().getInfluxDB();
+        Optional<InfluxDB> influxDBOptional = Optional.of(getConnectorService().getInfluxDB());
+        return influxDBOptional.orElse(null);
+
     }
 
     public MetricsProperties getProperties() {

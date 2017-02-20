@@ -14,25 +14,34 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        if(!METRICS_LOGGER.isInfluxServiceEnabled()) {
+            return;
+        }
+
         LOGGER.info("Metrics Logger start");
         Thread listener = new Thread(() -> {
-            while(!Thread.interrupted()) {
-                try(Scanner sc = new Scanner(System.in)) {
+            try(Scanner sc = new Scanner(System.in)) {
+                while(!Thread.interrupted()) {
                     if (sc.hasNextLine()) {
                         process(sc.nextLine());
                     }
                 }
             }
         });
+
         listener.start();
         Runtime runtime = Runtime.getRuntime();
+
         try {
-            listener.start();
-            runtime.addShutdownHook(listener);
+            if(runtime.removeShutdownHook(listener)) {
+                runtime.addShutdownHook(listener);
+            }
         }catch (IllegalArgumentException err) {
             LOGGER.error("Runtime thread hook got an error : thread already running. "+err.getMessage());
         }finally {
-            runtime.removeShutdownHook(listener);
+            if(runtime.removeShutdownHook(listener)) {
+                LOGGER.info("shutdown hook.");
+            }
         }
     }
 

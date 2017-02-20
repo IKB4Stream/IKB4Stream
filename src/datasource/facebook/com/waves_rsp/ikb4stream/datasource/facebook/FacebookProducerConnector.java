@@ -49,7 +49,7 @@ public class FacebookProducerConnector implements IProducerConnector {
      * @param longitude a long
      * @return a list of events form Facebook events and coodinates
      */
-    public List<com.waves_rsp.ikb4stream.core.model.Event> searchWordFromGeolocation(String word, int limit, double latitude, double longitude) {
+    private List<com.waves_rsp.ikb4stream.core.model.Event> searchWordFromGeolocation(String word, int limit, double latitude, double longitude) {
         Objects.requireNonNull(word);
             List<com.waves_rsp.ikb4stream.core.model.Event> events = new ArrayList<>();
             FacebookClient facebookClient = new DefaultFacebookClient(this.pageAccessToken, Version.LATEST);
@@ -58,6 +58,7 @@ public class FacebookProducerConnector implements IProducerConnector {
                     Parameter.with("type", "event"),
                     Parameter.with("limit", limit),
                     Parameter.with("place&center", latitude + "," + longitude));
+
             for (int i = 0; i < publicSearch.getData().size(); i++) {
                 if (isValidEvent(publicSearch.getData().get(i))) {
                     LatLong ll = new LatLong(publicSearch.getData().get(i).getPlace().getLocation().getLatitude(), publicSearch.getData().get(i).getPlace().getLocation().getLongitude());
@@ -75,7 +76,7 @@ public class FacebookProducerConnector implements IProducerConnector {
      * @param event
      * @return True if valid
      */
-    public boolean isValidEvent(Event event) {
+    private boolean isValidEvent(Event event) {
         return (event != null) && (event.getPlace() != null)
                 && (event.getPlace().getLocation() != null)
                 && (event.getPlace().getLocation().getLongitude() != null)
@@ -85,13 +86,20 @@ public class FacebookProducerConnector implements IProducerConnector {
                 && (event.getEndTime() != null);
     }
 
+    /**
+     * Load valid events from Facebook into the data producer object
+     *
+     * @param dataProducer
+     * @throws NullPointerException if dataProducer is null
+     * @throws InterruptedException if the current thread to listen facebook has been interrupted
+     */
     @Override
     public void load(IDataProducer dataProducer) {
         Objects.requireNonNull(dataProducer);
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 List<com.waves_rsp.ikb4stream.core.model.Event> events = searchWordFromGeolocation(word, limit, lat, lon);
-                events.stream().forEach(dataProducer::push);
+                events.forEach(dataProducer::push);
                 Thread.sleep(20000);
             } catch (InterruptedException e) {
                 LOGGER.error(e.getMessage());

@@ -1,5 +1,6 @@
 package com.waves_rsp.ikb4stream.core.metrics;
 
+import com.waves_rsp.ikb4stream.core.model.Event;
 import org.influxdb.InfluxDB;
 import org.influxdb.dto.BatchPoints;
 import org.influxdb.dto.Point;
@@ -14,22 +15,19 @@ import java.util.concurrent.TimeUnit;
 
 public class MetricsLogger {
     private static final Logger LOGGER = LoggerFactory.getLogger(MetricsLogger.class);
-    private final MetricsConnector metricsConnector;
-    private final BatchPoints.Builder batchPointsBuilder;
+    private final MetricsConnector metricsConnector = MetricsConnector.getMetricsConnector();
+    private final String measurement;
 
     /**
      * Instantiate MetricsLogger object
      */
     private MetricsLogger() {
-        this.metricsConnector = MetricsConnector.getMetricsConnector();
-        if(!this.metricsConnector.isConnexionEnabled()) {
+        this.measurement = metricsConnector.getProperties().getMeasurement();
+        if(!this.metricsConnector.isConnexionEnabled() || this.metricsConnector.getInfluxDB() == null) {
             LOGGER.warn("influxdb connexion disabled");
-            this.batchPointsBuilder = null;
-            return;
+        }else {
+            LOGGER.info(MetricsLogger.class.getName()+" has been started ...");
         }
-
-        this.metricsConnector.getInfluxDB().enableBatch(1000, 20, TimeUnit.NANOSECONDS);
-        this.batchPointsBuilder = BatchPoints.database(metricsConnector.getProperties().getDbName()).tag("async", "true");
     }
 
     /**
@@ -45,6 +43,7 @@ public class MetricsLogger {
      */
     public void close() {
         metricsConnector.close();
+        Thread.currentThread().interrupt();
     }
 
     /**
@@ -58,16 +57,50 @@ public class MetricsLogger {
         Objects.requireNonNull(field);
         Objects.requireNonNull(data);
 
-        if(!this.metricsConnector.isConnexionEnabled()) {
+        if(this.metricsConnector.isConnexionEnabled()) {
             final InfluxDB influxDB = metricsConnector.getInfluxDB();
-            influxDB.setLogLevel(InfluxDB.LogLevel.BASIC);
-            String measurement = metricsConnector.getProperties().getMeasurement();
             Point point = Point.measurement(measurement)
+                    .tag("async", "true")
                     .time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
                     .addField(field, data).build();
-            BatchPoints points = batchPointsBuilder.point(point).build();
+            influxDB.write(this.metricsConnector.getProperties().getDbName(), "autogen", point);
+            LOGGER.info(MetricsLogger.class.getName()+" : indexed points " + point.toString());
+        }
+    }
+
+    public void log(String measurement, String field, String data) {
+        Objects.requireNonNull(measurement);
+        Objects.requireNonNull(field);
+        Objects.requireNonNull(data);
+
+        if(this.metricsConnector.isConnexionEnabled()) {
+            final InfluxDB influxDB = metricsConnector.getInfluxDB();
+            Point point = Point.measurement(measurement)
+                                .tag("async", "true")
+                                .time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
+                                .addField(field, data).build();
+            influxDB.write(metricsConnector.getProperties().getDbName(), "autogen", point);
+            LOGGER.info(MetricsLogger.class.getName()+" : indexed points "+point.toString());
+        }
+    }
+
+    /**
+     * Log a not null event into the influx database if it's possible
+     *
+     * @param event
+     * @throws NullPointerException if {@param event} is null
+     */
+    public void log(Event event) {
+        Objects.requireNonNull(event);
+        if(this.metricsConnector.isConnexionEnabled()) {
+            final InfluxDB influxDB = metricsConnector.getInfluxDB();
+            Point point = Point.measurement(measurement).tag("event_source", event.getSource())
+                                                        .time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
+                                                        .build();
+            BatchPoints.Builder builder = BatchPoints.database(metricsConnector.getProperties().getDbName());
+            BatchPoints points = builder.point(point).build();
             influxDB.write(points);
-            LOGGER.info("indexes points : " + points.getPoints());
+            LOGGER.info(MetricsLogger.class.getName()+" : indexed "+points.getPoints());
         }
     }
 
@@ -78,15 +111,21 @@ public class MetricsLogger {
      */
     public void log(Point... points) {
         Objects.requireNonNull(points);
-        if(!this.metricsConnector.isConnexionEnabled()) {
+        if(this.metricsConnector.isConnexionEnabled()) {
             final InfluxDB influxDB = metricsConnector.getInfluxDB();
             influxDB.setLogLevel(InfluxDB.LogLevel.BASIC);
             BatchPoints.Builder builder = BatchPoints.database(metricsConnector.getProperties().getDbName());
             builder.points(points);
             BatchPoints batchPoints = builder.build();
             influxDB.write(batchPoints);
-            batchPoints.getPoints().stream().map(Point::lineProtocol).forEach(point -> LOGGER.info("push metrics point " + point));
+            batchPoints.getPoints().stream().map(Point::lineProtocol).forEach(point ->
+                    LOGGER.info(MetricsLogger.class.getName()+" : push metrics point " + point)
+            );
         }
+    }
+
+    public boolean isInfluxServiceEnabled() {
+        return metricsConnector.isConnexionEnabled();
     }
 
     /**
@@ -96,7 +135,7 @@ public class MetricsLogger {
      */
     public void read(String request) {
         Objects.requireNonNull(request);
-        if(!this.metricsConnector.isConnexionEnabled()) {
+        if(this.metricsConnector.isConnexionEnabled()) {
             final Query query = new Query(request, metricsConnector.getProperties().getDbName());
             QueryResult fixes = this.metricsConnector.getInfluxDB().query(query);
             List<QueryResult.Result> resultsList = fixes.getResults();

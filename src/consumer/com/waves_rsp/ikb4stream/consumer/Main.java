@@ -34,7 +34,6 @@ public class Main {
                         process(sc.nextLine());
                     }
                 }
-
             }
         });
         Runtime runtime = Runtime.getRuntime();
