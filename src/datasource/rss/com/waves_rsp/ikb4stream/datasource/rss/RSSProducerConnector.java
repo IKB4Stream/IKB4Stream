@@ -11,6 +11,8 @@ import com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
+import com.waves_rsp.ikb4stream.core.util.GeoCoderJacksonParser;
+import com.waves_rsp.ikb4stream.core.util.OpenNLP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +21,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Instant;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class RSSProducerConnector implements IProducerConnector {
@@ -48,6 +51,7 @@ public class RSSProducerConnector implements IProducerConnector {
 
                 feed.getEntries().forEach(entry -> {
                     Date startDate = entry.getPublishedDate();
+                    String title = entry.getTitle();
                     String description = entry.getDescription().getValue();
                     if (description == null)
                         description = "";
@@ -61,6 +65,15 @@ public class RSSProducerConnector implements IProducerConnector {
                         LatLong latLong = new LatLong(module.getPosition().getLatitude(), module.getPosition().getLongitude());
                         Event event = new Event(latLong, startDate, endDate, description, source);
                         dataProducer.push(event);
+                    }else {
+                        LatLong latlong = geocodeRSS(title + " " + description);
+                        if (latlong != null) {
+                            Event event = new Event(latlong, startDate, endDate, description, source);
+                            dataProducer.push(event);
+                        }
+                        else{
+                            LOGGER.info("Can't geocode this RSS ");
+                        }
                     }
                 });
             } catch (IOException | FeedException e) {
@@ -69,6 +82,7 @@ public class RSSProducerConnector implements IProducerConnector {
         }
     }
 
+
     @Override
     public boolean isActive() {
         try {
@@ -76,5 +90,20 @@ public class RSSProducerConnector implements IProducerConnector {
         } catch (IllegalArgumentException e) {
             return true;
         }
+
+    /**
+     * Select a list of location from a RSS with the NER OpenNLP algorithme.
+     * Then, geolocalize the first location found with the geocoder Nominatim (OSM)
+     *
+     * @param text to analyze
+     * @return a latLong coordinates
+     */
+    private LatLong geocodeRSS(String text) {
+        GeoCoderJacksonParser geocoder = new GeoCoderJacksonParser();
+        List<String> locations = OpenNLP.applyNLPner(text, OpenNLP.nerOptions.LOCATION);
+        if (!locations.isEmpty()) {
+            return geocoder.parse(locations.get(0));
+        }
+        return null;
     }
 }
