@@ -184,5 +184,13 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
         return new Event(latLong, start, end, jsonDescription.toString(), this.source);
     }
 
+    @Override
+    public boolean isActive() {
+        try {
+            return Boolean.valueOf(PROPERTIES_MANAGER.getProperty("openagenda.enable"));
+        } catch (IllegalArgumentException e) {
+            return true;
+        }
+    }
 }
 

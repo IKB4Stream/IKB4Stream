@@ -20,7 +20,7 @@ import java.util.Objects;
  * Created by ikb4stream on 15/02/17.
  */
 public class OWMProducerConnector implements IProducerConnector{
-
+    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(OWMProducerConnector.class, "resources/datasource/owm/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(OWMProducerConnector.class);
     private final String source;
     private final String owmKey;
@@ -31,12 +31,11 @@ public class OWMProducerConnector implements IProducerConnector{
 
     public OWMProducerConnector() {
         try {
-            PropertiesManager propertiesManager = PropertiesManager.getInstance(OWMProducerConnector.class, "resources/datasource/owm/config.properties");
-            this.source = propertiesManager.getProperty("OWMProducerConnector.source");
-            this.owmKey = propertiesManager.getProperty("OWMProducerConnector.key");
-            this.latitude =  Double.valueOf(propertiesManager.getProperty("OWMProducerConnector.latitude"));
-            this.longitude =  Double.valueOf(propertiesManager.getProperty("OWMProducerConnector.longitude"));
-            this.requestInterval = Long.valueOf(propertiesManager.getProperty("OWMProducerConnector.sleep"));
+            this.source = PROPERTIES_MANAGER.getProperty("OWMProducerConnector.source");
+            this.owmKey = PROPERTIES_MANAGER.getProperty("OWMProducerConnector.key");
+            this.latitude =  Double.valueOf(PROPERTIES_MANAGER.getProperty("OWMProducerConnector.latitude"));
+            this.longitude =  Double.valueOf(PROPERTIES_MANAGER.getProperty("OWMProducerConnector.longitude"));
+            this.requestInterval = Long.valueOf(PROPERTIES_MANAGER.getProperty("OWMProducerConnector.sleep"));
             this.openWeatherMap = new OpenWeatherMap(owmKey);
             this.openWeatherMap.setLang(OpenWeatherMap.Language.FRENCH);
         } catch (IllegalArgumentException e) {
@@ -71,6 +70,15 @@ public class OWMProducerConnector implements IProducerConnector{
         }catch (IOException e){
             LOGGER.warn("Current weather failed: {}", e.getMessage());
             return  null;
+        }
+    }
+
+    @Override
+    public boolean isActive() {
+        try {
+            return Boolean.valueOf(PROPERTIES_MANAGER.getProperty("OWMProducerConnector.enable"));
+        } catch (IllegalArgumentException e) {
+            return true;
         }
     }
 
