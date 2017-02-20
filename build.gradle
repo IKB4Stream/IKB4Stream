@@ -296,6 +296,17 @@ task packageFacebookScoringJar(type: Jar, description: 'Package the Facebook Sco
     with jar
 }
 
+task packageOWMScoringJar(type: Jar, description: 'Package the OpenWeatherMap Scoring Jar') {
+    archiveName = "resources/scoreprocessor/owm/ikb4stream-$version-scoring-owm.jar"
+    manifest {
+        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.scoring.owm.OWMScoreProcessor'
+    }
+    from sourceSets.scoringOWM.output
+    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
+    from { configurations.scoringOWMCompile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 task packageTwitterScoringJar(type: Jar, description: 'Package the Twitter Scoring Jar') {
     archiveName = "resources/scoreprocessor/twitter/ikb4stream-$version-scoring-twitter.jar"
     manifest {
