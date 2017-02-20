@@ -27,6 +27,9 @@ public class OWMProducerConnector implements IProducerConnector{
     private final Long requestInterval;
     private final OpenWeatherMap openWeatherMap;
 
+    /**
+     * Instantiate the OWMProducerConnector object with load properties
+     */
     public OWMProducerConnector() {
         try {
             this.source = PROPERTIES_MANAGER.getProperty("OWMProducerConnector.source");
@@ -71,6 +74,12 @@ public class OWMProducerConnector implements IProducerConnector{
         }
     }
 
+
+    /**
+     * Listen events from Open Weather Map and load them with the data producer object
+     *
+     * @param dataProducer
+     */
     @Override
     public boolean isActive() {
         try {
