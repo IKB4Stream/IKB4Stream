@@ -107,6 +107,13 @@ sourceSets {
         }
     }
 
+    scoringOWM {
+        java {
+            srcDirs = ['src/core', 'src/scoring/owm']
+            compileClasspath += core.compileClasspath + core.output
+        }
+    }
+
     scoringTwitter {
         java {
             srcDirs = ['src/core', 'src/scoring/twitter']
@@ -127,7 +134,7 @@ sourceSets {
                        'src/communication/web', 'src/datasource/weather', 'src/datasource/rss', 'src/communication/kafka',
                        'src/datasource/twitter', 'src/datasource/twittermock', 'src/datasource/dbpedia', 'src/datasource/owm',
                         'src/datasource/facebook', 'src/datasource/openagenda', 'src/communication/web', 'src/scoring/facebook', 'src/scoring/twitter',
-                        'src/scoring/mock']
+                        'src/scoring/owm', 'src/scoring/mock']
 
             compileClasspath += core.compileClasspath + core.output + consumer.compileClasspath + consumer.output +
                     producer.compileClasspath + producer.output + communicationKafka.compileClasspath +
@@ -141,6 +148,7 @@ sourceSets {
                     datasourceOpenAgenda.output + datasourceOpenAgenda.compileClasspath +
                     communicationWeb.output + communicationWeb.compileClasspath +
                     scoringFacebook.compileClasspath + scoringFacebook.output +
+                    scoringOWM.compileClasspath + scoringOWM.output +
                     scoringTwitter.compileClasspath + scoringTwitter.output +
                     scoringMock.compileClasspath + scoringMock.output
 

@@ -51,11 +51,8 @@ public class OWMProducerConnector implements IProducerConnector{
      * @return an Event which contains information about current weather
      * @throws IOException
      */
-<<<<<<< HEAD
-    private Event getCurrentWeather() {
-=======
-    public Event getCurrentWeather(double latitude, double longitude) {
->>>>>>> Weather Score Processor
+
+    private Event getCurrentWeather(double latitude, double longitude) {
         Objects.requireNonNull(latitude);
         Objects.requireNonNull(longitude);
         ObjectMapper  objectMapper = new ObjectMapper();
