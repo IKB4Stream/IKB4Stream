@@ -35,6 +35,9 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
     private final String propDateEnd;
     private final String bbox;
 
+    /**
+     * Instantiate the OpenAgendaProducerConnector object with load properties to connect to the OPen Agenda API
+     */
     public OpenAgendaProducerConnector() {
         try {
             this.source = PROPERTIES_MANAGER.getProperty("openagenda.source");
@@ -54,6 +57,11 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
     }
 
 
+    /**
+     * Listen events from openAgenda and load them with the data producer object
+     *
+     * @param dataProducer
+     */
     @Override
     public void load(IDataProducer dataProducer) {
         Objects.requireNonNull(dataProducer);
@@ -70,6 +78,10 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
         }
     }
 
+    /**
+     * Create the URL from properties (bbox and dates) for accessing to the webservice
+     * @return an URL
+     */
     private URL createURL() {
         URL url;
         try {
@@ -96,6 +108,11 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
     }
 
 
+    /**
+     * Parse JSON from Open Agenda API get by the URL
+     *
+     * @return a list of events
+     */
     private List<Event> searchEvents() {
         List<Event> events = new ArrayList<>();
         InputStream is;
@@ -133,6 +150,17 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
     }
 
 
+    /**
+     * Format attributes from the Open Agenda API to create an event
+     * @param latlon : event's location
+     * @param title : event's title
+     * @param description : event's description
+     * @param dateStart : date when the event starting
+     * @param dateEnd : date when the event ending
+     * @param city : city where the event take place
+     * @param address : address where the event take place
+     * @return an event
+     */
     private Event createEvent(String latlon, String title, String description, String dateStart, String dateEnd, String city, String address) {
         String[] coord = latlon.substring(1, latlon.length() - 1).split(",");
         LatLong latLong = new LatLong(Double.parseDouble(coord[0]), Double.parseDouble(coord[1]));
