@@ -37,9 +37,9 @@ public class Main {
                 }
             }
         });
+        listener.setName("ConsumerMain");
         Runtime runtime = Runtime.getRuntime();
         try {
-            listener.setName("ConsumerMain");
             listener.start();
             if(runtime.removeShutdownHook(listener)) {
                 runtime.addShutdownHook(listener);

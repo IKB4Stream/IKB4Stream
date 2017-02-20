@@ -120,20 +120,16 @@ public class ProducerManager {
                 ClassLoader classLoader = new URLClassLoader(
                         urls.toArray(new URL[urls.size()]),
                         parent);
-
                 classes.stream()
                         .map(c -> UtilManager.loadClass(c, classLoader))
                         .filter(c -> UtilManager.implementInterface(c, IProducerConnector.class))
                         .forEach(clazz -> {
                             IProducerConnector producerConnector = (IProducerConnector) UtilManager.newInstance(clazz);
-                            LOGGER.info("Producer : " + producerConnector.getClass().getName() + " active ? " + producerConnector.isActive());
                             if (producerConnector.isActive()) {
-                                LOGGER.info("Producer Connector to activate: " + producerConnector.getClass().getName());
                                 Thread thread = new Thread(() -> producerConnector.load(new DataProducer(dataQueue)));
                                 thread.setContextClassLoader(classLoader);
                                 thread.setName(producerConnector.getClass().getName());
                                 thread.start();
-                                LOGGER.info("Producer " + producerConnector.getClass().getName() + " has been launched");
                                 producerConnectors.add(thread);
                             }
                         });

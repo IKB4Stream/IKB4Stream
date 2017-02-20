@@ -56,7 +56,7 @@ public class OpenNLP {
             NAME_FINDER_PERS = new NameFinderME(new TokenNameFinderModel(fileNerPersonBin));
             fileNerPersonBin.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
             throw new IllegalStateException(e);
         }
     }

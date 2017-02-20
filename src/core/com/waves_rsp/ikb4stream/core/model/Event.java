@@ -1,5 +1,6 @@
 package com.waves_rsp.ikb4stream.core.model;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
 
@@ -13,32 +14,6 @@ public class Event {
     private final String description;
     private final byte score;
     private final String source;
-
-    /**
-     * Create an Event without score
-     * @param location the location of the event, defined by a LatLong
-     * @param start The moment when the event begins
-     * @param end End of the event, or the current date
-     * @param description the event content. For instance, the message of a tweet.
-     * @param source from which datasource the event is provided
-     * @throws NullPointerException If a param is null
-     * @throws IllegalArgumentException If {@param source} is empty
-     */
-    public Event(LatLong location, Date start, Date end, String description, String source) {
-        Objects.requireNonNull(location);
-        Objects.requireNonNull(start);
-        Objects.requireNonNull(end);
-        Objects.requireNonNull(description);
-        Objects.requireNonNull(source);
-        if(source.isEmpty()) { throw new IllegalArgumentException("Source argument cannot be empty."); }
-
-        this.location = new LatLong[] {location};
-        this.start = start;
-        this.end = end;
-        this.description = description;
-        this.score = -1;
-        this.source = source;
-    }
 
     /**
      * Create an Event without score
@@ -69,34 +44,6 @@ public class Event {
 
     /**
      * Create an Event with a score
-     * @param location the location of the event, defined by a LatLong
-     * @param start The moment when the event begins
-     * @param end End of the event, or the current date
-     * @param description the event content. For instance, the message of a tweet.
-     * @param score Score of this event between 0 and 100
-     * @param source from which datasource the event is provided
-     * @throws NullPointerException If one params is null
-     * @throws IllegalArgumentException If {@param source} is empty or {@param score} is not between 0 and 100
-     */
-    public Event(LatLong location, Date start, Date end, String description, byte score, String source) {
-        Objects.requireNonNull(location);
-        Objects.requireNonNull(start);
-        Objects.requireNonNull(end);
-        Objects.requireNonNull(description);
-        Objects.requireNonNull(source);
-        if(source.isEmpty()) { throw new IllegalArgumentException("Source argument cannot be empty."); }
-        if(score < 0 || score > 100) { throw new IllegalArgumentException("Score need to be between 0 and 100."); }
-
-        this.location = new LatLong[] {location};
-        this.start = start;
-        this.end = end;
-        this.description = description;
-        this.score = score;
-        this.source = source;
-    }
-
-    /**
-     * Create an Event with a score
      * @param location the location of the event, defined by a BondingBox (LatLong[])
      * @param start The moment when the event begins
      * @param end End of the event, or the current date
@@ -122,6 +69,35 @@ public class Event {
         this.description = description;
         this.score = score;
         this.source = source;
+    }
+
+    /**
+     * Create an Event without score
+     * @param location the location of the event, defined by a LatLong
+     * @param start The moment when the event begins
+     * @param end End of the event, or the current date
+     * @param description the event content. For instance, the message of a tweet.
+     * @param source from which datasource the event is provided
+     * @throws NullPointerException If a param is null
+     * @throws IllegalArgumentException If {@param source} is empty
+     */
+    public Event(LatLong location, Date start, Date end, String description, String source) {
+        this(new LatLong[]{location}, start, end, description, source);
+    }
+
+    /**
+     * Create an Event with a score
+     * @param location the location of the event, defined by a LatLong
+     * @param start The moment when the event begins
+     * @param end End of the event, or the current date
+     * @param description the event content. For instance, the message of a tweet.
+     * @param score Score of this event between 0 and 100
+     * @param source from which datasource the event is provided
+     * @throws NullPointerException If one params is null
+     * @throws IllegalArgumentException If {@param source} is empty or {@param score} is not between 0 and 100
+     */
+    public Event(LatLong location, Date start, Date end, String description, byte score, String source) {
+        this(new LatLong[]{location}, start, end, description, score, source);
     }
 
     /**
@@ -180,20 +156,22 @@ public class Event {
         Event event = (Event) o;
 
         if (score != event.score) return false;
-        if (location != null ? !location.equals(event.location) : event.location != null) return false;
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        if (!Arrays.equals(location, event.location)) return false;
         if (start != null ? !start.equals(event.start) : event.start != null) return false;
         if (end != null ? !end.equals(event.end) : event.end != null) return false;
-        return description != null ? description.equals(event.description) : event.description == null;
-
+        if (description != null ? !description.equals(event.description) : event.description != null) return false;
+        return source != null ? source.equals(event.source) : event.source == null;
     }
 
     @Override
     public int hashCode() {
-        int result = location != null ? location.hashCode() : 0;
+        int result = Arrays.hashCode(location);
         result = 31 * result + (start != null ? start.hashCode() : 0);
         result = 31 * result + (end != null ? end.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (int) score;
+        result = 31 * result + (source != null ? source.hashCode() : 0);
         return result;
     }
 

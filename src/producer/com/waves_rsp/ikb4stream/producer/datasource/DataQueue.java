@@ -20,14 +20,14 @@ public class DataQueue {
     private final int size;
 
     public DataQueue() {
-        int size = 500;
+        int defaultSize = 500;
         try {
-            size = Integer.parseInt(PROPERTIES_MANAGER.getProperty("producer.sizequeue"));
+            defaultSize = Integer.parseInt(PROPERTIES_MANAGER.getProperty("producer.sizequeue"));
         } catch (IllegalArgumentException e) {
             LOGGER.warn(e.getMessage());
         }
-        this.queue = new ArrayBlockingQueue<>(size);
-        this.size = size;
+        this.queue = new ArrayBlockingQueue<>(defaultSize);
+        this.size = defaultSize;
     }
 
     /**
@@ -40,7 +40,6 @@ public class DataQueue {
         boolean inserted = queue.offer(event);
         if (!inserted) {
             LOGGER.warn(event + " cannot be push");
-            // TODO: Add metrics
         }
     }
 

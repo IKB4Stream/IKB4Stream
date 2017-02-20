@@ -115,7 +115,7 @@ public class TwitterProducerConnector implements IProducerConnector {
             User user = status.getUser();
             LatLong[] latLong = getLatLong(status);
 
-            if(latLong != null) {
+            if(latLong.length > 0) {
                 JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.append("description", description);
@@ -140,7 +140,7 @@ public class TwitterProducerConnector implements IProducerConnector {
             } else if (status.getPlace() != null && status.getPlace().getBoundingBoxCoordinates() != null) {
                 return getLatLongFromBoudingBox(status.getPlace().getBoundingBoxCoordinates());
             } else {
-                return null;
+                return new LatLong[0];
             }
         }
 

@@ -23,8 +23,6 @@ public class BoundingBox {
         Arrays.stream(points).forEach(Objects::requireNonNull);
         if(points.length < 1) {
             throw new IllegalArgumentException("We need at least 1 point in bounding box ");
-        } else if (points.length > 1) {
-            if(points.length < 5 || points[0] != points[points.length - 1]) { throw new IllegalArgumentException("BoundingBox is not closed."); }
         }
         this.latLongs = points;
     }

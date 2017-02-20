@@ -66,20 +66,6 @@ public class CommunicationManager {
     }
 
     /**
-     * Get path where Communication are store
-     * @return Path or null if there is invalid configuration
-     */
-    private static String getPathCommunication() {
-        try {
-            return PROPERTIES_MANAGER.getProperty("communication.path");
-        } catch (IllegalArgumentException e) {
-            LOGGER.warn(e.getMessage());
-            LOGGER.warn("There is no Communication to load");
-            return null;
-        }
-    }
-
-    /**
      * Launch module
      * @param jarLoader JarLoader that represents module
      */
@@ -120,5 +106,19 @@ public class CommunicationManager {
 
         threadCommunications.keySet().forEach(Thread::interrupt);
         LOGGER.info("CommunicationManager all communications thread has been stoped");
+    }
+
+    /**
+     * Get path where Communication are store
+     * @return Path or null if there is invalid configuration
+     */
+    private static String getPathCommunication() {
+        try {
+            return PROPERTIES_MANAGER.getProperty("communication.path");
+        } catch (IllegalArgumentException e) {
+            LOGGER.warn(e.getMessage());
+            LOGGER.warn("There is no Communication to load");
+            return null;
+        }
     }
 }

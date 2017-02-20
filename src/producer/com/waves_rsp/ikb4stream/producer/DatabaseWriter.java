@@ -29,6 +29,7 @@ public class DatabaseWriter {
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseWriter.class);
     private static final DatabaseWriter DATABASE_WRITER = new DatabaseWriter();
     private final MongoCollection<Document> mongoCollection;
+    private static final String LOCATION_FIELD = "location";
     private final ObjectMapper mapper = new ObjectMapper();
     private final MongoDatabase mongoDatabase;
     private final MongoClient mongoClient;
@@ -81,16 +82,16 @@ public class DatabaseWriter {
             Document document = Document.parse(mapper.writeValueAsString(event));
             document.remove("start");
             document.remove("end");
-            document.remove("location");
+            document.remove(LOCATION_FIELD);
             document.append("start", event.getStart().getTime());
             document.append("end", event.getEnd().getTime());
             if(event.getLocation().length == 1) {
-                document.append("location", new Point(new Position(
+                document.append(LOCATION_FIELD, new Point(new Position(
                         event.getLocation()[0].getLatitude(), event.getLocation()[0].getLongitude())));
             } else {
                 List<Position> positions = Arrays.stream(event.getLocation())
                         .map(p -> new Position(p.getLatitude(), p.getLongitude())).collect(Collectors.toList());
-                document.append("location", new Polygon(positions));
+                document.append(LOCATION_FIELD, new Polygon(positions));
             }
             this.mongoCollection.insertOne(document, (result, t) -> callback.onResult(t));
         } catch (JsonProcessingException e) {
