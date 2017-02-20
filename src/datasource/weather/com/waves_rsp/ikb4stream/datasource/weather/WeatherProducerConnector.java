@@ -23,6 +23,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 public class WeatherProducerConnector implements IProducerConnector {
+    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(WeatherProducerConnector.class, "resources/datasource/weather/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(WeatherProducerConnector.class);
     private final String source;
     private final URL url;
@@ -32,9 +33,8 @@ public class WeatherProducerConnector implements IProducerConnector {
      */
     public WeatherProducerConnector() {
         try {
-            PropertiesManager propertiesManager = PropertiesManager.getInstance(WeatherProducerConnector.class, "resources/datasource/weather/config.properties");
-            this.source = propertiesManager.getProperty("WeatherProducerConnector.source");
-            this.url = new URL(propertiesManager.getProperty("WeatherProducerConnector.url"));
+            this.source = PROPERTIES_MANAGER.getProperty("WeatherProducerConnector.source");
+            this.url = new URL(PROPERTIES_MANAGER.getProperty("WeatherProducerConnector.url"));
         } catch (IllegalArgumentException | MalformedURLException e) {
             LOGGER.error(e.getMessage());
             throw new IllegalStateException("Invalid configuration");
@@ -75,6 +75,15 @@ public class WeatherProducerConnector implements IProducerConnector {
                 LOGGER.error(e.getMessage());
                 return;
             }
+        }
+    }
+
+    @Override
+    public boolean isActive() {
+        try {
+            return Boolean.valueOf(PROPERTIES_MANAGER.getProperty("WeatherProducerConnector.enable"));
+        } catch (IllegalArgumentException e) {
+            return true;
         }
     }
 }

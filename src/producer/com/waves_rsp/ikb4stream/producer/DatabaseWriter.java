@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
  * This class writes data in mongodb database
  */
 public class DatabaseWriter {
-    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(DatabaseWriter.class, "resources/config.properties");
+    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(DatabaseWriter.class);
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseWriter.class);
     private static final DatabaseWriter DATABASE_WRITER = new DatabaseWriter();
     private final MongoCollection<Document> mongoCollection;
@@ -88,7 +88,7 @@ public class DatabaseWriter {
                 document.append("location", new Point(new Position(
                         event.getLocation()[0].getLatitude(), event.getLocation()[0].getLongitude())));
             } else {
-                List<Position> positions = Arrays.asList(event.getLocation()).stream()
+                List<Position> positions = Arrays.stream(event.getLocation())
                         .map(p -> new Position(p.getLatitude(), p.getLongitude())).collect(Collectors.toList());
                 document.append("location", new Polygon(positions));
             }

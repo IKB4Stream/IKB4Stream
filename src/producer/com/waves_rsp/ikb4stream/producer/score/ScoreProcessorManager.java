@@ -22,14 +22,14 @@ import java.util.stream.Stream;
 public class ScoreProcessorManager {
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(ScoreProcessorManager.class, "resources/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(ScoreProcessorManager.class);
+    private final Map<String,List<IScoreProcessor>> scoreProcessors = new HashMap<>();
     private final ClassLoader parent = ScoreProcessorManager.class.getClassLoader();
-    private final Map<List<String>,IScoreProcessor> scoreProcessors = new HashMap<>();
 
     /**
      * Override default constructor
      */
     public ScoreProcessorManager() {
-        // Do nothing more
+        instanciate();
     }
 
     /**
@@ -52,11 +52,9 @@ public class ScoreProcessorManager {
      */
     private List<IScoreProcessor> findIScoreProcessor(String source) {
         Objects.requireNonNull(source);
-        List<IScoreProcessor> score = new ArrayList<>();
-        scoreProcessors.keySet().stream()
-                .filter(list -> list.contains(source))
-                .forEach(list -> score.add(scoreProcessors.get(list)));
-        return score;
+        List<IScoreProcessor> sp = scoreProcessors.get(source);
+        if (sp == null) return new ArrayList<>();
+        return sp;
     }
 
     /**
@@ -79,14 +77,13 @@ public class ScoreProcessorManager {
     /**
      * Get all ScoreProcessor
      */
-    public void instanciate() {
-        String stringPath = PROPERTIES_MANAGER.getProperty("scoreprocessor.path");
+    private void instanciate() {
+        String stringPath = getPathScoreProcessor();
+        if (stringPath == null) return;
         try (Stream<Path> paths = Files.walk(Paths.get(stringPath))) {
             paths.forEach((Path filePath) -> {
                 if (Files.isRegularFile(filePath)) {
-                    JarLoader jarLoader = JarLoader.createJarLoader(filePath.toString());
-                    String jarName = filePath.getFileName().toString();
-                    launchModule(jarName, jarLoader);
+                    launchModule(JarLoader.createJarLoader(filePath.toString()));
                 }
             });
         } catch (IOException e) {
@@ -95,10 +92,24 @@ public class ScoreProcessorManager {
     }
 
     /**
+     * Get path where ScoreProcessor are store
+     * @return Path or null if there is invalid configuration
+     */
+    private static String getPathScoreProcessor() {
+        try {
+            return PROPERTIES_MANAGER.getProperty("scoreprocessor.path");
+        } catch (IllegalArgumentException e) {
+            LOGGER.warn(e.getMessage());
+            LOGGER.warn("There is no ScoreProcessor to load");
+            return null;
+        }
+    }
+
+    /**
      * Launch module of ScoreProcessor
      * @param jarLoader JarLoader that represents module
      */
-    private void launchModule(String jarName, JarLoader jarLoader) {
+    private void launchModule(JarLoader jarLoader) {
         if (jarLoader != null) {
             List<URL> urls = jarLoader.getUrls();
             AccessController.doPrivileged((PrivilegedAction<Object>) () -> {
@@ -111,10 +122,12 @@ public class ScoreProcessorManager {
                         .filter(c -> UtilManager.implementInterface(c, IScoreProcessor.class))
                         .forEach(clazz -> {
                             IScoreProcessor iScoreProcessor = (IScoreProcessor) UtilManager.newInstance(clazz);
-                            scoreProcessors.put(iScoreProcessor.getSources(), iScoreProcessor);
-                            LOGGER.info("ScoreProcessor " + jarName + " has been launched");
+                            List<String> sources = iScoreProcessor.getSources();
+                            sources.forEach(source -> {
+                                List<IScoreProcessor> iScoreProcessorList = scoreProcessors.computeIfAbsent(source, l -> new ArrayList<>());
+                                iScoreProcessorList.add(iScoreProcessor);
+                            });
                         });
-
                 return null;
             });
         }

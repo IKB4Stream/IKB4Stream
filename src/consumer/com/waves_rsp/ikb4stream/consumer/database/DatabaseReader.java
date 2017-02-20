@@ -1,4 +1,4 @@
-package com.waves_rsp.ikb4stream.consumer;
+package com.waves_rsp.ikb4stream.consumer.database;
 
 import com.mongodb.async.client.MongoClient;
 import com.mongodb.async.client.MongoClients;
@@ -26,14 +26,14 @@ import static com.mongodb.client.model.Filters.*;
  * DatabaseReader class reads data (Events) from mongodb database
  */
 public class DatabaseReader implements IDatabaseReader {
-    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(DatabaseReader.class, "resources/config.properties");
+    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(DatabaseReader.class);
+    private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseReader.class);
     private static final DatabaseReader DATABASE_READER = new DatabaseReader();
     private final MongoCollection<Document> mongoCollection;
     private final MongoDatabase mongoDatabase;
     private final MongoClient mongoClient;
     private final int limit;
-    private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
 
     /**
      * The constructor of DatabaseReader
@@ -82,7 +82,6 @@ public class DatabaseReader implements IDatabaseReader {
      * This method requests events from mongodb database and filters from data coming to the request object in parameter
      * @param request Request to apply to Mongo
      * @param callback Callback method call after select operation
-     * @return nothing but the result is store in a ArrayList
      */
     @Override
     public void getEvent(Request request, DatabaseReaderCallback callback) {

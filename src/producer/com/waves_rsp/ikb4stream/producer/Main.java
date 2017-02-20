@@ -45,6 +45,7 @@ public class Main {
         });
         Runtime runtime = Runtime.getRuntime();
         try {
+            listener.setName("ProducerMain");
             listener.start();
             if(runtime.removeShutdownHook(listener)) {
                 runtime.addShutdownHook(listener);

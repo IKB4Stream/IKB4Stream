@@ -12,14 +12,7 @@ public class ScoreProcessorManagerTest {
     public void testCreateScoreProcessorManager() {
         new ScoreProcessorManager();
     }
-
-    @Ignore
-    @Test
-    public void testInstanciate() throws IOException {
-        ScoreProcessorManager scoreProcessorManager = new ScoreProcessorManager();
-        scoreProcessorManager.instanciate();
-    }
-
+    
     @Ignore
     @Test(expected = NullPointerException.class)
     public void testProcessScore() {

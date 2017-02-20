@@ -22,6 +22,7 @@ import java.util.Objects;
  * Search rdf data from dbpedia service from a sparql query
  */
 public class DBpediaProducerConnector implements IProducerConnector {
+    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(DBpediaProducerConnector.class, "resources/datasource/dbpedia/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(DBpediaProducerConnector.class);
     private final String source;
     private final String service;
@@ -38,15 +39,14 @@ public class DBpediaProducerConnector implements IProducerConnector {
      */
     public DBpediaProducerConnector() {
         try {
-            PropertiesManager propertiesManager = PropertiesManager.getInstance(DBpediaProducerConnector.class, "resources/datasource/dbpedia/config.properties");
-            source = propertiesManager.getProperty("dbpedia.source");
-            service = propertiesManager.getProperty("dbpedia.service");
-            latitudeMax = Double.valueOf(propertiesManager.getProperty("dbpedia.latitude.maximum"));
-            latitudeMin = Double.valueOf(propertiesManager.getProperty("dbpedia.latitude.minimum"));
-            longitudeMax = Double.valueOf(propertiesManager.getProperty("dbpedia.longitude.maximum"));
-            longitudeMin = Double.valueOf(propertiesManager.getProperty("dbpedia.longitude.minimum"));
-            resource = propertiesManager.getProperty("dbpedia.resource");
-            limit = Integer.valueOf(propertiesManager.getProperty("dbpedia.limit"));
+            source = PROPERTIES_MANAGER.getProperty("dbpedia.source");
+            service = PROPERTIES_MANAGER.getProperty("dbpedia.service");
+            latitudeMax = Double.valueOf(PROPERTIES_MANAGER.getProperty("dbpedia.latitude.maximum"));
+            latitudeMin = Double.valueOf(PROPERTIES_MANAGER.getProperty("dbpedia.latitude.minimum"));
+            longitudeMax = Double.valueOf(PROPERTIES_MANAGER.getProperty("dbpedia.longitude.maximum"));
+            longitudeMin = Double.valueOf(PROPERTIES_MANAGER.getProperty("dbpedia.longitude.minimum"));
+            resource = PROPERTIES_MANAGER.getProperty("dbpedia.resource");
+            limit = Integer.valueOf(PROPERTIES_MANAGER.getProperty("dbpedia.limit"));
         } catch (IllegalArgumentException e) {
             LOGGER.error(e.getMessage());
             throw new IllegalStateException(e.getMessage());
@@ -118,6 +118,15 @@ public class DBpediaProducerConnector implements IProducerConnector {
                     qexec.close();
                 }
             }
+        }
+    }
+
+    @Override
+    public boolean isActive() {
+        try {
+            return Boolean.valueOf(PROPERTIES_MANAGER.getProperty("dbpedia.enable"));
+        } catch (IllegalArgumentException e) {
+            return true;
         }
     }
 

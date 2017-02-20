@@ -19,6 +19,7 @@ import java.util.Objects;
  * FacebookProducerConnector class provides events link to a word form coordinates
  */
 public class FacebookProducerConnector implements IProducerConnector {
+    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(FacebookProducerConnector.class, "resources/datasource/facebook/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(FacebookProducerConnector.class);
     private final String source;
     private final String pageAccessToken;
@@ -29,13 +30,12 @@ public class FacebookProducerConnector implements IProducerConnector {
 
     public FacebookProducerConnector() {
         try {
-            PropertiesManager propertiesManager = PropertiesManager.getInstance(FacebookProducerConnector.class, "resources/datasource/facebook/config.properties");
-            this.source = propertiesManager.getProperty("FacebookProducerConnector.source");
-            this.pageAccessToken = propertiesManager.getProperty("FacebookProducerConnector.token");
-            this.word =  propertiesManager.getProperty("FacebookProducerConnector.word");
-            this.limit =  Integer.valueOf(propertiesManager.getProperty("FacebookProducerConnector.limit"));
-            this.lat =  Double.valueOf(propertiesManager.getProperty("FacebookProducerConnector.latitude"));
-            this.lon =  Double.valueOf(propertiesManager.getProperty("FacebookProducerConnector.longitude"));
+            this.source = PROPERTIES_MANAGER.getProperty("FacebookProducerConnector.source");
+            this.pageAccessToken = PROPERTIES_MANAGER.getProperty("FacebookProducerConnector.token");
+            this.word =  PROPERTIES_MANAGER.getProperty("FacebookProducerConnector.word");
+            this.limit =  Integer.valueOf(PROPERTIES_MANAGER.getProperty("FacebookProducerConnector.limit"));
+            this.lat =  Double.valueOf(PROPERTIES_MANAGER.getProperty("FacebookProducerConnector.latitude"));
+            this.lon =  Double.valueOf(PROPERTIES_MANAGER.getProperty("FacebookProducerConnector.longitude"));
         } catch (IllegalArgumentException e) {
             LOGGER.error(e.getMessage());
             throw new IllegalStateException("Invalid configuration");
@@ -109,6 +109,15 @@ public class FacebookProducerConnector implements IProducerConnector {
             } finally {
                 Thread.currentThread().interrupt();
             }
+        }
+    }
+
+    @Override
+    public boolean isActive() {
+        try {
+            return Boolean.valueOf(PROPERTIES_MANAGER.getProperty("FacebookProducerConnector.enable"));
+        } catch (IllegalArgumentException e) {
+            return true;
         }
     }
 }

@@ -9,11 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
-
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Listen any events provided by the twitter api and load them into a IDataProducer object.
@@ -71,6 +67,15 @@ public class TwitterProducerConnector implements IProducerConnector {
         }
     }
 
+    @Override
+    public boolean isActive() {
+        try {
+            return Boolean.valueOf(PROPERTIES_MANAGER.getProperty("twitter.enable"));
+        } catch (IllegalArgumentException e) {
+            return true;
+        }
+    }
+
     /**
      * Load properties for twitter connector
      */
@@ -108,38 +113,48 @@ public class TwitterProducerConnector implements IProducerConnector {
             Date start = status.getCreatedAt();
             Date end = status.getCreatedAt();
             User user = status.getUser();
+            LatLong[] latLong = getLatLong(status);
 
-            Double latitude = null;
-            Double longitude = null;
-
-            if (status.getGeoLocation() != null) {
-                latitude = status.getGeoLocation().getLatitude();
-                longitude = status.getGeoLocation().getLongitude();
-            } else if (status.getPlace() != null && status.getPlace().getBoundingBoxCoordinates() != null) {
-                Optional<GeoLocation[]> first = Arrays.stream(status.getPlace().getBoundingBoxCoordinates()).findFirst();
-                if (first.isPresent()) {
-                   Optional<GeoLocation> g = Arrays.stream(first.get()).findFirst();
-                   if (g.isPresent()) {
-                       GeoLocation location = g.get();
-                       latitude = location.getLatitude();
-                       longitude = location.getLongitude();
-                   }
-                }
-            }
-
-            if(latitude != null) {
+            if(latLong != null) {
                 JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.append("description", description);
                     jsonObject.append("user_certified", user.isVerified());
-                    LatLong latLong = new LatLong(latitude, longitude);
-                    Event event = new Event(latLong, start, end, jsonObject.toString(), source);
+                    Event event;
+                    if (latLong.length == 1) {
+                        event = new Event(latLong[0], start, end, jsonObject.toString(), source);
+                    } else {
+                        event = new Event(latLong, start, end, jsonObject.toString(), source);
+                    }
                     this.dataProducer.push(event);
                     LOGGER.info("Event inserted : " + event);
                 } catch (JSONException e) {
                     LOGGER.error(e.getMessage());
                 }
             }
+        }
+
+        private LatLong[] getLatLong(Status status) {
+            if (status.getGeoLocation() != null) {
+                return new LatLong[] {new LatLong(status.getGeoLocation().getLatitude(), status.getGeoLocation().getLongitude())};
+            } else if (status.getPlace() != null && status.getPlace().getBoundingBoxCoordinates() != null) {
+                return getLatLongFromBoudingBox(status.getPlace().getBoundingBoxCoordinates());
+            } else {
+                return null;
+            }
+        }
+
+        private LatLong[] getLatLongFromBoudingBox(GeoLocation[][] geoLocations) {
+            List<LatLong> latLongList = new ArrayList<>();
+            Arrays.stream(geoLocations)
+                    .forEach(arrayGeo -> Arrays.stream(arrayGeo)
+                            .forEach(geo -> latLongList.add(new LatLong(geo.getLatitude(), geo.getLongitude()))));
+            LatLong[] latLong = new LatLong[latLongList.size() + 1];
+            for (int i = 0; i < latLongList.size(); i++) {
+                latLong[i] = latLongList.get(i);
+            }
+            latLong[latLong.length - 1] = latLong[0];
+            return latLong;
         }
 
         @Override

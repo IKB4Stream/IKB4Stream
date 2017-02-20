@@ -69,18 +69,19 @@ public class ProducerManager {
                 DataConsumer dataConsumer = DataConsumer.createDataConsumer(dataQueue);
                 dataConsumer.consume();
             });
+            thread.setName("Consumer " + (i + 1));
             thread.start();
-            LOGGER.info("Consumer #" + i + " has been launched");
             dataConsumers.add(thread);
         }
-        LOGGER.info("All consumer has been launched");
+        LOGGER.info(nbThreadConsumer + " consumer(s) has been launched");
     }
 
     /**
      * Launch all producers
      */
     private void launchDataProducer() {
-        String stringPath = PROPERTIES_MANAGER.getProperty("producer.path");
+        String stringPath = getPathProducerConnector();
+        if (stringPath == null) return;
         try (Stream<Path> paths = Files.walk(Paths.get(stringPath))) {
             paths.forEach((Path filePath) -> {
                 if (Files.isRegularFile(filePath)) {
@@ -90,6 +91,20 @@ public class ProducerManager {
             });
         } catch (IOException e) {
             LOGGER.error(e.getMessage());
+        }
+    }
+
+    /**
+     * Get path where ProducerConnector are store
+     * @return Path or null if there is invalid configuration
+     */
+    private static String getPathProducerConnector() {
+        try {
+            return PROPERTIES_MANAGER.getProperty("producer.path");
+        } catch (IllegalArgumentException e) {
+            LOGGER.warn(e.getMessage());
+            LOGGER.warn("There is no ProducerConnector to load");
+            return null;
         }
     }
 
@@ -111,12 +126,16 @@ public class ProducerManager {
                         .filter(c -> UtilManager.implementInterface(c, IProducerConnector.class))
                         .forEach(clazz -> {
                             IProducerConnector producerConnector = (IProducerConnector) UtilManager.newInstance(clazz);
-                            Thread thread = new Thread(() -> producerConnector.load(new DataProducer(dataQueue)));
-                            thread.setContextClassLoader(classLoader);
-                            thread.setName(producerConnector.getClass().getName());
-                            thread.start();
-                            LOGGER.info("Producer " + producerConnector.getClass().getName() + " has been launched");
-                            producerConnectors.add(thread);
+                            LOGGER.info("Producer : " + producerConnector.getClass().getName() + " active ? " + producerConnector.isActive());
+                            if (producerConnector.isActive()) {
+                                LOGGER.info("Producer Connector to activate: " + producerConnector.getClass().getName());
+                                Thread thread = new Thread(() -> producerConnector.load(new DataProducer(dataQueue)));
+                                thread.setContextClassLoader(classLoader);
+                                thread.setName(producerConnector.getClass().getName());
+                                thread.start();
+                                LOGGER.info("Producer " + producerConnector.getClass().getName() + " has been launched");
+                                producerConnectors.add(thread);
+                            }
                         });
 
                 return null;

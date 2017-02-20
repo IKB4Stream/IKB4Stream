@@ -9,16 +9,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class DataConsumer {
+    private final ScoreProcessorManager scoreProcessorManger = new ScoreProcessorManager();
+    private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
+    private static final DatabaseWriter DATABASE_WRITER = DatabaseWriter.getInstance();
     private static final Logger LOGGER = LoggerFactory.getLogger(DataConsumer.class);
-    private final ScoreProcessorManager scoreProcessorManager;
-    private final DatabaseWriter databaseWriter;
     private final DataQueue dataQueue;
     private final int targetScore;
-    private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
 
-    private DataConsumer(ScoreProcessorManager scoreProcessorManager, DatabaseWriter databaseWriter, DataQueue dataQueue, int targetScore) {
-        this.scoreProcessorManager = scoreProcessorManager;
-        this.databaseWriter = databaseWriter;
+    private DataConsumer(DataQueue dataQueue, int targetScore) {
         this.dataQueue = dataQueue;
         this.targetScore = targetScore;
     }
@@ -28,12 +26,6 @@ public class DataConsumer {
      * @return DataConsumer
      */
     public static DataConsumer createDataConsumer(DataQueue dataQueue) {
-        /* Create ScoreProcessorManager */
-        ScoreProcessorManager scoreProcessorManager = new ScoreProcessorManager();
-        scoreProcessorManager.instanciate();
-
-        DatabaseWriter databaseWriter = DatabaseWriter.getInstance();
-
         /* Get target score */
         int targetScore = 25;
         try {
@@ -44,7 +36,7 @@ public class DataConsumer {
             LOGGER.warn("Use default value for score.target");
         }
 
-        return new DataConsumer(scoreProcessorManager, databaseWriter, dataQueue, targetScore);
+        return new DataConsumer(dataQueue, targetScore);
     }
 
 
@@ -65,9 +57,9 @@ public class DataConsumer {
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 Event event = dataQueue.pop();
-                Event eventClone = scoreProcessorManager.processScore(event);
+                Event eventClone = scoreProcessorManger.processScore(event);
                 if (filter(eventClone, targetScore)) {
-                    databaseWriter.insertEvent(eventClone, t -> {
+                    DATABASE_WRITER.insertEvent(eventClone, t -> {
                         METRICS_LOGGER.log("event_scored", ""+eventClone.getScore());
                         LOGGER.error(t.getMessage());
                     });

@@ -11,13 +11,13 @@ import org.slf4j.LoggerFactory;
  * @see DataQueue
  */
 public class DataProducer implements IDataProducer {
-    private final DataQueue dataQueue;
-    private static final Logger LOGGER = LoggerFactory.getLogger(DataProducer.class);
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(DataProducer.class);
+    private final DataQueue dataQueue;
 
     /**
      * The constructor with a DataQueue in param
-     * @param dataQueue
+     * @param dataQueue Set the dataQueue to this Producer
      */
     public DataProducer(DataQueue dataQueue) {
         this.dataQueue = dataQueue;

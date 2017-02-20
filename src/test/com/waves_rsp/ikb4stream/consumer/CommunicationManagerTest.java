@@ -1,5 +1,6 @@
 package com.waves_rsp.ikb4stream.consumer;
 
+import com.waves_rsp.ikb4stream.consumer.manager.CommunicationManager;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;

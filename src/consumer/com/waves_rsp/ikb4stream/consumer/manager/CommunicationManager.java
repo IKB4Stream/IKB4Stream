@@ -1,5 +1,6 @@
-package com.waves_rsp.ikb4stream.consumer;
+package com.waves_rsp.ikb4stream.consumer.manager;
 
+import com.waves_rsp.ikb4stream.consumer.database.DatabaseReader;
 import com.waves_rsp.ikb4stream.core.communication.ICommunication;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
 import com.waves_rsp.ikb4stream.core.util.JarLoader;
@@ -49,19 +50,33 @@ public class CommunicationManager {
      * @throws IllegalArgumentException if communication.path is not set
      */
     public void start() {
-        String stringPath = PROPERTIES_MANAGER.getProperty("communication.path");
-
+        String stringPath = getPathCommunication();
+        if (stringPath == null) return;
         try (Stream<Path> paths = Files.walk(Paths.get(stringPath))) {
-            paths.forEach((Path filePath) -> {
-                if (Files.isRegularFile(filePath)) {
-                    JarLoader jarLoader = JarLoader.createJarLoader(filePath.toString());
-                    launchModule(jarLoader);
-                }
-            });
+            paths.filter(Files::isRegularFile)
+                    .filter(file -> file.toString().endsWith(".jar"))
+                    .forEach((Path filePath) -> {
+                        JarLoader jarLoader = JarLoader.createJarLoader(filePath.toString());
+                        launchModule(jarLoader);
+                    });
         } catch (IOException e) {
             LOGGER.error(e.getMessage());
         }
         LOGGER.info("All ICommunication has been launched");
+    }
+
+    /**
+     * Get path where Communication are store
+     * @return Path or null if there is invalid configuration
+     */
+    private static String getPathCommunication() {
+        try {
+            return PROPERTIES_MANAGER.getProperty("communication.path");
+        } catch (IllegalArgumentException e) {
+            LOGGER.warn(e.getMessage());
+            LOGGER.warn("There is no Communication to load");
+            return null;
+        }
     }
 
     /**

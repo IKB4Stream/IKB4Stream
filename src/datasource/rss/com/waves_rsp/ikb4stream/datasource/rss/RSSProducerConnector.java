@@ -22,15 +22,15 @@ import java.util.Date;
 import java.util.Objects;
 
 public class RSSProducerConnector implements IProducerConnector {
+    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(RSSProducerConnector.class, "resources/datasource/rss/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(RSSProducerConnector.class);
     private final String source;
     private final URL url;
 
     public RSSProducerConnector() {
         try {
-            PropertiesManager propertiesManager = PropertiesManager.getInstance(RSSProducerConnector.class, "resources/datasource/rss/config.properties");
-            this.source = propertiesManager.getProperty("RSSProducerConnector.source");
-            String urlString = propertiesManager.getProperty("RSSProducerConnector.url");
+            this.source = PROPERTIES_MANAGER.getProperty("RSSProducerConnector.source");
+            String urlString = PROPERTIES_MANAGER.getProperty("RSSProducerConnector.url");
             this.url = new URL(urlString);
         } catch (IllegalArgumentException | MalformedURLException e) {
             LOGGER.error(e.getMessage());
@@ -66,6 +66,15 @@ public class RSSProducerConnector implements IProducerConnector {
             } catch (IOException | FeedException e) {
                 LOGGER.error(e.getMessage());
             }
+        }
+    }
+
+    @Override
+    public boolean isActive() {
+        try {
+            return Boolean.valueOf(PROPERTIES_MANAGER.getProperty("RSSProducerConnector.enable"));
+        } catch (IllegalArgumentException e) {
+            return true;
         }
     }
 }

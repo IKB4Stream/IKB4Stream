@@ -9,6 +9,7 @@ import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
 import com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
+import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,6 +22,7 @@ import java.util.Objects;
 
 
 public class TwitterMock implements IProducerConnector {
+    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(TwitterMock.class, "resources/datasource/twittermock/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(TwitterMock.class);
     private final InputStream inputStream;
 
@@ -65,6 +67,15 @@ public class TwitterMock implements IProducerConnector {
                     LOGGER.error(e.getMessage());
                 }
             }
+        }
+    }
+
+    @Override
+    public boolean isActive() {
+        try {
+            return Boolean.valueOf(PROPERTIES_MANAGER.getProperty("twittermock.enable"));
+        } catch (IllegalArgumentException e) {
+            return true;
         }
     }
 

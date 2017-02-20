@@ -28,11 +28,11 @@ public class Main {
                 }
             }
         });
-
-        listener.start();
         Runtime runtime = Runtime.getRuntime();
 
         try {
+            listener.setName("Metrics");
+            listener.start();
             if(runtime.removeShutdownHook(listener)) {
                 runtime.addShutdownHook(listener);
             }
