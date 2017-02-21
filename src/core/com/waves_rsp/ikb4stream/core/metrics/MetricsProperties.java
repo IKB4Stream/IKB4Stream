@@ -92,7 +92,7 @@ public class MetricsProperties {
             PROPERTIES_MANAGER.getProperty("database.metrics.datasource");
             PROPERTIES_MANAGER.getProperty("database.metrics.measurement");
         } catch (IllegalArgumentException e) {
-            LOGGER.error(e.toString());
+            LOGGER.error("Bad properties read: {}", e);
             throw new IllegalStateException(e.getMessage());
         }
     }

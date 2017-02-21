@@ -28,7 +28,7 @@ public class Main {
         try {
             PRODUCER_MANAGER.instantiate();
         } catch (IOException e) {
-            LOGGER.error("Unable to read config file in order to create threads producer.");
+            LOGGER.error("Unable to read config file in order to create threads producer: {}", e);
             return;
         }
         Thread listener = new Thread(() -> {
@@ -39,7 +39,7 @@ public class Main {
                     }
                 }
             } catch (IOException e) {
-                LOGGER.error("Unable to read config file in order to create threads producer.");
+                LOGGER.error("Unable to read config file in order to create threads producer: {}", e);
                 Thread.currentThread().interrupt();
             }
         });
@@ -51,7 +51,7 @@ public class Main {
                 runtime.addShutdownHook(listener);
             }
         }catch (IllegalArgumentException err) {
-            LOGGER.error("Runtime thread hook got an error : thread already running. "+err.getMessage());
+            LOGGER.error("Runtime thread hook got an error : {}", err.getMessage());
         }finally {
             runtime.removeShutdownHook(listener);
         }

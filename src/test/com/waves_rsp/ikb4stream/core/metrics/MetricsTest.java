@@ -1,7 +1,10 @@
 package com.waves_rsp.ikb4stream.core.metrics;
 
 import org.influxdb.dto.Point;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
@@ -15,25 +18,21 @@ public class MetricsTest {
         //Do nothing
     }
 
-    @Ignore
     @Test
     public void checkConnexionServiceInfluxEnable() {
         logger.log("toto", "tata");
     }
 
-    @Ignore
     @Test (expected = NullPointerException.class)
     public void addNullData() {
         logger.log(null, null);
     }
 
-    @Ignore
     @Test
     public void addValidData() {
         logger.log("test_reports", "test metrics");
     }
 
-    @Ignore
     @Test
     public void checkTimeWhileAddedData() {
         long start = System.currentTimeMillis();
@@ -46,12 +45,11 @@ public class MetricsTest {
         Assert.assertTrue(result < 500);
     }
 
-    @Ignore
     @Test
     public void pushManyPointsIfConnexionEnabled() {
         try {
             long start = System.currentTimeMillis();
-            IntStream.range(0, 1000).forEach(i -> logger.log("test_metrics", "event_test", "data"+i));
+            IntStream.range(0, 50).forEach(i -> logger.log("test_metrics", "event_test", "data"+i));
             long end = System.currentTimeMillis();
             long result = end - start;
             System.out.println("result : "+result);
@@ -60,7 +58,6 @@ public class MetricsTest {
         }
     }
 
-    @Ignore
     @Test
     public void checkTimeWhileAddedPointData() {
         final int max = 10;
@@ -77,7 +74,6 @@ public class MetricsTest {
         Assert.assertTrue(result < 200);
     }
 
-    @Ignore
     @Test
     public void checkTimeWhileAddedPointDataFromThreadPool() {
         final int max = 10;
@@ -108,7 +104,6 @@ public class MetricsTest {
         }
     }
 
-    @Ignore
     @Test
     public void checkTimeWhileCollectData() {
         long start = System.currentTimeMillis();
@@ -116,6 +111,11 @@ public class MetricsTest {
         long end = System.currentTimeMillis();
         long result = end - start;
         Assert.assertTrue(result < 500);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            //Do nothing
+        }
     }
 
     @After

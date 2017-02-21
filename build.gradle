@@ -355,7 +355,7 @@ task packageAll(dependsOn: ['copyConfigProperties', 'packageConsumerJar', 'packa
     'packageRssJar', 'packageKafkaCommunicationJar', 'packageTwitterJar', 'packageDbpediaJar', 'packageFacebookJar',
     'packageOwmJar', 'packageOpenAgendaJar', 'packageCommunicationWebJar', 'packageFacebookScoringJar', 'packageTwitterScoringJar',
     'packageMockScoringJar']) {
-}
+}  
 
 task ci(dependsOn: ['packageAll', 'zipBuild']) {
     tasks.findByName('zipBuild').mustRunAfter 'packageAll'

@@ -45,7 +45,7 @@ public class Main {
                 runtime.addShutdownHook(listener);
             }
         }catch (IllegalArgumentException err) {
-            LOGGER.error("Hook has already running. "+ err.toString());
+            LOGGER.error("Hook has already running: {}", err.toString());
             return;
         }finally {
             runtime.removeShutdownHook(listener);

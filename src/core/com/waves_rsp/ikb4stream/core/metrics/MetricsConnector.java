@@ -6,6 +6,7 @@ import org.influxdb.InfluxDBFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.ConnectException;
 import java.util.Optional;
 
 /**
@@ -18,8 +19,6 @@ public class MetricsConnector {
     private final MetricsProperties properties;
     private final boolean isConnexionEnabled;
 
-
-
     private MetricsConnector() {
         this.properties = MetricsProperties.create();
         this.isConnexionEnabled = Boolean.valueOf(PROPERTIES_MANAGER.getProperty("database.connexion.enabled"));
@@ -29,16 +28,22 @@ public class MetricsConnector {
             LOGGER.warn("Connexion to influxdb disabled.");
             this.connectorService = null;
         }else {
-            InfluxDB influxDB = InfluxDBFactory.connect(properties.getHost(), properties.getUser(), properties.getPassword());
-
+            InfluxDB influxDB = null;
             try {
-                String collection = PROPERTIES_MANAGER.getProperty("database.metrics.datasource");
-                influxDB.createDatabase(collection);
+                influxDB = checkInfluxConnexion();
             } catch (IllegalArgumentException e) {
+                LOGGER.error("Bad connexion properties loaded: {}", e);
                 throw new IllegalStateException(e.getMessage());
+            } catch (RuntimeException | ConnectException e) {
+                LOGGER.error("Can't connect to the influx service: {}", e);
             }
-            this.connectorService = new MetricsConnectorService(influxDB);
-            LOGGER.info("Connexion to the influx database " + influxDB.version() + " for metrics is started");
+
+            if(influxDB != null) {
+                this.connectorService = new MetricsConnectorService(influxDB);
+                LOGGER.info("Connexion to the influx database " + influxDB.version() + " for metrics is started");
+            }else {
+                this.connectorService = null;
+            }
         }
     }
 
@@ -67,9 +72,12 @@ public class MetricsConnector {
 
 
     public InfluxDB getInfluxDB() {
+        if(connectorService == null) {
+            return null;
+        }
+
         Optional<InfluxDB> influxDBOptional = Optional.of(getConnectorService().getInfluxDB());
         return influxDBOptional.orElse(null);
-
     }
 
     public MetricsProperties getProperties() {
@@ -80,6 +88,22 @@ public class MetricsConnector {
         return connectorService;
     }
 
+    /**
+     * Try to connect to the influxDB with Influx factory
+     *
+     * @return the instance of influx object
+     * @throws ConnectException if the connexion has failed
+     */
+    private InfluxDB checkInfluxConnexion() throws ConnectException {
+        InfluxDB influxDB = InfluxDBFactory.connect(properties.getHost(), properties.getUser(), properties.getPassword());
+        String collection = PROPERTIES_MANAGER.getProperty("database.metrics.datasource");
+        influxDB.createDatabase(collection);
+        return influxDB;
+    }
+
+    /**
+     * Encapsulate an InfluxDB object in order to instantiate it
+     */
     private class MetricsConnectorService {
         private final InfluxDB influxDB;
 

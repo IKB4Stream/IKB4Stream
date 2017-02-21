@@ -42,8 +42,10 @@ public class MetricsLogger {
      * Close the connexion with the influx database
      */
     public void close() {
-        metricsConnector.close();
-        Thread.currentThread().interrupt();
+        if(metricsConnector != null) {
+            metricsConnector.close();
+            Thread.currentThread().interrupt();
+        }
     }
 
     /**
@@ -57,7 +59,7 @@ public class MetricsLogger {
         Objects.requireNonNull(field);
         Objects.requireNonNull(data);
 
-        if(this.metricsConnector.isConnexionEnabled()) {
+        if(checkValidInfluxDBConnexion()) {
             final InfluxDB influxDB = metricsConnector.getInfluxDB();
             Point point = Point.measurement(measurement)
                     .tag("async", "true")
@@ -73,7 +75,7 @@ public class MetricsLogger {
         Objects.requireNonNull(field);
         Objects.requireNonNull(data);
 
-        if(this.metricsConnector.isConnexionEnabled()) {
+        if(checkValidInfluxDBConnexion()) {
             final InfluxDB influxDB = metricsConnector.getInfluxDB();
             Point point = Point.measurement(measurement)
                                 .tag("async", "true")
@@ -92,7 +94,7 @@ public class MetricsLogger {
      */
     public void log(Event event) {
         Objects.requireNonNull(event);
-        if(this.metricsConnector.isConnexionEnabled()) {
+        if(checkValidInfluxDBConnexion()) {
             final InfluxDB influxDB = metricsConnector.getInfluxDB();
             Point point = Point.measurement(measurement).tag("event_source", event.getSource())
                                                         .time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
@@ -111,7 +113,7 @@ public class MetricsLogger {
      */
     public void log(Point... points) {
         Objects.requireNonNull(points);
-        if(this.metricsConnector.isConnexionEnabled()) {
+        if(checkValidInfluxDBConnexion()) {
             final InfluxDB influxDB = metricsConnector.getInfluxDB();
             influxDB.setLogLevel(InfluxDB.LogLevel.BASIC);
             BatchPoints.Builder builder = BatchPoints.database(metricsConnector.getProperties().getDbName());
@@ -122,6 +124,10 @@ public class MetricsLogger {
                     LOGGER.info(MetricsLogger.class.getName()+" : push metrics point " + point)
             );
         }
+    }
+
+    private boolean checkValidInfluxDBConnexion() {
+        return metricsConnector != null && metricsConnector.getInfluxDB() != null && metricsConnector.isConnexionEnabled();
     }
 
     public boolean isInfluxServiceEnabled() {
@@ -135,7 +141,7 @@ public class MetricsLogger {
      */
     public void read(String request) {
         Objects.requireNonNull(request);
-        if(this.metricsConnector.isConnexionEnabled()) {
+        if(checkValidInfluxDBConnexion()) {
             final Query query = new Query(request, metricsConnector.getProperties().getDbName());
             QueryResult fixes = this.metricsConnector.getInfluxDB().query(query);
             List<QueryResult.Result> resultsList = fixes.getResults();
