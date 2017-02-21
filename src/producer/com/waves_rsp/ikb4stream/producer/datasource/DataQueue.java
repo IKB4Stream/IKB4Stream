@@ -68,6 +68,7 @@ public class DataQueue {
     	Event popEvent = packEvent.event;
         long departTime = System.currentTimeMillis();
         METRICS_LOGGER.log("life_in_queue_" + popEvent.getSource(), String.valueOf(departTime - packEvent.arrivedTime));
+        return popEvent;
     }
 
     /**
