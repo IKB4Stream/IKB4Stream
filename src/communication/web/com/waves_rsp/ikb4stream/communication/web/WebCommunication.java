@@ -37,6 +37,8 @@ public class WebCommunication implements ICommunication {
     public void start(IDatabaseReader databaseReader) {
         Objects.requireNonNull(databaseReader);
         configureDatabaseReader(databaseReader);
+
+        LOGGER.info("Starting WebCommunication module");
         server = Vertx.vertx();
         DeploymentOptions deploymentOptions = new DeploymentOptions();
         int port = 8081;
@@ -56,7 +58,6 @@ public class WebCommunication implements ICommunication {
         deploymentOptions.setConfig(jsonObject);
 
         server.deployVerticle(VertxServer.class.getName());
-        LOGGER.info("WebCommunication module started");
     }
 
     /**

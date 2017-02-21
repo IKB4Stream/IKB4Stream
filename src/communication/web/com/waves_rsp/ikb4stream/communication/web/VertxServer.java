@@ -34,18 +34,19 @@ public class VertxServer extends AbstractVerticle {
         router.route("/anomaly*").handler(BodyHandler.create()); // enable reading of request's body
         router.get("/anomaly").handler(this::getAnomalies);
         vertx
-                .createHttpServer()
-                .requestHandler(router::accept)
-                .listen(
-                        config().getInteger("http.port", 8081), // default value: 8081
-                        result -> {
-                            if (result.succeeded()) {
-                                fut.complete();
-                            } else {
-                                fut.fail(result.cause());
-                            }
-                        }
-                );
+            .createHttpServer()
+            .requestHandler(router::accept)
+            .listen(
+                config().getInteger("http.port", 8081), // default value: 8081
+                result -> {
+                    if (result.succeeded()) {
+                        fut.complete();
+                    } else {
+                        fut.fail(result.cause());
+                    }
+                }
+            );
+        LOGGER.info("VertxServer started");
     }
 
     /**
@@ -54,13 +55,14 @@ public class VertxServer extends AbstractVerticle {
      */
     private void getAnomalies(RoutingContext rc) {
         // curl http://localhost:8081/anomaly -X GET -H "Content-Type: application/json" -d '{"start":1487004295000,"end":1487004295000, "boundingBox":{"points": [{"latitude":10, "longitude":20},{"latitude":15, "longitude":25},{"latitude":25, "longitude":30},{"latitude":10, "longitude":20}]}, "requestReception":1487004295000}'
-        Request request = parseRequest(rc.getBodyAsJson());
+        LOGGER.info("Received web request: {}", rc.getBodyAsJson());
 
+        Request request = parseRequest(rc.getBodyAsJson());
         rc.response().putHeader("content-type", "application/json");
 
         JsonObject jsonResponse = getEvent(request);
         rc.response()
-                .end(jsonResponse.encode());
+            .end(jsonResponse.encode());
     }
 
     /**
@@ -95,12 +97,20 @@ public class VertxServer extends AbstractVerticle {
     private JsonObject getEvent(Request request) {
         String[] r = new String[1];
         databaseReader.getEvent(request, (t, result) -> {
-            if(t != null) { LOGGER.error("DatabaseReader error: " + t.getMessage()); return; }
+            if(t != null) {
+                LOGGER.error("DatabaseReader error: " + t.getMessage()); return;
+            }
             r[0] = result;
         });
+
+        JsonObject response;
         if (r[0] == null) {
-            r[0] = "{}";
+            LOGGER.info("No event found");
+            response = new JsonObject("{\"events\": []}");
+        } else {
+            LOGGER.info("Found events: {}", r[0]);
+            response = new JsonObject("{\"events\":" + r[0] +"}");
         }
-        return new JsonObject(r[0]);
+        return response;
     }
 }
