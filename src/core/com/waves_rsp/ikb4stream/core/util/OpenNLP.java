@@ -177,7 +177,9 @@ public class OpenNLP {
      */
     public static List<String> applyNLPlemma(String post, int limit) {
         Objects.requireNonNull(post);
-        post = post.substring(0, limit);
+        if (post.length() > limit) {
+            post = post.substring(0, limit);
+        }
         Map<String, String> input;
         List<String> output = new ArrayList<>();
         try {
