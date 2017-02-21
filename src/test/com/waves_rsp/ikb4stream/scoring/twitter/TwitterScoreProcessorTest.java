@@ -3,6 +3,7 @@ package com.waves_rsp.ikb4stream.scoring.twitter;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
 import org.junit.Test;
+import org.junit.Ignore;
 import twitter4j.JSONException;
 import twitter4j.JSONObject;
 
@@ -17,12 +18,13 @@ public class TwitterScoreProcessorTest {
     private final String source = "Twitter";
     private final LatLong latlong = new LatLong(2, 3);
 
-
+    @Ignore
     @Test(expected = NullPointerException.class)
     public void nullProcessScore() {
         tsp.processScore(null);
     }
 
+    @Ignore
     @Test
     public void calculatedScoreWithCertifiedTweet() throws JSONException {
         String description = "Roger, il y a une fuite d'eau à Paris #eau";
@@ -34,6 +36,7 @@ public class TwitterScoreProcessorTest {
         assertEquals(32, tsp.processScore(event).getScore());
     }
 
+    @Ignore
     @Test
     public void calculatedScoreWithUncertifiedTweet() throws JSONException {
         String description = "Roger, il y a une fuite d'eau à Paris #eau";
@@ -44,7 +47,8 @@ public class TwitterScoreProcessorTest {
         Event event = new Event(latlong, date, date, jsonObject.toString(), source);
         assertEquals(16, tsp.processScore(event).getScore());
     }
-
+    
+    @Ignore
     @Test
     public void calculatedScoreWithoutKeyWord() throws JSONException {
         String description = "Roger, n'a rien vu";
