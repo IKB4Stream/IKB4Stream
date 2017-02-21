@@ -48,7 +48,7 @@ public class TwitterScoreProcessorTest {
         Event event = new Event(latlong, date, date, jsonObject.toString(), source);
         assertEquals(16, tsp.processScore(event).getScore());
     }
-    
+
     @Ignore
     @Test
     public void calculatedScoreWithoutKeyWord() throws JSONException {
