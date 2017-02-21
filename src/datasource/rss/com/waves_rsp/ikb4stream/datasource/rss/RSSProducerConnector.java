@@ -36,7 +36,7 @@ public class RSSProducerConnector implements IProducerConnector {
             String urlString = PROPERTIES_MANAGER.getProperty("RSSProducerConnector.url");
             this.url = new URL(urlString);
         } catch (IllegalArgumentException | MalformedURLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error("Invalid configuration [] ", e);
             throw new IllegalStateException("Invalid configuration");
         }
     }
@@ -77,7 +77,7 @@ public class RSSProducerConnector implements IProducerConnector {
                     }
                 });
             } catch (IOException | FeedException e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.error("Can't parse RSS [] ", e);
             }
         }
     }
