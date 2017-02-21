@@ -2,6 +2,7 @@ package com.waves_rsp.ikb4stream.scoring.twitter;
 
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.Ignore;
 import twitter4j.JSONException;
