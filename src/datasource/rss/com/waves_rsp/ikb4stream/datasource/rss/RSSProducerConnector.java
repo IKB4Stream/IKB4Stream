@@ -8,6 +8,7 @@ import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
 import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
 import com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector;
+import com.waves_rsp.ikb4stream.core.metrics.MetricsLogger;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
@@ -27,6 +28,7 @@ import java.util.Objects;
 public class RSSProducerConnector implements IProducerConnector {
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(RSSProducerConnector.class, "resources/datasource/rss/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(RSSProducerConnector.class);
+    private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     private final String source;
     private final URL url;
 
@@ -46,6 +48,7 @@ public class RSSProducerConnector implements IProducerConnector {
         Objects.requireNonNull(dataProducer);
         while (!Thread.currentThread().isInterrupted()) {
             try {
+                long start = System.currentTimeMillis(); //metrics
                 SyndFeedInput input = new SyndFeedInput();
                 SyndFeed feed = input.build(new XmlReader(this.url));
 
@@ -60,15 +63,17 @@ public class RSSProducerConnector implements IProducerConnector {
                     if (startDate == null)
                         startDate = endDate;
 
+                    String completeDesc = title + " " + description;
                     GeoRSSModule module = GeoRSSUtils.getGeoRSS(entry);
                     if (module != null && module.getPosition() != null) {
                         LatLong latLong = new LatLong(module.getPosition().getLatitude(), module.getPosition().getLongitude());
-                        Event event = new Event(latLong, startDate, endDate, description, source);
+                        Event event = new Event(latLong, startDate, endDate, completeDesc, source);
                         dataProducer.push(event);
                     }else {
-                        LatLong latlong = geocodeRSS(title + " " + description);
+
+                        LatLong latlong = geocodeRSS(completeDesc);
                         if (latlong != null) {
-                            Event event = new Event(latlong, startDate, endDate, description, source);
+                            Event event = new Event(latlong, startDate, endDate, completeDesc, source);
                             dataProducer.push(event);
                         }
                         else{
@@ -76,6 +81,8 @@ public class RSSProducerConnector implements IProducerConnector {
                         }
                     }
                 });
+                long end = System.currentTimeMillis();
+                METRICS_LOGGER.log("time_process" + this.source , String.valueOf(end-start));
             } catch (IOException | FeedException e) {
                 LOGGER.error("Can't parse RSS [] ", e);
             }
