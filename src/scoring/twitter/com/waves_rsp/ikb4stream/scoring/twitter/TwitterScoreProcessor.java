@@ -1,6 +1,7 @@
 package com.waves_rsp.ikb4stream.scoring.twitter;
 
 import com.waves_rsp.ikb4stream.core.datasource.model.IScoreProcessor;
+import com.waves_rsp.ikb4stream.core.metrics.MetricsLogger;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
 import com.waves_rsp.ikb4stream.core.util.OpenNLP;
@@ -15,6 +16,7 @@ import java.util.*;
 public class TwitterScoreProcessor implements IScoreProcessor {
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(TwitterScoreProcessor.class, "resources/scoreprocessor/twitter/config.properties");
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(TwitterScoreProcessor.class);
+    private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     private final String filename;
     private static final byte MAX_SCORE = 100;
     private static final int COEFF_HASHTAG = 2;
@@ -87,12 +89,13 @@ public class TwitterScoreProcessor implements IScoreProcessor {
      *
      * @param event an event without score
      * @return Event with a score after OpenNLP processing
-     * @throws NullPointerException if {@param event} is null
+     * @throws NullPointerException     if {@param event} is null
      * @throws IllegalArgumentException if {@param event} is invalid
      */
     @Override
     public Event processScore(Event event) {
         Objects.requireNonNull(event);
+        long start = System.currentTimeMillis();
         String tweet = "";
         byte score = 0;
 
@@ -112,6 +115,8 @@ public class TwitterScoreProcessor implements IScoreProcessor {
             LOGGER.error("Wrong JsonObject from Twitter Connector\n" + e.getMessage());
             throw new IllegalArgumentException("Wrong description of event");
         }
+        long end = System.currentTimeMillis();
+        METRICS_LOGGER.log("scoring_time_" + event.getSource(), String.valueOf(end - start));
         return new Event(event.getLocation(), event.getStart(), event.getEnd(), tweet, verifyMaxScore(score), event.getSource());
     }
 
@@ -129,9 +134,9 @@ public class TwitterScoreProcessor implements IScoreProcessor {
 
     private byte scoreWords(byte score, List<String> tweetMap, Map<String, Integer> rulesMap) {
         byte scoreTmp = score;
-        for(String word : tweetMap){
+        for (String word : tweetMap) {
             boolean isHashtag = isHashtag(word);
-            if(isHashtag(word)){
+            if (isHashtag(word)) {
                 word = word.substring(1);
             }
             if (rulesMap.containsKey(word)) {

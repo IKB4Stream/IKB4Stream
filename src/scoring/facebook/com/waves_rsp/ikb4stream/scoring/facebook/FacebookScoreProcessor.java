@@ -1,6 +1,7 @@
 package com.waves_rsp.ikb4stream.scoring.facebook;
 
 import com.waves_rsp.ikb4stream.core.datasource.model.IScoreProcessor;
+import com.waves_rsp.ikb4stream.core.metrics.MetricsLogger;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
 import com.waves_rsp.ikb4stream.core.util.OpenNLP;
@@ -12,6 +13,7 @@ import java.util.*;
 
 
 public class FacebookScoreProcessor implements IScoreProcessor {
+    private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(FacebookScoreProcessor.class, "resources/scoreprocessor/facebook/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(FacebookScoreProcessor.class);
     private final String ruleFilename;
@@ -35,6 +37,7 @@ public class FacebookScoreProcessor implements IScoreProcessor {
     @Override
     public Event processScore(Event event) {
         Objects.requireNonNull(event);
+        long start = System.currentTimeMillis();
         String content = event.getDescription();
         List<String> fbList = OpenNLP.applyNLPlemma(content);
         Map<String, Integer> rulesMap = RulesReader.parseJSONRules(ruleFilename);
@@ -49,6 +52,8 @@ public class FacebookScoreProcessor implements IScoreProcessor {
         if (score > 100) {
             score = 100;
         }
+        long end = System.currentTimeMillis();
+        METRICS_LOGGER.log("scoring_time_" + event.getSource(), String.valueOf(end-start));
         return new Event(event.getLocation(), event.getStart(), event.getEnd(), content, score, event.getSource());
     }
 
