@@ -166,7 +166,7 @@ public class OpenNLP {
      * @param limit is the limit to have the n first characters
      * @return list of selected words.
      */
-    public List<String> applyNLPlemma(String post) {
+    public List<String> applyNLPlemma(String post, int limit) {
         Objects.requireNonNull(post);
         if (post.length() > limit) {
             post = post.substring(0, limit);
@@ -194,7 +194,7 @@ public class OpenNLP {
      * @param post is the text to lemmatize. We only use the 1250 first characters
      * @return list of selected words.
      */
-    public static List<String> applyNLPlemma(String post) {
+    public List<String> applyNLPlemma(String post) {
         return applyNLPlemma(post, 1250);
     }
 

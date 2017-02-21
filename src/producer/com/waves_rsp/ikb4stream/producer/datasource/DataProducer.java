@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
  */
 public class DataProducer implements IDataProducer {
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(DataProducer.class);
     private final DataQueue dataQueue;
 
     /**
@@ -32,6 +33,6 @@ public class DataProducer implements IDataProducer {
         long end = System.currentTimeMillis();
         long result = end - start;
         METRICS_LOGGER.log("time_process_"+event.getSource(), String.valueOf(result));
-        LOGGER.info("the event "+event.getSource()+" has been pushed into database.");
+        LOGGER.info("The event {} has been pushed into database.", event.getSource());
     }
 }

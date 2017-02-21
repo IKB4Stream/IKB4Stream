@@ -13,7 +13,7 @@ import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
 import com.waves_rsp.ikb4stream.core.util.GeoCoderJacksonParser;
-import com.waves_rsp.ikb4stream.core.util.OpenNLP;
+import com.waves_rsp.ikb4stream.core.util.nlp.OpenNLP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,6 +29,7 @@ public class RSSProducerConnector implements IProducerConnector {
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(RSSProducerConnector.class, "resources/datasource/rss/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(RSSProducerConnector.class);
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
+    private final OpenNLP openNLP = OpenNLP.getOpenNLP(Thread.currentThread());
     private final String source;
     private final URL url;
 
@@ -108,7 +109,7 @@ public class RSSProducerConnector implements IProducerConnector {
     private LatLong geocodeRSS(String text) {
         long start = System.currentTimeMillis();
         GeoCoderJacksonParser geocoder = new GeoCoderJacksonParser();
-        List<String> locations = OpenNLP.applyNLPner(text, OpenNLP.nerOptions.LOCATION);
+        List<String> locations = openNLP.applyNLPner(text, OpenNLP.nerOptions.LOCATION);
         if (!locations.isEmpty()) {
             long end = System.currentTimeMillis();
             METRICS_LOGGER.log("time_geocode_" + this.source, String.valueOf(end - start));
