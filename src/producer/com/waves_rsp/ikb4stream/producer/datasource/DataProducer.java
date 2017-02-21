@@ -28,8 +28,11 @@ public class DataProducer implements IDataProducer {
      * @param event Event to push in DataQueue to be analysed
      */
     public void push(Event event) {
+        long start = System.currentTimeMillis();
         dataQueue.push(event);
-        METRICS_LOGGER.log("event_source", event.getSource());
+        long end = System.currentTimeMillis();
+        long result = end - start;
+        METRICS_LOGGER.log("time_process_"+event.getSource(), String.valueOf(result));
         LOGGER.info("the event "+event.getSource()+" has been pushed into database.");
     }
 }

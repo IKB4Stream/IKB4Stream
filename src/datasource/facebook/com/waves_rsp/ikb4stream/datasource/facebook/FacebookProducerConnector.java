@@ -4,6 +4,7 @@ import com.restfb.*;
 import com.restfb.types.Event;
 import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
 import com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector;
+import com.waves_rsp.ikb4stream.core.metrics.MetricsLogger;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
 import org.slf4j.Logger;
@@ -21,6 +22,7 @@ import java.util.Objects;
 public class FacebookProducerConnector implements IProducerConnector {
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(FacebookProducerConnector.class, "resources/datasource/facebook/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(FacebookProducerConnector.class);
+    private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     private final String source;
     private final String pageAccessToken;
     private final String word;
@@ -53,6 +55,7 @@ public class FacebookProducerConnector implements IProducerConnector {
         Objects.requireNonNull(word);
         List<com.waves_rsp.ikb4stream.core.model.Event> events = new ArrayList<>();
         FacebookClient facebookClient = new DefaultFacebookClient(this.pageAccessToken, Version.LATEST);
+        long startTime = System.currentTimeMillis();
         Connection<Event> publicSearch = facebookClient.fetchConnection("search", Event.class,
                 Parameter.with("q", word),
                 Parameter.with("type", "event"),
@@ -67,7 +70,11 @@ public class FacebookProducerConnector implements IProducerConnector {
                 Date start = eventData.getStartTime();
                 Date end = eventData.getEndTime();
                 String description = eventData.getDescription();
-                events.add(new com.waves_rsp.ikb4stream.core.model.Event(latLong, start, end, description, source));
+                com.waves_rsp.ikb4stream.core.model.Event event = new com.waves_rsp.ikb4stream.core.model.Event(latLong, start, end, description, source);
+                events.add(event);
+                long endTime = System.currentTimeMillis();
+                long result = endTime - startTime;
+                METRICS_LOGGER.log("time_process_"+event.getSource(), String.valueOf(result));
             }
         });
 

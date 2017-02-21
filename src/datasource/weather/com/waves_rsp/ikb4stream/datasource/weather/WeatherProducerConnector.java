@@ -8,6 +8,7 @@ import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
 import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
 import com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector;
+import com.waves_rsp.ikb4stream.core.metrics.MetricsLogger;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
@@ -25,6 +26,7 @@ import java.util.Objects;
 public class WeatherProducerConnector implements IProducerConnector {
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(WeatherProducerConnector.class, "resources/datasource/weather/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(WeatherProducerConnector.class);
+    private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     private final String source;
     private final URL url;
 
@@ -54,6 +56,7 @@ public class WeatherProducerConnector implements IProducerConnector {
                 SyndFeedInput input = new SyndFeedInput(false, Locale.FRANCE);
                 XmlReader reader = new XmlReader(url);
                 SyndFeed feed = input.build(reader);
+                long start = System.currentTimeMillis();
                 feed.getEntries().forEach(entry -> {
                     Date date = entry.getPublishedDate();
                     String description = entry.getDescription().getValue();
@@ -68,6 +71,9 @@ public class WeatherProducerConnector implements IProducerConnector {
                         LatLong latLong = new LatLong(module.getPosition().getLatitude(), module.getPosition().getLongitude());
                         Event event = new Event(latLong, date, date, description, source);
                         dataProducer.push(event);
+                        long end = System.currentTimeMillis();
+                        long result = end - start;
+                        METRICS_LOGGER.log("time_process_"+event.getSource(), String.valueOf(result));
                         LOGGER.info("Event " + event + " has been pushed");
                     }
                 });

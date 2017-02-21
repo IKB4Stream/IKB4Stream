@@ -2,6 +2,7 @@ package com.waves_rsp.ikb4stream.datasource.twitter;
 
 import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
 import com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector;
+import com.waves_rsp.ikb4stream.core.metrics.MetricsLogger;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
@@ -20,6 +21,7 @@ public class TwitterProducerConnector implements IProducerConnector {
     private static final Logger LOGGER = LoggerFactory.getLogger(TwitterProducerConnector.class);
     private final ConfigurationBuilder confBuilder = new ConfigurationBuilder();
     private final String source = PROPERTIES_MANAGER.getProperty("twitter.source");
+    private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
 
     /**
      * Instantiate the object

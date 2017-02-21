@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
 import com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector;
+import com.waves_rsp.ikb4stream.core.metrics.MetricsLogger;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
@@ -24,6 +25,7 @@ import java.util.Objects;
 public class TwitterMock implements IProducerConnector {
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(TwitterMock.class, "resources/datasource/twittermock/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(TwitterMock.class);
+    private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     private final InputStream inputStream;
 
     public TwitterMock(InputStream inputStream) {
@@ -42,6 +44,7 @@ public class TwitterMock implements IProducerConnector {
         ObjectMapper mapper = new ObjectMapper();
         JsonParser parser;
 
+        long start = System.currentTimeMillis();
         try {
             parser = mapper.getFactory().createParser(this.inputStream);
         } catch (IOException e) {
@@ -54,7 +57,7 @@ public class TwitterMock implements IProducerConnector {
                 while(parser.nextToken() == JsonToken.START_OBJECT) {
                     ObjectNode objectNode = mapper.readTree(parser);
                     Event event = getEventFromJson(objectNode);
-                    pushIfValidEvent(dataProducer, event);
+                    pushIfValidEvent(dataProducer, event, start);
                 }
             } catch (IOException e) {
                 LOGGER.error("something went wrong with the tweet reading");
@@ -108,10 +111,12 @@ public class TwitterMock implements IProducerConnector {
      * @param dataProducer
      * @param event
      */
-    private void pushIfValidEvent(IDataProducer dataProducer, Event event) {
+    private void pushIfValidEvent(IDataProducer dataProducer, Event event, long start) {
         if(event != null) {
             dataProducer.push(event);
-            LOGGER.info("Event "+event.toString()+" was correctly pushed");
+            long end = System.currentTimeMillis();
+            long result = end - start;
+            METRICS_LOGGER.log("time_process_"+event.getSource(), String.valueOf(result));
         }else {
             LOGGER.error("An event was discard (missing field)");
         }

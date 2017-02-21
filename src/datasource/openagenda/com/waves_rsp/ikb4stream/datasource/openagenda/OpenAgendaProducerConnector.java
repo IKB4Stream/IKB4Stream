@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
 import com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector;
+import com.waves_rsp.ikb4stream.core.metrics.MetricsLogger;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
@@ -30,6 +31,7 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
     private static final String UTF8 = "utf-8";
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(OpenAgendaProducerConnector.class, "resources/datasource/openagenda/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenAgendaProducerConnector.class);
+    private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     private final String source;
     private final String propDateStart;
     private final String propDateEnd;
@@ -68,7 +70,7 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 List<Event> events = searchEvents();
-                events.stream().forEach(dataProducer::push);
+                events.forEach(dataProducer::push);
                 Thread.sleep(20000);
             } catch (InterruptedException e) {
                 LOGGER.error(e.getMessage());
@@ -124,6 +126,8 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
             JsonNode root = mapper.readTree(is);
             //root
             JsonNode recordsNode = root.path("records");
+
+            long start = System.currentTimeMillis();
             for (JsonNode knode : recordsNode) {
                 JsonNode fieldsNode = knode.path("fields");
                 String transform = "{\"fields\": [" + fieldsNode.toString() + "]}";

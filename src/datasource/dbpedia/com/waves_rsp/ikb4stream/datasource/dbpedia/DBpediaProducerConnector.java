@@ -4,6 +4,7 @@ import com.hp.hpl.jena.query.*;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
 import com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector;
+import com.waves_rsp.ikb4stream.core.metrics.MetricsLogger;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
@@ -24,6 +25,7 @@ import java.util.Objects;
 public class DBpediaProducerConnector implements IProducerConnector {
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(DBpediaProducerConnector.class, "resources/datasource/dbpedia/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(DBpediaProducerConnector.class);
+    private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     private final String source;
     private final String service;
     private final double latitudeMax;
@@ -64,6 +66,7 @@ public class DBpediaProducerConnector implements IProducerConnector {
         Objects.requireNonNull(dataProducer);
         while(!Thread.interrupted()) {
             QueryExecution qexec = null;
+            long start = System.currentTimeMillis();
             try {
                 String query = "prefix db-owl: <http://dbpedia.org/ontology/>\n" +
                         "prefix url-resource: <http://fr.dbpedia.org/resource/>\n" +
@@ -103,7 +106,7 @@ public class DBpediaProducerConnector implements IProducerConnector {
                     RDFNode startDateNode = qs.get("startDate");
                     RDFNode endDateNode = qs.get("endDate");
                     Event event = getEventFromRDFNodes(latitudeNode, longitudeNode, startDateNode, endDateNode, descriptionNode, source);
-                    pushIfValidEvent(dataProducer, event);
+                    pushIfValidEvent(dataProducer, event, start);
                 }
             } catch (IllegalStateException err) {
                 LOGGER.error(err.getMessage());
@@ -184,9 +187,12 @@ public class DBpediaProducerConnector implements IProducerConnector {
         return null;
     }
 
-    private void pushIfValidEvent(IDataProducer dataProducer, Event event) {
+    private void pushIfValidEvent(IDataProducer dataProducer, Event event, long start) {
         if(event != null) {
             dataProducer.push(event);
+            long end = System.currentTimeMillis();
+            long result = end - start;
+            METRICS_LOGGER.log("time_process_"+event.getSource(), String.valueOf(result));
         }
     }
 }
