@@ -53,7 +53,7 @@ public class FacebookScoreProcessor implements IScoreProcessor {
             score = 100;
         }
         long end = System.currentTimeMillis();
-        METRICS_LOGGER.log("scoring_time_" + event.getSource(), String.valueOf(end-start));
+        METRICS_LOGGER.log("time_scoring_" + event.getSource(), String.valueOf(end-start));
         return new Event(event.getLocation(), event.getStart(), event.getEnd(), content, score, event.getSource());
     }
 

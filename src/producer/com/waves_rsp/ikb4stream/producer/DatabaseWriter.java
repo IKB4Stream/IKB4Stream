@@ -98,7 +98,7 @@ public class DatabaseWriter {
             }
             this.mongoCollection.insertOne(document, (result, t) -> callback.onResult(t));
             long end = System.currentTimeMillis();
-            METRICS_LOGGER.log("db_writer_"+event.getSource(), String.valueOf(end-start));
+            METRICS_LOGGER.log("time_dbwriter_"+event.getSource(), String.valueOf(end-start));
         } catch (JsonProcessingException e) {
             LOGGER.error("Invalid event format: event not inserted in database.");
         }

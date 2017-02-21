@@ -100,7 +100,7 @@ public class DatabaseReader implements IDatabaseReader {
                 .into(new ArrayList<Document>(),
                         (result, t) -> {
                             long end = System.currentTimeMillis();
-                            METRICS_LOGGER.log("time_process_into_dbreader", Long.toString(end - start));
+                            METRICS_LOGGER.log("time_dbreader", Long.toString(end - start));
                             LOGGER.info("get event request has been sent to mongo.");
                             callback.onResult(
                                     t,
