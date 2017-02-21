@@ -1,5 +1,6 @@
 package com.waves_rsp.ikb4stream.producer.datasource;
 
+import com.waves_rsp.ikb4stream.core.metrics.MetricsLogger;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
 import org.slf4j.Logger;
@@ -14,9 +15,23 @@ import java.util.concurrent.BlockingQueue;
  * @see DataConsumer
  */
 public class DataQueue {
+
+	    private class PackagedEvent{
+        private final Event event;
+        private final long arrivedTime;
+
+        private PackagedEvent(Event event, long arrivedTime) {
+            Objects.requireNonNull(event);
+            Objects.requireNonNull(arrivedTime);
+            this.event = event;
+            this.arrivedTime = arrivedTime;
+        }
+    }
+
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(DataQueue.class);
+    private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     private static final Logger LOGGER = LoggerFactory.getLogger(DataQueue.class);
-    private final BlockingQueue<Event> queue;
+    private final BlockingQueue<PackagedEvent> queue;
     private final int size;
 
     public DataQueue() {
@@ -37,7 +52,8 @@ public class DataQueue {
      */
     public void push(Event event) {
         Objects.requireNonNull(event);
-        boolean inserted = queue.offer(event);
+        long arrivedTime = System.currentTimeMillis();
+        boolean inserted = queue.offer(new PackagedEvent(event, arrivedTime));
         if (!inserted) {
             LOGGER.warn(event + " cannot be push");
         }
@@ -48,7 +64,10 @@ public class DataQueue {
      * @return Event
      */
     public Event pop() throws InterruptedException {
-        return queue.take();
+    	PackagedEvent packEvent = queue.take();
+    	Event popEvent = packEvent.event;
+        long departTime = System.currentTimeMillis();
+        METRICS_LOGGER.log("life_in_queue_" + popEvent.getSource(), String.valueOf(departTime - packEvent.arrivedTime));
     }
 
     /**

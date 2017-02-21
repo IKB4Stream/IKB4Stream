@@ -9,6 +9,7 @@ import com.mongodb.async.client.MongoDatabase;
 import com.mongodb.client.model.geojson.Point;
 import com.mongodb.client.model.geojson.Polygon;
 import com.mongodb.client.model.geojson.Position;
+import com.waves_rsp.ikb4stream.core.metrics.MetricsLogger;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
 import com.waves_rsp.ikb4stream.producer.model.DatabaseWriterCallback;
@@ -25,7 +26,8 @@ import java.util.stream.Collectors;
  * This class writes data in mongodb database
  */
 public class DatabaseWriter {
-    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(DatabaseWriter.class);
+    private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
+    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(DatabaseWriter.class, "resources/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseWriter.class);
     private static final DatabaseWriter DATABASE_WRITER = new DatabaseWriter();
     private final MongoCollection<Document> mongoCollection;
@@ -79,6 +81,7 @@ public class DatabaseWriter {
         Objects.requireNonNull(event);
         Objects.requireNonNull(callback);
         try {
+            long start = System.currentTimeMillis();
             Document document = Document.parse(mapper.writeValueAsString(event));
             document.remove("start");
             document.remove("end");
@@ -94,6 +97,8 @@ public class DatabaseWriter {
                 document.append(LOCATION_FIELD, new Polygon(positions));
             }
             this.mongoCollection.insertOne(document, (result, t) -> callback.onResult(t));
+            long end = System.currentTimeMillis();
+            METRICS_LOGGER.log("db_writer_"+event.getSource(), String.valueOf(end-start));
         } catch (JsonProcessingException e) {
             LOGGER.error("Invalid event format: event not inserted in database.");
         }
