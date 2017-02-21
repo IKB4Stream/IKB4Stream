@@ -192,7 +192,7 @@ public class DBpediaProducerConnector implements IProducerConnector {
             dataProducer.push(event);
             long end = System.currentTimeMillis();
             long result = end - start;
-            METRICS_LOGGER.log("time_process_"+event.getSource(), String.valueOf(result));
+            METRICS_LOGGER.log("time_process_"+this.source, String.valueOf(result));
         }
     }
 }

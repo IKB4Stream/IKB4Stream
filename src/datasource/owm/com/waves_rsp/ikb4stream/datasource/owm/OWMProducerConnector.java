@@ -12,6 +12,7 @@ import net.aksingh.owmjapis.CurrentWeather;
 import net.aksingh.owmjapis.OpenWeatherMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.util.Date;
 import java.util.Objects;
@@ -59,7 +60,7 @@ public class OWMProducerConnector implements IProducerConnector{
         CurrentWeather currentWeather = openWeatherMap.currentWeatherByCoordinates((float)this.latitude, (float)this.longitude);
         try{
             JsonNode jn = objectMapper.readTree(currentWeather.getRawResponse());
-            String description = currentWeather.getRawResponse().toString();
+            String description = currentWeather.getRawResponse();
             LatLong latLong = new LatLong(Double.valueOf(jn.path("coord").path("lat").toString()), Double.valueOf(jn.path("coord").path("lon").toString()));
             Date start = new Date(Long.valueOf(jn.path("dt").toString())*1000);
             Date end = new Date(start.getTime()+requestInterval-1000);
@@ -98,7 +99,7 @@ public class OWMProducerConnector implements IProducerConnector{
                     dataProducer.push(event);
                     long end = System.currentTimeMillis();
                     long result = end - start;
-                    METRICS_LOGGER.log("time_process_"+event.getSource(), String.valueOf(result));
+                    METRICS_LOGGER.log("time_process_"+this.source, String.valueOf(result));
                 }
                 Thread.sleep(requestInterval);
             } catch (InterruptedException e) {

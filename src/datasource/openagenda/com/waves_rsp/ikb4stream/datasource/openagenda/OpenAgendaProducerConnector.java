@@ -31,6 +31,7 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
     private static final String UTF8 = "utf-8";
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(OpenAgendaProducerConnector.class, "resources/datasource/openagenda/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenAgendaProducerConnector.class);
+    private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     private final String source;
     private final String propDateStart;
     private final String propDateEnd;
@@ -68,8 +69,11 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
         Objects.requireNonNull(dataProducer);
         while (!Thread.currentThread().isInterrupted()) {
             try {
+                long start = System.currentTimeMillis();
                 List<Event> events = searchEvents();
+                long end = System.currentTimeMillis();
                 events.forEach(dataProducer::push);
+                METRICS_LOGGER.log("time_process_"+this.source, String.valueOf(end - start));
                 Thread.sleep(20000);
             } catch (InterruptedException e) {
                 LOGGER.error(e.getMessage());
