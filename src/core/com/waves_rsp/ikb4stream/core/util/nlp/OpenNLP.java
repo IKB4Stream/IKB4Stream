@@ -168,12 +168,13 @@ public class OpenNLP {
      */
     public List<String> applyNLPlemma(String post, int limit) {
         Objects.requireNonNull(post);
-        if (post.length() > limit) {
-            post = post.substring(0, limit);
+        String tmpPost = post;
+        if (tmpPost.length() > limit) {
+            tmpPost = post.substring(0, limit);
         }
         Map<String, String> input;
         List<String> output = new ArrayList<>();
-        input = lemmatize(post);
+        input = lemmatize(tmpPost);
         input.forEach((w, pos) -> {
             if (w.startsWith("#")) {
                 //if it's a hashtag

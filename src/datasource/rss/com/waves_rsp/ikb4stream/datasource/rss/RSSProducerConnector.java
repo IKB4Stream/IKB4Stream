@@ -52,33 +52,16 @@ public class RSSProducerConnector implements IProducerConnector {
                 long start = System.currentTimeMillis(); //metrics
                 SyndFeedInput input = new SyndFeedInput();
                 SyndFeed feed = input.build(new XmlReader(this.url));
-
                 feed.getEntries().forEach(entry -> {
-                    Date startDate = entry.getPublishedDate();
-                    String title = entry.getTitle();
-                    String description = entry.getDescription().getValue();
-                    if (description == null)
-                        description = "";
-
                     Date endDate = Date.from(Instant.now());
-                    if (startDate == null)
-                        startDate = endDate;
-
-                    String completeDesc = title + " " + description;
+                    Date startDate = (entry.getPublishedDate() != null) ? entry.getPublishedDate() : endDate;
+                    String description = (entry.getDescription().getValue() != null) ? entry.getDescription().getValue() : "";
+                    String completeDesc = entry.getTitle() + " " + description;
                     GeoRSSModule module = GeoRSSUtils.getGeoRSS(entry);
-                    if (module != null && module.getPosition() != null) {
-                        LatLong latLong = new LatLong(module.getPosition().getLatitude(), module.getPosition().getLongitude());
+                    LatLong latLong = getLatLong(module, completeDesc);
+                    if (latLong != null) {
                         Event event = new Event(latLong, startDate, endDate, completeDesc, source);
                         dataProducer.push(event);
-                    } else {
-
-                        LatLong latlong = geocodeRSS(completeDesc);
-                        if (latlong != null) {
-                            Event event = new Event(latlong, startDate, endDate, completeDesc, source);
-                            dataProducer.push(event);
-                        } else {
-                            LOGGER.info("Can't geocode this RSS ");
-                        }
                     }
                 });
                 long end = System.currentTimeMillis();
@@ -89,6 +72,14 @@ public class RSSProducerConnector implements IProducerConnector {
         }
     }
 
+    private LatLong getLatLong(GeoRSSModule module, String desc) {
+        if (module != null) {
+            return new LatLong(module.getPosition().getLatitude(), module.getPosition().getLongitude());
+        } else if (desc != null) {
+            return geocodeRSS(desc);
+        }
+        return null;
+    }
 
     @Override
     public boolean isActive() {

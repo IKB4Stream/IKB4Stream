@@ -1,14 +1,10 @@
 package com.waves_rsp.ikb4stream.datasource.owm;
 
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.waves_rsp.ikb4stream.core.metrics.MetricsLogger;
-import com.waves_rsp.ikb4stream.core.model.Event;
-import net.aksingh.owmjapis.CurrentWeather;
-import net.aksingh.owmjapis.OpenWeatherMap;
 import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
 import com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector;
+import com.waves_rsp.ikb4stream.core.metrics.MetricsLogger;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
@@ -16,7 +12,6 @@ import net.aksingh.owmjapis.CurrentWeather;
 import net.aksingh.owmjapis.OpenWeatherMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.util.Date;
 import java.util.Objects;
@@ -24,13 +19,13 @@ import java.util.Objects;
 public class OWMProducerConnector implements IProducerConnector{
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(OWMProducerConnector.class, "resources/datasource/owm/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(OWMProducerConnector.class);
+    private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
+    private final OpenWeatherMap openWeatherMap;
+    private final Long requestInterval;
+    private final double longitude;
+    private final double latitude;
     private final String source;
     private final String owmKey;
-    private final double latitude;
-    private final double longitude;
-    private final Long requestInterval;
-    private final OpenWeatherMap openWeatherMap;
-    private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
 
     /**
      * Instantiate the OWMProducerConnector object with load properties
@@ -62,11 +57,9 @@ public class OWMProducerConnector implements IProducerConnector{
         Objects.requireNonNull(longitude);
         ObjectMapper  objectMapper = new ObjectMapper();
         CurrentWeather currentWeather = openWeatherMap.currentWeatherByCoordinates((float)this.latitude, (float)this.longitude);
-
         try{
             JsonNode jn = objectMapper.readTree(currentWeather.getRawResponse());
             String description = currentWeather.getRawResponse().toString();
-
             LatLong latLong = new LatLong(Double.valueOf(jn.path("coord").path("lat").toString()), Double.valueOf(jn.path("coord").path("lon").toString()));
             Date start = new Date(Long.valueOf(jn.path("dt").toString())*1000);
             Date end = new Date(start.getTime()+requestInterval-1000);
@@ -79,7 +72,6 @@ public class OWMProducerConnector implements IProducerConnector{
             return  null;
         }
     }
-
 
     /**
      * Listen events from Open Weather Map and load them with the data producer object

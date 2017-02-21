@@ -31,7 +31,6 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
     private static final String UTF8 = "utf-8";
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(OpenAgendaProducerConnector.class, "resources/datasource/openagenda/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenAgendaProducerConnector.class);
-    private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     private final String source;
     private final String propDateStart;
     private final String propDateEnd;
@@ -120,20 +119,16 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
         InputStream is;
         ObjectMapper mapper = new ObjectMapper();
         ObjectMapper fieldMapper = new ObjectMapper();
-
         try {
             is = createURL().openStream();
             JsonNode root = mapper.readTree(is);
             //root
             JsonNode recordsNode = root.path("records");
-
-            long start = System.currentTimeMillis();
             for (JsonNode knode : recordsNode) {
                 JsonNode fieldsNode = knode.path("fields");
                 String transform = "{\"fields\": [" + fieldsNode.toString() + "]}";
                 JsonNode rootBis = fieldMapper.readTree(transform);
                 JsonNode fieldsRoodNode = rootBis.path("fields");
-
                 for (JsonNode subknode : fieldsRoodNode) {
                     String latlon = subknode.path("latlon").toString();
                     String title = subknode.path("title").asText();
@@ -142,7 +137,6 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
                     String dateEnd = subknode.path("date_end").asText();
                     String city = subknode.path("city").asText();
                     String address = subknode.path("address").asText();
-
                     events.add(createEvent(latlon, title, description, dateStart, dateEnd, city, address));
 
                 }
