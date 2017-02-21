@@ -69,20 +69,19 @@ public class RSSProducerConnector implements IProducerConnector {
                         LatLong latLong = new LatLong(module.getPosition().getLatitude(), module.getPosition().getLongitude());
                         Event event = new Event(latLong, startDate, endDate, completeDesc, source);
                         dataProducer.push(event);
-                    }else {
+                    } else {
 
                         LatLong latlong = geocodeRSS(completeDesc);
                         if (latlong != null) {
                             Event event = new Event(latlong, startDate, endDate, completeDesc, source);
                             dataProducer.push(event);
-                        }
-                        else{
+                        } else {
                             LOGGER.info("Can't geocode this RSS ");
                         }
                     }
                 });
                 long end = System.currentTimeMillis();
-                METRICS_LOGGER.log("time_process_" + this.source , String.valueOf(end-start));
+                METRICS_LOGGER.log("time_process_" + this.source, String.valueOf(end - start));
             } catch (IOException | FeedException e) {
                 LOGGER.error("Can't parse RSS [] ", e);
             }
@@ -97,6 +96,7 @@ public class RSSProducerConnector implements IProducerConnector {
         } catch (IllegalArgumentException e) {
             return true;
         }
+    }
 
     /**
      * Select a list of location from a RSS with the NER OpenNLP algorithme.
@@ -111,7 +111,7 @@ public class RSSProducerConnector implements IProducerConnector {
         List<String> locations = OpenNLP.applyNLPner(text, OpenNLP.nerOptions.LOCATION);
         if (!locations.isEmpty()) {
             long end = System.currentTimeMillis();
-            METRICS_LOGGER.log("time_geocode_" + this.source, String.valueOf(end-start));
+            METRICS_LOGGER.log("time_geocode_" + this.source, String.valueOf(end - start));
             return geocoder.parse(locations.get(0));
         }
         return null;
