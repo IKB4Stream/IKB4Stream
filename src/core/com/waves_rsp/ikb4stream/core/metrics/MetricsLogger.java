@@ -126,7 +126,7 @@ public class MetricsLogger {
         }
     }
 
-    private boolean checkValidInfluxDBConnexion() {
+    public boolean checkValidInfluxDBConnexion() {
         return metricsConnector != null && metricsConnector.getInfluxDB() != null && metricsConnector.isConnexionEnabled();
     }
 

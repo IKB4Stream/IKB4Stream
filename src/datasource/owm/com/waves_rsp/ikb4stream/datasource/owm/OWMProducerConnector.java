@@ -3,6 +3,10 @@ package com.waves_rsp.ikb4stream.datasource.owm;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.waves_rsp.ikb4stream.core.metrics.MetricsLogger;
+import com.waves_rsp.ikb4stream.core.model.Event;
+import net.aksingh.owmjapis.CurrentWeather;
+import net.aksingh.owmjapis.OpenWeatherMap;
 import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
 import com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector;
 import com.waves_rsp.ikb4stream.core.model.Event;
@@ -26,6 +30,7 @@ public class OWMProducerConnector implements IProducerConnector{
     private final double longitude;
     private final Long requestInterval;
     private final OpenWeatherMap openWeatherMap;
+    private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
 
     /**
      * Instantiate the OWMProducerConnector object with load properties
@@ -95,9 +100,13 @@ public class OWMProducerConnector implements IProducerConnector{
         Objects.requireNonNull(dataProducer);
         while (!Thread.currentThread().isInterrupted()) {
             try {
-                Event event = getCurrentWeather(latitude, longitude);
+                long start = System.currentTimeMillis();
+                Event event = getCurrentWeather(this.latitude, this.longitude);
                 if(event!= null) {
                     dataProducer.push(event);
+                    long end = System.currentTimeMillis();
+                    long result = end - start;
+                    METRICS_LOGGER.log("processing_time_"+event.getSource(), String.valueOf(result));
                 }
                 Thread.sleep(requestInterval);
             } catch (InterruptedException e) {

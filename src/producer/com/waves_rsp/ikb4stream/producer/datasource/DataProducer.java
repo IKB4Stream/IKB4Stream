@@ -28,8 +28,8 @@ public class DataProducer implements IDataProducer {
      * @param event Event to push in DataQueue to be analysed
      */
     public void push(Event event) {
+        dataQueue.push(event);
         METRICS_LOGGER.log("event_source", event.getSource());
         LOGGER.info("the event "+event.getSource()+" has been pushed into database.");
-        dataQueue.push(event);
     }
 }

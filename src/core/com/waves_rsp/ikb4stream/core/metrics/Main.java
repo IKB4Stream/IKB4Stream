@@ -14,7 +14,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        if(!METRICS_LOGGER.isInfluxServiceEnabled()) {
+        if(!METRICS_LOGGER.isInfluxServiceEnabled() || !METRICS_LOGGER.checkValidInfluxDBConnexion()) {
             return;
         }
 
@@ -67,7 +67,6 @@ public class Main {
 
     private static void processPush(String[] tokens) {
         if (tokens.length >= 3) {
-            LOGGER.info("PUSH metrics into influx database.");
             METRICS_LOGGER.log(tokens[1], tokens[2]);
         }else {
             LOGGER.warn("wrong arguments for command PUSH : PUSH <arg1> <arg2>");

@@ -48,7 +48,7 @@ public class DBpediaProducerConnector implements IProducerConnector {
             resource = PROPERTIES_MANAGER.getProperty("dbpedia.resource");
             limit = Integer.valueOf(PROPERTIES_MANAGER.getProperty("dbpedia.limit"));
         } catch (IllegalArgumentException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error("Bad properties loaded: {}", e);
             throw new IllegalStateException(e.getMessage());
         }
     }

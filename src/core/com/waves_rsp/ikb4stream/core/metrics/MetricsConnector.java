@@ -32,7 +32,7 @@ public class MetricsConnector {
             try {
                 influxDB = checkInfluxConnexion();
             } catch (IllegalArgumentException e) {
-                LOGGER.error("Bad connexion properties loaded: {}", e);
+                LOGGER.warn("Bad connexion properties loaded: ", e.getMessage());
                 throw new IllegalStateException(e.getMessage());
             } catch (RuntimeException | ConnectException e) {
                 LOGGER.error("Can't connect to the influx service: {}", e);
@@ -51,7 +51,7 @@ public class MetricsConnector {
      * Instantiates the influx connector for metrics
      * @return metrics connector
      */
-    public static MetricsConnector getMetricsConnector() {
+    static MetricsConnector getMetricsConnector() {
         return new MetricsConnector();
     }
 
@@ -66,12 +66,11 @@ public class MetricsConnector {
         }
     }
 
-    public boolean isConnexionEnabled() {
+    boolean isConnexionEnabled() {
         return isConnexionEnabled;
     }
 
-
-    public InfluxDB getInfluxDB() {
+    InfluxDB getInfluxDB() {
         if(connectorService == null) {
             return null;
         }
