@@ -106,9 +106,12 @@ public class RSSProducerConnector implements IProducerConnector {
      * @return a latLong coordinates
      */
     private LatLong geocodeRSS(String text) {
+        long start = System.currentTimeMillis();
         GeoCoderJacksonParser geocoder = new GeoCoderJacksonParser();
         List<String> locations = OpenNLP.applyNLPner(text, OpenNLP.nerOptions.LOCATION);
         if (!locations.isEmpty()) {
+            long end = System.currentTimeMillis();
+            METRICS_LOGGER.log("time_geocode" + this.source, String.valueOf(end-start));
             return geocoder.parse(locations.get(0));
         }
         return null;
