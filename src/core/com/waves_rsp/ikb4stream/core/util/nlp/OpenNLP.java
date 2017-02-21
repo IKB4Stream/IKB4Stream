@@ -1,66 +1,61 @@
-package com.waves_rsp.ikb4stream.core.util;
+package com.waves_rsp.ikb4stream.core.util.nlp;
 
 import opennlp.tools.lemmatizer.DictionaryLemmatizer;
 import opennlp.tools.lemmatizer.SimpleLemmatizer;
 import opennlp.tools.namefind.NameFinderME;
-import opennlp.tools.namefind.TokenNameFinderModel;
-import opennlp.tools.postag.POSModel;
 import opennlp.tools.postag.POSTaggerME;
 import opennlp.tools.sentdetect.SentenceDetectorME;
-import opennlp.tools.sentdetect.SentenceModel;
 import opennlp.tools.tokenize.Tokenizer;
 import opennlp.tools.tokenize.TokenizerME;
-import opennlp.tools.tokenize.TokenizerModel;
 import opennlp.tools.util.Span;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 
 public class OpenNLP {
     private static final String PATH_DICTIONARIES = "resources/opennlp-models/dictionaries/lemma_dict_lefff";
-    private static final String PATH_BINARIES = "resources/opennlp-models/binaries/";
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenNLP.class);
-    private static final NameFinderME NAME_FINDER_PERS;
-    private static final NameFinderME NAME_FINDER_ORG;
-    private static final NameFinderME NAME_FINDER_LOC;
-    private static final SentenceDetectorME DETECTOR;
-    private static final Tokenizer TOKENIZER;
-    private static final POSTaggerME TAGGER;
+    private static final Map<Thread, OpenNLP> INSTANCES = new HashMap<>();
+    private final DictionaryLemmatizer lemmatizer;
+    private final SentenceDetectorME detector;
+    private final NameFinderME nameFinderPers;
+    private final NameFinderME nameFinderOrg;
+    private final NameFinderME nameFinderLoc;
+    private final Tokenizer tokenizer;
+    private final POSTaggerME tagger;
 
-
-    static {
+    /**
+     *
+     */
+    private OpenNLP() {
         try {
-            InputStream fileFrSentBin = new FileInputStream(PATH_BINARIES + "fr-sent.bin");
-            DETECTOR = new SentenceDetectorME(new SentenceModel(fileFrSentBin));
-            fileFrSentBin.close();
-
-            InputStream fileFrTokenBin = new FileInputStream(PATH_BINARIES + "fr-token.bin");
-            TOKENIZER = new TokenizerME(new TokenizerModel(fileFrTokenBin));
-            fileFrTokenBin.close();
-
-            InputStream fileFrPosMaxent2Bin = new FileInputStream(PATH_BINARIES + "fr-pos-maxent-2.bin");
-            TAGGER = new POSTaggerME(new POSModel(fileFrPosMaxent2Bin));
-            fileFrPosMaxent2Bin.close();
-
-            InputStream frNerOrganizationBin = new FileInputStream(PATH_BINARIES + "fr-ner-organization.bin");
-            NAME_FINDER_ORG = new NameFinderME(new TokenNameFinderModel(frNerOrganizationBin));
-            frNerOrganizationBin.close();
-
-            InputStream fileFrNerLocationBin = new FileInputStream(PATH_BINARIES + "fr-ner-location.bin");
-            NAME_FINDER_LOC = new NameFinderME(new TokenNameFinderModel(fileFrNerLocationBin));
-            fileFrNerLocationBin.close();
-
-            InputStream fileNerPersonBin = new FileInputStream(PATH_BINARIES + "fr-ner-person.bin");
-            NAME_FINDER_PERS = new NameFinderME(new TokenNameFinderModel(fileNerPersonBin));
-            fileNerPersonBin.close();
+            detector = new SentenceDetectorME(LoaderNLP.getSentenceModel());
+            tokenizer = new TokenizerME(LoaderNLP.getTokenizerModel());
+            tagger = new POSTaggerME(LoaderNLP.getPosModel());
+            nameFinderOrg = new NameFinderME(LoaderNLP.getTokenNameFinderModelOrg());
+            nameFinderLoc = new NameFinderME(LoaderNLP.getTokenNameFinderModelLoc());
+            nameFinderPers = new NameFinderME(LoaderNLP.getTokenNameFinderModelPers());
+            InputStream inputStream = new FileInputStream(PATH_DICTIONARIES);
+            lemmatizer = new SimpleLemmatizer(inputStream);
+            inputStream.close();
         } catch (IOException e) {
             LOGGER.error(e.getMessage());
             throw new IllegalStateException(e);
         }
     }
 
+    /**
+     * Get instance of OpenNLP for each thread because Apache OpenNLP is not thread safe
+     * @param thread Thread needs OpenNLP
+     * @return Instance of OpenNLP
+     */
+    public static OpenNLP getOpenNLP(Thread thread) {
+        return INSTANCES.computeIfAbsent(thread, t -> new OpenNLP());
+    }
 
     /**
      * Enum the ner options
@@ -75,9 +70,9 @@ public class OpenNLP {
      * @param text to analyze
      * @return an array of sentences
      */
-    private static String[] detectSentences(String text) {
+    private String[] detectSentences(String text) {
         Objects.requireNonNull(text);
-        return DETECTOR.sentDetect(text);
+        return detector.sentDetect(text);
     }
 
     /**
@@ -86,9 +81,9 @@ public class OpenNLP {
      * @param text to tokenize
      * @return an array of words
      */
-    private static String[] learnableTokenize(String text) {
+    private String[] learnableTokenize(String text) {
         Objects.requireNonNull(text);
-        return TOKENIZER.tokenize(text);
+        return tokenizer.tokenize(text);
     }
 
     /**
@@ -97,9 +92,9 @@ public class OpenNLP {
      * @param tokens is a tokenize text
      * @return an array of posTag
      */
-    private static String[] posTagging(String[] tokens) {
+    private String[] posTagging(String[] tokens) {
         Objects.requireNonNull(tokens);
-        return TAGGER.tag(tokens);
+        return tagger.tag(tokens);
     }
 
     /**
@@ -108,9 +103,9 @@ public class OpenNLP {
      * @param tokens are an array of string to analyze
      * @return an array of entity detected as an organization
      */
-    private static Span[] findOrganizationName(String[] tokens) {
+    private Span[] findOrganizationName(String[] tokens) {
         Objects.requireNonNull(tokens);
-        return NAME_FINDER_ORG.find(tokens);
+        return nameFinderOrg.find(tokens);
     }
 
     /**
@@ -119,9 +114,9 @@ public class OpenNLP {
      * @param tokens are an array of string to analyze
      * @return an array of entity detected as a location
      */
-    private static Span[] findLocationName(String[] tokens) {
+    private Span[] findLocationName(String[] tokens) {
         Objects.requireNonNull(tokens);
-        return NAME_FINDER_LOC.find(tokens);
+        return nameFinderLoc.find(tokens);
     }
 
     /**
@@ -130,9 +125,9 @@ public class OpenNLP {
      * @param tokens are an array of string to analyze
      * @return an array of entity detected as a personnality
      */
-    private static Span[] findPersonName(String[] tokens) {
+    private Span[] findPersonName(String[] tokens) {
         Objects.requireNonNull(tokens);
-        return NAME_FINDER_PERS.find(tokens);
+        return nameFinderPers.find(tokens);
     }
 
     /**
@@ -141,10 +136,8 @@ public class OpenNLP {
      * @param text to lemmatize
      * @return Map of each lemmatize word with the POStag associate
      */
-    private static Map<String, String> lemmatize(String text) throws IOException {
+    private Map<String, String> lemmatize(String text) {
         Objects.requireNonNull(text);
-        InputStream inputStream = new FileInputStream(PATH_DICTIONARIES);
-        DictionaryLemmatizer lemmatizer = new SimpleLemmatizer(inputStream);
         Map<String, String> lemmatizedTokens = new HashMap<>();
         // Split tweet text content in sentences
         String[] sentences = detectSentences(text);
@@ -160,11 +153,9 @@ public class OpenNLP {
                     //if the POStag start with V, we just keep the tag V for simplify the lemmatization with the dictionnary
                     tags[i] = "V";
                 }
-
                 lemmatizedTokens.put(lemmatizer.lemmatize(learnableTokens[i], tags[i]), tags[i]);
             }
         }
-        inputStream.close();
         return lemmatizedTokens;
     }
 
@@ -175,29 +166,25 @@ public class OpenNLP {
      * @param limit is the limit to have the n first characters
      * @return list of selected words.
      */
-    public static List<String> applyNLPlemma(String post, int limit) {
+    public List<String> applyNLPlemma(String post) {
         Objects.requireNonNull(post);
         if (post.length() > limit) {
             post = post.substring(0, limit);
         }
         Map<String, String> input;
         List<String> output = new ArrayList<>();
-        try {
-            input = lemmatize(post);
-            input.forEach((w, pos) -> {
-                if (w.startsWith("#")) {
-                    //if it's a hashtag
+        input = lemmatize(post);
+        input.forEach((w, pos) -> {
+            if (w.startsWith("#")) {
+                //if it's a hashtag
+                output.add(w);
+            } else {
+                if (pos.startsWith("N") || pos.startsWith("V")) {
                     output.add(w);
-                } else {
-                    if (pos.startsWith("N") || pos.startsWith("V")) {
-                        output.add(w);
-                    }
                 }
+            }
 
-            });
-        } catch (IOException e) {
-            LOGGER.error(e.getMessage());
-        }
+        });
         return output;
     }
 
@@ -218,7 +205,7 @@ public class OpenNLP {
      * @param ner  ENUM : LOCATION, ORGANIZATION or PERSON : type of NER analyse
      * @return List of selected words by NER
      */
-    public static List<String> applyNLPner(String post, nerOptions ner) {
+    public List<String> applyNLPner(String post, nerOptions ner) {
         Objects.requireNonNull(post);
         Objects.requireNonNull(ner);
         List<String> words = new ArrayList<>();
@@ -245,5 +232,4 @@ public class OpenNLP {
         }
         return words;
     }
-
 }

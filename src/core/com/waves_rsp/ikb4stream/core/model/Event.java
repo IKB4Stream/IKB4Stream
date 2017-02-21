@@ -3,6 +3,7 @@ package com.waves_rsp.ikb4stream.core.model;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Event class represents an event with starting date and end date
@@ -32,7 +33,9 @@ public class Event {
         Objects.requireNonNull(description);
         Objects.requireNonNull(source);
         if(source.isEmpty()) { throw new IllegalArgumentException("Source argument cannot be empty."); }
-        if(location[0] != location[location.length - 1]) { throw new IllegalArgumentException("BoundingBox is not closed."); }
+        if(!location[0].equals(location[location.length - 1])) {
+            throw new IllegalArgumentException("BoundingBox is not closed.");
+        }
 
         this.location = location;
         this.start = start;
@@ -61,7 +64,10 @@ public class Event {
         Objects.requireNonNull(source);
         if(source.isEmpty()) { throw new IllegalArgumentException("Source argument cannot be empty."); }
         if(score < 0 || score > 100) { throw new IllegalArgumentException("Score need to be between 0 and 100."); }
-        if(location[0] != location[location.length - 1]) { throw new IllegalArgumentException("BoundingBox is not closed."); }
+        if(!location[0].equals(location[location.length - 1])) {
+            throw new IllegalArgumentException("BoundingBox is not closed.");
+        }
+
 
         this.location = location;
         this.start = start;
@@ -182,7 +188,7 @@ public class Event {
     @Override
     public String toString() {
         return "Event{" +
-                "location=" + location +
+                "location=" + Arrays.stream(location).map(LatLong::toString).collect(Collectors.joining(",", "[", "]")) +
                 ", start=" + start +
                 ", end=" + end +
                 ", description='" + description + '\'' +

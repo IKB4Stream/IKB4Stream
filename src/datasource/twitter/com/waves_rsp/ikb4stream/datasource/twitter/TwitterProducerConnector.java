@@ -21,13 +21,25 @@ public class TwitterProducerConnector implements IProducerConnector {
     private static final Logger LOGGER = LoggerFactory.getLogger(TwitterProducerConnector.class);
     private final ConfigurationBuilder confBuilder = new ConfigurationBuilder();
     private final String source = PROPERTIES_MANAGER.getProperty("twitter.source");
-    private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
+    private final double latitudeMax;
+    private final double latitudeMin;
+    private final double longitudeMax;
+    private final double longitudeMin;
 
     /**
      * Instantiate the object
      */
     public TwitterProducerConnector() {
-        //Do nothing
+        loadTwitterProperties();
+        try {
+            latitudeMax = Double.valueOf(PROPERTIES_MANAGER.getProperty("twitter.latitude.maximum"));
+            latitudeMin = Double.valueOf(PROPERTIES_MANAGER.getProperty("twitter.latitude.minimum"));
+            longitudeMax = Double.valueOf(PROPERTIES_MANAGER.getProperty("twitter.longitude.maximum"));
+            longitudeMin = Double.valueOf(PROPERTIES_MANAGER.getProperty("twitter.longitude.minimum"));
+        } catch (IllegalArgumentException e) {
+            LOGGER.error("Invalid properties {}", e.getMessage());
+            throw new IllegalStateException(e);
+        }
     }
 
     /**
@@ -40,12 +52,6 @@ public class TwitterProducerConnector implements IProducerConnector {
         Objects.requireNonNull(dataProducer);
         TwitterStream twitterStream = null;
         try {
-            loadTwitterProperties();
-            double latitudeMax = Double.valueOf(PROPERTIES_MANAGER.getProperty("twitter.latitude.maximum"));
-            double latitudeMin = Double.valueOf(PROPERTIES_MANAGER.getProperty("twitter.latitude.minimum"));
-            double longitudeMax = Double.valueOf(PROPERTIES_MANAGER.getProperty("twitter.longitude.maximum"));
-            double longitudeMin = Double.valueOf(PROPERTIES_MANAGER.getProperty("twitter.longitude.minimum"));
-
             TwitterStreamListener streamListener = new TwitterStreamListener(dataProducer);
             twitterStream = new TwitterStreamFactory(confBuilder.build()).getInstance();
             twitterStream.addListener(streamListener);
@@ -83,18 +89,13 @@ public class TwitterProducerConnector implements IProducerConnector {
      */
     private void loadTwitterProperties() {
         try {
-            String keyAuthToken = PROPERTIES_MANAGER.getProperty("twitter.key.auth.accesstoken");
-            String secretAuthToken = PROPERTIES_MANAGER.getProperty("twitter.secret.auth.accesstoken");
-            String keyConsumerToken = PROPERTIES_MANAGER.getProperty("twitter.key.consumer.accesstoken");
-            String secretConsumerToken = PROPERTIES_MANAGER.getProperty("twitter.secret.consumer.accesstoken");
-
-            confBuilder.setOAuthAccessToken(keyAuthToken);
-            confBuilder.setOAuthAccessTokenSecret(secretAuthToken);
-            confBuilder.setOAuthConsumerKey(keyConsumerToken);
-            confBuilder.setOAuthConsumerSecret(secretConsumerToken);
+            confBuilder.setOAuthAccessToken(PROPERTIES_MANAGER.getProperty("twitter.key.auth.accesstoken"));
+            confBuilder.setOAuthAccessTokenSecret(PROPERTIES_MANAGER.getProperty("twitter.secret.auth.accesstoken"));
+            confBuilder.setOAuthConsumerKey(PROPERTIES_MANAGER.getProperty("twitter.key.consumer.accesstoken"));
+            confBuilder.setOAuthConsumerSecret(PROPERTIES_MANAGER.getProperty("twitter.secret.consumer.accesstoken"));
             confBuilder.setJSONStoreEnabled(true);
         }catch (IllegalArgumentException err) {
-            LOGGER.error("Load Twitter Properties = " + err.getMessage());
+            LOGGER.error("Load Twitter Properties {} ", err.getMessage());
             throw new IllegalArgumentException(err.getMessage());
         }
     }
@@ -129,7 +130,6 @@ public class TwitterProducerConnector implements IProducerConnector {
                         event = new Event(latLong, start, end, jsonObject.toString(), source);
                     }
                     this.dataProducer.push(event);
-                    LOGGER.info("Event inserted : " + event);
                 } catch (JSONException e) {
                     LOGGER.error(e.getMessage());
                 }
@@ -142,7 +142,13 @@ public class TwitterProducerConnector implements IProducerConnector {
             } else if (status.getPlace() != null && status.getPlace().getBoundingBoxCoordinates() != null) {
                 return getLatLongFromBoudingBox(status.getPlace().getBoundingBoxCoordinates());
             } else {
-                return new LatLong[0];
+                return new LatLong[] {
+                        new LatLong(latitudeMin, longitudeMin),
+                        new LatLong(latitudeMax, longitudeMin),
+                        new LatLong(latitudeMax, longitudeMax),
+                        new LatLong(latitudeMin, longitudeMax),
+                        new LatLong(latitudeMin, longitudeMin)
+                };
             }
         }
 

@@ -4,8 +4,8 @@ import com.waves_rsp.ikb4stream.core.datasource.model.IScoreProcessor;
 import com.waves_rsp.ikb4stream.core.metrics.MetricsLogger;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
-import com.waves_rsp.ikb4stream.core.util.OpenNLP;
 import com.waves_rsp.ikb4stream.core.util.RulesReader;
+import com.waves_rsp.ikb4stream.core.util.nlp.OpenNLP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,22 +39,21 @@ public class FacebookScoreProcessor implements IScoreProcessor {
         Objects.requireNonNull(event);
         long start = System.currentTimeMillis();
         String content = event.getDescription();
-        List<String> fbList = OpenNLP.applyNLPlemma(content);
+        OpenNLP openNLP = OpenNLP.getOpenNLP(Thread.currentThread());
+        List<String> fbList = openNLP.applyNLPlemma(content);
         Map<String, Integer> rulesMap = RulesReader.parseJSONRules(ruleFilename);
         byte score = 0;
-
         for (String word : fbList) {
             if (rulesMap.containsKey(word)) {
                 score += rulesMap.get(word);
             }
         }
-
         if (score > 100) {
             score = 100;
         }
         long end = System.currentTimeMillis();
         METRICS_LOGGER.log("time_scoring_" + event.getSource(), String.valueOf(end-start));
-        return new Event(event.getLocation(), event.getStart(), event.getEnd(), content, score, event.getSource());
+        return new Event(event.getLocation(), event.getStart(), event.getEnd(), event.getDescription(), score, event.getSource());
     }
 
     @Override

@@ -56,8 +56,6 @@ public class ProducerManager {
         int nbThreadConsumer = 10;
         try {
             nbThreadConsumer = Integer.parseInt(PROPERTIES_MANAGER.getProperty("producer.thread"));
-        } catch (NumberFormatException e) {
-            LOGGER.warn("producer.thread is not a number, use default value");
         } catch (IllegalArgumentException e) {
             LOGGER.warn("Use default value for producer.thread");
         }
@@ -102,8 +100,7 @@ public class ProducerManager {
         try {
             return PROPERTIES_MANAGER.getProperty("producer.path");
         } catch (IllegalArgumentException e) {
-            LOGGER.warn(e.getMessage());
-            LOGGER.warn("There is no ProducerConnector to load");
+            LOGGER.warn("There is no ProducerConnector to load {}", e.getMessage());
             return null;
         }
     }

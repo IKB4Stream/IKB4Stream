@@ -37,6 +37,6 @@ public class BoundingBox {
 
     @Override
     public String toString() {
-        return '[' + Arrays.stream(latLongs).map(LatLong::toString).collect(Collectors.joining("{", ",", "}")) + "]";
+        return '[' + Arrays.stream(latLongs).map(LatLong::toString).collect(Collectors.joining(",", "{", "}")) + "]";
     }
 }

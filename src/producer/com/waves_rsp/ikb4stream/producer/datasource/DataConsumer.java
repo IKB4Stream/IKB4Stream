@@ -58,6 +58,7 @@ public class DataConsumer {
             try {
                 Event event = dataQueue.pop();
                 Event eventClone = scoreProcessorManger.processScore(event);
+                LOGGER.info("Event {} has been scored", eventClone);
                 if (filter(eventClone, targetScore)) {
                     DATABASE_WRITER.insertEvent(eventClone, t -> {
                         METRICS_LOGGER.log("event_scored", ""+eventClone.getScore());

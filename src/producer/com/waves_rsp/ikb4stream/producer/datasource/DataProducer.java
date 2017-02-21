@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
  */
 public class DataProducer implements IDataProducer {
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
-    private static final Logger LOGGER = LoggerFactory.getLogger(DataProducer.class);
     private final DataQueue dataQueue;
 
     /**
