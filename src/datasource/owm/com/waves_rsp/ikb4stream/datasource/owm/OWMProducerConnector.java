@@ -1,4 +1,4 @@
-package com.aves_rsp.ikb4stream.datasource.owm;
+package com.waves_rsp.ikb4stream.datasource.owm;
 
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -79,7 +79,7 @@ public class OWMProducerConnector implements IProducerConnector{
     /**
      * Listen events from Open Weather Map and load them with the data producer object
      *
-     * @param dataProducer
+     *
      */
     @Override
     public boolean isActive() {
@@ -95,7 +95,7 @@ public class OWMProducerConnector implements IProducerConnector{
         Objects.requireNonNull(dataProducer);
         while (!Thread.currentThread().isInterrupted()) {
             try {
-                Event event = getCurrentWeather();
+                Event event = getCurrentWeather(latitude, longitude);
                 if(event!= null) {
                     dataProducer.push(event);
                 }

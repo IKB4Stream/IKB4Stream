@@ -1,6 +1,5 @@
 package com.waves_rsp.ikb4stream.datasource.owm;
 
-import com.aves_rsp.ikb4stream.datasource.owm.OWMProducerConnector;
 import org.junit.Before;
 import org.junit.Test;
 
