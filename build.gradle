@@ -170,6 +170,7 @@ task packageConsumerJar(type: Jar, description: 'Package the Consumer Jar') {
         attributes 'Main-Class': 'com.waves_rsp.ikb4stream.consumer.Main'
     }
     from 'resources/logback.xml'
+    from 'resources/logback.properties'
     from sourceSets.consumer.output
     from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
@@ -181,6 +182,7 @@ task packageProducerJar(type: Jar, description: 'Package the Producer Jar') {
         attributes 'Main-Class': 'com.waves_rsp.ikb4stream.producer.Main'
     }
     from 'resources/logback.xml'
+    from 'resources/logback.properties'
     from sourceSets.producer.output
     from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
     from { configurations.producerCompile.collect { it.isDirectory() ? it : zipTree(it) } }
@@ -341,7 +343,7 @@ task packageMockScoringJar(type: Jar, description: 'Package the Mock Scoring Jar
 task copyConfigProperties(type: Copy) {
     from 'resources/'
     into 'build/libs/resources/'
-    exclude('**/*.ttl', '**/logback.xml')
+    exclude('**/*.ttl', '**/logback.xml', '**/logback.properties')
 }
 
 task zipBuild(type: Zip) {

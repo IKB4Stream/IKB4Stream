@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true">
-    <property name="LOGS_FOLDER" value="/var/log/ikb4stream" />
-    <property name="LOGS_TO_COLLECT_FOLDER" value="/var/log/ikb4stream/old" />
+    <property resource="logback.properties" />
+    <property name="LOGS_FOLDER" value="${LOGPATH}" />
+    <property name="LOGS_TO_COLLECT_FOLDER" value="${LOGPATH}/old" />
 
     <appender name="log-file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOGS_FOLDER}/ikb4stream.log</file>
@@ -22,7 +23,7 @@
             <fileNamePattern>${LOGS_TO_COLLECT_FOLDER}/ikb4stream-audit.%d{yyyyMMdd}.log.gzip</fileNamePattern>
         </rollingPolicy>
         <encoder>
-            <pattern>%m %throwable{0}%n</pattern>
+            <pattern>%d{yyyy/MM/dd HH:mm:ss,SSS} [%thread] %-5level %logger{36} - %m %throwable{0}%n</pattern>
         </encoder>
     </appender>
 
@@ -39,6 +40,15 @@
             <pattern>%d{yyyy/MM/dd HH:mm:ss,SSS} [%thread] %-5level %logger{36} - %m%n</pattern>
         </encoder>
     </appender>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
+            </Pattern>
+        </layout>
+    </appender>
+
 
     <logger name="com.waves_rsp.ikb4stream" additivity="false" level="TRACE">
         <appender-ref ref="audit-file" />
