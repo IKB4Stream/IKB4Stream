@@ -169,6 +169,7 @@ task packageConsumerJar(type: Jar, description: 'Package the Consumer Jar') {
     manifest {
         attributes 'Main-Class': 'com.waves_rsp.ikb4stream.consumer.Main'
     }
+    from 'resources/logback.xml'
     from sourceSets.consumer.output
     from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
@@ -179,6 +180,7 @@ task packageProducerJar(type: Jar, description: 'Package the Producer Jar') {
     manifest {
         attributes 'Main-Class': 'com.waves_rsp.ikb4stream.producer.Main'
     }
+    from 'resources/logback.xml'
     from sourceSets.producer.output
     from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
     from { configurations.producerCompile.collect { it.isDirectory() ? it : zipTree(it) } }
@@ -339,7 +341,7 @@ task packageMockScoringJar(type: Jar, description: 'Package the Mock Scoring Jar
 task copyConfigProperties(type: Copy) {
     from 'resources/'
     into 'build/libs/resources/'
-    exclude('**/*.ttl')
+    exclude('**/*.ttl', '**/logback.xml')
 }
 
 task zipBuild(type: Zip) {
@@ -378,7 +380,6 @@ dependencies {
 
     coreCompile 'ch.qos.logback:logback-core:1.1.3'
     coreCompile "ch.qos.logback:logback-classic:1.1.3"
-    coreCompile 'org.slf4j:slf4j-simple:1.7.6'
 
     coreCompile 'org.apache.jena:jena-arq:2.9.3'
     coreCompile 'com.fasterxml.jackson.core:jackson-databind:2.8.6'
