@@ -19,8 +19,8 @@ public class OWMScoreProcessor implements IScoreProcessor {
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(OWMScoreProcessor.class);
     private final Map<String, Integer> weatherValues = new HashMap<>();
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private static final byte MAX_SCORE = 100;
-    private static final byte MIN_SCORE = 0;
+    private static final byte MAX_SCORE = Event.getScoreMax();
+    private static final byte MIN_SCORE = Event.getScoreMin();
     private final int threshold;
     private final int factor;
 

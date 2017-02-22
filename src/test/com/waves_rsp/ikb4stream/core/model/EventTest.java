@@ -5,6 +5,8 @@ import org.junit.Test;
 import java.util.Calendar;
 import java.util.Date;
 
+import static org.junit.Assert.assertEquals;
+
 public class EventTest {
 
     @Test(expected = IllegalArgumentException.class)
@@ -22,7 +24,7 @@ public class EventTest {
         calendar.set(Calendar.DATE, 17);
         Date end = calendar.getTime();
 
-        Event event = new Event(latLong, start, end, "WaterPony", (byte) -1, "twitter");
+        new Event(latLong, start, end, "WaterPony", (byte) -1, "twitter");
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -81,4 +83,13 @@ public class EventTest {
         assert (event.getScore() == (byte) 10);
     }
 
+    @Test
+    public void testScoreMin() {
+        assertEquals(0, Event.getScoreMin());
+    }
+
+    @Test
+    public void testScoreMax() {
+        assertEquals(100, Event.getScoreMax());
+    }
 }

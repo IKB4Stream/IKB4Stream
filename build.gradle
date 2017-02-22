@@ -100,13 +100,6 @@ sourceSets {
         }
     }
 
-    scoringFacebook {
-        java {
-            srcDirs = ['src/core', 'src/scoring/facebook']
-            compileClasspath += core.compileClasspath + core.output
-        }
-    }
-
     scoringEvent {
         java {
             srcDirs = ['src/core', 'src/scoring/event']
@@ -135,13 +128,20 @@ sourceSets {
         }
     }
 
+    scoringOpenAgenda {
+        java {
+            srcDirs = ['src/core', 'src/scoring/openagenda']
+            compileClasspath += core.compileClasspath + core.output
+        }
+    }
+
     test {
         java {
             srcDirs = ['src/core', 'src/consumer', 'src/producer', 'src/test/', 'src/datasource', 'src/scoring',
                        'src/communication/web', 'src/datasource/weather', 'src/datasource/rss', 'src/communication/kafka',
                        'src/datasource/twitter', 'src/datasource/twittermock', 'src/datasource/dbpedia', 'src/datasource/owm',
-                        'src/datasource/facebook', 'src/datasource/openagenda', 'src/communication/web', 'src/scoring/facebook', 'src/scoring/twitter',
-                        'src/scoring/owm', 'src/scoring/mock', 'src/scoring/event']
+                        'src/datasource/facebook', 'src/datasource/openagenda', 'src/communication/web', 'src/scoring/twitter',
+                        'src/scoring/owm', 'src/scoring/mock', 'src/scoring/event', 'src/scoring/openagenda']
 
             compileClasspath += core.compileClasspath + core.output + consumer.compileClasspath + consumer.output +
                     producer.compileClasspath + producer.output + communicationKafka.compileClasspath +
@@ -154,11 +154,11 @@ sourceSets {
 					datasourceOWM.output + datasourceOWM.compileClasspath +
                     datasourceOpenAgenda.output + datasourceOpenAgenda.compileClasspath +
                     communicationWeb.output + communicationWeb.compileClasspath +
-                    scoringFacebook.compileClasspath + scoringFacebook.output +
                     scoringOWM.compileClasspath + scoringOWM.output +
                     scoringTwitter.compileClasspath + scoringTwitter.output +
                     scoringMock.compileClasspath + scoringMock.output +
-                    scoringEvent.compileClasspath + scoringEvent.output
+                    scoringEvent.compileClasspath + scoringEvent.output +
+                    scoringOpenAgenda.compileClasspath + scoringOpenAgenda.output
 
             runtimeClasspath = output + compileClasspath + runtimeClasspath
         }
@@ -305,16 +305,6 @@ task packageCommunicationWebJar(type: Jar, description: 'Package the Web Communi
     with jar
 }
 
-task packageFacebookScoringJar(type: Jar, description: 'Package the Facebook Scoring Jar') {
-    archiveName = "resources/scoreprocessor/facebook/ikb4stream-$version-scoring-facebook.jar"
-    manifest {
-        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.scoring.facebook.FacebookScoreProcessor'
-    }
-    from sourceSets.scoringFacebook.output
-    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
-
 task packageEventScoringJar(type: Jar, description: 'Package the Event Scoring Jar') {
     archiveName = "resources/scoreprocessor/event/ikb4stream-$version-scoring-event.jar"
     manifest {
@@ -357,6 +347,16 @@ task packageMockScoringJar(type: Jar, description: 'Package the Mock Scoring Jar
     with jar
 }
 
+task packageOpenAgendaScoringJar(type: Jar, description: 'Package the OpenAgenda Scoring Jar') {
+    archiveName = "resources/scoreprocessor/openagenda/ikb4stream-$version-scoring-openagenda.jar"
+    manifest {
+        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.scoring.openagenda.OpenAgendaScoreProcessor'
+    }
+    from sourceSets.scoringOpenAgenda.output
+    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 task copyConfigProperties(type: Copy) {
     from 'resources/'
     into 'build/libs/resources/'
@@ -370,8 +370,8 @@ task zipBuild(type: Zip) {
 
 task packageAll(dependsOn: ['copyConfigProperties', 'packageConsumerJar', 'packageProducerJar', 'packageWeatherJar',
     'packageRssJar', 'packageKafkaCommunicationJar', 'packageTwitterJar', 'packageDbpediaJar', 'packageFacebookJar',
-    'packageOwmJar', 'packageOpenAgendaJar', 'packageCommunicationWebJar', 'packageEventScoringJar','packageFacebookScoringJar', 'packageTwitterScoringJar',
-    'packageMockScoringJar']) {
+    'packageOwmJar', 'packageOpenAgendaJar', 'packageCommunicationWebJar', 'packageEventScoringJar', 'packageTwitterScoringJar',
+    'packageMockScoringJar', 'packageOpenAgendaScoringJar']) {
 }  
 
 task ci(dependsOn: ['packageAll', 'zipBuild']) {

@@ -13,10 +13,11 @@ import java.util.*;
 
 
 public class EventScoreProcessor implements IScoreProcessor {
-    private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(EventScoreProcessor.class, "resources/scoreprocessor/event/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(EventScoreProcessor.class);
+    private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     private final OpenNLP openNLP = OpenNLP.getOpenNLP(Thread.currentThread());
+    private final static byte MAX = Event.getScoreMax();
     private final Map<String, Integer> rulesMap;
 
     public EventScoreProcessor() {
@@ -48,12 +49,11 @@ public class EventScoreProcessor implements IScoreProcessor {
                 score += rulesMap.get(word);
             }
         }
-        if (score > 100) {
-            score = 100;
+        if (score > MAX) {
+            score = MAX;
         }
         long end = System.currentTimeMillis();
-        // TODO: send Long
-        METRICS_LOGGER.log("time_scoring_" + event.getSource(), String.valueOf(end-start));
+        METRICS_LOGGER.log("time_scoring_" + event.getSource(), (end-start));
         return new Event(event.getLocation(), event.getStart(), event.getEnd(), event.getDescription(), score, event.getSource());
     }
 

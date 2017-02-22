@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
  * Event class represents an event with starting date and end date
  */
 public class Event {
+    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(Event.class);
     private final LatLong[] location;
     private final Date start;
     private final Date end;
@@ -195,5 +196,29 @@ public class Event {
                 ", score=" + score +
                 ", source = " + source +
                 '}';
+    }
+
+    /**
+     * Get score min for an event
+     * @return Score min to apply to an event
+     */
+    public static byte getScoreMin() {
+        try {
+            return Byte.parseByte(PROPERTIES_MANAGER.getProperty("score.min"));
+        } catch (IllegalArgumentException e) {
+            return 0;
+        }
+    }
+
+    /**
+     * Get score max for an event
+     * @return Score max to apply to an event
+     */
+    public static byte getScoreMax() {
+        try {
+            return Byte.parseByte(PROPERTIES_MANAGER.getProperty("score.max"));
+        } catch (IllegalArgumentException e) {
+            return 100;
+        }
     }
 }

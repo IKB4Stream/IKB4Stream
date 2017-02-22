@@ -18,8 +18,8 @@ public class OpenAgendaScoreProcessor implements IScoreProcessor {
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(OpenAgendaScoreProcessor.class, "resources/scoreprocessor/openagenda/config.properties");
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(OpenAgendaScoreProcessor.class);
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
-    private static final byte MAX_SCORE = 100;
     private final OpenNLP openNLP = OpenNLP.getOpenNLP(Thread.currentThread());
+    private static final byte MAX_SCORE = Event.getScoreMax();
     private final Map<String, Integer> rulesMap;
 
     public OpenAgendaScoreProcessor() {
@@ -57,7 +57,7 @@ public class OpenAgendaScoreProcessor implements IScoreProcessor {
         }
 
         long end = System.currentTimeMillis();
-        METRICS_LOGGER.log("time_scoring_" + event.getSource(), String.valueOf(end - start));
+        METRICS_LOGGER.log("time_scoring_" + event.getSource(), (end - start));
         return new Event(event.getLocation(), event.getStart(), event.getEnd(), eventDesc, verifyMaxScore(score), event.getSource());
     }
 

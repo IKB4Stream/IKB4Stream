@@ -18,10 +18,10 @@ public class TwitterScoreProcessor implements IScoreProcessor {
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(TwitterScoreProcessor.class);
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     private final OpenNLP openNLP = OpenNLP.getOpenNLP(Thread.currentThread());
-    private final Map<String, Integer> rulesMap;
+    private static final byte MAX_SCORE = Event.getScoreMax();
     private static final int COEFF_VERIFY_ACCOUNT = 2;
+    private final Map<String, Integer> rulesMap;
     private static final int COEFF_HASHTAG = 2;
-    private static final byte MAX_SCORE = 100;
 
     /**
      * Override default constructor

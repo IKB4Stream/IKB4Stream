@@ -1,4 +1,4 @@
-package com.waves_rsp.ikb4stream.scoring.facebook;
+package com.waves_rsp.ikb4stream.scoring.event;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
 import org.junit.Test;
@@ -9,8 +9,8 @@ import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 
-public class FacebookScoreProcessorTest {
-    private final FacebookScoreProcessor tsp = new FacebookScoreProcessor();
+public class EventScoreProcessorTest {
+    private final EventScoreProcessor tsp = new EventScoreProcessor();
     private final Date date = Calendar.getInstance().getTime();
     private final String source = "Facebook";
     private final LatLong latlong = new LatLong(2, 3);
