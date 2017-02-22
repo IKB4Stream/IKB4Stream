@@ -62,6 +62,7 @@ public class TwitterScoreProcessorTest {
         assertEquals(0, tsp.processScore(event).getScore());
     }
 
+    @Ignore
     @Test
     public void calculatedScoreGreaterThanOneHundred() throws JSONException {
         String description = "J'ai dû fuir la maison car il y a eu une fuite. A cause de la canicule, il fait super chaud, "
@@ -77,6 +78,7 @@ public class TwitterScoreProcessorTest {
         assertEquals(100, tsp.processScore(event).getScore());
     }
 
+    @Ignore
     @Test
     public void getSourcesTest() {
         List<String> sources = tsp.getSources();
