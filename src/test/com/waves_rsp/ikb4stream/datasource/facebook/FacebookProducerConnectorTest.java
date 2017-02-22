@@ -10,8 +10,9 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.stream.IntStream;
 
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 
 public class FacebookProducerConnectorTest {
 
