@@ -67,8 +67,8 @@ public class DataQueue {
     public Event pop() throws InterruptedException {
     	PackagedEvent packEvent = queue.take();
     	Event popEvent = packEvent.event;
-        long departTime = System.currentTimeMillis();
-        METRICS_LOGGER.log("life_in_queue_" + popEvent.getSource(), (departTime - packEvent.arrivedTime));
+        long time = System.currentTimeMillis() - packEvent.arrivedTime;
+        METRICS_LOGGER.log("life_in_queue_" + popEvent.getSource(), time);
         return popEvent;
     }
 
