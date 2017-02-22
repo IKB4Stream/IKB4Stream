@@ -87,7 +87,7 @@ public class FacebookMock implements IProducerConnector {
      * @return null if a ParseException has been thrown, else the Date object created
      * @throws ParseException when it cannot parse the json
      */
-    private static Date getDateFromJson (JsonNode jsonNode) {
+    static Date getDateFromJson (JsonNode jsonNode) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss-SSS");
         TimeZone tz = TimeZone.getTimeZone("CET");
         String timeString = jsonNode.toString();
