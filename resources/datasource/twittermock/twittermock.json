@@ -1,0 +1,698 @@
+{
+  "_id" : ObjectId("583629450310e118d02283f5"),
+  "created_at" : "Wed Nov 23 23:41:56 +0000 2016",
+  "id" : 8.0157151671866163E17,
+  "id_str" : "801571516718661632",
+  "text" : "O zeezeilers? O Coren Sails? O Rostock Germany?!",
+  "source" : "<a href=\"http://twitter.com\" rel=\"nofollow\">Twitter Web Client</a>",
+  "truncated" : false,
+  "in_reply_to_status_id" : null,
+  "in_reply_to_status_id_str" : null,
+  "in_reply_to_user_id" : null,
+  "in_reply_to_user_id_str" : null,
+  "in_reply_to_screen_name" : null,
+  "user" : {
+    "id" : 7.7935356826028851E17,
+    "id_str" : "779353568260288512",
+    "name" : "Anna Coren Taxi 19dP",
+    "screen_name" : "SouthernCrossFr",
+    "location" : "Paris, France",
+    "url" : "https://www.youtube.com/watch?v=hW2vyytxCGM",
+    "description" : "https://www.youtube.com/watch?v=2bosouX_d8Y",
+    "protected" : false,
+    "verified" : false,
+    "followers_count" : NumberInt(12),
+    "friends_count" : NumberInt(0),
+    "listed_count" : NumberInt(18),
+    "favourites_count" : NumberInt(1),
+    "statuses_count" : NumberInt(4),
+    "created_at" : "Fri Sep 23 16:15:45 +0000 2016",
+    "utc_offset" : NumberInt(3600),
+    "time_zone" : "Paris",
+    "geo_enabled" : true,
+    "lang" : "fr",
+    "contributors_enabled" : false,
+    "is_translator" : false,
+    "profile_background_color" : "000000",
+    "profile_background_image_url" : "http://abs.twimg.com/images/themes/theme1/bg.png",
+    "profile_background_image_url_https" : "https://abs.twimg.com/images/themes/theme1/bg.png",
+    "profile_background_tile" : false,
+    "profile_link_color" : "1B95E0",
+    "profile_sidebar_border_color" : "000000",
+    "profile_sidebar_fill_color" : "000000",
+    "profile_text_color" : "000000",
+    "profile_use_background_image" : false,
+    "profile_image_url" : "http://pbs.twimg.com/profile_images/801554065729736710/xAURzsfl_normal.jpg",
+    "profile_image_url_https" : "https://pbs.twimg.com/profile_images/801554065729736710/xAURzsfl_normal.jpg",
+    "profile_banner_url" : "https://pbs.twimg.com/profile_banners/779353568260288512/1479940388",
+    "default_profile" : false,
+    "default_profile_image" : false,
+    "following" : null,
+    "follow_request_sent" : null,
+    "notifications" : null
+  },
+  "geo" : null,
+  "coordinates" : null,
+  "place" : {
+    "id" : "09f6a7707f18e0b1",
+    "url" : "https://api.twitter.com/1.1/geo/id/09f6a7707f18e0b1.json",
+    "place_type" : "city",
+    "name" : "Paris",
+    "full_name" : "Paris, France",
+    "country_code" : "FR",
+    "country" : "France",
+    "bounding_box" : {
+      "type" : "Polygon",
+      "coordinates" : [
+        [
+          [
+            2.224101,
+            48.815521
+          ],
+          [
+            2.224101,
+            48.902146
+          ],
+          [
+            2.469905,
+            48.902146
+          ],
+          [
+            2.469905,
+            48.815521
+          ]
+        ]
+      ]
+    },
+    "attributes" : {
+
+    }
+  },
+  "contributors" : null,
+  "is_quote_status" : false,
+  "retweet_count" : NumberInt(0),
+  "favorite_count" : NumberInt(0),
+  "entities" : {
+    "hashtags" : [
+
+    ],
+    "urls" : [
+
+    ],
+    "user_mentions" : [
+
+    ],
+    "symbols" : [
+
+    ]
+  },
+  "favorited" : false,
+  "retweeted" : false,
+  "filter_level" : "low",
+  "lang" : "en",
+  "timestamp_ms" : "1479944516721"
+}
+{
+  "_id" : ObjectId("5836294c0310e118d02283f6"),
+  "created_at" : "Wed Nov 23 23:42:03 +0000 2016",
+  "id" : 8.0157154512672768E17,
+  "id_str" : "801571545126727681",
+  "text" : "Ptdrrrr naan ce crochet ca va encore mais avec Messi la ?!  il est tombe sous l'emprise de \"La Force\" @barkslandÔÇª https://t.co/Cuhw5myFCO",
+  "display_text_range" : [
+    NumberInt(0),
+    NumberInt(140)
+  ],
+  "source" : "<a href=\"http://twitter.com\" rel=\"nofollow\">Twitter Web Client</a>",
+  "truncated" : true,
+  "in_reply_to_status_id" : 8.0155742328261837E17,
+  "in_reply_to_status_id_str" : "801557423282618368",
+  "in_reply_to_user_id" : NumberInt(173184173),
+  "in_reply_to_user_id_str" : "173184173",
+  "in_reply_to_screen_name" : "barksland",
+  "user" : {
+    "id" : NumberInt(57191501),
+    "id_str" : "57191501",
+    "name" : "Beanie Bank$",
+    "screen_name" : "Banks_Land",
+    "location" : "Paris",
+    "url" : "https://soundcloud.com/mr-bank",
+    "description" : "Audio Engineer student  and french aspiring beatmaker my motto ??? Lol #SmokeGoodEatGoodLiveGood  #LakerGANG #TeamAftermath",
+    "protected" : false,
+    "verified" : false,
+    "followers_count" : NumberInt(305),
+    "friends_count" : NumberInt(566),
+    "listed_count" : NumberInt(8),
+    "favourites_count" : NumberInt(4224),
+    "statuses_count" : NumberInt(15200),
+    "created_at" : "Thu Jul 16 00:46:03 +0000 2009",
+    "utc_offset" : NumberInt(7200),
+    "time_zone" : "Athens",
+    "geo_enabled" : true,
+    "lang" : "en",
+    "contributors_enabled" : false,
+    "is_translator" : false,
+    "profile_background_color" : "8812E8",
+    "profile_background_image_url" : "http://pbs.twimg.com/profile_background_images/414960409/Aftermath_entertainment.jpg",
+    "profile_background_image_url_https" : "https://pbs.twimg.com/profile_background_images/414960409/Aftermath_entertainment.jpg",
+    "profile_background_tile" : true,
+    "profile_link_color" : "ED9613",
+    "profile_sidebar_border_color" : "FFFFFF",
+    "profile_sidebar_fill_color" : "DDEEF6",
+    "profile_text_color" : "333333",
+    "profile_use_background_image" : true,
+    "profile_image_url" : "http://pbs.twimg.com/profile_images/769275497163481088/G_ma0egc_normal.jpg",
+    "profile_image_url_https" : "https://pbs.twimg.com/profile_images/769275497163481088/G_ma0egc_normal.jpg",
+    "profile_banner_url" : "https://pbs.twimg.com/profile_banners/57191501/1398237810",
+    "default_profile" : false,
+    "default_profile_image" : false,
+    "following" : null,
+    "follow_request_sent" : null,
+    "notifications" : null
+  },
+  "geo" : null,
+  "coordinates" : null,
+  "place" : {
+    "id" : "09f6a7707f18e0b1",
+    "url" : "https://api.twitter.com/1.1/geo/id/09f6a7707f18e0b1.json",
+    "place_type" : "city",
+    "name" : "Paris",
+    "full_name" : "Paris, France",
+    "country_code" : "FR",
+    "country" : "France",
+    "bounding_box" : {
+      "type" : "Polygon",
+      "coordinates" : [
+        [
+          [
+            2.224101,
+            48.815521
+          ],
+          [
+            2.224101,
+            48.902146
+          ],
+          [
+            2.469905,
+            48.902146
+          ],
+          [
+            2.469905,
+            48.815521
+          ]
+        ]
+      ]
+    },
+    "attributes" : {
+
+    }
+  },
+  "contributors" : null,
+  "is_quote_status" : false,
+  "extended_tweet" : {
+    "full_text" : "Ptdrrrr naan ce crochet ca va encore mais avec Messi la ?!  il est tombe sous l'emprise de \"La Force\" @barksland @Abeud_Land #Boateng https://t.co/63ro8GzXrG",
+    "display_text_range" : [
+      NumberInt(0),
+      NumberInt(133)
+    ],
+    "entities" : {
+      "hashtags" : [
+        {
+          "text" : "Boateng",
+          "indices" : [
+            NumberInt(125),
+            NumberInt(133)
+          ]
+        }
+      ],
+      "urls" : [
+
+      ],
+      "user_mentions" : [
+        {
+          "screen_name" : "barksland",
+          "name" : "BARKS",
+          "id" : NumberInt(173184173),
+          "id_str" : "173184173",
+          "indices" : [
+            NumberInt(102),
+            NumberInt(112)
+          ]
+        },
+        {
+          "screen_name" : "Abeud_Land",
+          "name" : "Lalegende",
+          "id" : NumberInt(362542023),
+          "id_str" : "362542023",
+          "indices" : [
+            NumberInt(113),
+            NumberInt(124)
+          ]
+        }
+      ],
+      "symbols" : [
+
+      ],
+      "media" : [
+        {
+          "id" : 8.0157088697752371E17,
+          "id_str" : "801570886977523713",
+          "indices" : [
+            NumberInt(134),
+            NumberInt(157)
+          ],
+          "media_url" : "http://pbs.twimg.com/tweet_video_thumb/Cx_AeYyXEAEIePO.jpg",
+          "media_url_https" : "https://pbs.twimg.com/tweet_video_thumb/Cx_AeYyXEAEIePO.jpg",
+          "url" : "https://t.co/63ro8GzXrG",
+          "display_url" : "pic.twitter.com/63ro8GzXrG",
+          "expanded_url" : "https://twitter.com/Banks_Land/status/801571545126727681/photo/1",
+          "type" : "animated_gif",
+          "sizes" : {
+            "medium" : {
+              "w" : NumberInt(164),
+              "h" : NumberInt(114),
+              "resize" : "fit"
+            },
+            "thumb" : {
+              "w" : NumberInt(114),
+              "h" : NumberInt(114),
+              "resize" : "crop"
+            },
+            "large" : {
+              "w" : NumberInt(164),
+              "h" : NumberInt(114),
+              "resize" : "fit"
+            },
+            "small" : {
+              "w" : NumberInt(164),
+              "h" : NumberInt(114),
+              "resize" : "fit"
+            }
+          },
+          "video_info" : {
+            "aspect_ratio" : [
+              NumberInt(82),
+              NumberInt(57)
+            ],
+            "variants" : [
+              {
+                "bitrate" : NumberInt(0),
+                "content_type" : "video/mp4",
+                "url" : "https://pbs.twimg.com/tweet_video/Cx_AeYyXEAEIePO.mp4"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "extended_entities" : {
+      "media" : [
+        {
+          "id" : 8.0157088697752371E17,
+          "id_str" : "801570886977523713",
+          "indices" : [
+            NumberInt(134),
+            NumberInt(157)
+          ],
+          "media_url" : "http://pbs.twimg.com/tweet_video_thumb/Cx_AeYyXEAEIePO.jpg",
+          "media_url_https" : "https://pbs.twimg.com/tweet_video_thumb/Cx_AeYyXEAEIePO.jpg",
+          "url" : "https://t.co/63ro8GzXrG",
+          "display_url" : "pic.twitter.com/63ro8GzXrG",
+          "expanded_url" : "https://twitter.com/Banks_Land/status/801571545126727681/photo/1",
+          "type" : "animated_gif",
+          "sizes" : {
+            "medium" : {
+              "w" : NumberInt(164),
+              "h" : NumberInt(114),
+              "resize" : "fit"
+            },
+            "thumb" : {
+              "w" : NumberInt(114),
+              "h" : NumberInt(114),
+              "resize" : "crop"
+            },
+            "large" : {
+              "w" : NumberInt(164),
+              "h" : NumberInt(114),
+              "resize" : "fit"
+            },
+            "small" : {
+              "w" : NumberInt(164),
+              "h" : NumberInt(114),
+              "resize" : "fit"
+            }
+          },
+          "video_info" : {
+            "aspect_ratio" : [
+              NumberInt(82),
+              NumberInt(57)
+            ],
+            "variants" : [
+              {
+                "bitrate" : NumberInt(0),
+                "content_type" : "video/mp4",
+                "url" : "https://pbs.twimg.com/tweet_video/Cx_AeYyXEAEIePO.mp4"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "retweet_count" : NumberInt(0),
+  "favorite_count" : NumberInt(0),
+  "entities" : {
+    "hashtags" : [
+
+    ],
+    "urls" : [
+      {
+        "url" : "https://t.co/Cuhw5myFCO",
+        "expanded_url" : "https://twitter.com/i/web/status/801571545126727681",
+        "display_url" : "twitter.com/i/web/status/8ÔÇª",
+        "indices" : [
+          NumberInt(114),
+          NumberInt(137)
+        ]
+      }
+    ],
+    "user_mentions" : [
+      {
+        "screen_name" : "barksland",
+        "name" : "BARKS",
+        "id" : NumberInt(173184173),
+        "id_str" : "173184173",
+        "indices" : [
+          NumberInt(102),
+          NumberInt(112)
+        ]
+      }
+    ],
+    "symbols" : [
+
+    ]
+  },
+  "favorited" : false,
+  "retweeted" : false,
+  "possibly_sensitive" : false,
+  "filter_level" : "low",
+  "lang" : "fr",
+  "timestamp_ms" : "1479944523494"
+}
+{
+  "_id" : ObjectId("5836294c0310e118d02283f7"),
+  "created_at" : "Wed Nov 23 23:42:03 +0000 2016",
+  "id" : 8.0157154344065024E17,
+  "id_str" : "801571543440650240",
+  "text" : "Apr├¿s le General de Gaulle qui a lib├®r├® la France des Nazis MARINE lib├®rera la France des voleurs UMPS UDI modem ├®cÔÇª https://t.co/PVswiLZFS9",
+  "display_text_range" : [
+    NumberInt(0),
+    NumberInt(140)
+  ],
+  "source" : "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>",
+  "truncated" : true,
+  "in_reply_to_status_id" : null,
+  "in_reply_to_status_id_str" : null,
+  "in_reply_to_user_id" : null,
+  "in_reply_to_user_id_str" : null,
+  "in_reply_to_screen_name" : null,
+  "user" : {
+    "id" : NumberInt(296496005),
+    "id_str" : "296496005",
+    "name" : "ATON XVIII",
+    "screen_name" : "AtonXVIII",
+    "location" : null,
+    "url" : null,
+    "description" : null,
+    "protected" : false,
+    "verified" : false,
+    "followers_count" : NumberInt(338),
+    "friends_count" : NumberInt(210),
+    "listed_count" : NumberInt(89),
+    "favourites_count" : NumberInt(62602),
+    "statuses_count" : NumberInt(37378),
+    "created_at" : "Tue May 10 21:23:15 +0000 2011",
+    "utc_offset" : NumberInt(-10800),
+    "time_zone" : "Greenland",
+    "geo_enabled" : true,
+    "lang" : "fr",
+    "contributors_enabled" : false,
+    "is_translator" : false,
+    "profile_background_color" : "0099B9",
+    "profile_background_image_url" : "http://abs.twimg.com/images/themes/theme4/bg.gif",
+    "profile_background_image_url_https" : "https://abs.twimg.com/images/themes/theme4/bg.gif",
+    "profile_background_tile" : false,
+    "profile_link_color" : "0099B9",
+    "profile_sidebar_border_color" : "5ED4DC",
+    "profile_sidebar_fill_color" : "95E8EC",
+    "profile_text_color" : "3C3940",
+    "profile_use_background_image" : true,
+    "profile_image_url" : "http://pbs.twimg.com/profile_images/754449060518588416/thCfr0Dy_normal.jpg",
+    "profile_image_url_https" : "https://pbs.twimg.com/profile_images/754449060518588416/thCfr0Dy_normal.jpg",
+    "profile_banner_url" : "https://pbs.twimg.com/profile_banners/296496005/1466548054",
+    "default_profile" : false,
+    "default_profile_image" : false,
+    "following" : null,
+    "follow_request_sent" : null,
+    "notifications" : null
+  },
+  "geo" : null,
+  "coordinates" : null,
+  "place" : {
+    "id" : "f3bfc7dcc928977f",
+    "url" : "https://api.twitter.com/1.1/geo/id/f3bfc7dcc928977f.json",
+    "place_type" : "country",
+    "name" : "France",
+    "full_name" : "France",
+    "country_code" : "FR",
+    "country" : "France",
+    "bounding_box" : {
+      "type" : "Polygon",
+      "coordinates" : [
+        [
+          [
+            -5.141593,
+            41.364659
+          ],
+          [
+            -5.141593,
+            51.088771
+          ],
+          [
+            9.559831,
+            51.088771
+          ],
+          [
+            9.559831,
+            41.364659
+          ]
+        ]
+      ]
+    },
+    "attributes" : {
+
+    }
+  },
+  "contributors" : null,
+  "is_quote_status" : false,
+  "extended_tweet" : {
+    "full_text" : "Apr├¿s le General de Gaulle qui a lib├®r├® la France des Nazis MARINE lib├®rera la France des voleurs UMPS UDI modem ├®colo et des musulmans . https://t.co/89gWPnzPdk",
+    "display_text_range" : [
+      NumberInt(0),
+      NumberInt(137)
+    ],
+    "entities" : {
+      "hashtags" : [
+
+      ],
+      "urls" : [
+
+      ],
+      "user_mentions" : [
+
+      ],
+      "symbols" : [
+
+      ],
+      "media" : [
+        {
+          "id" : 8.0157152141635174E17,
+          "id_str" : "801571521416351744",
+          "indices" : [
+            NumberInt(138),
+            NumberInt(161)
+          ],
+          "media_url" : "http://pbs.twimg.com/media/Cx_BDUQXUAAnM9C.jpg",
+          "media_url_https" : "https://pbs.twimg.com/media/Cx_BDUQXUAAnM9C.jpg",
+          "url" : "https://t.co/89gWPnzPdk",
+          "display_url" : "pic.twitter.com/89gWPnzPdk",
+          "expanded_url" : "https://twitter.com/AtonXVIII/status/801571543440650240/photo/1",
+          "type" : "photo",
+          "sizes" : {
+            "large" : {
+              "w" : NumberInt(1200),
+              "h" : NumberInt(1635),
+              "resize" : "fit"
+            },
+            "thumb" : {
+              "w" : NumberInt(150),
+              "h" : NumberInt(150),
+              "resize" : "crop"
+            },
+            "medium" : {
+              "w" : NumberInt(881),
+              "h" : NumberInt(1200),
+              "resize" : "fit"
+            },
+            "small" : {
+              "w" : NumberInt(499),
+              "h" : NumberInt(680),
+              "resize" : "fit"
+            }
+          }
+        },
+        {
+          "id" : 8.0157152139539251E17,
+          "id_str" : "801571521395392512",
+          "indices" : [
+            NumberInt(138),
+            NumberInt(161)
+          ],
+          "media_url" : "http://pbs.twimg.com/media/Cx_BDULXgAAu7uz.jpg",
+          "media_url_https" : "https://pbs.twimg.com/media/Cx_BDULXgAAu7uz.jpg",
+          "url" : "https://t.co/89gWPnzPdk",
+          "display_url" : "pic.twitter.com/89gWPnzPdk",
+          "expanded_url" : "https://twitter.com/AtonXVIII/status/801571543440650240/photo/1",
+          "type" : "photo",
+          "sizes" : {
+            "small" : {
+              "w" : NumberInt(333),
+              "h" : NumberInt(500),
+              "resize" : "fit"
+            },
+            "thumb" : {
+              "w" : NumberInt(150),
+              "h" : NumberInt(150),
+              "resize" : "crop"
+            },
+            "medium" : {
+              "w" : NumberInt(333),
+              "h" : NumberInt(500),
+              "resize" : "fit"
+            },
+            "large" : {
+              "w" : NumberInt(333),
+              "h" : NumberInt(500),
+              "resize" : "fit"
+            }
+          }
+        }
+      ]
+    },
+    "extended_entities" : {
+      "media" : [
+        {
+          "id" : 8.0157152141635174E17,
+          "id_str" : "801571521416351744",
+          "indices" : [
+            NumberInt(138),
+            NumberInt(161)
+          ],
+          "media_url" : "http://pbs.twimg.com/media/Cx_BDUQXUAAnM9C.jpg",
+          "media_url_https" : "https://pbs.twimg.com/media/Cx_BDUQXUAAnM9C.jpg",
+          "url" : "https://t.co/89gWPnzPdk",
+          "display_url" : "pic.twitter.com/89gWPnzPdk",
+          "expanded_url" : "https://twitter.com/AtonXVIII/status/801571543440650240/photo/1",
+          "type" : "photo",
+          "sizes" : {
+            "large" : {
+              "w" : NumberInt(1200),
+              "h" : NumberInt(1635),
+              "resize" : "fit"
+            },
+            "thumb" : {
+              "w" : NumberInt(150),
+              "h" : NumberInt(150),
+              "resize" : "crop"
+            },
+            "medium" : {
+              "w" : NumberInt(881),
+              "h" : NumberInt(1200),
+              "resize" : "fit"
+            },
+            "small" : {
+              "w" : NumberInt(499),
+              "h" : NumberInt(680),
+              "resize" : "fit"
+            }
+          }
+        },
+        {
+          "id" : 8.0157152139539251E17,
+          "id_str" : "801571521395392512",
+          "indices" : [
+            NumberInt(138),
+            NumberInt(161)
+          ],
+          "media_url" : "http://pbs.twimg.com/media/Cx_BDULXgAAu7uz.jpg",
+          "media_url_https" : "https://pbs.twimg.com/media/Cx_BDULXgAAu7uz.jpg",
+          "url" : "https://t.co/89gWPnzPdk",
+          "display_url" : "pic.twitter.com/89gWPnzPdk",
+          "expanded_url" : "https://twitter.com/AtonXVIII/status/801571543440650240/photo/1",
+          "type" : "photo",
+          "sizes" : {
+            "small" : {
+              "w" : NumberInt(333),
+              "h" : NumberInt(500),
+              "resize" : "fit"
+            },
+            "thumb" : {
+              "w" : NumberInt(150),
+              "h" : NumberInt(150),
+              "resize" : "crop"
+            },
+            "medium" : {
+              "w" : NumberInt(333),
+              "h" : NumberInt(500),
+              "resize" : "fit"
+            },
+            "large" : {
+              "w" : NumberInt(333),
+              "h" : NumberInt(500),
+              "resize" : "fit"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "retweet_count" : NumberInt(0),
+  "favorite_count" : NumberInt(0),
+  "entities" : {
+    "hashtags" : [
+
+    ],
+    "urls" : [
+      {
+        "url" : "https://t.co/PVswiLZFS9",
+        "expanded_url" : "https://twitter.com/i/web/status/801571543440650240",
+        "display_url" : "twitter.com/i/web/status/8ÔÇª",
+        "indices" : [
+          NumberInt(117),
+          NumberInt(140)
+        ]
+      }
+    ],
+    "user_mentions" : [
+
+    ],
+    "symbols" : [
+
+    ]
+  },
+  "favorited" : false,
+  "retweeted" : false,
+  "possibly_sensitive" : false,
+  "filter_level" : "low",
+  "lang" : "fr",
+  "timestamp_ms" : "1479944523092"
+}

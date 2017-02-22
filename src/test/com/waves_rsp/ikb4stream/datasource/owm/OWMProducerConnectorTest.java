@@ -3,9 +3,6 @@ package com.waves_rsp.ikb4stream.datasource.owm;
 import org.junit.Before;
 import org.junit.Test;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
-
 public class OWMProducerConnectorTest {
 
     private OWMProducerConnector owm = new OWMProducerConnector();
@@ -40,7 +37,7 @@ public class OWMProducerConnectorTest {
     public void testDescriptionIsNotNull() {
         Thread t = new Thread(() -> owm.load(event -> {
             //System.out.println("Description : " + event.getDescription());
-            assertNotNull(event.getDescription());
+            assert(event.getDescription() != null);
         }));
         t.start();
         try {
@@ -57,7 +54,7 @@ public class OWMProducerConnectorTest {
     public void testLocationIsNotNull() {
         Thread t = new Thread(() -> owm.load(event -> {
             //System.out.println("Location : " + event.getLocation());
-            assertNotNull(event.getLocation());
+            assert(event.getLocation() != null);
         }));
         t.start();
         try {
@@ -74,7 +71,7 @@ public class OWMProducerConnectorTest {
     public void testDateStartIsNotNull() {
         Thread t = new Thread(() -> owm.load(event -> {
             //System.out.println("Date Start : " + event.getStart());
-            assertNotNull(event.getStart());
+            assert(event.getStart ()!= null);
         }));
         t.start();
         try {
@@ -90,7 +87,7 @@ public class OWMProducerConnectorTest {
     public void testDateEndIsNotNull() {
         Thread t = new Thread(() -> owm.load(event -> {
             //System.out.println("Date End : " + event.getEnd());
-            assertNotNull(event.getEnd());
+            assert(event.getEnd() != null);
         }));
         t.start();
         try {
@@ -107,7 +104,7 @@ public class OWMProducerConnectorTest {
     public void testSourceIsEqualOWM() {
         Thread t = new Thread(() -> owm.load(event -> {
             //System.out.println("Location : " + event.getLocation());
-            assertEquals("OpenWeatherMap", event.getSource());
+            assert("OpenWeatherMap".equals(event.getSource()));
         }));
         t.start();
         try {
