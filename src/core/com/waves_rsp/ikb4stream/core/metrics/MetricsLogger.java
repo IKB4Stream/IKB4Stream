@@ -70,6 +70,14 @@ public class MetricsLogger {
         }
     }
 
+    /**
+     * Create a new metric with a data set (field, value) loaded into influx database if it's possible
+     *
+     * @param measurement
+     * @param field
+     * @param data
+     * @throws NullPointerException if at least one of these arguments {@param measurement}, {@param field}, {@param @data} are null
+     */
     public void log(String measurement, String field, String data) {
         Objects.requireNonNull(measurement);
         Objects.requireNonNull(field);

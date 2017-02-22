@@ -15,8 +15,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.DateFormat;
@@ -51,8 +49,8 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
             double lonMin = Double.valueOf(PROPERTIES_MANAGER.getProperty("openagenda.longitude.minimum"));
             this.bbox = "(" + latMin + "," + lonMin + "),(" + latMax + "," + lonMin + "),(" + latMax + "," + lonMax + ")," +
                     "(" + latMin + "," + lonMax + "),(" + latMin + "," + lonMin + ")";
-        } catch (IllegalArgumentException e) {
-            LOGGER.error(e.getMessage());
+        }catch (IllegalArgumentException e) {
+            LOGGER.error("Invalid properties loaded: {}", e);
             throw new IllegalStateException("Invalid configuration");
         }
 
@@ -76,7 +74,7 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
                 METRICS_LOGGER.log("time_process_"+this.source, String.valueOf(end - start));
                 Thread.sleep(20000);
             } catch (InterruptedException e) {
-                LOGGER.error(e.getMessage());
+                LOGGER.error("Current thread has been interrupted: {}", e);
             } finally {
                 Thread.currentThread().interrupt();
             }
@@ -105,8 +103,8 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
                 formatURL.append("&refine.date_end=").append(dateEndEncode);
             }
             url = new URL(formatURL.toString());
-        } catch (MalformedURLException | UnsupportedEncodingException e) {
-            LOGGER.error(e.getMessage());
+        } catch (IOException e) {
+            LOGGER.error("Bad url properties found: {}", e);
             throw new IllegalArgumentException(e.getMessage());
         }
         return url;
@@ -141,12 +139,12 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
                     String dateEnd = subknode.path("date_end").asText();
                     String city = subknode.path("city").asText();
                     String address = subknode.path("address").asText();
-                    events.add(createEvent(latlon, title, description, dateStart, dateEnd, city, address));
-
+                    Event event = createEvent(latlon, title, description, dateStart, dateEnd, city, address);
+                    pushIfNotNullEvent(events, event);
                 }
             }
         } catch (IOException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error("Bad json format or tree cannot be read: {}", e);
         }
         return events;
     }
@@ -180,10 +178,16 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
             start = df.parse(dateStart);
             end = df.parse(dateEnd);
         } catch (ParseException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error("Bad date format found: {}", e);
             throw new IllegalArgumentException("Wrong date format from open agenda connector");
         }
         return new Event(latLong, start, end, jsonDescription.toString(), this.source);
+    }
+
+    private void pushIfNotNullEvent(List<Event> events, Event event) {
+        if(event != null) {
+            events.add(event);
+        }
     }
 
     @Override
@@ -191,6 +195,7 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
         try {
             return Boolean.valueOf(PROPERTIES_MANAGER.getProperty("openagenda.enable"));
         } catch (IllegalArgumentException e) {
+            LOGGER.warn("Open agenda datasource not activated: {}", e);
             return true;
         }
     }
