@@ -39,7 +39,7 @@ public class FacebookProducerConnector implements IProducerConnector {
             this.lat =  Double.valueOf(PROPERTIES_MANAGER.getProperty("FacebookProducerConnector.latitude"));
             this.lon =  Double.valueOf(PROPERTIES_MANAGER.getProperty("FacebookProducerConnector.longitude"));
         } catch (IllegalArgumentException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error("Invalid configuration {} ",e);
             throw new IllegalStateException("Invalid configuration");
         }
     }

@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
+
 public class MetricsTest {
     private final MetricsLogger logger = MetricsLogger.getMetricsLogger();
 
@@ -72,6 +73,13 @@ public class MetricsTest {
         long result = end - start;
 
         Assert.assertTrue(result < 200);
+    }
+
+
+    @Test
+    public void checkHostIsNotEmpty(){
+     MetricsProperties mp = MetricsProperties.create();
+     Assert.assertNotNull(mp.getHost());
     }
 
     @Test
