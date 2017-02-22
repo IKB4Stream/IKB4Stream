@@ -124,7 +124,7 @@ public class TwitterScoreProcessor implements IScoreProcessor {
             String allSources = PROPERTIES_MANAGER.getProperty("twitter.scoring.sources");
             sources.addAll(Arrays.asList(allSources.split(",")));
         } catch (IllegalArgumentException e) {
-            LOGGER.warn(e.getMessage());
+            LOGGER.error(e.getMessage());
         }
         return sources;
     }

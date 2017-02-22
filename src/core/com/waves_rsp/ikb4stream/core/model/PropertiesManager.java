@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
 
 /**
@@ -67,9 +68,13 @@ public class PropertiesManager {
      * @throws IllegalArgumentException if {@param property} is not set in property file
      */
     public String getProperty(String property) {
+        Objects.requireNonNull(property);
         String value = config.getProperty(property);
         if (value == null) {
             throw new IllegalArgumentException("Property not found : " + property);
+        }
+        if (value.isEmpty()) {
+            throw new IllegalArgumentException("Property is empty : " + property);
         }
         return value;
     }
