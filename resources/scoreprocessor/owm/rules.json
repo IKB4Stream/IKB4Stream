@@ -1,0 +1,9 @@
+{
+  "threshold":18,
+  "factor":5,
+  "weatherType":{
+      "rain":15,
+      "snow": 10,
+      "default": 20
+  }
+}
