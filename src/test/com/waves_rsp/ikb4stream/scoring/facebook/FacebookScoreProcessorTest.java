@@ -1,7 +1,6 @@
 package com.waves_rsp.ikb4stream.scoring.facebook;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
-import org.junit.Ignore;
 import org.junit.Test;
 import twitter4j.JSONException;
 
@@ -16,13 +15,12 @@ public class FacebookScoreProcessorTest {
     private final String source = "Facebook";
     private final LatLong latlong = new LatLong(2, 3);
 
-    @Ignore
+
     @Test(expected = NullPointerException.class)
     public void nullProcessScore() {
         tsp.processScore(null);
     }
 
-    @Ignore
     @Test
     public void calculatedScoreForASentence() throws JSONException {
         String description = "Roger, il y a une fuite d'eau à Paris #eau";
@@ -30,7 +28,6 @@ public class FacebookScoreProcessorTest {
         assertEquals(12, tsp.processScore(event).getScore());
     }
 
-    @Ignore
     @Test
     public void calculatedScoreWithoutKeyWord() throws JSONException {
         String description = "Roger, n'a rien vu";
@@ -38,7 +35,6 @@ public class FacebookScoreProcessorTest {
         assertEquals(0, tsp.processScore(event).getScore());
     }
 
-    @Ignore
     @Test
     public void calculatedScoreGreaterThanOneHundred() throws JSONException {
         String description = "J'ai dû fuir la maison car il y a eu une fuite. A cause de la canicule, il fait super chaud, "
