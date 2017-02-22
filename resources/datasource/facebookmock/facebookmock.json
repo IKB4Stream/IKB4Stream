@@ -1,0 +1,147 @@
+{
+  "data": [
+    {
+      "description": "Beat the winter blues by attending the Exotic0 attendees!!",
+      "end_time": "2017-02-19T16:00:02-0600",
+      "name": "Eau Claire Exotic Pet Fair!",
+      "place": {
+        "name": "Best Western Plus Eau Claire Conference Center",
+        "location": {
+          "city": "Eau Claire",
+          "country": "United States",
+          "latitude": 44.785152331437,
+          "longitude": -91.530095198677,
+          "state": "WI",
+          "street": "3340 Mondovi Rd",
+          "zip": "54701"
+        },
+        "id": "176655825730876"
+      },
+      "start_time": "2017-02-19T11:00:01-0600",
+      "id": "1019564824815653"
+    },
+    {
+      "description": "We proudly present to you one of every 2 years.",
+      "end_time": "2017-03-02T23:00:00+0400",
+      "name": "EAU GLOBAL DAY 2017",
+      "place": {
+        "name": "Emirates Aviation University",
+        "location": {
+          "city": "Dubai",
+          "country": "United Arab Emirates",
+          "latitude": 25.116611333688,
+          "longitude": 55.413462238015,
+          "street": "Dubai Academic City",
+          "zip": "53044"
+        },
+        "id": "1396379033973917"
+      },
+      "start_time": "2017-03-02T14:00:00+0400",
+      "id": "1125364174251765"
+    },
+    {
+      "description": "L'eau Sacrée //Sacred Water sortie cinéma VO ST FR ENG the most secret way female pleasure.",
+      "end_time": "2017-02-28T00:00:00+0100",
+      "name": "L'eau Sacrée (Sacred Water) Film + debat 4 soirées @BXL",
+      "place": {
+        "name": "Cinéma Aventure",
+        "location": {
+          "city": "Brussels",
+          "country": "Belgium",
+          "latitude": 50.848436325391,
+          "longitude": 4.3528867367831,
+          "street": "Galerie du Centre 57 (rue des Fripiers)",
+          "zip": "1000"
+        },
+        "id": "124669824247226"
+      },
+      "start_time": "2017-02-14T20:00:00+0100",
+      "id": "1773643769622286"
+    },
+    {
+      "description": "Join us for the 9th annual Eau Claire Marathon weekend.Fantastically Fun Kids Run",
+      "end_time": "2017-05-07T15:00:00-0500",
+      "name": "Eau Claire Marathon Weekend 2017",
+      "place": {
+        "name": "Eau Claire Marathon.......Carson Park",
+        "location": {
+          "city": "Eau Claire",
+          "country": "United States",
+          "latitude": 44.807743700263,
+          "longitude": -91.522357296284,
+          "state": "WI",
+          "zip": "54703"
+        },
+        "id": "293733704049104"
+      },
+      "start_time": "2017-05-06T10:00:00-0500",
+      "id": "240718763028749"
+    },
+    {
+      "description": "Come out to the ballpark with your with promo code \"faith\".",
+      "end_time": "2017-06-04T19:00:00-0500",
+      "name": "Eau Claire Express 2017 Faith Night",
+      "place": {
+        "name": "Eau Claire Express",
+        "location": {
+          "city": "Eau Claire",
+          "country": "United States",
+          "latitude": 44.8103409,
+          "longitude": -91.5009918,
+          "state": "WI",
+          "street": "102 E Grand Ave",
+          "zip": "54701"
+        },
+        "id": "76659010015"
+      },
+      "start_time": "2017-06-04T17:05:00-0500",
+      "id": "1834924086783131"
+    },
+    {
+      "description": "Come on down for a day of entertainment for all ages! Market by MarketSpot YYC!",
+      "end_time": "2017-02-20T16:00:00-0700",
+      "name": "Family Fun Day at Eau Claire Market",
+      "place": {
+        "name": "Eau Claire Market",
+        "location": {
+          "city": "Calgary",
+          "country": "Canada",
+          "latitude": 51.052717594702,
+          "longitude": -114.06889622287,
+          "state": "AB",
+          "street": "200 Barclay Parade SW",
+          "zip": "T2P 4R5"
+        },
+        "id": "457770720914816"
+      },
+      "start_time": "2017-02-20T11:00:00-0700",
+      "id": "211729192623722"
+    },
+    {
+      "description": "À l’origine de ce groupe, il y a une rencontre, celle de musical.",
+      "end_time": "2017-02-15T23:00:00+0100",
+      "name": "DI MAURO SWING point d'Eau Ostwald mercredi 15 février 2017",
+      "place": {
+        "name": "Point d'Eau",
+        "location": {
+          "city": "Ostwald",
+          "country": "France",
+          "latitude": 48.5530551,
+          "longitude": 7.7098109,
+          "street": "17, allée René Cassin",
+          "zip": "67540"
+        },
+        "id": "1401189540184191"
+      },
+      "start_time": "2017-02-15T20:30:00+0100",
+      "id": "235688966851620"
+    }
+  ],
+  "paging": {
+    "cursors": {
+      "before": "MAZDZD",
+      "after": "NjYZD"
+    },
+    "next": "https://graph.facebook.com/v2.8/search?access_token=EAAQHHCKJVHkBAHxXL23c7pdiHEeYdDcchB47Dxzo3MHcAXDXfvnEwsj5ACt50BWmQt84pz4lZCvbeZA7A87tJSl5o6FcpSGFBSUEHtJLP2CIOrLwLTAOJCboVY0wY0zZC40HTdwtZBcVsKxcGECKJiWmUqkjCbWgrigZCR7EXcyq7smTVXJGzQZB5VhQsUapGkOzMP1ZBFznwZDZD&pretty=0&q=eau&type=event&limit=100&after=NjYZD"
+  }
+}

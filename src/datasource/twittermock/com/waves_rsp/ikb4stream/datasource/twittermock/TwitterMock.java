@@ -14,8 +14,11 @@ import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Instant;
 import java.util.Date;
 import java.util.Iterator;
@@ -26,11 +29,10 @@ public class TwitterMock implements IProducerConnector {
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(TwitterMock.class, "resources/datasource/twittermock/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(TwitterMock.class);
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
-    private final InputStream inputStream;
+    private static final String SOURCE = "Twitter";
 
-    public TwitterMock(InputStream inputStream) {
-        Objects.requireNonNull(inputStream);
-        this.inputStream = inputStream;
+    public TwitterMock() {
+        // Do Nothing
     }
 
     /**
@@ -43,36 +45,36 @@ public class TwitterMock implements IProducerConnector {
         Objects.requireNonNull(dataProducer);
         ObjectMapper mapper = new ObjectMapper();
         JsonParser parser;
+        Path path = Paths.get(PROPERTIES_MANAGER.getProperty("twittermock.path"));
 
         long start = System.currentTimeMillis();
-        try {
-            parser = mapper.getFactory().createParser(this.inputStream);
+        try (InputStream inputStream = new FileInputStream(path.toString())){
+            parser = mapper.getFactory().createParser(inputStream);
+            while(!Thread.currentThread().isInterrupted()) {
+                try {
+                    while(parser.nextToken() == JsonToken.START_OBJECT) {
+                        ObjectNode objectNode = mapper.readTree(parser);
+                        Event event = getEventFromJson(objectNode);
+                        pushIfValidEvent(dataProducer, event, start);
+                    }
+                } catch (IOException e) {
+                    LOGGER.error("Something went wrong with the tweet reading");
+                    return;
+                }finally {
+                    Thread.currentThread().interrupt();
+                }
+            }
         } catch (IOException e) {
             LOGGER.error(e.getMessage());
             return;
         }
-
-        while(!Thread.interrupted()) {
-            try {
-                while(parser.nextToken() == JsonToken.START_OBJECT) {
-                    ObjectNode objectNode = mapper.readTree(parser);
-                    Event event = getEventFromJson(objectNode);
-                    pushIfValidEvent(dataProducer, event, start);
-                }
-            } catch (IOException e) {
-                LOGGER.error("something went wrong with the tweet reading");
-                return;
-            }finally {
-                Thread.currentThread().interrupt();
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    LOGGER.error(e.getMessage());
-                }
-            }
-        }
     }
 
+
+    /**
+     * Indicates whether this producer is enabled or not, according to twittermock.enable
+     * @return true is twittermock.enable is true
+     */
     @Override
     public boolean isActive() {
         try {
@@ -91,14 +93,12 @@ public class TwitterMock implements IProducerConnector {
     private static Event getEventFromJson(ObjectNode objectNode) {
         Date startDate = Date.from(Instant.ofEpochMilli(objectNode.findValue("timestamp_ms").asLong()));
         Date endDate = Date.from(Instant.now());
-        String description;
-        String source = "Twitter";
         JsonNode jsonNode = objectNode.findValue("place");
         JsonNode jsonCoordinates = jsonNode.findValue("coordinates");
-        description = objectNode.findValue("text").toString();
+        String description = objectNode.findValue("text").toString();
         LatLong latLong = jsonToLatLong(jsonCoordinates);
         try {
-            return new Event(latLong, startDate, endDate, description, source);
+            return new Event(latLong, startDate, endDate, description, SOURCE);
         }catch (IllegalArgumentException | NullPointerException err) {
             LOGGER.error(err.getMessage());
             return null;

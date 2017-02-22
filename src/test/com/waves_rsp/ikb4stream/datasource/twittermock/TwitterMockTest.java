@@ -2,10 +2,6 @@ package com.waves_rsp.ikb4stream.datasource.twittermock;
 
 import org.junit.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-
 public class TwitterMockTest {
 
     private static final String TWEETS = "{ \"_id\" : { \"$oid\" : \"583629450310e118d02283f5\" }, \"created_at\" : \"Wed Nov 23 23:41:56 +0000 2016\", \"id\" : 8.0157151671866163E17, \"id_str\" : \"801571516718661632\", \"text\" : \"O zeezeilers" +
@@ -26,24 +22,15 @@ public class TwitterMockTest {
 
     @Test
     public void withNoErrorTest(){
-        InputStream iS = new ByteArrayInputStream(TWEETS.getBytes(StandardCharsets.UTF_8));
-        TwitterMock tm = new TwitterMock(iS);
-        tm.load(System.out::println);
-    }
-
-    @Test (expected = NullPointerException.class)
-    public void nullInputStreamTest() {
-        TwitterMock tm = new TwitterMock(null);
+        TwitterMock tm = new TwitterMock();
         tm.load(dataProducer -> {
-            //Nothing
+
         });
     }
 
     @Test
     public void badInputStreamTest() {
-        String s = "HelloWorld!";
-        InputStream iS = new ByteArrayInputStream(s.getBytes(StandardCharsets.UTF_8));
-        TwitterMock tm = new TwitterMock(iS);
+        TwitterMock tm = new TwitterMock();
         Thread t = new Thread(() -> {
             tm.load(dataProducer -> {
 
@@ -63,15 +50,13 @@ public class TwitterMockTest {
 
     @Test(expected = NullPointerException.class)
     public void nullDataProducerTest() {
-        InputStream iS = new ByteArrayInputStream(TWEETS.getBytes(StandardCharsets.UTF_8));
-        TwitterMock tm = new TwitterMock(iS);
+        TwitterMock tm = new TwitterMock();
         tm.load(null);
     }
 
     @Test
     public void testWithoutError() {
-        InputStream iS = new ByteArrayInputStream(TWEETS.getBytes(StandardCharsets.UTF_8));
-        TwitterMock tm = new TwitterMock(iS);
+        TwitterMock tm = new TwitterMock();
         Thread t = new Thread(() -> {
             tm.load(dataProducer -> {
                 //Do nothing
@@ -79,14 +64,5 @@ public class TwitterMockTest {
         });
 
         t.start();
-
-        try {
-            Thread.sleep(100);
-        }catch (InterruptedException err) {
-            //Do nothing
-        }finally {
-            t.interrupt();
-            Thread.currentThread().interrupt();
-        }
     }
 }
