@@ -107,6 +107,13 @@ sourceSets {
         }
     }
 
+    scoringEvent {
+        java {
+            srcDirs = ['src/core', 'src/scoring/event']
+            compileClasspath += core.compileClasspath + core.output
+        }
+    }
+
     scoringOWM {
         java {
             srcDirs = ['src/core', 'src/scoring/owm']
@@ -134,7 +141,7 @@ sourceSets {
                        'src/communication/web', 'src/datasource/weather', 'src/datasource/rss', 'src/communication/kafka',
                        'src/datasource/twitter', 'src/datasource/twittermock', 'src/datasource/dbpedia', 'src/datasource/owm',
                         'src/datasource/facebook', 'src/datasource/openagenda', 'src/communication/web', 'src/scoring/facebook', 'src/scoring/twitter',
-                        'src/scoring/owm', 'src/scoring/mock']
+                        'src/scoring/owm', 'src/scoring/mock', 'src/scoring/event']
 
             compileClasspath += core.compileClasspath + core.output + consumer.compileClasspath + consumer.output +
                     producer.compileClasspath + producer.output + communicationKafka.compileClasspath +
@@ -150,7 +157,8 @@ sourceSets {
                     scoringFacebook.compileClasspath + scoringFacebook.output +
                     scoringOWM.compileClasspath + scoringOWM.output +
                     scoringTwitter.compileClasspath + scoringTwitter.output +
-                    scoringMock.compileClasspath + scoringMock.output
+                    scoringMock.compileClasspath + scoringMock.output +
+                    scoringEvent.compileClasspath + scoringEvent.output
 
             runtimeClasspath = output + compileClasspath + runtimeClasspath
         }
@@ -304,7 +312,16 @@ task packageFacebookScoringJar(type: Jar, description: 'Package the Facebook Sco
     }
     from sourceSets.scoringFacebook.output
     from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
-    from { configurations.scoringFacebookCompile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+task packageEventScoringJar(type: Jar, description: 'Package the Event Scoring Jar') {
+    archiveName = "resources/scoreprocessor/event/ikb4stream-$version-scoring-event.jar"
+    manifest {
+        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.scoring.event.EventScoreProcessor'
+    }
+    from sourceSets.scoringEvent.output
+    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }
 
@@ -353,7 +370,7 @@ task zipBuild(type: Zip) {
 
 task packageAll(dependsOn: ['copyConfigProperties', 'packageConsumerJar', 'packageProducerJar', 'packageWeatherJar',
     'packageRssJar', 'packageKafkaCommunicationJar', 'packageTwitterJar', 'packageDbpediaJar', 'packageFacebookJar',
-    'packageOwmJar', 'packageOpenAgendaJar', 'packageCommunicationWebJar', 'packageFacebookScoringJar', 'packageTwitterScoringJar',
+    'packageOwmJar', 'packageOpenAgendaJar', 'packageCommunicationWebJar', 'packageEventScoringJar','packageFacebookScoringJar', 'packageTwitterScoringJar',
     'packageMockScoringJar']) {
 }  
 
@@ -379,18 +396,14 @@ repositories {
 dependencies {
     // core
     coreCompile 'org.influxdb:influxdb-java:2.5'
-
     coreCompile 'ch.qos.logback:logback-core:1.1.3'
     coreCompile "ch.qos.logback:logback-classic:1.1.3"
-
     coreCompile 'org.apache.jena:jena-arq:2.9.3'
     coreCompile 'com.fasterxml.jackson.core:jackson-databind:2.8.6'
     coreCompile 'org.mongodb:mongodb-driver-async:3.2.2'
     coreCompile  group: 'org.apache.opennlp', name: 'opennlp-tools', version: '1.6.0'
 
-
     // producer
-
 
     // consumer
 
@@ -405,11 +418,9 @@ dependencies {
     // datasource_rss
     datasourceRSSCompile 'com.rometools:rome-modules:1.7.1'
 
-    
 	//datasource_OPWweather
     datasourceOWMCompile 'net.aksingh:owm-japis:2.5.0.3'
     datasourceOWMCompile 'org.json:json:20140107'
-    //datasourceOWMCompile 'org.apache.httpcomponents:httpclient:4.2.3'
 
     //datasource_facebook
     datasourceFacebookCompile 'com.restfb:restfb:1.34.1'
@@ -420,13 +431,8 @@ dependencies {
     // communicationWeb
     communicationWebCompile 'io.vertx:vertx-web:3.0.0'
 
-    // scoreprocessor_nlp
-
     //scoring_twitter
     scoringTwitterCompile 'org.twitter4j:twitter4j-stream:4.0.6'
-
-    // scoring_facebook
-    scoringFacebookCompile group: 'com.restfb', name: 'restfb', version: '1.34.1'
 
     // tests
     testCompile 'junit:junit:4.11'
