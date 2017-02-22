@@ -64,14 +64,5 @@ public class TwitterMockTest {
         });
 
         t.start();
-
-        try {
-            Thread.sleep(100);
-        }catch (InterruptedException err) {
-            //Do nothing
-        }finally {
-            t.interrupt();
-            Thread.currentThread().interrupt();
-        }
     }
 }
