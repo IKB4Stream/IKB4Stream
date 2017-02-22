@@ -4,8 +4,8 @@ import com.waves_rsp.ikb4stream.core.datasource.model.IScoreProcessor;
 import com.waves_rsp.ikb4stream.core.metrics.MetricsLogger;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
-import com.waves_rsp.ikb4stream.core.util.nlp.OpenNLP;
 import com.waves_rsp.ikb4stream.core.util.RulesReader;
+import com.waves_rsp.ikb4stream.core.util.nlp.OpenNLP;
 import org.slf4j.LoggerFactory;
 import twitter4j.JSONException;
 import twitter4j.JSONObject;
@@ -18,17 +18,18 @@ public class TwitterScoreProcessor implements IScoreProcessor {
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(TwitterScoreProcessor.class);
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     private final OpenNLP openNLP = OpenNLP.getOpenNLP(Thread.currentThread());
+    private final Map<String, Integer> rulesMap;
     private static final int COEFF_VERIFY_ACCOUNT = 2;
     private static final int COEFF_HASHTAG = 2;
     private static final byte MAX_SCORE = 100;
-    private final String filename;
 
     /**
      * Override default constructor
      */
     public TwitterScoreProcessor() {
         try {
-            filename = PROPERTIES_MANAGER.getProperty("twitter.rules.file");
+            String filename = PROPERTIES_MANAGER.getProperty("twitter.rules.file");
+            rulesMap = RulesReader.parseJSONRules(filename);
         } catch (IllegalArgumentException e) {
             LOGGER.error(e.getMessage());
             throw new IllegalStateException(e.getMessage());
@@ -102,7 +103,6 @@ public class TwitterScoreProcessor implements IScoreProcessor {
             JSONObject jsonTweet = new JSONObject(event.getDescription());
             tweet = getParseDescription(jsonTweet);
             List<String> tweetMap = openNLP.applyNLPlemma(tweet);
-            Map<String, Integer> rulesMap = RulesReader.parseJSONRules(filename);
             score = scoreWords(score, tweetMap, rulesMap);
             //Score x COEFF_VERIFY_ACCOUNT if the twitter is certified
             if (isCertified(jsonTweet)) {

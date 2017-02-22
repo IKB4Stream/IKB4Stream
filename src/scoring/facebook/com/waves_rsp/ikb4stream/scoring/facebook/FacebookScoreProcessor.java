@@ -15,12 +15,13 @@ import java.util.*;
 public class FacebookScoreProcessor implements IScoreProcessor {
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(FacebookScoreProcessor.class, "resources/scoreprocessor/facebook/config.properties");
+    private final Map<String, Integer> rulesMap;
     private static final Logger LOGGER = LoggerFactory.getLogger(FacebookScoreProcessor.class);
-    private final String ruleFilename;
 
     public FacebookScoreProcessor() {
         try {
-            ruleFilename = PROPERTIES_MANAGER.getProperty("facebook.rules.file");
+            String filename = PROPERTIES_MANAGER.getProperty("facebook.rules.file");
+            rulesMap = RulesReader.parseJSONRules(filename);
         } catch (IllegalArgumentException e) {
             LOGGER.error(e.getMessage());
             throw new IllegalStateException(e.getMessage());
@@ -41,7 +42,6 @@ public class FacebookScoreProcessor implements IScoreProcessor {
         String content = event.getDescription();
         OpenNLP openNLP = OpenNLP.getOpenNLP(Thread.currentThread());
         List<String> fbList = openNLP.applyNLPlemma(content);
-        Map<String, Integer> rulesMap = RulesReader.parseJSONRules(ruleFilename);
         byte score = 0;
         for (String word : fbList) {
             if (rulesMap.containsKey(word)) {
