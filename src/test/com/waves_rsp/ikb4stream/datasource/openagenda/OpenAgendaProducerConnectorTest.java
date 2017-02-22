@@ -11,7 +11,7 @@ public class OpenAgendaProducerConnectorTest {
 
     @Test
     public void createInstanceTest() {
-
+        new OpenAgendaProducerConnector();
     }
 
     @Test(expected = NullPointerException.class)

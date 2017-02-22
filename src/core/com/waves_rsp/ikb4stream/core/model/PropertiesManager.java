@@ -73,9 +73,6 @@ public class PropertiesManager {
         if (value == null) {
             throw new IllegalArgumentException("Property not found : " + property);
         }
-        if (value.isEmpty()) {
-            throw new IllegalArgumentException("Property is empty : " + property);
-        }
         return value;
     }
 }

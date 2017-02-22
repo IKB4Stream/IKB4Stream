@@ -78,11 +78,4 @@ public class TwitterScoreProcessorTest {
         assertEquals(100, tsp.processScore(event).getScore());
     }
 
-    @Ignore
-    @Test
-    public void getSourcesTest() {
-        List<String> sources = tsp.getSources();
-        assertFalse(sources.isEmpty());
-    }
-
 }
