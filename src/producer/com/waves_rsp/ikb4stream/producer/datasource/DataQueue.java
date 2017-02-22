@@ -55,6 +55,7 @@ public class DataQueue {
         long arrivedTime = System.currentTimeMillis();
         boolean inserted = queue.offer(new PackagedEvent(event, arrivedTime));
         if (!inserted) {
+            METRICS_LOGGER.log("event_dropped_fullqueue", event.getSource());
             LOGGER.warn(event + " cannot be push");
         }
     }
@@ -67,7 +68,7 @@ public class DataQueue {
     	PackagedEvent packEvent = queue.take();
     	Event popEvent = packEvent.event;
         long departTime = System.currentTimeMillis();
-        METRICS_LOGGER.log("life_in_queue_" + popEvent.getSource(), String.valueOf(departTime - packEvent.arrivedTime));
+        METRICS_LOGGER.log("life_in_queue_" + popEvent.getSource(), (departTime - packEvent.arrivedTime));
         return popEvent;
     }
 

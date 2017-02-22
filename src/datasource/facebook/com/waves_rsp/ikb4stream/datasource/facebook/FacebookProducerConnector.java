@@ -74,7 +74,7 @@ public class FacebookProducerConnector implements IProducerConnector {
                 events.add(event);
                 long endTime = System.currentTimeMillis();
                 long result = endTime - startTime;
-                METRICS_LOGGER.log("time_process_"+this.source, String.valueOf(result));
+                METRICS_LOGGER.log("time_process_"+this.source, result);
             }
         });
 

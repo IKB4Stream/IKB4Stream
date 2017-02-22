@@ -99,7 +99,7 @@ public class OWMProducerConnector implements IProducerConnector{
                     dataProducer.push(event);
                     long end = System.currentTimeMillis();
                     long result = end - start;
-                    METRICS_LOGGER.log("time_process_"+this.source, String.valueOf(result));
+                    METRICS_LOGGER.log("time_process_"+this.source, result);
                 }
                 Thread.sleep(requestInterval);
             } catch (InterruptedException e) {

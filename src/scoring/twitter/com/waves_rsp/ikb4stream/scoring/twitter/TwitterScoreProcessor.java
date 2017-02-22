@@ -113,7 +113,7 @@ public class TwitterScoreProcessor implements IScoreProcessor {
             throw new IllegalArgumentException("Wrong description of event");
         }
         long end = System.currentTimeMillis();
-        METRICS_LOGGER.log("time_scoring_" + event.getSource(), String.valueOf(end - start));
+        METRICS_LOGGER.log("time_scoring_" + event.getSource(), (end - start));
         return new Event(event.getLocation(), event.getStart(), event.getEnd(), tweet, verifyMaxScore(score), event.getSource());
     }
 

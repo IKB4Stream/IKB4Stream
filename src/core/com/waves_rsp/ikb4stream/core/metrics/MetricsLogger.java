@@ -17,6 +17,8 @@ public class MetricsLogger {
     private static final Logger LOGGER = LoggerFactory.getLogger(MetricsLogger.class);
     private final MetricsConnector metricsConnector = MetricsConnector.getMetricsConnector();
     private final String measurement;
+    private static final String ASYNC = "async";
+    private static final String AUTOGEN = "autogen";
 
     /**
      * Instantiate MetricsLogger object
@@ -49,6 +51,26 @@ public class MetricsLogger {
     }
 
     /**
+     * Log a long value into influx database with a specific field
+     *
+     * @param field
+     * @param value
+     * @throws NullPointerException if {@param field} is null
+     */
+    public void log(String field, long value) {
+        Objects.requireNonNull(field);
+
+        if(checkValidInfluxDBConnexion()) {
+            final InfluxDB influxDB = metricsConnector.getInfluxDB();
+            Point point = Point.measurement(measurement).tag(ASYNC, "true")
+                    .time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
+                    .addField(field, value).build();
+            influxDB.write(metricsConnector.getProperties().getDbName(), AUTOGEN, point);
+            LOGGER.info(MetricsLogger.class.getName()+" : indexed points "+point);
+        }
+    }
+
+    /**
      * Log a data as value sent to the influx database into a specific measurement
      *
      * @param field specify the field in order to build a point
@@ -62,11 +84,11 @@ public class MetricsLogger {
         if(checkValidInfluxDBConnexion()) {
             final InfluxDB influxDB = metricsConnector.getInfluxDB();
             Point point = Point.measurement(measurement)
-                    .tag("async", "true")
+                    .tag(ASYNC, "true")
                     .time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
                     .addField(field, data).build();
-            influxDB.write(this.metricsConnector.getProperties().getDbName(), "autogen", point);
-            LOGGER.info(MetricsLogger.class.getName()+" : indexed points " + point.toString());
+            influxDB.write(this.metricsConnector.getProperties().getDbName(), AUTOGEN, point);
+            LOGGER.info("{} : indexed points {}", MetricsLogger.class.getName(), point.toString());
         }
     }
 
@@ -86,10 +108,10 @@ public class MetricsLogger {
         if(checkValidInfluxDBConnexion()) {
             final InfluxDB influxDB = metricsConnector.getInfluxDB();
             Point point = Point.measurement(measurement)
-                                .tag("async", "true")
+                                .tag(ASYNC, "true")
                                 .time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
                                 .addField(field, data).build();
-            influxDB.write(metricsConnector.getProperties().getDbName(), "autogen", point);
+            influxDB.write(metricsConnector.getProperties().getDbName(), AUTOGEN, point);
             LOGGER.info(MetricsLogger.class.getName()+" : indexed points "+point.toString());
         }
     }

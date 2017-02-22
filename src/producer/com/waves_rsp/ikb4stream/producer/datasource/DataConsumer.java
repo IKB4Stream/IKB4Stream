@@ -59,11 +59,14 @@ public class DataConsumer {
                 Event event = dataQueue.pop();
                 Event eventClone = scoreProcessorManger.processScore(event);
                 LOGGER.info("Event {} has been scored", eventClone);
+
                 if (filter(eventClone, targetScore)) {
                     DATABASE_WRITER.insertEvent(eventClone, t -> {
-                        METRICS_LOGGER.log("event_scored", ""+eventClone.getScore());
+                        METRICS_LOGGER.log("event_scored_"+event.getSource(), eventClone.getScore());
                         LOGGER.error(t.getMessage());
                     });
+                }else {
+                    METRICS_LOGGER.log("scored_not_kept_"+event.getSource(), eventClone.getScore());
                 }
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();

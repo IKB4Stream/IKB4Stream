@@ -32,7 +32,7 @@ public class DataProducer implements IDataProducer {
         dataQueue.push(event);
         long end = System.currentTimeMillis();
         long result = end - start;
-        METRICS_LOGGER.log("time_process_"+event.getSource(), String.valueOf(result));
+        METRICS_LOGGER.log("time_process_"+event.getSource(), result);
         LOGGER.info("The event {} has been pushed into database.", event.getSource());
     }
 }

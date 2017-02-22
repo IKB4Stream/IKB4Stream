@@ -65,7 +65,7 @@ public class RSSProducerConnector implements IProducerConnector {
                     }
                 });
                 long end = System.currentTimeMillis();
-                METRICS_LOGGER.log("time_process_" + this.source, String.valueOf(end - start));
+                METRICS_LOGGER.log("time_process_" + this.source, (end - start));
             } catch (IOException | FeedException e) {
                 LOGGER.error("Can't parse RSS [] ", e);
             }
@@ -103,7 +103,7 @@ public class RSSProducerConnector implements IProducerConnector {
         List<String> locations = openNLP.applyNLPner(text, OpenNLP.nerOptions.LOCATION);
         if (!locations.isEmpty()) {
             long end = System.currentTimeMillis();
-            METRICS_LOGGER.log("time_geocode_" + this.source, String.valueOf(end - start));
+            METRICS_LOGGER.log("time_geocode_" + this.source, (end - start));
             return geocoder.parse(locations.get(0));
         }
         return null;
