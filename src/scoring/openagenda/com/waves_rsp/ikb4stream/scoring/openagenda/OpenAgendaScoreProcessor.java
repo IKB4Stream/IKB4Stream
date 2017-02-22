@@ -12,9 +12,7 @@ import com.waves_rsp.ikb4stream.core.util.nlp.OpenNLP;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class OpenAgendaScoreProcessor implements IScoreProcessor {
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(OpenAgendaScoreProcessor.class, "resources/scoreprocessor/openagenda/config.properties");
@@ -65,7 +63,14 @@ public class OpenAgendaScoreProcessor implements IScoreProcessor {
 
     @Override
     public List<String> getSources() {
-        return null;
+        List<String> sources = new ArrayList<>();
+        try {
+            String allSources = PROPERTIES_MANAGER.getProperty("openagenda.scoring.sources");
+            sources.addAll(Arrays.asList(allSources.split(",")));
+        } catch (IllegalArgumentException e) {
+            LOGGER.error(e.getMessage());
+        }
+        return sources;
     }
 
     /**

@@ -35,7 +35,6 @@ public class FacebookProducerConnectorTest {
         String form = "yyyy-MM-dd'T'HH:mm:ss.SSSS";
         DateFormat dateFormat = new SimpleDateFormat(form);
         Date date = dateFormat.getCalendar().getTime();
-        System.out.println(date);
     }
 
     @Test
