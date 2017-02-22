@@ -56,8 +56,8 @@ public class OpenAgendaScoreProcessor implements IScoreProcessor {
             throw new IllegalArgumentException("Bad json format or tree cannot be read");
         }
 
-        long end = System.currentTimeMillis();
-        METRICS_LOGGER.log("time_scoring_" + event.getSource(), (end - start));
+        long time = System.currentTimeMillis() - start;
+        METRICS_LOGGER.log("time_scoring_" + event.getSource(), time);
         return new Event(event.getLocation(), event.getStart(), event.getEnd(), eventDesc, verifyMaxScore(score), event.getSource());
     }
 

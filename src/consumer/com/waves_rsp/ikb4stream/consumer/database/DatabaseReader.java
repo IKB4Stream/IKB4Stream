@@ -99,8 +99,8 @@ public class DatabaseReader implements IDatabaseReader {
                 .limit(limit)
                 .into(new ArrayList<Document>(),
                         (result, t) -> {
-                            long end = System.currentTimeMillis();
-                            METRICS_LOGGER.log("time_dbreader", (end - start));
+                            long time = System.currentTimeMillis() - start;
+                            METRICS_LOGGER.log("time_dbreader", time);
                             LOGGER.info("get event request has been sent to mongo.");
                             callback.onResult(
                                     t,

@@ -69,9 +69,9 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
             try {
                 long start = System.currentTimeMillis();
                 List<Event> events = searchEvents();
-                long end = System.currentTimeMillis();
+                long time = System.currentTimeMillis() - start;
                 events.forEach(dataProducer::push);
-                METRICS_LOGGER.log("time_process_"+this.source, (end - start));
+                METRICS_LOGGER.log("time_process_"+this.source, time);
                 Thread.sleep(20000);
             } catch (InterruptedException e) {
                 LOGGER.error("Current thread has been interrupted: {}", e);

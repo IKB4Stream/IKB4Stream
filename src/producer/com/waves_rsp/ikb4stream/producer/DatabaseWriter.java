@@ -97,8 +97,8 @@ public class DatabaseWriter {
                 document.append(LOCATION_FIELD, new Polygon(positions));
             }
             this.mongoCollection.insertOne(document, (result, t) -> callback.onResult(t));
-            long end = System.currentTimeMillis();
-            METRICS_LOGGER.log("time_dbwriter_"+event.getSource(), (end-start));
+            long time = System.currentTimeMillis() - start;
+            METRICS_LOGGER.log("time_dbwriter_"+event.getSource(), time);
         } catch (JsonProcessingException e) {
             LOGGER.error("Invalid event format: event not inserted in database.");
         }

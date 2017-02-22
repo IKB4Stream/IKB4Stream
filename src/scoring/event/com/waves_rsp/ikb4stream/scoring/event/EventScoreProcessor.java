@@ -17,7 +17,7 @@ public class EventScoreProcessor implements IScoreProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(EventScoreProcessor.class);
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     private final OpenNLP openNLP = OpenNLP.getOpenNLP(Thread.currentThread());
-    private final static byte MAX = Event.getScoreMax();
+    private static final byte MAX = Event.getScoreMax();
     private final Map<String, Integer> rulesMap;
 
     public EventScoreProcessor() {
@@ -52,8 +52,8 @@ public class EventScoreProcessor implements IScoreProcessor {
         if (score > MAX) {
             score = MAX;
         }
-        long end = System.currentTimeMillis();
-        METRICS_LOGGER.log("time_scoring_" + event.getSource(), (end-start));
+        long time = System.currentTimeMillis() - start;
+        METRICS_LOGGER.log("time_scoring_" + event.getSource(), time);
         return new Event(event.getLocation(), event.getStart(), event.getEnd(), event.getDescription(), score, event.getSource());
     }
 

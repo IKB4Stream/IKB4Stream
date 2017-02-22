@@ -28,8 +28,8 @@ public class MockScoreProcessor implements IScoreProcessor {
         Random rand = new Random();
         byte nombreAleatoire = (byte)rand.nextInt(100 + 1);
         LOGGER.info("Score aléatoire: " + nombreAleatoire);
-        long end = System.currentTimeMillis();
-        METRICS_LOGGER.log("time_scoring_" + event.getSource(), (end-start));
+        long time = System.currentTimeMillis() - start;
+        METRICS_LOGGER.log("time_scoring_" + event.getSource(), time);
         return new Event(event.getLocation(), event.getStart(), event.getEnd(), event.getDescription(), nombreAleatoire, event.getSource());
     }
 
