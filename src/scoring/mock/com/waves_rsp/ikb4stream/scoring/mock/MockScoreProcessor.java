@@ -38,6 +38,9 @@ public class MockScoreProcessor implements IScoreProcessor {
         List<String> sources = new ArrayList<>();
         try {
             String allSources = PROPERTIES_MANAGER.getProperty("mock.scoring.sources");
+            if (allSources.isEmpty()) {
+                return sources;
+            }
             sources.addAll(Arrays.asList(allSources.split(",")));
         } catch (IllegalArgumentException e) {
             LOGGER.warn(e.getMessage());

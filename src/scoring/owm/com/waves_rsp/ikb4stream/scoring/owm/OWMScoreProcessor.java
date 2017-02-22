@@ -9,57 +9,53 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * OWMScoreProcessor class set up score for events
  */
-public class OWMScoreProcessor implements IScoreProcessor{
-
+public class OWMScoreProcessor implements IScoreProcessor {
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(OWMScoreProcessor.class, "resources/scoreprocessor/owm/config.properties");
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(OWMScoreProcessor.class);
-    private final String filename;
+    private final Map<String, Integer> weatherValues = new HashMap<>();
+    private final ObjectMapper objectMapper = new ObjectMapper();
     private static final byte MAX_SCORE = 100;
     private static final byte MIN_SCORE = 0;
     private final int threshold;
     private final int factor;
-    private final int rain;
-    private final int snow;
-    private final int defaultType;
-    private final ObjectMapper objectMapper = new ObjectMapper();
 
+    /**
+     * Create an OWMScoreProcessor with custom rules
+     */
     public OWMScoreProcessor() {
         try {
-            filename = PROPERTIES_MANAGER.getProperty("openweathermap.rules.file");
+            String filename = PROPERTIES_MANAGER.getProperty("openweathermap.rules.file");
             JsonNode jsonNode = objectMapper.readTree(new File(filename));
             threshold = Byte.parseByte(jsonNode.path("threshold").asText());
             factor = Byte.parseByte(jsonNode.path("factor").asText());
             JsonNode weatherType = jsonNode.path("weatherType");
-            rain = Byte.parseByte(weatherType.path("rain").asText());
-            snow = Byte.parseByte(weatherType.path("snow").asText());
-            defaultType = Byte.parseByte(weatherType.path("default").asText());
+            weatherType.fieldNames().forEachRemaining(field -> weatherValues.put(field, weatherType.path(field).asInt()));
+        } catch (IllegalArgumentException e) {
+            LOGGER.error(e.getMessage());
+            throw new IllegalStateException(e);
         } catch (IOException e) {
             LOGGER.warn("objectMapper failed: {}", e.getMessage());
-            throw new IllegalStateException(e.getMessage());
+            throw new IllegalStateException(e);
         }
     }
 
     /**
-     *
-     * @param score
-     * @param type
-     * @return
+     * Get new score for a weather type
+     * @param score Actual score of the event
+     * @param type Weather type
+     * @return Score updated
+     * @throws NullPointerException if {@param type} is null
      */
     private byte weatherType(byte score, String type) {
-        if (("rain").equalsIgnoreCase(type)) {
-            return (byte) (score - rain);
-        }else if (("snow").equalsIgnoreCase(type)) {
-            return (byte) (score - snow);
-        }
-        return (byte) (score + defaultType);
+        Objects.requireNonNull(type);
+        Integer sc = weatherValues.get(type);
+        if (sc == null) return score;
+        return (byte)(score + sc);
     }
 
     /**
@@ -89,8 +85,7 @@ public class OWMScoreProcessor implements IScoreProcessor{
         String jsonString = event.getDescription();
         try {
             JsonNode jn = objectMapper.readTree(jsonString);
-            //Temperature convert from Fahrein Celsius
-            double temperature = (jn.path("main").path("temp").asDouble()-32)/1.8;
+            double temperature = convertFromFahrenheitToCelsius(jn.path("main").path("temp").asDouble());
             //We suppose that if the T° < threshold, no one turn on fill up his pool
             byte score1 = (byte)((temperature - threshold)* factor);
             //About the weather, if it rain or snow
@@ -101,19 +96,21 @@ public class OWMScoreProcessor implements IScoreProcessor{
             LOGGER.warn("objectMapper failed: {}", e);
             return event;
         }
+    }
 
+    private static double convertFromFahrenheitToCelsius(Double fahrenheit) {
+        return (fahrenheit - 32) / 1.8;
     }
 
     @Override
     public List<String> getSources() {
         List<String> sources = new ArrayList<>();
         try {
-            String allSources = PROPERTIES_MANAGER.getProperty("owm.scoring.sources");
+            String allSources = PROPERTIES_MANAGER.getProperty("openweathermap.scoring.sources");
             sources.addAll(Arrays.asList(allSources.split(",")));
         } catch (IllegalArgumentException e) {
             LOGGER.warn(e.getMessage());
         }
         return sources;
     }
-
 }
