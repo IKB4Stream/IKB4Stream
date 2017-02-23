@@ -6,28 +6,52 @@ import java.util.Arrays;
 
 public class DBpediaProducerTest {
 
-    @Test (expected = NullPointerException.class)
+    @Test(expected = NullPointerException.class)
     public void checkNullProducer() {
         DBpediaProducerConnector dBpediaProducerConnector = new DBpediaProducerConnector();
         dBpediaProducerConnector.load(null);
     }
 
+
     @Test
     public void checkProducerResults() {
         DBpediaProducerConnector dBpediaProducerConnector = new DBpediaProducerConnector();
-        dBpediaProducerConnector.load(dataProducer -> {
-            //Do nothing
+        Thread thread = new Thread(() -> {
+            dBpediaProducerConnector.load(dataProducer -> {
+                //Do nothing
+            });
         });
+
+        thread.start();
+        try {
+            Thread.sleep(300);
+        } catch (InterruptedException e) {
+            //Do nothing
+        } finally {
+            thread.interrupt();
+            Thread.currentThread().interrupt();
+        }
     }
 
     @Test
     public void checkIllegalArgument() {
         try {
             DBpediaProducerConnector producerConnector = new DBpediaProducerConnector();
-            producerConnector.load(dataProducer -> {
-                //Do nothing
+            Thread thread = new Thread(() -> {
+                producerConnector.load(dataProducer -> {
+                    //Do nothing
+                });
             });
-        }catch (IllegalArgumentException err) {
+            thread.start();
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                //Do nothing
+            } finally {
+                thread.interrupt();
+                Thread.currentThread().interrupt();
+            }
+        } catch (IllegalArgumentException err) {
             //Do nothing
         }
     }
@@ -36,9 +60,9 @@ public class DBpediaProducerTest {
     public void checkThreadForDataProducer() {
         final DBpediaProducerConnector producerConnector = new DBpediaProducerConnector();
         Thread thread = new Thread(() -> {
-           producerConnector.load(dataProducer -> {
-               //Do nothing
-           });
+            producerConnector.load(dataProducer -> {
+                //Do Nothing
+            });
         });
 
         thread.start();
@@ -47,7 +71,7 @@ public class DBpediaProducerTest {
             Thread.sleep(300);
         } catch (InterruptedException e) {
             //Do nothing
-        }finally {
+        } finally {
             thread.interrupt();
             Thread.currentThread().interrupt();
         }
@@ -56,14 +80,14 @@ public class DBpediaProducerTest {
     @Test
     public void checkThreadsPoolForDataProducer() {
         Thread[] threads = new Thread[10];
-        for (int i=0; i < threads.length; i++) {
+        for (int i = 0; i < threads.length; i++) {
             threads[i] = new Thread(() -> {
                 DBpediaProducerConnector producerConnector = new DBpediaProducerConnector();
                 try {
                     producerConnector.load(dataProducer -> {
                         //Do nothing
                     });
-                }catch (IllegalArgumentException err) {
+                } catch (IllegalArgumentException err) {
                     Thread.currentThread().interrupt();
                 }
             });
@@ -73,7 +97,7 @@ public class DBpediaProducerTest {
 
         try {
             Thread.sleep(300);
-        }catch (InterruptedException err) {
+        } catch (InterruptedException err) {
             Arrays.stream(threads).forEach(Thread::interrupt);
         }
     }

@@ -24,10 +24,21 @@ public class OpenAgendaProducerConnectorTest {
     public void checkNullInstanceOfOpenData() {
         OpenAgendaProducerConnector openAgendaProducerConnector = null;
         try {
-            openAgendaProducerConnector.load(dataProducer -> {
-                //Do nothing
+            Thread thread = new Thread(() -> {
+                openAgendaProducerConnector.load(dataProducer -> {
+                    //Do nothing
+                });
             });
-        }catch (NullPointerException err) {
+            thread.start();
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                //Do nothing
+            } finally {
+                thread.interrupt();
+                Thread.currentThread().interrupt();
+            }
+        } catch (NullPointerException err) {
             //Do nothing
         }
     }
@@ -36,10 +47,22 @@ public class OpenAgendaProducerConnectorTest {
     public void checkBadUrlForOpenData() {
         try {
             OpenAgendaProducerConnector openAgendaProducerConnector = new OpenAgendaProducerConnector();
-            openAgendaProducerConnector.load(dataProducer -> {
-                //Do nothing
+            Thread thread = new Thread(() -> {
+                openAgendaProducerConnector.load(dataProducer -> {
+                    //Do nothing
+                });
             });
-        }catch (IllegalArgumentException e) {
+            thread.start();
+
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                //Do nothing
+            } finally {
+                thread.interrupt();
+                Thread.currentThread().interrupt();
+            }
+        } catch (IllegalArgumentException e) {
             //Do nothing
         }
     }
@@ -48,17 +71,30 @@ public class OpenAgendaProducerConnectorTest {
     public void checkIllegalPropertiesLoaded() {
         try {
             new OpenAgendaProducerConnector();
-        }catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             //Do nothing
         }
     }
 
     @Test
     public void checkValidPropertiesAndData() {
-        OpenAgendaProducerConnector openAgendaProducerConnector = new OpenAgendaProducerConnector();
-        openAgendaProducerConnector.load(dataProducer -> {
-            //Do nothing
+        final OpenAgendaProducerConnector op = new OpenAgendaProducerConnector();
+        Thread thread = new Thread(() -> {
+            op.load(dataProducer -> {
+                //Do Nothing
+            });
         });
+
+        thread.start();
+
+        try {
+            Thread.sleep(300);
+        } catch (InterruptedException e) {
+            //Do nothing
+        } finally {
+            thread.interrupt();
+            Thread.currentThread().interrupt();
+        }
     }
 
     @Test
@@ -72,7 +108,7 @@ public class OpenAgendaProducerConnectorTest {
                         //Do nothing
                     });
 
-                }catch (IllegalArgumentException err) {
+                } catch (IllegalArgumentException err) {
                     //Do nothing
                 }
             });
@@ -81,11 +117,11 @@ public class OpenAgendaProducerConnectorTest {
         Arrays.stream(threads).forEach(Thread::start);
 
         try {
-            for(int i=0; i < threads.length; i++) {
+            for (int i = 0; i < threads.length; i++) {
                 threads[i].join();
                 threads[i].interrupt();
             }
-        }catch (InterruptedException err) {
+        } catch (InterruptedException err) {
             //Do nothing
         }
     }
@@ -96,7 +132,7 @@ public class OpenAgendaProducerConnectorTest {
         try {
             OpenAgendaProducerConnector openAgendaProducerConnector = new OpenAgendaProducerConnector();
             Assert.assertTrue(openAgendaProducerConnector.isActive());
-        }catch (IllegalArgumentException err) {
+        } catch (IllegalArgumentException err) {
             //Do nothing
         }
     }
@@ -107,7 +143,7 @@ public class OpenAgendaProducerConnectorTest {
         try {
             OpenAgendaProducerConnector openAgendaProducerConnector = new OpenAgendaProducerConnector();
             Assert.assertFalse(openAgendaProducerConnector.isActive());
-        }catch (IllegalArgumentException err) {
+        } catch (IllegalArgumentException err) {
             //Do nothing
         }
     }
@@ -117,7 +153,7 @@ public class OpenAgendaProducerConnectorTest {
         try {
             OpenAgendaProducerConnector openAgendaProducerConnector = new OpenAgendaProducerConnector();
             openAgendaProducerConnector.isActive();
-        }catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             //Do nothing
         }
     }
