@@ -45,6 +45,7 @@ public class WebCommunication implements ICommunication {
         try {
             PROPERTIES_MANAGER.getProperty("communications.web.port");
             port = Integer.parseInt(PROPERTIES_MANAGER.getProperty("communications.web.port"));
+            LOGGER.info("WebCommunication Server set on port {}", port);
         } catch (NumberFormatException e) {
             LOGGER.error("Invalid 'communications.web.port' value");
             return;
@@ -57,7 +58,7 @@ public class WebCommunication implements ICommunication {
 
         deploymentOptions.setConfig(jsonObject);
 
-        server.deployVerticle(VertxServer.class.getName());
+        server.deployVerticle(VertxServer.class.getName(), deploymentOptions);
     }
 
     /**
