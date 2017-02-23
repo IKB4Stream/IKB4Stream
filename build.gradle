@@ -189,6 +189,7 @@ task packageConsumerJar(type: Jar, description: 'Package the Consumer Jar') {
     from 'resources/logback.properties'
     from sourceSets.consumer.output
     from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
+    from { configurations.consumerCompile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }
 
