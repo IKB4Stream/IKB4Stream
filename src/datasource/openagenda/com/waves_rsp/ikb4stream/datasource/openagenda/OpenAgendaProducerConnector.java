@@ -20,10 +20,7 @@ import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class OpenAgendaProducerConnector implements IProducerConnector {
     private static final String UTF8 = "utf-8";
@@ -67,10 +64,17 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
     @Override
     public void load(IDataProducer dataProducer) {
         Objects.requireNonNull(dataProducer);
+        InputStream is = null;
+        try {
+            is = createURL().openStream();
+        } catch (IOException e) {
+            LOGGER.error("Cannot connect to the OpenAgenda API : {} ", e);
+            throw new IllegalStateException(e.getMessage());
+        }
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 long start = System.currentTimeMillis();
-                List<Event> events = searchEvents();
+                List<Event> events = searchEvents(is);
                 long time = System.currentTimeMillis() - start;
                 events.forEach(dataProducer::push);
                 METRICS_LOGGER.log("time_process_"+this.source, time);
@@ -78,6 +82,11 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
             } catch (InterruptedException e) {
                 LOGGER.error("Current thread has been interrupted: {}", e);
             } finally {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                   LOGGER.error("Exception during thread has been interrupted : {} ", e);
+                }
                 Thread.currentThread().interrupt();
             }
         }
@@ -118,13 +127,11 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
      *
      * @return a list of events
      */
-    private List<Event> searchEvents() {
+    private List<Event> searchEvents(InputStream is) {
         List<Event> events = new ArrayList<>();
-        InputStream is;
         ObjectMapper mapper = new ObjectMapper();
         ObjectMapper fieldMapper = new ObjectMapper();
         try {
-            is = createURL().openStream();
             JsonNode root = mapper.readTree(is);
             //root
             JsonNode recordsNode = root.path("records");
@@ -145,7 +152,6 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
                     pushIfNotNullEvent(events, event);
                 }
             }
-            is.close();
         } catch (IOException e) {
             LOGGER.error("Bad json format or tree cannot be read: {}", e);
         }
@@ -185,11 +191,17 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
         Date end;
         try {
             start = df.parse(dateStart);
-            end = df.parse(dateEnd);
         } catch (ParseException e) {
-            LOGGER.error("Bad date format found: {}", e);
-            throw new IllegalArgumentException("Wrong date format from open agenda connector");
+            LOGGER.warn("Cannot find the date of start on OpenAgenda.");
+            return null;
         }
+        try {
+            end = df.parse(dateEnd);
+        }catch (ParseException e) {
+            LOGGER.warn("Cannot find the date of end on OpenAgenda.");
+            end = Calendar.getInstance().getTime();
+        }
+
         return new Event(latLong, start, end, jsonDescription.toString(), this.source);
     }
 

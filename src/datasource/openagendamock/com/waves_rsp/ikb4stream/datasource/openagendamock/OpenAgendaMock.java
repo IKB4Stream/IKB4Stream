@@ -17,10 +17,7 @@ import java.io.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class OpenAgendaMock implements IProducerConnector {
     private static final String UTF8 = "utf-8";
@@ -71,6 +68,11 @@ public class OpenAgendaMock implements IProducerConnector {
             } catch (InterruptedException e) {
                 LOGGER.error("Current thread has been interrupted: {}", e);
             } finally {
+                try {
+                    this.input.close();
+                } catch (IOException e) {
+                    LOGGER.error("Exception during thread interrupted");
+                }
                 Thread.currentThread().interrupt();
             }
         }
@@ -107,7 +109,6 @@ public class OpenAgendaMock implements IProducerConnector {
                     pushIfNotNullEvent(events, event);
                 }
             }
-            this.input.close();
         } catch (IOException e) {
             LOGGER.error("Bad json format or tree cannot be read: {}", e);
         }
@@ -148,10 +149,15 @@ public class OpenAgendaMock implements IProducerConnector {
         Date end;
         try {
             start = df.parse(dateStart);
-            end = df.parse(dateEnd);
         } catch (ParseException e) {
-            LOGGER.error("Bad date format found: {}", e);
-            throw new IllegalArgumentException("Wrong date format from open agenda connector");
+            LOGGER.warn("Cannot find the date of start on OpenAgenda.");
+            return null;
+        }
+        try {
+            end = df.parse(dateEnd);
+        }catch (ParseException e) {
+            LOGGER.warn("Cannot find the date of end on OpenAgenda.");
+            end = Calendar.getInstance().getTime();
         }
         return new Event(latLong, start, end, jsonDescription.toString(), this.source);
 
@@ -171,6 +177,13 @@ public class OpenAgendaMock implements IProducerConnector {
             LOGGER.warn("Open agenda datasource not activated: {}", e);
             return true;
         }
+    }
+
+    public static void main (String[] args){
+        OpenAgendaMock p = new OpenAgendaMock();
+        p.load(e->{
+            System.out.println(e+"\n");
+        });
     }
 }
 
