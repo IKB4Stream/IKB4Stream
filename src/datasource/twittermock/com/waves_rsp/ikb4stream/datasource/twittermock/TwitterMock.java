@@ -1,34 +1,24 @@
 package com.waves_rsp.ikb4stream.datasource.twittermock;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
-import com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector;
-import com.waves_rsp.ikb4stream.core.metrics.MetricsLogger;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
+import com.waves_rsp.ikb4stream.core.util.IProducerConnectorMock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.Instant;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Objects;
 
 
-public class TwitterMock implements IProducerConnector {
+public class TwitterMock implements IProducerConnectorMock {
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(TwitterMock.class, "resources/datasource/twittermock/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(TwitterMock.class);
-    private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     private static final String SOURCE = "Twitter";
 
     public TwitterMock() {
@@ -37,60 +27,30 @@ public class TwitterMock implements IProducerConnector {
 
     /**
      * Load data registered into a json twitter file and parse them to create event
-     *
      * @param dataProducer
      */
     @Override
     public void load(IDataProducer dataProducer) {
         Objects.requireNonNull(dataProducer);
-        ObjectMapper mapper = new ObjectMapper();
-        JsonParser parser;
-        Path path = Paths.get(PROPERTIES_MANAGER.getProperty("twittermock.path"));
-
-        long start = System.currentTimeMillis();
-        try (InputStream inputStream = new FileInputStream(path.toString())){
-            parser = mapper.getFactory().createParser(inputStream);
-            while(!Thread.currentThread().isInterrupted()) {
-                try {
-                    while(parser.nextToken() == JsonToken.START_OBJECT) {
-                        ObjectNode objectNode = mapper.readTree(parser);
-                        Event event = getEventFromJson(objectNode);
-                        pushIfValidEvent(dataProducer, event, start);
-                    }
-                } catch (IOException e) {
-                    LOGGER.error("Something went wrong with the tweet reading");
-                    return;
-                }finally {
-                    Thread.currentThread().interrupt();
-                }
-            }
-        } catch (IOException e) {
-            LOGGER.error(e.getMessage());
-            return;
-        }
+        load(dataProducer, PROPERTIES_MANAGER, "twittermock.path");
     }
-
 
     /**
      * Indicates whether this producer is enabled or not, according to twittermock.enable
-     * @return true is twittermock.enable is true
+     * @return true is facebookmock.enable is true
      */
     @Override
     public boolean isActive() {
-        try {
-            return Boolean.valueOf(PROPERTIES_MANAGER.getProperty("twittermock.enable"));
-        } catch (IllegalArgumentException e) {
-            return true;
-        }
+        return isActive(PROPERTIES_MANAGER, "twittermock.enable");
     }
 
     /**
      * Parse an object node in order to create an Event object
-     *
-     * @param objectNode
-     * @return null if an IllegalArgumentException or NullPointerException has been thrown, else the Event object created
+     * @param objectNode object node to convert to Event
+     * @return Event converted format
      */
-    private static Event getEventFromJson(ObjectNode objectNode) {
+    @Override
+    public Event getEventFromJson(ObjectNode objectNode) {
         Date startDate = Date.from(Instant.ofEpochMilli(objectNode.findValue("timestamp_ms").asLong()));
         Date endDate = Date.from(Instant.now());
         JsonNode jsonNode = objectNode.findValue("place");
@@ -106,27 +66,10 @@ public class TwitterMock implements IProducerConnector {
     }
 
     /**
-     * Push a valid event into the data producer object
-     *
-     * @param dataProducer
-     * @param event
-     */
-    private void pushIfValidEvent(IDataProducer dataProducer, Event event, long start) {
-        if(event != null) {
-            dataProducer.push(event);
-            long end = System.currentTimeMillis();
-            long result = end - start;
-            METRICS_LOGGER.log("time_process_"+event.getSource(), result);
-        }else {
-            LOGGER.error("An event was discard (missing field)");
-        }
-    }
-
-    /**
      * Create LatLong from a jsonNode object and parse it to get GPS coordinates
      *
-     * @param jsonCoordinates
-     * @return latlong object
+     * @param jsonCoordinates json coordinates to parse
+     * @return latlong the parsed latlong
      */
     private static LatLong jsonToLatLong(JsonNode jsonCoordinates) {
         JsonNode main = jsonCoordinates.elements().next();
