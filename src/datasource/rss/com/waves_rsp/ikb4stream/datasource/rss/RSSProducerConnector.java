@@ -31,13 +31,14 @@ public class RSSProducerConnector implements IProducerConnector {
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     private final OpenNLP openNLP = OpenNLP.getOpenNLP(Thread.currentThread());
     private final String source;
+    private final int interval;
     private final URL url;
 
     public RSSProducerConnector() {
         try {
             this.source = PROPERTIES_MANAGER.getProperty("RSSProducerConnector.source");
-            String urlString = PROPERTIES_MANAGER.getProperty("RSSProducerConnector.url");
-            this.url = new URL(urlString);
+            this.interval = Integer.parseInt(PROPERTIES_MANAGER.getProperty("RSSProducerConnector.interval"));
+            this.url = new URL(PROPERTIES_MANAGER.getProperty("RSSProducerConnector.url"));
         } catch (IllegalArgumentException | MalformedURLException e) {
             LOGGER.error("Invalid configuration [] ", e);
             throw new IllegalStateException("Invalid configuration");
@@ -47,27 +48,36 @@ public class RSSProducerConnector implements IProducerConnector {
     @Override
     public void load(IDataProducer dataProducer) {
         Objects.requireNonNull(dataProducer);
+        final boolean[] first = {true};
+        final Date[] lastTime = {Date.from(Instant.now())};
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 long start = System.currentTimeMillis(); //metrics
                 SyndFeedInput input = new SyndFeedInput();
                 SyndFeed feed = input.build(new XmlReader(this.url));
-                feed.getEntries().forEach(entry -> {
-                    Date endDate = Date.from(Instant.now());
-                    Date startDate = (entry.getPublishedDate() != null) ? entry.getPublishedDate() : endDate;
-                    String description = (entry.getDescription().getValue() != null) ? entry.getDescription().getValue() : "";
-                    String completeDesc = entry.getTitle() + " " + description;
-                    GeoRSSModule module = GeoRSSUtils.getGeoRSS(entry);
-                    LatLong latLong = getLatLong(module, completeDesc);
-                    if (latLong != null) {
-                        Event event = new Event(latLong, startDate, endDate, completeDesc, source);
-                        dataProducer.push(event);
-                    }
-                });
+                Date currentTime = Date.from(Instant.now());
+                feed.getEntries().stream()
+                        .filter(entry -> first[0] || entry.getPublishedDate().after(lastTime[0]))
+                        .forEach(entry -> {
+                            lastTime[0] = currentTime;
+                            Date startDate = (entry.getPublishedDate() != null) ? entry.getPublishedDate() : currentTime;
+                            String description = (entry.getDescription().getValue() != null) ? entry.getDescription().getValue() : "";
+                            String completeDesc = entry.getTitle() + " " + description;
+                            GeoRSSModule module = GeoRSSUtils.getGeoRSS(entry);
+                            LatLong latLong = getLatLong(module, completeDesc);
+                            if (latLong != null) {
+                                Event event = new Event(latLong, startDate, currentTime, completeDesc, source);
+                                dataProducer.push(event);
+                            }
+                        });
+                first[0] = false;
                 long time = System.currentTimeMillis() - start;
                 METRICS_LOGGER.log("time_process_" + this.source, time);
+                Thread.sleep(interval);
             } catch (IOException | FeedException e) {
                 LOGGER.error("Can't parse RSS [] ", e);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
             }
         }
     }
