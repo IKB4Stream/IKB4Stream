@@ -197,7 +197,7 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
         try {
             return Boolean.valueOf(PROPERTIES_MANAGER.getProperty("openagenda.enable"));
         } catch (IllegalArgumentException e) {
-            LOGGER.warn("Open agenda datasource not activated: {}", e);
+            LOGGER.warn("Open agenda datasource not activated: {}", e.getMessage());
             return true;
         }
     }
