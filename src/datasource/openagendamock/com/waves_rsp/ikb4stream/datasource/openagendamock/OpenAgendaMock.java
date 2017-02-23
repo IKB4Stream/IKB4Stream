@@ -28,15 +28,16 @@ public class OpenAgendaMock implements IProducerConnector {
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenAgendaMock.class);
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     private final String source;
+    private final long sleepTime;
     private final InputStream input;
 
     /**
      * Instantiate the OpenAgendaMock object with load properties to connect to the OPen Agenda API
-     *
      */
     public OpenAgendaMock() {
         try {
             this.source = PROPERTIES_MANAGER.getProperty("openagendamock.source");
+            this.sleepTime = Long.valueOf(PROPERTIES_MANAGER.getProperty("openagendamock.sleep_time"));
             String mockFile = PROPERTIES_MANAGER.getProperty("openagendamock.mock");
             this.input = new FileInputStream(new File(mockFile));
         } catch (IllegalArgumentException e) {
@@ -44,7 +45,7 @@ public class OpenAgendaMock implements IProducerConnector {
             throw new IllegalStateException("Invalid configuration");
         } catch (FileNotFoundException e) {
             LOGGER.error("File not found : {} ", e);
-            throw  new IllegalArgumentException("Invalid property");
+            throw new IllegalArgumentException("Invalid property");
         }
     }
 
@@ -66,6 +67,9 @@ public class OpenAgendaMock implements IProducerConnector {
                 long time = System.currentTimeMillis() - start;
                 events.forEach(dataProducer::push);
                 METRICS_LOGGER.log("time_process_" + this.source, time);
+                Thread.sleep(this.sleepTime);
+            } catch (InterruptedException e) {
+                LOGGER.error("Current thread has been interrupted: {}", e);
             } finally {
                 Thread.currentThread().interrupt();
             }
@@ -131,25 +135,25 @@ public class OpenAgendaMock implements IProducerConnector {
             LOGGER.warn("Cannot find latlong attribute");
             return null;
         }
-            LatLong latLong = new LatLong(Double.parseDouble(coord[0]), Double.parseDouble(coord[1]));
-            DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+        LatLong latLong = new LatLong(Double.parseDouble(coord[0]), Double.parseDouble(coord[1]));
+        DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
 
-            ObjectMapper objectMapper = new ObjectMapper();
-            ObjectNode jsonDescription = objectMapper.createObjectNode();
-            jsonDescription.put("title", title);
-            jsonDescription.put("description", description);
-            jsonDescription.put("city", city);
-            jsonDescription.put("address", address);
-            Date start;
-            Date end;
-            try {
-                start = df.parse(dateStart);
-                end = df.parse(dateEnd);
-            } catch (ParseException e) {
-                LOGGER.error("Bad date format found: {}", e);
-                throw new IllegalArgumentException("Wrong date format from open agenda connector");
-            }
-            return new Event(latLong, start, end, jsonDescription.toString(), this.source);
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectNode jsonDescription = objectMapper.createObjectNode();
+        jsonDescription.put("title", title);
+        jsonDescription.put("description", description);
+        jsonDescription.put("city", city);
+        jsonDescription.put("address", address);
+        Date start;
+        Date end;
+        try {
+            start = df.parse(dateStart);
+            end = df.parse(dateEnd);
+        } catch (ParseException e) {
+            LOGGER.error("Bad date format found: {}", e);
+            throw new IllegalArgumentException("Wrong date format from open agenda connector");
+        }
+        return new Event(latLong, start, end, jsonDescription.toString(), this.source);
 
     }
 
