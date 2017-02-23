@@ -34,6 +34,7 @@ public class DBpediaProducerConnector implements IProducerConnector {
     private final double longitudeMin;
     private final String resource;
     private final int limit;
+    private final long sleep_time;
 
 
     /**
@@ -48,6 +49,7 @@ public class DBpediaProducerConnector implements IProducerConnector {
             longitudeMax = Double.valueOf(PROPERTIES_MANAGER.getProperty("dbpedia.longitude.maximum"));
             longitudeMin = Double.valueOf(PROPERTIES_MANAGER.getProperty("dbpedia.longitude.minimum"));
             resource = PROPERTIES_MANAGER.getProperty("dbpedia.resource");
+            sleep_time = Long.valueOf(PROPERTIES_MANAGER.getProperty("dbpedia.sleep_time"));
             limit = Integer.valueOf(PROPERTIES_MANAGER.getProperty("dbpedia.limit"));
         } catch (IllegalArgumentException e) {
             LOGGER.error("Bad properties loaded: {}", e);
@@ -108,6 +110,7 @@ public class DBpediaProducerConnector implements IProducerConnector {
                     Event event = getEventFromRDFNodes(latitudeNode, longitudeNode, startDateNode, endDateNode, descriptionNode, source);
                     pushIfValidEvent(dataProducer, event, start);
                 }
+                Thread.sleep(this.sleep_time);
             } catch (IllegalStateException err) {
                 LOGGER.error(err.getMessage());
                 Thread.currentThread().interrupt();
@@ -115,6 +118,8 @@ public class DBpediaProducerConnector implements IProducerConnector {
             }catch (DateTimeParseException dtp) {
                 LOGGER.error("bad date format given.");
                 throw new IllegalStateException(dtp.getMessage());
+            } catch (InterruptedException e) {
+               LOGGER.error("Current thread has been interrupted : {} ", e);
             } finally{
                 Thread.currentThread().interrupt();
                 if(qexec != null) {
