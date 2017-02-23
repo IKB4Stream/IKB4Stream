@@ -28,7 +28,7 @@ public class Main {
     public static void main(String[] args) {
         LOGGER.info("IKB4Stream Consumer Module start");
         COMMUNICATION_MANAGER.start();
-        Thread listener = new Thread(() -> {
+        /*Thread listener = new Thread(() -> {
             try(Scanner sc = new Scanner(System.in)) {
                 while(!Thread.interrupted()) {
                     if (sc.hasNextLine()) {
@@ -49,7 +49,7 @@ public class Main {
             return;
         }finally {
             runtime.removeShutdownHook(listener);
-        }
+        }*/
     }
 
     private static void process(String command) {
