@@ -16,7 +16,7 @@ public class OpenAgendaProducerConnectorTest {
 
     @Test(expected = NullPointerException.class)
     public void testLoadNullDataProducer() {
-        OpenAgendaProducerConnector open = new OpenAgendaProducerConnector();
+        OpenAgendaProducerConnector open = new com.waves_rsp.ikb4stream.datasource.openagenda.OpenAgendaProducerConnector();
         open.load(null);
     }
 

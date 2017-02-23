@@ -27,8 +27,8 @@ import java.util.Objects;
 
 public class OpenAgendaProducerConnector implements IProducerConnector {
     private static final String UTF8 = "utf-8";
-    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(OpenAgendaProducerConnector.class, "resources/datasource/openagenda/config.properties");
-    private static final Logger LOGGER = LoggerFactory.getLogger(OpenAgendaProducerConnector.class);
+    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(com.waves_rsp.ikb4stream.datasource.openagenda.OpenAgendaProducerConnector.class, "resources/datasource/openagenda/config.properties");
+    private static final Logger LOGGER = LoggerFactory.getLogger(com.waves_rsp.ikb4stream.datasource.openagenda.OpenAgendaProducerConnector.class);
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     private final String source;
     private final String propDateStart;
@@ -37,7 +37,7 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
     private final long sleepTime;
 
     /**
-     * Instantiate the OpenAgendaProducerConnector object with load properties to connect to the OPen Agenda API
+     * Instantiate the OpenAgendaMock object with load properties to connect to the OPen Agenda API
      */
     public OpenAgendaProducerConnector() {
         try {
@@ -145,6 +145,7 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
                     pushIfNotNullEvent(events, event);
                 }
             }
+            is.close();
         } catch (IOException e) {
             LOGGER.error("Bad json format or tree cannot be read: {}", e);
         }
@@ -164,7 +165,13 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
      * @return an event
      */
     private Event createEvent(String latlon, String title, String description, String dateStart, String dateEnd, String city, String address) {
-        String[] coord = latlon.substring(1, latlon.length() - 1).split(",");
+        String[] coord = new String[2];
+        try {
+            coord = latlon.substring(1, latlon.length() - 1).split(",");
+        } catch (StringIndexOutOfBoundsException e) {
+            LOGGER.warn("Cannot find latlong attribute");
+            return null;
+        }
         LatLong latLong = new LatLong(Double.parseDouble(coord[0]), Double.parseDouble(coord[1]));
         DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
 

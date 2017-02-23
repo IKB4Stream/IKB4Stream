@@ -168,22 +168,5 @@ public class OpenAgendaMock implements IProducerConnector {
             return true;
         }
     }
-
-    public static void main(String[] args) throws FileNotFoundException {
-        long start = System.currentTimeMillis();
-      //  InputStream input = new FileInputStream(new File("resources/datasource/openagendamock/mock_OpenAgenda_300ko"));
-    // OpenAgendaMock op = new OpenAgendaMock(input);
-        OpenAgendaMock op = new OpenAgendaMock();
-        List<Event> events = new ArrayList<>();
-        op.load(event -> {
-           // System.out.println(event + "\n");
-            events.add(event);
-        });
-        long end = System.currentTimeMillis();
-        System.out.println("SIZE : " + events.size());
-        System.out.println("PROCESS TIME : " + String.valueOf(end - start));
-    }
-
-
 }
 
