@@ -1,0 +1,3225 @@
+{
+  "head": {
+    "vars": [ "evenements" , "latitude" , "longitude" , "description" , "startDate" , "endDate" , "label" ]
+  } ,
+  "results": {
+    "bindings": [
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La  seconde bataille de Buzenval  se déroula le 19 janvier 1871, pendant la guerre franco-prussienne, sur le territoire des communes de Rueil-Malmaison, Garches et Saint-Cloud, alors en Seine-et-Oise." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "en" , "value": "Battle of Buzenval (1871)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "de" , "value": "Die Schlacht bei Buzenval zwischen Paris und Versailles fand am 19. Januar 1871 im Deutsch-Französischen Krieg zwischen dem V. Korps General von Kirchbach der deutschen 3. Armee unter dem Oberkommando von Prinz Friedrich Wilhelm von Preußen und der französischen Nationalgarde sowie weiteren Verbänden der Pariser Verteidigungsarmee unter General Louis Jules Trochu statt." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "en" , "value": "Battle of Buzenval (1871)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The (Second) Battle of Buzenval, also known as the Battle of Mont Valérien, was part of the siege of Paris during the Franco-Prussian War. On January 19 1871, the day after Wilhelm I was proclaimed German Emperor, Louis Jules Trochu attacked the Germans west of Paris in Buzenval Park. The attackers seized the town of Saint-Cloud coming close to the new Emperor's headquarters at Versailles. Trochu was able to maintain his position at St." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "en" , "value": "Battle of Buzenval (1871)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "it" , "value": "La battaglia di Buzenval fu parte dell'assedio di Parigi portato avanti dai tedeschi durante la guerra franco-prussiana.Il 19 gennaio 1871, il giorno successivo all'incoronazione di Guglielmo I di Germania a imperatore tedesco, il generale francese Louis-Jules Trochu attaccò gli assedianti ad est di Parigi, nel parco di Buzenval, riuscendo ad occupare la città di Saint-Cloud non troppo lontana dal nuovo quartier generale dei loro nemici, situato a Versailles." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "en" , "value": "Battle of Buzenval (1871)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "es" , "value": "La batalla de Buzenval, también conocida como batalla de Mont Valerien, fue una parte del sitio de París durante la Guerra franco-prusiana. El 19 de enero de 1871, el día siguiente de que Guillermo de Prusia fuera coronado Emperador de Alemania, Louis Jules Trochu atacó a los prusianos al oeste de París, en el Parque de Buzenval. Los atacantes sitiaron la ciudad de Saint-Cloud, que se encontraba cerca de la oficina central del nuevo emperador en Versalles." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "en" , "value": "Battle of Buzenval (1871)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "ru" , "value": "Битва при Бюзенвале, также известная как битва при Мон-Вадерьене, была одной из последних битв Франко-прусской войны. В этой битве французский командующий Луи Трошю предпринял попытку прорвать кольцо окружения немецкой армии, удерживающей столицу Франции в осаде уже 4 месяца.Сен-Клу \u2014 западный пригород Парижа, в котором размещался в период осады города прусский штаб. 19 января, на следующий день после коронации германского императора Вильгельма I, Луи Трошю атаковал этот штаб в парке Бюзенваль." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "en" , "value": "Battle of Buzenval (1871)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La  seconde bataille de Buzenval  se déroula le 19 janvier 1871, pendant la guerre franco-prussienne, sur le territoire des communes de Rueil-Malmaison, Garches et Saint-Cloud, alors en Seine-et-Oise." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "es" , "value": "Batalla de Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "de" , "value": "Die Schlacht bei Buzenval zwischen Paris und Versailles fand am 19. Januar 1871 im Deutsch-Französischen Krieg zwischen dem V. Korps General von Kirchbach der deutschen 3. Armee unter dem Oberkommando von Prinz Friedrich Wilhelm von Preußen und der französischen Nationalgarde sowie weiteren Verbänden der Pariser Verteidigungsarmee unter General Louis Jules Trochu statt." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "es" , "value": "Batalla de Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The (Second) Battle of Buzenval, also known as the Battle of Mont Valérien, was part of the siege of Paris during the Franco-Prussian War. On January 19 1871, the day after Wilhelm I was proclaimed German Emperor, Louis Jules Trochu attacked the Germans west of Paris in Buzenval Park. The attackers seized the town of Saint-Cloud coming close to the new Emperor's headquarters at Versailles. Trochu was able to maintain his position at St." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "es" , "value": "Batalla de Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "it" , "value": "La battaglia di Buzenval fu parte dell'assedio di Parigi portato avanti dai tedeschi durante la guerra franco-prussiana.Il 19 gennaio 1871, il giorno successivo all'incoronazione di Guglielmo I di Germania a imperatore tedesco, il generale francese Louis-Jules Trochu attaccò gli assedianti ad est di Parigi, nel parco di Buzenval, riuscendo ad occupare la città di Saint-Cloud non troppo lontana dal nuovo quartier generale dei loro nemici, situato a Versailles." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "es" , "value": "Batalla de Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "es" , "value": "La batalla de Buzenval, también conocida como batalla de Mont Valerien, fue una parte del sitio de París durante la Guerra franco-prusiana. El 19 de enero de 1871, el día siguiente de que Guillermo de Prusia fuera coronado Emperador de Alemania, Louis Jules Trochu atacó a los prusianos al oeste de París, en el Parque de Buzenval. Los atacantes sitiaron la ciudad de Saint-Cloud, que se encontraba cerca de la oficina central del nuevo emperador en Versalles." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "es" , "value": "Batalla de Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "ru" , "value": "Битва при Бюзенвале, также известная как битва при Мон-Вадерьене, была одной из последних битв Франко-прусской войны. В этой битве французский командующий Луи Трошю предпринял попытку прорвать кольцо окружения немецкой армии, удерживающей столицу Франции в осаде уже 4 месяца.Сен-Клу \u2014 западный пригород Парижа, в котором размещался в период осады города прусский штаб. 19 января, на следующий день после коронации германского императора Вильгельма I, Луи Трошю атаковал этот штаб в парке Бюзенваль." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "es" , "value": "Batalla de Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La  seconde bataille de Buzenval  se déroula le 19 janvier 1871, pendant la guerre franco-prussienne, sur le territoire des communes de Rueil-Malmaison, Garches et Saint-Cloud, alors en Seine-et-Oise." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "ru" , "value": "Битва при Бюзенвале" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "de" , "value": "Die Schlacht bei Buzenval zwischen Paris und Versailles fand am 19. Januar 1871 im Deutsch-Französischen Krieg zwischen dem V. Korps General von Kirchbach der deutschen 3. Armee unter dem Oberkommando von Prinz Friedrich Wilhelm von Preußen und der französischen Nationalgarde sowie weiteren Verbänden der Pariser Verteidigungsarmee unter General Louis Jules Trochu statt." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "ru" , "value": "Битва при Бюзенвале" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The (Second) Battle of Buzenval, also known as the Battle of Mont Valérien, was part of the siege of Paris during the Franco-Prussian War. On January 19 1871, the day after Wilhelm I was proclaimed German Emperor, Louis Jules Trochu attacked the Germans west of Paris in Buzenval Park. The attackers seized the town of Saint-Cloud coming close to the new Emperor's headquarters at Versailles. Trochu was able to maintain his position at St." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "ru" , "value": "Битва при Бюзенвале" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "it" , "value": "La battaglia di Buzenval fu parte dell'assedio di Parigi portato avanti dai tedeschi durante la guerra franco-prussiana.Il 19 gennaio 1871, il giorno successivo all'incoronazione di Guglielmo I di Germania a imperatore tedesco, il generale francese Louis-Jules Trochu attaccò gli assedianti ad est di Parigi, nel parco di Buzenval, riuscendo ad occupare la città di Saint-Cloud non troppo lontana dal nuovo quartier generale dei loro nemici, situato a Versailles." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "ru" , "value": "Битва при Бюзенвале" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "es" , "value": "La batalla de Buzenval, también conocida como batalla de Mont Valerien, fue una parte del sitio de París durante la Guerra franco-prusiana. El 19 de enero de 1871, el día siguiente de que Guillermo de Prusia fuera coronado Emperador de Alemania, Louis Jules Trochu atacó a los prusianos al oeste de París, en el Parque de Buzenval. Los atacantes sitiaron la ciudad de Saint-Cloud, que se encontraba cerca de la oficina central del nuevo emperador en Versalles." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "ru" , "value": "Битва при Бюзенвале" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "ru" , "value": "Битва при Бюзенвале, также известная как битва при Мон-Вадерьене, была одной из последних битв Франко-прусской войны. В этой битве французский командующий Луи Трошю предпринял попытку прорвать кольцо окружения немецкой армии, удерживающей столицу Франции в осаде уже 4 месяца.Сен-Клу \u2014 западный пригород Парижа, в котором размещался в период осады города прусский штаб. 19 января, на следующий день после коронации германского императора Вильгельма I, Луи Трошю атаковал этот штаб в парке Бюзенваль." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "ru" , "value": "Битва при Бюзенвале" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La  seconde bataille de Buzenval  se déroula le 19 janvier 1871, pendant la guerre franco-prussienne, sur le territoire des communes de Rueil-Malmaison, Garches et Saint-Cloud, alors en Seine-et-Oise." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille de Buzenval (1871)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "de" , "value": "Die Schlacht bei Buzenval zwischen Paris und Versailles fand am 19. Januar 1871 im Deutsch-Französischen Krieg zwischen dem V. Korps General von Kirchbach der deutschen 3. Armee unter dem Oberkommando von Prinz Friedrich Wilhelm von Preußen und der französischen Nationalgarde sowie weiteren Verbänden der Pariser Verteidigungsarmee unter General Louis Jules Trochu statt." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille de Buzenval (1871)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The (Second) Battle of Buzenval, also known as the Battle of Mont Valérien, was part of the siege of Paris during the Franco-Prussian War. On January 19 1871, the day after Wilhelm I was proclaimed German Emperor, Louis Jules Trochu attacked the Germans west of Paris in Buzenval Park. The attackers seized the town of Saint-Cloud coming close to the new Emperor's headquarters at Versailles. Trochu was able to maintain his position at St." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille de Buzenval (1871)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "it" , "value": "La battaglia di Buzenval fu parte dell'assedio di Parigi portato avanti dai tedeschi durante la guerra franco-prussiana.Il 19 gennaio 1871, il giorno successivo all'incoronazione di Guglielmo I di Germania a imperatore tedesco, il generale francese Louis-Jules Trochu attaccò gli assedianti ad est di Parigi, nel parco di Buzenval, riuscendo ad occupare la città di Saint-Cloud non troppo lontana dal nuovo quartier generale dei loro nemici, situato a Versailles." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille de Buzenval (1871)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "es" , "value": "La batalla de Buzenval, también conocida como batalla de Mont Valerien, fue una parte del sitio de París durante la Guerra franco-prusiana. El 19 de enero de 1871, el día siguiente de que Guillermo de Prusia fuera coronado Emperador de Alemania, Louis Jules Trochu atacó a los prusianos al oeste de París, en el Parque de Buzenval. Los atacantes sitiaron la ciudad de Saint-Cloud, que se encontraba cerca de la oficina central del nuevo emperador en Versalles." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille de Buzenval (1871)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "ru" , "value": "Битва при Бюзенвале, также известная как битва при Мон-Вадерьене, была одной из последних битв Франко-прусской войны. В этой битве французский командующий Луи Трошю предпринял попытку прорвать кольцо окружения немецкой армии, удерживающей столицу Франции в осаде уже 4 месяца.Сен-Клу \u2014 западный пригород Парижа, в котором размещался в период осады города прусский штаб. 19 января, на следующий день после коронации германского императора Вильгельма I, Луи Трошю атаковал этот штаб в парке Бюзенваль." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille de Buzenval (1871)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La  seconde bataille de Buzenval  se déroula le 19 janvier 1871, pendant la guerre franco-prussienne, sur le territoire des communes de Rueil-Malmaison, Garches et Saint-Cloud, alors en Seine-et-Oise." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "de" , "value": "Schlacht bei Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "de" , "value": "Die Schlacht bei Buzenval zwischen Paris und Versailles fand am 19. Januar 1871 im Deutsch-Französischen Krieg zwischen dem V. Korps General von Kirchbach der deutschen 3. Armee unter dem Oberkommando von Prinz Friedrich Wilhelm von Preußen und der französischen Nationalgarde sowie weiteren Verbänden der Pariser Verteidigungsarmee unter General Louis Jules Trochu statt." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "de" , "value": "Schlacht bei Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The (Second) Battle of Buzenval, also known as the Battle of Mont Valérien, was part of the siege of Paris during the Franco-Prussian War. On January 19 1871, the day after Wilhelm I was proclaimed German Emperor, Louis Jules Trochu attacked the Germans west of Paris in Buzenval Park. The attackers seized the town of Saint-Cloud coming close to the new Emperor's headquarters at Versailles. Trochu was able to maintain his position at St." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "de" , "value": "Schlacht bei Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "it" , "value": "La battaglia di Buzenval fu parte dell'assedio di Parigi portato avanti dai tedeschi durante la guerra franco-prussiana.Il 19 gennaio 1871, il giorno successivo all'incoronazione di Guglielmo I di Germania a imperatore tedesco, il generale francese Louis-Jules Trochu attaccò gli assedianti ad est di Parigi, nel parco di Buzenval, riuscendo ad occupare la città di Saint-Cloud non troppo lontana dal nuovo quartier generale dei loro nemici, situato a Versailles." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "de" , "value": "Schlacht bei Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "es" , "value": "La batalla de Buzenval, también conocida como batalla de Mont Valerien, fue una parte del sitio de París durante la Guerra franco-prusiana. El 19 de enero de 1871, el día siguiente de que Guillermo de Prusia fuera coronado Emperador de Alemania, Louis Jules Trochu atacó a los prusianos al oeste de París, en el Parque de Buzenval. Los atacantes sitiaron la ciudad de Saint-Cloud, que se encontraba cerca de la oficina central del nuevo emperador en Versalles." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "de" , "value": "Schlacht bei Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "ru" , "value": "Битва при Бюзенвале, также известная как битва при Мон-Вадерьене, была одной из последних битв Франко-прусской войны. В этой битве французский командующий Луи Трошю предпринял попытку прорвать кольцо окружения немецкой армии, удерживающей столицу Франции в осаде уже 4 месяца.Сен-Клу \u2014 западный пригород Парижа, в котором размещался в период осады города прусский штаб. 19 января, на следующий день после коронации германского императора Вильгельма I, Луи Трошю атаковал этот штаб в парке Бюзенваль." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "de" , "value": "Schlacht bei Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La  seconde bataille de Buzenval  se déroula le 19 janvier 1871, pendant la guerre franco-prussienne, sur le territoire des communes de Rueil-Malmaison, Garches et Saint-Cloud, alors en Seine-et-Oise." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "it" , "value": "Battaglia di Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "de" , "value": "Die Schlacht bei Buzenval zwischen Paris und Versailles fand am 19. Januar 1871 im Deutsch-Französischen Krieg zwischen dem V. Korps General von Kirchbach der deutschen 3. Armee unter dem Oberkommando von Prinz Friedrich Wilhelm von Preußen und der französischen Nationalgarde sowie weiteren Verbänden der Pariser Verteidigungsarmee unter General Louis Jules Trochu statt." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "it" , "value": "Battaglia di Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The (Second) Battle of Buzenval, also known as the Battle of Mont Valérien, was part of the siege of Paris during the Franco-Prussian War. On January 19 1871, the day after Wilhelm I was proclaimed German Emperor, Louis Jules Trochu attacked the Germans west of Paris in Buzenval Park. The attackers seized the town of Saint-Cloud coming close to the new Emperor's headquarters at Versailles. Trochu was able to maintain his position at St." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "it" , "value": "Battaglia di Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "it" , "value": "La battaglia di Buzenval fu parte dell'assedio di Parigi portato avanti dai tedeschi durante la guerra franco-prussiana.Il 19 gennaio 1871, il giorno successivo all'incoronazione di Guglielmo I di Germania a imperatore tedesco, il generale francese Louis-Jules Trochu attaccò gli assedianti ad est di Parigi, nel parco di Buzenval, riuscendo ad occupare la città di Saint-Cloud non troppo lontana dal nuovo quartier generale dei loro nemici, situato a Versailles." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "it" , "value": "Battaglia di Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "es" , "value": "La batalla de Buzenval, también conocida como batalla de Mont Valerien, fue una parte del sitio de París durante la Guerra franco-prusiana. El 19 de enero de 1871, el día siguiente de que Guillermo de Prusia fuera coronado Emperador de Alemania, Louis Jules Trochu atacó a los prusianos al oeste de París, en el Parque de Buzenval. Los atacantes sitiaron la ciudad de Saint-Cloud, que se encontraba cerca de la oficina central del nuevo emperador en Versalles." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "it" , "value": "Battaglia di Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "ru" , "value": "Битва при Бюзенвале, также известная как битва при Мон-Вадерьене, была одной из последних битв Франко-прусской войны. В этой битве французский командующий Луи Трошю предпринял попытку прорвать кольцо окружения немецкой армии, удерживающей столицу Франции в осаде уже 4 месяца.Сен-Клу \u2014 западный пригород Парижа, в котором размещался в период осады города прусский штаб. 19 января, на следующий день после коронации германского императора Вильгельма I, Луи Трошю атаковал этот штаб в парке Бюзенваль." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "it" , "value": "Battaglia di Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/500_miles_d'Indianapolis_1953" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/500_miles_d'Indianapolis_1954" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/500_miles_d'Indianapolis_1955" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/500_miles_d'Indianapolis_1956" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/500_miles_d'Indianapolis_1957" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/500_miles_d'Indianapolis_1958" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/500_miles_d'Indianapolis_1959" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/6_Heures_de_Spa-Francorchamps" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Armée_ottomane" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Athlétisme_aux_Jeux_du_Commonwealth_de_1998" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Aviron_aux_Jeux_olympiques_d'été_de_1920" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Aviron_aux_Jeux_olympiques_d'été_de_1928" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Aviron_aux_Jeux_olympiques_d'été_de_1932" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Aviron_aux_Jeux_olympiques_d'été_de_1948" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Aviron_aux_Jeux_olympiques_d'été_de_1952" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Aviron_aux_Jeux_olympiques_d'été_de_1956" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Aviron_aux_Jeux_olympiques_d'été_de_1960" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Aviron_aux_Jeux_olympiques_d'été_de_1964" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Aviron_aux_Jeux_olympiques_d'été_de_1968" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Aviron_aux_Jeux_olympiques_d'été_de_1972" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Aviron_aux_Jeux_olympiques_d'été_de_1980" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Aviron_aux_Jeux_olympiques_d'été_de_1984" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Aviron_aux_Jeux_olympiques_d'été_de_1988" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Aviron_aux_Jeux_olympiques_d'été_de_1992" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Basket-ball_aux_Jeux_olympiques_d'été_de_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_d'Alkmaar" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_d'Assietta" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_d'Höchstädt_(1800)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_d'Orthez_(1814)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_d'Ostrolenka_(1807)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bassignana_(1745)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bennington" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Blore_Heath" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Boroughbridge" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Cambrai_(1918)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Camposanto" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Castricum" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1941)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1944)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Chrysopolis" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Colachel" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Cérignole" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Diu" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Eutaw_Springs" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Gabbard" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Hannut" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Hohenfriedberg" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Jargeau" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Kaiserslautern" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Kesselsdorf" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Khalkhin_Gol" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Lauffeld" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Mollwitz" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Montebello_(1859)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Neuwarp" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Nieuport" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Northampton" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Reimerswaal" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Saint-Mihiel" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_San_Juan_de_Porto_Rico" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_San_Marcial_(1813)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Simancas" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Soor" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Sorauren" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Sprimont" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Stockach_(1800)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Tricaméron" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Vicence" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Vinegar_Hill" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Winwaed" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Zaoyang-Yichang" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_la_Madonne_de_l'Olmo" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_la_Nive" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_la_Nivelle" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_du_Cap_Ecnome" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_du_Sud-Shanxi" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_du_cap_Finisterre_(mai_1747)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_du_cap_Finisterre_(octobre_1747)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_du_sud_de_Henan" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bombardement_de_Bruxelles_de_1695" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/British_Home_Championship" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Canoë-kayak_aux_Jeux_olympiques_d'été_de_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_DTM_2000" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_DTM_2001" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_DTM_2002" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_DTM_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Afrique_de_basket-ball_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Afrique_de_volley-ball_masculin_2003" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Albanie_de_football_2007-2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Algérie_de_football_D2_1966-1967" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Algérie_de_football_D2_1968-1969" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Algérie_de_football_D2_2006-2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Algérie_de_football_D2_2007-2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Amérique_du_Sud_de_volley-ball_masculin_1983" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Angleterre_de_football_2001-2002" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_football_féminin_des_moins_de_17_ans" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_hockey_sur_gazon_féminin_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_hockey_sur_gazon_masculin_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_volley-ball_masculin_1948" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_volley-ball_masculin_1950" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_volley-ball_masculin_1951" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_volley-ball_masculin_1955" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_volley-ball_masculin_1958" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_volley-ball_masculin_1963" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_volley-ball_masculin_1967" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_volley-ball_masculin_1971" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_volley-ball_masculin_1975" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_volley-ball_masculin_1977" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_volley-ball_masculin_1979" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_volley-ball_masculin_1981" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_volley-ball_masculin_1983" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_volley-ball_masculin_1985" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_volley-ball_masculin_1987" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_volley-ball_masculin_1989" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_volley-ball_masculin_1991" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_volley-ball_masculin_1993" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_volley-ball_masculin_1995" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_volley-ball_masculin_1997" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_volley-ball_masculin_1999" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_volley-ball_masculin_2009" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_féminin_de_volley-ball_des_moins_de_18_ans_1995" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_féminin_de_volley-ball_des_moins_de_18_ans_1997" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_féminin_de_volley-ball_des_moins_de_18_ans_1999" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_féminin_de_volley-ball_des_moins_de_18_ans_2001" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_féminin_de_volley-ball_des_moins_de_18_ans_2003" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_féminin_de_volley-ball_des_moins_de_18_ans_2005" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_féminin_de_volley-ball_des_moins_de_18_ans_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_féminin_de_volley-ball_des_moins_de_20_ans_1966" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_féminin_de_volley-ball_des_moins_de_20_ans_1969" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_féminin_de_volley-ball_des_moins_de_20_ans_1971" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_féminin_de_volley-ball_des_moins_de_20_ans_1973" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_féminin_de_volley-ball_des_moins_de_20_ans_1975" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_féminin_de_volley-ball_des_moins_de_20_ans_1977" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_féminin_de_volley-ball_des_moins_de_20_ans_1979" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_féminin_de_volley-ball_des_moins_de_20_ans_1982" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_féminin_de_volley-ball_des_moins_de_20_ans_1984" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_féminin_de_volley-ball_des_moins_de_20_ans_1986" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_féminin_de_volley-ball_des_moins_de_20_ans_1988" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_féminin_de_volley-ball_des_moins_de_20_ans_1990" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_féminin_de_volley-ball_des_moins_de_20_ans_1992" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_féminin_de_volley-ball_des_moins_de_20_ans_1994" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_féminin_de_volley-ball_des_moins_de_20_ans_1996" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_féminin_de_volley-ball_des_moins_de_20_ans_1998" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_féminin_de_volley-ball_des_moins_de_20_ans_2000" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_féminin_de_volley-ball_des_moins_de_20_ans_2002" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_féminin_de_volley-ball_des_moins_de_20_ans_2004" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_féminin_de_volley-ball_des_moins_de_20_ans_2006" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_masculin_de_volley-ball_des_moins_de_19_ans_1995" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_masculin_de_volley-ball_des_moins_de_19_ans_1997" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_masculin_de_volley-ball_des_moins_de_19_ans_1999" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_masculin_de_volley-ball_des_moins_de_19_ans_2001" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_masculin_de_volley-ball_des_moins_de_19_ans_2003" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_masculin_de_volley-ball_des_moins_de_19_ans_2005" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_masculin_de_volley-ball_des_moins_de_19_ans_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Irlande_de_football_1924-1925" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Irlande_de_football_1925-1926" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Irlande_de_football_1926-1927" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Irlande_de_football_1927-1928" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Irlande_de_football_1928-1929" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Irlande_de_football_2005" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Irlande_de_football_2006" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Irlande_de_football_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Islande_de_football_2006" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Islande_de_football_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Ukraine_de_hockey_sur_glace" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Écosse_de_football_2007-2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_Belgique_de_football_1939-1940" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_Belgique_de_football_1940-1941" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_Belgique_de_football_1941-1942" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_Belgique_de_football_1942-1943" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_Belgique_de_football_1943-1944" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_Belgique_de_football_1944-1945" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_Belgique_de_football_1945-1946" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_Belgique_de_football_1946-1947" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_Belgique_de_football_1947-1948" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_Belgique_de_football_1981-1982" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_Belgique_de_football_1982-1983" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_Belgique_de_football_1983-1984" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_Belgique_de_football_1984-1985" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_Biélorussie_de_hockey_sur_glace" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_France_Futsal" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_France_de_basket-ball_de_Pro_A_2007-2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_France_de_roller_in_line_hockey_élite_2007-2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_Pologne_de_football_D2" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_RDA_de_football" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_Russie_de_football_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_Suède_de_hockey_sur_glace_D3" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_Tchécoslovaquie_de_hockey_sur_glace" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_Turquie_de_football_2007-2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_des_Pays-Bas_de_football_2007-2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_des_Pays-Bas_de_hockey_sur_glace" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_des_États-Unis_de_rugby_à_XV" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_Danemark_de_hockey_sur_glace" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_Kazakhstan_de_hockey_sur_glace" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_Luxembourg_de_basket-ball" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_Portugal_de_football_2007-2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_Portugal_de_handball_masculin" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_monde_de_hockey_sur_glace_1969" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_monde_de_hockey_sur_glace_1970" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_monde_de_hockey_sur_glace_1971" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_monde_de_polo" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_monde_de_vitesse_moto_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_monde_des_voitures_de_sport" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_monde_des_voitures_de_tourisme_2006" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_monde_masculin_de_volley-ball_des_moins_de_19_ans_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_d'Asie_de_karaté" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_d'Europe_de_natation_1993" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_d'Europe_de_natation_1995" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_d'Europe_de_natation_en_petit_bassin_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_d'athlétisme_2013" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_d'aviron_2006" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_d'aviron_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_d'haltérophilie" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_karaté" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_karaté_1970" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_karaté_1972" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_karaté_1975" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_karaté_1977" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_karaté_1980" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_karaté_1982" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_karaté_1984" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_karaté_1986" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_karaté_1988" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_karaté_1990" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_karaté_1992" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_karaté_1994" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_karaté_1996" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_karaté_1998" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_karaté_2000" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_karaté_2002" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_karaté_2004" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_karaté_2006" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_karaté_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_karaté_juniors_et_cadets" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_patinage_artistique_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_slalom_(canoë-kayak)_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_taekwondo" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_juniors_d'athlétisme_2002" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Classic_d'Auckland_2006" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Classic_de_Forest_Hills_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Combat_de_Mormugão" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Convoi_ONS_5" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_Davis_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_Intertoto_1996" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_Intertoto_1997" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_Memorial_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_d'Algérie_de_football_2004-2005" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_d'Algérie_de_football_2005-2006" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_d'Algérie_de_football_2006-2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_d'Europe_des_vainqueurs_de_coupe_de_football_1969-1970" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_d'Europe_des_vainqueurs_de_coupe_de_football_1970-1971" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_d'Europe_des_vainqueurs_de_coupe_de_football_1972-1973" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_d'Istanbul_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_de_Belgique_de_football_2007-2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_de_France_de_football_1919-1920" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_de_France_de_football_1920-1921" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_de_France_de_football_1935-1936" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_de_France_de_hockey_sur_glace_2007-2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_de_la_Ligue_de_hockey_sur_glace_2007-2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_de_la_Ligue_portugaise_de_football" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_du_Trône_de_football_2007-2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_du_monde_de_football_de_plage_2006" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_du_monde_de_rugby_à_XIII_2000" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_du_monde_de_volley-ball_féminin_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_féminine_de_l'UEFA_2007-2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Cyclisme_aux_Jeux_olympiques_d'été_de_1908" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Cyclisme_aux_Jeux_olympiques_d'été_de_1912" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Cyclisme_aux_Jeux_olympiques_d'été_de_1920" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Cyclisme_aux_Jeux_olympiques_d'été_de_1924" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Cyclisme_aux_Jeux_olympiques_d'été_de_1928" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Cyclisme_aux_Jeux_olympiques_d'été_de_1932" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Cyclisme_aux_Jeux_olympiques_d'été_de_1936" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Cyclisme_aux_Jeux_olympiques_d'été_de_1948" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Cyclisme_aux_Jeux_olympiques_d'été_de_1952" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Cyclisme_aux_Jeux_olympiques_d'été_de_1956" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Cyclisme_aux_Jeux_olympiques_d'été_de_1960" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Cyclisme_aux_Jeux_olympiques_d'été_de_1964" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Cyclisme_aux_Jeux_olympiques_d'été_de_1968" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Cyclisme_aux_Jeux_olympiques_d'été_de_1972" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Cyclisme_aux_Jeux_olympiques_d'été_de_1976" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Deuxième_Guerre_indo-pakistanaise" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Décastar" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Escaut-Dendre-Lys" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/European_F3_Open" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Foire_aux_vins_d'Alsace" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Frontier_League" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_1925" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_1931" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_1935" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_1937" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_1939" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_1947" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_1950" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_1951" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_1952" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_1953" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_1954" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_1955" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_1956" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_1958" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_1960" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_1961" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_1962" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_1963" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_1964" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_1965" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_1966" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_1967" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_1968" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_1970" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_1972" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_1973" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_1974" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_1975" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_1976" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_1977" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_1978" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_1979" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Belgique_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Chine_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_Pays-Bas_1952" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_Pays-Bas_1953" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_Pays-Bas_1955" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_Pays-Bas_1958" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_Pays-Bas_1959" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_Pays-Bas_1960" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_Pays-Bas_1961" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_Pays-Bas_1962" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_Pays-Bas_1963" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_Pays-Bas_1964" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_Pays-Bas_1965" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_Pays-Bas_1966" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_Pays-Bas_1967" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_Pays-Bas_1969" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_Pays-Bas_1970" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_Pays-Bas_1971" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_États-Unis_1959" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_États-Unis_1960" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_États-Unis_1961" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_États-Unis_1962" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_États-Unis_1963" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_États-Unis_1964" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_États-Unis_1965" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_États-Unis_1966" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_États-Unis_1967" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_États-Unis_1968" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_États-Unis_1969" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_États-Unis_1970" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_États-Unis_1971" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_États-Unis_1972" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_États-Unis_1973" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_États-Unis_1974" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_des_États-Unis_1975" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_du_Brésil_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_de_Belgique_de_Champ_Car" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_de_Budapest_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_de_Francfort" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_de_Stuttgart_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_de_Trois-Rivières" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grande_guerre_turque" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Guerre_d'indépendance_de_la_Lettonie" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Guerre_de_Livonie" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Guerre_franco-espagnole" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Guerre_lélantine" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Guerre_russo-turque_de_1768-1774" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Guerre_russo-turque_de_1787-1792" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Guerre_russo-turque_de_1806-1812" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Guerre_vénéto-austro-ottomane" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Guerres_d'indépendance_en_Amérique_du_Sud" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Hockey_sur_gazon_aux_Jeux_olympiques_d'été_de_1920" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Hockey_sur_gazon_aux_Jeux_olympiques_d'été_de_1928" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Hockey_sur_gazon_aux_Jeux_olympiques_d'été_de_1932" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Incident_du_Golfe_de_Syrte_(1989)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Internationaux_de_Bali_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Internationaux_de_France_de_tennis_1951" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Internationaux_de_France_de_tennis_1952" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Internationaux_de_France_de_tennis_1953" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Internationaux_de_France_de_tennis_1954" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Internationaux_de_France_de_tennis_1955" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Internationaux_de_France_de_tennis_1956" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Internationaux_de_France_de_tennis_1957" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Internationaux_de_France_de_tennis_1958" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Internationaux_de_France_de_tennis_1959" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Internationaux_de_France_de_tennis_1960" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Internationaux_de_France_de_tennis_1961" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Internationaux_de_France_de_tennis_1962" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Internationaux_de_France_de_tennis_1963" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Internationaux_de_France_de_tennis_1964" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Internationaux_de_France_de_tennis_1965" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Internationaux_de_France_de_tennis_1966" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Internationaux_de_France_de_tennis_1967" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Internationaux_de_Strasbourg_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Invasion_de_Goa" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Jeux_de_l'Acadie" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Jeux_des_îles_de_l'océan_Indien_1979" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Jeux_des_îles_de_l'océan_Indien_1985" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Jeux_des_îles_de_l'océan_Indien_1990" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Jeux_des_îles_de_l'océan_Indien_1993" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Jeux_des_îles_de_l'océan_Indien_1998" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Jeux_des_îles_de_l'océan_Indien_2003" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Jeux_des_îles_de_l'océan_Indien_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Jeux_du_Commerce" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Jeux_mondiaux" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Judo_aux_Jeux_olympiques_d'été_de_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Kuurne-Bruxelles-Kuurne" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Liberty_Bowl" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Ligue_d'Europe_de_l'Est_de_hockey_sur_glace" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Ligue_des_champions_de_volley-ball_masculin_2001-2002" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Lutte_aux_Jeux_olympiques_d'été_de_1908" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Lutte_aux_Jeux_olympiques_d'été_de_1912" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Lutte_aux_Jeux_olympiques_d'été_de_1920" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Lutte_aux_Jeux_olympiques_d'été_de_1924" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Lutte_aux_Jeux_olympiques_d'été_de_1928" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Lutte_aux_Jeux_olympiques_d'été_de_1932" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Lutte_aux_Jeux_olympiques_d'été_de_1936" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Lutte_aux_Jeux_olympiques_d'été_de_1948" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Lutte_aux_Jeux_olympiques_d'été_de_1952" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Lutte_aux_Jeux_olympiques_d'été_de_1956" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Lutte_aux_Jeux_olympiques_d'été_de_1960" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Lutte_aux_Jeux_olympiques_d'été_de_1964" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Lutte_aux_Jeux_olympiques_d'été_de_1968" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Lutte_aux_Jeux_olympiques_d'été_de_1972" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Lutte_aux_Jeux_olympiques_d'été_de_1976" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Lutte_aux_Jeux_olympiques_d'été_de_1980" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Lutte_aux_Jeux_olympiques_d'été_de_1984" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Lutte_aux_Jeux_olympiques_d'été_de_1988" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Lutte_aux_Jeux_olympiques_d'été_de_1992" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Marsatac" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Master_pro_de_saut_d'obstacles" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_d'Indian_Wells_1998" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_d'Indian_Wells_1999" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_d'Indian_Wells_2000" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_d'Indian_Wells_2001" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_d'Indian_Wells_2002" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_d'Indian_Wells_2003" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_Hambourg_2005" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_masculin_1970" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_masculin_1971" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_masculin_1972" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_masculin_1973" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_masculin_1974" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_masculin_1975" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_masculin_1976" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_masculin_1977" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_masculin_1978" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_masculin_1979" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_masculin_1980" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_masculin_1981" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_masculin_1982" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_masculin_1983" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_masculin_1984" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_masculin_1985" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_masculin_1986" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_masculin_1987" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_masculin_1988" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_masculin_1989" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_masculin_1990" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_masculin_1991" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_masculin_1992" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_masculin_1993" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_masculin_1994" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_masculin_1995" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_masculin_1996" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_masculin_1997" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_masculin_1998" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_masculin_1999" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_du_Canada_2006" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Match_des_champions_(hockey_sur_glace)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Musilac" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Offensive_des_Cent-Jours" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Open_d'Australie_1983" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Open_d'Australie_1984" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Open_d'Australie_1988" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Open_d'Inde_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Open_d'Indian_Wells_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Open_de_Barcelone_1982" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Open_de_Barcelone_1983" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Open_de_Barcelone_1984" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Open_de_Bombay_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Open_de_Canton_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Open_de_Corée_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Open_de_Miami_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Open_de_Moselle_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Open_de_Roumanie_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Open_de_Slovénie_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Open_de_Stockholm_1983_(ATP)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Open_de_Tachkent_2007_(WTA)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Open_du_Canada_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Open_du_Japon_2007_(ATP)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Open_du_Japon_2007_(WTA)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Pentathlon_moderne_aux_Jeux_olympiques_d'été_de_1920" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Pentathlon_moderne_aux_Jeux_olympiques_d'été_de_1924" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Pentathlon_moderne_aux_Jeux_olympiques_d'été_de_1928" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Pentathlon_moderne_aux_Jeux_olympiques_d'été_de_1932" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Pentathlon_moderne_aux_Jeux_olympiques_d'été_de_1936" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Pentathlon_moderne_aux_Jeux_olympiques_d'été_de_1948" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Pentathlon_moderne_aux_Jeux_olympiques_d'été_de_1952" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Pentathlon_moderne_aux_Jeux_olympiques_d'été_de_1956" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Pentathlon_moderne_aux_Jeux_olympiques_d'été_de_1960" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Pentathlon_moderne_aux_Jeux_olympiques_d'été_de_1964" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Petit_Le_Mans" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Plongeon_aux_Jeux_olympiques_d'été_de_1904" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Plongeon_aux_Jeux_olympiques_d'été_de_1908" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Plongeon_aux_Jeux_olympiques_d'été_de_1912" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Plongeon_aux_Jeux_olympiques_d'été_de_1920" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Plongeon_aux_Jeux_olympiques_d'été_de_1924" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Plongeon_aux_Jeux_olympiques_d'été_de_1960" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Plongeon_aux_Jeux_olympiques_d'été_de_1964" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Plongeon_aux_Jeux_olympiques_d'été_de_1968" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Plongeon_aux_Jeux_olympiques_d'été_de_1972" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Plongeon_aux_Jeux_olympiques_d'été_de_1976" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Première_Guerre_crétoise" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Prise_de_Moscou" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Reggae_Sun_Ska_Festival" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Run_in_Lyon" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Saison_NBA_1993-1994" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Saison_NBA_1994-1995" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Saison_NBA_1995-1996" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Saison_NBA_1996-1997" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Saison_NBA_2000-2001" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Six_jours_d'Aarhus" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Siège_de_Bastogne" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Siège_de_Berg-op-Zoom_(1622)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Siège_de_Dantzig_(1807)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Siège_de_Luxembourg_(1684)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Siège_de_Luxembourg_(1794-1795)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Siège_de_Mardyck" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/SuperLiga_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Supercoupe_de_Guinée-Bissau_de_football" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Suresnes_Cités_Danse" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Tour_Down_Under" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Tour_d'Irlande" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Tour_de_Californie" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Tour_de_Grande-Bretagne" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Tour_de_Langkawi" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Tour_de_l'Algarve" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Tour_du_Languedoc-Roussillon" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Tour_du_Poitou-Charentes" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Tournoi_d'Amsterdam" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Tournoi_d'Indianapolis_1987" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Tournoi_de_Cincinnati_1983" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Tournoi_de_Cincinnati_1984" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Tournoi_de_Cincinnati_1986" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Tournoi_de_Cincinnati_1988" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Tournoi_de_Luxembourg_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Tournoi_de_Miami_1988" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Tours_préliminaires_à_la_Coupe_du_monde_de_football_1950" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Tours_préliminaires_à_la_Coupe_du_monde_de_football_1954" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Tours_préliminaires_à_la_Coupe_du_monde_de_football_1958" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Tours_préliminaires_à_la_Coupe_du_monde_de_football_1962" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Tours_préliminaires_à_la_Coupe_du_monde_de_football_1966" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Tours_préliminaires_à_la_Coupe_du_monde_de_football_1970" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Tours_préliminaires_à_la_Coupe_du_monde_de_football_1974" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Tours_préliminaires_à_la_Coupe_du_monde_de_football_1978" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/US_Open_de_tennis_1988" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/US_Open_de_tennis_1989" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/US_Open_de_tennis_1990" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/US_Open_de_tennis_1991" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/US_Open_de_tennis_1992" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/US_Open_de_tennis_1993" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Universiade_d'été_de_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Éliminatoires_de_la_Coupe_du_monde_de_football_2010" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Équitation_aux_Jeux_olympiques_d'été_de_1912" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Équitation_aux_Jeux_olympiques_d'été_de_1920" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Équitation_aux_Jeux_olympiques_d'été_de_1928" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Équitation_aux_Jeux_olympiques_d'été_de_1932" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/500_miles_d'Indianapolis_1949" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Algarve_Cup_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/American_Le_Mans_Series_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/American_Le_Mans_Series_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Basket-ball_aux_Jeux_panaméricains" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_d'Abou_Goulem" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_d'Affane" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_d'Aquia_Creek" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_d'Aughrim" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_d'Elbe" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_d'Emsdorf" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_d'Iconium" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_d'Öland_(1676)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bornéo_(1945)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Brunanburh" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bukoba" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Canope" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Cedar_Creek" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Clontibret" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Césarée" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Dighomi" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Dornach_(1914)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Douvres_(1652)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Dungeness" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Fatshan_Creek" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Five_Forks" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Fossalta" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Gagra" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Gebora" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Goito" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Grand-Champ" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Hlobane" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Kapetrou" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Kentish_Knock" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Killiecrankie" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Kinsale" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Kloster_Kampen" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_La_Croix-Avranchin" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_La_Pellerine" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Livourne" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Lowestoft" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Marino" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Meung-sur-Loire" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Montemurlo" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_North_Foreland" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Philomélion" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Portland" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Riachuelo" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Rorke's_Drift" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Saint-Hilaire-des-Landes" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Saint-Jacques_sur_la_Sihl" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Saint_Charles" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Salaita" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_San_Fermo" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Seminara_(1495)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Sewell's_Point" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Silarus" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Treponti" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Valverde" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Varèse" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Villinghausen" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Wilhelmsthal" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Yellow_Ford" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Yenangyaung" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_l'Öresund" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_la_Planta" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_la_Porte_Colline" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_la_RC_4" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_la_Serre" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_la_baie_d'Hudson" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_des_Philippines_(1941-1942)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_du_château_d'Utsunomiya" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_du_col_de_Curlew" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_du_lac_Champlain" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Benecup" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/California_League" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Campagne_d'Afrique_de_l'Est_(Première_Guerre_mondiale)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Campagne_d'Afrique_de_l'Ouest" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Campagne_d'Afrique_du_Sud-Ouest" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Campagne_d'Appomattox" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Campagne_de_Belgique_de_1815" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Campagne_des_Six-Jours" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Carlson's_patrol" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Carnaval_de_Jargeau" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Carolina_League" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Challenge_international_du_Nord" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Afrique_des_nations_de_football" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Afrique_des_nations_de_football_2009" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Algérie_de_volley-ball_masculin" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Angleterre_de_football_1956-1957" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Asie_et_d'Océanie_de_volley-ball_féminin_1975" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Asie_et_d'Océanie_de_volley-ball_féminin_2001" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Asie_et_d'Océanie_de_volley-ball_féminin_2003" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Asie_et_d'Océanie_de_volley-ball_féminin_2005" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Asie_et_d'Océanie_de_volley-ball_féminin_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_basket-ball_1935" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_basket-ball_1937" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_basket-ball_1939" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_basket-ball_1946" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_basket-ball_1947" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_basket-ball_1949" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_basket-ball_1951" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_basket-ball_1953" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_basket-ball_1955" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_basket-ball_1957" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_basket-ball_1959" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_basket-ball_1961" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_basket-ball_1963" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_basket-ball_1965" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_basket-ball_1967" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_basket-ball_1969" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_basket-ball_1971" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_basket-ball_1973" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_basket-ball_1975" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_de_basket-ball_1977" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Europe_junior_de_hockey_sur_glace" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Irlande_de_football_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'Islande_de_football_2003" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_d'URSS_de_hockey_sur_glace" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_Belgique_de_rugby_à_XV_de_2e_division" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_Côte_d'Ivoire_de_football_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_France_amateur_de_football_2006-2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_France_de_cross-country" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_France_de_handball_jeune_-18_ans" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_France_de_rugby_à_XV_2008-2009" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_France_de_tennis_1912" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_France_de_tennis_1913" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_France_de_tennis_1914" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_Santa_Catarina_de_football_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_Suisse_de_tchoukball" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_Tunisie_de_basket-ball_masculin" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_Tunisie_de_handball_masculin" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_Turquie_de_hockey_sur_glace" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_tennis_d'Australie_1968" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_des_Amériques_de_basket-ball" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_des_Flandres" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_des_Rallyes_Canadiens" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_Brésil_de_football_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_Danemark_de_football_2003-2004" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_Danemark_de_football_2004-2005" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_Danemark_de_football_2005-2006" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_Danemark_de_football_2007-2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_Maroc_de_football_D2_2001-2002" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_Maroc_de_football_D2_2002-2003" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_Maroc_de_football_féminin_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_Monténégro_de_football_2006-2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_Monténégro_de_football_2007-2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_monde_de_hockey_sur_glace_1978" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_monde_de_hockey_sur_glace_1979" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_monde_de_hockey_sur_glace_1981" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_monde_de_hockey_sur_glace_1982" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_monde_de_hockey_sur_glace_1983" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_monde_de_hockey_sur_glace_1986" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_monde_de_hockey_sur_glace_1987" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_monde_de_hockey_sur_glace_1991" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_monde_de_hockey_sur_glace_1992" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_monde_de_hockey_sur_glace_1993" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_monde_de_hockey_sur_glace_1994" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_monde_de_hockey_sur_glace_1995" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_monde_de_hockey_sur_glace_1996" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_monde_de_hockey_sur_glace_1997" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_monde_de_hockey_sur_glace_1998" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_monde_de_hockey_sur_glace_1999" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_monde_de_hockey_sur_glace_2000" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_monde_de_hockey_sur_glace_2001" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_monde_de_hockey_sur_glace_2002" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_monde_de_hockey_sur_glace_féminin_1999" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_monde_de_hockey_sur_glace_féminin_2004" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_du_monde_des_rallyes_2009" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_d'Europe_de_cross-country" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_d'Europe_de_cross-country_1994" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_d'Europe_de_cross-country_1995" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_d'Europe_de_cross-country_2006" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_d'Europe_de_cross-country_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_d'Europe_de_natation_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_de_France_de_natation_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_FIBT" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_d'athlétisme_en_salle_1997" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_d'athlétisme_en_salle_1999" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_d'athlétisme_en_salle_2004" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_d'athlétisme_en_salle_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_1973" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_1974" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_1975" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_1976" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_1977" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_1978" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_1979" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_1980" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_1981" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_1982" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_1983" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_1984" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_1985" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_1986" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_1987" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_1988" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_1989" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_1990" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_1991" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_1992" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_1993" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_1994" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_1995" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_1996" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_1997" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_1998" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_1999" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_2000" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_2001" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_2002" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_2003" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_2004" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_2005" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_2006" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cross-country_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_cyclisme_sur_piste_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1903" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1905" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1907" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1909" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1911" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1913" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1922" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1926" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1930" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1934" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1938" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1950" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1954" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1958" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1962" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1966" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1970" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1974" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1978" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1979" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1981" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1983" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1985" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1987" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1989" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1991" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1992" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1993" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1994_(Brisbane)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1994_(Dortmund)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1995" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1996" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1997" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_1999" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_2001" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_2002" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_2003" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_2005" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_artistique_2009" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_rythmique" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_gymnastique_rythmique_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_natation_en_petit_bassin_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_du_monde_de_tennis_de_table_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Circuit_de_Lorraine" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Classique_mondiale_de_baseball_2006" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Clásica_de_Alcobendas" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Clásica_de_Almería" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Combat_d'Elven" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Combat_de_Bais" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Combat_de_Bréal" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Combat_de_Cornillé" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Combat_de_Dourdain" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Combat_de_La_Bazouge-du-Désert" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Combat_de_Laï" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Combat_de_Romazy-Rimou" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Combat_de_Saint-Jean-sur-Vilaine" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Combat_de_la_Ribassais" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Combat_de_la_lande_d'Izé" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coppa_Agostoni" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coppa_Bernocchi" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coppa_Placci" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coppa_Sabatini" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_Amílcar_Cabral" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_Family_Circle_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_d'Algérie_de_football_2002-2003" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_de_Tunisie_de_basket-ball_masculin" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_de_Tunisie_de_handball_masculin" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_du_Golfe_des_nations_de_football" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_du_Monténégro_de_football" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_du_monde_cycliste_féminine_de_Montréal" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_du_monde_de_cyclisme_sur_route_2002" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_du_monde_de_cyclisme_sur_route_2003" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_du_monde_de_cyclisme_sur_route_féminine" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_du_monde_de_cyclisme_sur_route_féminine_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_du_monde_de_marathon_FINA" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_du_monde_de_snowboard_2007-2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Crosse_aux_Jeux_olympiques" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Crosse_aux_Jeux_olympiques_d'été_de_1908" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Deuxième_bataille_de_Nola" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Deuxième_combat_de_Saint_M'Hervé" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Drei-Länder-Tour" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/EFAF_Cup_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Eurométropole_Tour" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Festival_Jazz_des_Cinq_Continents" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Festival_Paris_quartier_d'été" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Finale_de_la_Coupe_d'Afrique_des_Nations_de_football_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Florence-Pistoia" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Flèche_wallonne_féminine" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/GP_Llodio" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Geelong_World_Cup" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Ginny_Championships_1983" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Ginny_Championships_1984" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Giro_d'Oro" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand-Prix_Hassan_II_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_Bruno_Beghelli" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_Gerrie_Knetemann" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_Herning" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_Jef_Scherens" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_Miguel_Indurain" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_Pino_Cerami" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_d'Argentine_1971" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Bahreïn_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_Malaisie_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_de_Grande-Bretagne_de_Champ_Car" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_de_Lugano" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_de_Plouay_féminin" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_de_Wallonie_(cyclisme)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_de_l'industrie_et_du_commerce_de_Prato" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_de_la_Libération" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_de_la_côte_étrusque" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_de_triathlon" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_de_triathlon_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Guerre_civile_des_Libérateurs" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Guerre_d'indépendance_du_Pérou" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Guerre_de_Black_Hawk" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Guerre_de_Neuf_Ans_en_Irlande" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Guerre_de_Pérouse" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Guerre_de_la_frontière_sud-africaine" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Guerre_des_Mille_Jours" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Guerre_des_Sables" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Guerre_du_Roussillon" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Gymnastique_artistique_aux_Jeux_olympiques" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Gymnastique_artistique_aux_Jeux_olympiques_d'été_de_1984" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Gymnastique_artistique_aux_Jeux_olympiques_d'été_de_1988" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Gymnastique_artistique_aux_Jeux_olympiques_d'été_de_1992" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Gymnastique_artistique_aux_Jeux_olympiques_d'été_de_1996" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Gymnastique_artistique_aux_Jeux_olympiques_d'été_de_2000" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Gymnastique_artistique_aux_Jeux_olympiques_d'été_de_2004" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Gymnastique_artistique_aux_Jeux_olympiques_d'été_de_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Gymnastique_aux_Jeux_olympiques" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Gymnastique_rythmique_aux_Jeux_olympiques_d'été_de_1984" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Gymnastique_rythmique_aux_Jeux_olympiques_d'été_de_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Heavy_MTL" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Invasion_de_la_Grenade" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Invasion_du_Val_d'Aran" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Jeux_panaméricains_de_2011" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Lacanau_Pro" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Le_Jardin_du_Michel" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Le_Mans_Endurance_Series_2004" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Le_Mans_Endurance_Series_2005" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Le_Mans_Series_2006" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Le_Mans_Series_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Le_Mans_Series_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Le_Printemps_de_la_Vieille_Bourse" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Le_Samyn" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Ligue_Europa_2009-2010" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Ligue_de_l'État_de_Floride" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Ligue_des_champions_de_handball_2002-2003" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Ligue_des_champions_de_handball_2003-2004" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Ligue_des_champions_de_handball_2004-2005" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Ligue_des_champions_de_l'AFC_2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Ligue_des_champions_de_l'UEFA_2006-2007" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Ligue_des_champions_de_la_CONCACAF" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Ligue_israélienne_de_basket-ball" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Major_League_Soccer_2008" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Marathon_d'Amsterdam" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Marathon_d'Honolulu" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Marathon_d'Osaka" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Marathon_de_Stockholm" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Marathon_de_la_Côte_d'Amour" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_féminin_1978" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_féminin_1979" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_féminin_1980" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_féminin_1981" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_féminin_1982" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_féminin_1983" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_féminin_1984" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_féminin_1985" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_féminin_1987" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_féminin_1988" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_féminin_1989" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_féminin_1990" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_féminin_1991" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_féminin_1992" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_féminin_1993" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_féminin_1994" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Masters_de_tennis_féminin_1995" }
+      }
+    ]
+  }
+}

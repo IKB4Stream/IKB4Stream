@@ -112,11 +112,11 @@ public class DBpediaProducerConnector implements IProducerConnector {
                 }
                 Thread.sleep(this.sleepTime);
             } catch (IllegalStateException err) {
-                LOGGER.error(err.getMessage());
+                LOGGER.error("The current query can't be executed: {}", err);
                 Thread.currentThread().interrupt();
                 return;
             }catch (DateTimeParseException dtp) {
-                LOGGER.error("bad date format given.");
+                LOGGER.error("bad date format given: ", dtp);
                 throw new IllegalStateException(dtp.getMessage());
             } catch (InterruptedException e) {
                LOGGER.error("Current thread has been interrupted : {} ", e);
@@ -134,6 +134,7 @@ public class DBpediaProducerConnector implements IProducerConnector {
         try {
             return Boolean.valueOf(PROPERTIES_MANAGER.getProperty("dbpedia.enable"));
         } catch (IllegalArgumentException e) {
+            LOGGER.warn("Can't parse the specific boolean value: ", e);
             return true;
         }
     }

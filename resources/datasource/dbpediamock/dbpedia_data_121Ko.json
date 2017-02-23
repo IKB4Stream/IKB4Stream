@@ -1,0 +1,909 @@
+{
+  "head": {
+    "vars": [ "evenements" , "latitude" , "longitude" , "description" , "startDate" , "endDate" , "label" ]
+  } ,
+  "results": {
+    "bindings": [
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La bataille de Bergen, livrée le 19 septembre 1799 est une bataille de la campagne de Hollande qui s'est soldée par une victoire de l'armée franco-néerlandaise (composée de 12 000 Néerlandais et 10 000 Français) dirigée par les généraux Brune et Daendels, sur le corps expéditionnaire russo-britannique commandé par le duc d'York qui avait débarqué en Hollande-Septentrionale.↑ 1,0 et 1,1 British minor expedition, p." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille de Bergen (1799)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "de" , "value": "Die Schlacht von Bergen ereignete sich am 19. September 1799 und resultierte in einem französisch-batavischem Sieg unter den Generälen Brune und Daendels. Sie siegten über die Russen und Briten unter dem Herzog von York, die in Nordholland gelandet waren." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille de Bergen (1799)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "hu" , "value": "A bergeni csata (vagy más néven az úgynevezett bergen\u2013binneni csata) 1799. szeptember 19-én zajlott le a második koalíciós háború során. Francia\u2013holland (batáviai) győzelmet eredményezett Brune és Daendels vezetésével az Észak-Hollandiában a yorki herceg vezetésével partraszálló orosz és brit seregek felett. A csatateret orosz emlékmű jelöli(1902)." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille de Bergen (1799)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The Battle of Bergen, also called the Battle of Bergen-Binnen, was fought on 19 September 1799, and resulted in a French-Dutch victory under General Brune and General Daendels against the Russians and British under the Duke of York who had landed in North Holland. The battlefield is marked by the Russisch Monument (1902)." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille de Bergen (1799)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "nl" , "value": "De Slag bij Bergen op 19 september 1799, ook wel de Slag bij Bergen-Binnen genoemd, was een Frans-Bataafse overwinning tegen de Britten en Russen, die enkele weken daarvoor in Noord-Holland waren geland.Plaatsnamen in Bergen als de Russenweg, het Slagduin en boerderij De Franschman herinneren nog aan de veldslag. Ook de vele kogelgaten en -inslagen in de Ruïnekerk van Bergen zijn nog een overblijfsel van de slag." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille de Bergen (1799)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "pl" , "value": "Bitwa pod Bergen aan Zee \u2013 starcie zbrojne, które miało miejsce 19 września 1799 roku podczas wojny Francji z drugą koalicją.Armia francusko-holenderska (22 000 żołnierzy, w tym 12 000 Holendrów) dowodzona przez generała Brune'a (Holendrami dowodził generał Herman Willem Daendels) zajmowała stanowisko na wąskim pasie stałego lądu między Morzem Północnym a okolicznymi bagnami tzw. \"zachodniego polderu\". Książę Yorku Fryderyk wylądował w Holandii 15 września i połączył się z Rosjanami." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille de Bergen (1799)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La bataille de Bergen, livrée le 19 septembre 1799 est une bataille de la campagne de Hollande qui s'est soldée par une victoire de l'armée franco-néerlandaise (composée de 12 000 Néerlandais et 10 000 Français) dirigée par les généraux Brune et Daendels, sur le corps expéditionnaire russo-britannique commandé par le duc d'York qui avait débarqué en Hollande-Septentrionale.↑ 1,0 et 1,1 British minor expedition, p." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "en" , "value": "Battle of Bergen (1799)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "de" , "value": "Die Schlacht von Bergen ereignete sich am 19. September 1799 und resultierte in einem französisch-batavischem Sieg unter den Generälen Brune und Daendels. Sie siegten über die Russen und Briten unter dem Herzog von York, die in Nordholland gelandet waren." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "en" , "value": "Battle of Bergen (1799)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "hu" , "value": "A bergeni csata (vagy más néven az úgynevezett bergen\u2013binneni csata) 1799. szeptember 19-én zajlott le a második koalíciós háború során. Francia\u2013holland (batáviai) győzelmet eredményezett Brune és Daendels vezetésével az Észak-Hollandiában a yorki herceg vezetésével partraszálló orosz és brit seregek felett. A csatateret orosz emlékmű jelöli(1902)." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "en" , "value": "Battle of Bergen (1799)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The Battle of Bergen, also called the Battle of Bergen-Binnen, was fought on 19 September 1799, and resulted in a French-Dutch victory under General Brune and General Daendels against the Russians and British under the Duke of York who had landed in North Holland. The battlefield is marked by the Russisch Monument (1902)." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "en" , "value": "Battle of Bergen (1799)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "nl" , "value": "De Slag bij Bergen op 19 september 1799, ook wel de Slag bij Bergen-Binnen genoemd, was een Frans-Bataafse overwinning tegen de Britten en Russen, die enkele weken daarvoor in Noord-Holland waren geland.Plaatsnamen in Bergen als de Russenweg, het Slagduin en boerderij De Franschman herinneren nog aan de veldslag. Ook de vele kogelgaten en -inslagen in de Ruïnekerk van Bergen zijn nog een overblijfsel van de slag." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "en" , "value": "Battle of Bergen (1799)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "pl" , "value": "Bitwa pod Bergen aan Zee \u2013 starcie zbrojne, które miało miejsce 19 września 1799 roku podczas wojny Francji z drugą koalicją.Armia francusko-holenderska (22 000 żołnierzy, w tym 12 000 Holendrów) dowodzona przez generała Brune'a (Holendrami dowodził generał Herman Willem Daendels) zajmowała stanowisko na wąskim pasie stałego lądu między Morzem Północnym a okolicznymi bagnami tzw. \"zachodniego polderu\". Książę Yorku Fryderyk wylądował w Holandii 15 września i połączył się z Rosjanami." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "en" , "value": "Battle of Bergen (1799)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La bataille de Bergen, livrée le 19 septembre 1799 est une bataille de la campagne de Hollande qui s'est soldée par une victoire de l'armée franco-néerlandaise (composée de 12 000 Néerlandais et 10 000 Français) dirigée par les généraux Brune et Daendels, sur le corps expéditionnaire russo-britannique commandé par le duc d'York qui avait débarqué en Hollande-Septentrionale.↑ 1,0 et 1,1 British minor expedition, p." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "hu" , "value": "Bergeni csata" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "de" , "value": "Die Schlacht von Bergen ereignete sich am 19. September 1799 und resultierte in einem französisch-batavischem Sieg unter den Generälen Brune und Daendels. Sie siegten über die Russen und Briten unter dem Herzog von York, die in Nordholland gelandet waren." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "hu" , "value": "Bergeni csata" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "hu" , "value": "A bergeni csata (vagy más néven az úgynevezett bergen\u2013binneni csata) 1799. szeptember 19-én zajlott le a második koalíciós háború során. Francia\u2013holland (batáviai) győzelmet eredményezett Brune és Daendels vezetésével az Észak-Hollandiában a yorki herceg vezetésével partraszálló orosz és brit seregek felett. A csatateret orosz emlékmű jelöli(1902)." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "hu" , "value": "Bergeni csata" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The Battle of Bergen, also called the Battle of Bergen-Binnen, was fought on 19 September 1799, and resulted in a French-Dutch victory under General Brune and General Daendels against the Russians and British under the Duke of York who had landed in North Holland. The battlefield is marked by the Russisch Monument (1902)." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "hu" , "value": "Bergeni csata" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "nl" , "value": "De Slag bij Bergen op 19 september 1799, ook wel de Slag bij Bergen-Binnen genoemd, was een Frans-Bataafse overwinning tegen de Britten en Russen, die enkele weken daarvoor in Noord-Holland waren geland.Plaatsnamen in Bergen als de Russenweg, het Slagduin en boerderij De Franschman herinneren nog aan de veldslag. Ook de vele kogelgaten en -inslagen in de Ruïnekerk van Bergen zijn nog een overblijfsel van de slag." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "hu" , "value": "Bergeni csata" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "pl" , "value": "Bitwa pod Bergen aan Zee \u2013 starcie zbrojne, które miało miejsce 19 września 1799 roku podczas wojny Francji z drugą koalicją.Armia francusko-holenderska (22 000 żołnierzy, w tym 12 000 Holendrów) dowodzona przez generała Brune'a (Holendrami dowodził generał Herman Willem Daendels) zajmowała stanowisko na wąskim pasie stałego lądu między Morzem Północnym a okolicznymi bagnami tzw. \"zachodniego polderu\". Książę Yorku Fryderyk wylądował w Holandii 15 września i połączył się z Rosjanami." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "hu" , "value": "Bergeni csata" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La bataille de Bergen, livrée le 19 septembre 1799 est une bataille de la campagne de Hollande qui s'est soldée par une victoire de l'armée franco-néerlandaise (composée de 12 000 Néerlandais et 10 000 Français) dirigée par les généraux Brune et Daendels, sur le corps expéditionnaire russo-britannique commandé par le duc d'York qui avait débarqué en Hollande-Septentrionale.↑ 1,0 et 1,1 British minor expedition, p." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "pl" , "value": "Bitwa pod Bergen aan Zee" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "de" , "value": "Die Schlacht von Bergen ereignete sich am 19. September 1799 und resultierte in einem französisch-batavischem Sieg unter den Generälen Brune und Daendels. Sie siegten über die Russen und Briten unter dem Herzog von York, die in Nordholland gelandet waren." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "pl" , "value": "Bitwa pod Bergen aan Zee" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "hu" , "value": "A bergeni csata (vagy más néven az úgynevezett bergen\u2013binneni csata) 1799. szeptember 19-én zajlott le a második koalíciós háború során. Francia\u2013holland (batáviai) győzelmet eredményezett Brune és Daendels vezetésével az Észak-Hollandiában a yorki herceg vezetésével partraszálló orosz és brit seregek felett. A csatateret orosz emlékmű jelöli(1902)." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "pl" , "value": "Bitwa pod Bergen aan Zee" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The Battle of Bergen, also called the Battle of Bergen-Binnen, was fought on 19 September 1799, and resulted in a French-Dutch victory under General Brune and General Daendels against the Russians and British under the Duke of York who had landed in North Holland. The battlefield is marked by the Russisch Monument (1902)." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "pl" , "value": "Bitwa pod Bergen aan Zee" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "nl" , "value": "De Slag bij Bergen op 19 september 1799, ook wel de Slag bij Bergen-Binnen genoemd, was een Frans-Bataafse overwinning tegen de Britten en Russen, die enkele weken daarvoor in Noord-Holland waren geland.Plaatsnamen in Bergen als de Russenweg, het Slagduin en boerderij De Franschman herinneren nog aan de veldslag. Ook de vele kogelgaten en -inslagen in de Ruïnekerk van Bergen zijn nog een overblijfsel van de slag." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "pl" , "value": "Bitwa pod Bergen aan Zee" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "pl" , "value": "Bitwa pod Bergen aan Zee \u2013 starcie zbrojne, które miało miejsce 19 września 1799 roku podczas wojny Francji z drugą koalicją.Armia francusko-holenderska (22 000 żołnierzy, w tym 12 000 Holendrów) dowodzona przez generała Brune'a (Holendrami dowodził generał Herman Willem Daendels) zajmowała stanowisko na wąskim pasie stałego lądu między Morzem Północnym a okolicznymi bagnami tzw. \"zachodniego polderu\". Książę Yorku Fryderyk wylądował w Holandii 15 września i połączył się z Rosjanami." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "pl" , "value": "Bitwa pod Bergen aan Zee" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La bataille de Bergen, livrée le 19 septembre 1799 est une bataille de la campagne de Hollande qui s'est soldée par une victoire de l'armée franco-néerlandaise (composée de 12 000 Néerlandais et 10 000 Français) dirigée par les généraux Brune et Daendels, sur le corps expéditionnaire russo-britannique commandé par le duc d'York qui avait débarqué en Hollande-Septentrionale.↑ 1,0 et 1,1 British minor expedition, p." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "de" , "value": "Schlacht bei Bergen (1799)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "de" , "value": "Die Schlacht von Bergen ereignete sich am 19. September 1799 und resultierte in einem französisch-batavischem Sieg unter den Generälen Brune und Daendels. Sie siegten über die Russen und Briten unter dem Herzog von York, die in Nordholland gelandet waren." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "de" , "value": "Schlacht bei Bergen (1799)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "hu" , "value": "A bergeni csata (vagy más néven az úgynevezett bergen\u2013binneni csata) 1799. szeptember 19-én zajlott le a második koalíciós háború során. Francia\u2013holland (batáviai) győzelmet eredményezett Brune és Daendels vezetésével az Észak-Hollandiában a yorki herceg vezetésével partraszálló orosz és brit seregek felett. A csatateret orosz emlékmű jelöli(1902)." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "de" , "value": "Schlacht bei Bergen (1799)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The Battle of Bergen, also called the Battle of Bergen-Binnen, was fought on 19 September 1799, and resulted in a French-Dutch victory under General Brune and General Daendels against the Russians and British under the Duke of York who had landed in North Holland. The battlefield is marked by the Russisch Monument (1902)." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "de" , "value": "Schlacht bei Bergen (1799)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "nl" , "value": "De Slag bij Bergen op 19 september 1799, ook wel de Slag bij Bergen-Binnen genoemd, was een Frans-Bataafse overwinning tegen de Britten en Russen, die enkele weken daarvoor in Noord-Holland waren geland.Plaatsnamen in Bergen als de Russenweg, het Slagduin en boerderij De Franschman herinneren nog aan de veldslag. Ook de vele kogelgaten en -inslagen in de Ruïnekerk van Bergen zijn nog een overblijfsel van de slag." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "de" , "value": "Schlacht bei Bergen (1799)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "pl" , "value": "Bitwa pod Bergen aan Zee \u2013 starcie zbrojne, które miało miejsce 19 września 1799 roku podczas wojny Francji z drugą koalicją.Armia francusko-holenderska (22 000 żołnierzy, w tym 12 000 Holendrów) dowodzona przez generała Brune'a (Holendrami dowodził generał Herman Willem Daendels) zajmowała stanowisko na wąskim pasie stałego lądu między Morzem Północnym a okolicznymi bagnami tzw. \"zachodniego polderu\". Książę Yorku Fryderyk wylądował w Holandii 15 września i połączył się z Rosjanami." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "de" , "value": "Schlacht bei Bergen (1799)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La bataille de Bergen, livrée le 19 septembre 1799 est une bataille de la campagne de Hollande qui s'est soldée par une victoire de l'armée franco-néerlandaise (composée de 12 000 Néerlandais et 10 000 Français) dirigée par les généraux Brune et Daendels, sur le corps expéditionnaire russo-britannique commandé par le duc d'York qui avait débarqué en Hollande-Septentrionale.↑ 1,0 et 1,1 British minor expedition, p." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "nl" , "value": "Slag bij Bergen (1799)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "de" , "value": "Die Schlacht von Bergen ereignete sich am 19. September 1799 und resultierte in einem französisch-batavischem Sieg unter den Generälen Brune und Daendels. Sie siegten über die Russen und Briten unter dem Herzog von York, die in Nordholland gelandet waren." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "nl" , "value": "Slag bij Bergen (1799)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "hu" , "value": "A bergeni csata (vagy más néven az úgynevezett bergen\u2013binneni csata) 1799. szeptember 19-én zajlott le a második koalíciós háború során. Francia\u2013holland (batáviai) győzelmet eredményezett Brune és Daendels vezetésével az Észak-Hollandiában a yorki herceg vezetésével partraszálló orosz és brit seregek felett. A csatateret orosz emlékmű jelöli(1902)." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "nl" , "value": "Slag bij Bergen (1799)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The Battle of Bergen, also called the Battle of Bergen-Binnen, was fought on 19 September 1799, and resulted in a French-Dutch victory under General Brune and General Daendels against the Russians and British under the Duke of York who had landed in North Holland. The battlefield is marked by the Russisch Monument (1902)." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "nl" , "value": "Slag bij Bergen (1799)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "nl" , "value": "De Slag bij Bergen op 19 september 1799, ook wel de Slag bij Bergen-Binnen genoemd, was een Frans-Bataafse overwinning tegen de Britten en Russen, die enkele weken daarvoor in Noord-Holland waren geland.Plaatsnamen in Bergen als de Russenweg, het Slagduin en boerderij De Franschman herinneren nog aan de veldslag. Ook de vele kogelgaten en -inslagen in de Ruïnekerk van Bergen zijn nog een overblijfsel van de slag." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "nl" , "value": "Slag bij Bergen (1799)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "pl" , "value": "Bitwa pod Bergen aan Zee \u2013 starcie zbrojne, które miało miejsce 19 września 1799 roku podczas wojny Francji z drugą koalicją.Armia francusko-holenderska (22 000 żołnierzy, w tym 12 000 Holendrów) dowodzona przez generała Brune'a (Holendrami dowodził generał Herman Willem Daendels) zajmowała stanowisko na wąskim pasie stałego lądu między Morzem Północnym a okolicznymi bagnami tzw. \"zachodniego polderu\". Książę Yorku Fryderyk wylądował w Holandii 15 września i połączył się z Rosjanami." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "nl" , "value": "Slag bij Bergen (1799)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La bataille de Bergen, livrée le 19 septembre 1799 est une bataille de la campagne de Hollande qui s'est soldée par une victoire de l'armée franco-néerlandaise (composée de 12 000 Néerlandais et 10 000 Français) dirigée par les généraux Brune et Daendels, sur le corps expéditionnaire russo-britannique commandé par le duc d'York qui avait débarqué en Hollande-Septentrionale.↑ 1,0 et 1,1 British minor expedition, p." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "ru" , "value": "Битва у Бергена (1799)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "de" , "value": "Die Schlacht von Bergen ereignete sich am 19. September 1799 und resultierte in einem französisch-batavischem Sieg unter den Generälen Brune und Daendels. Sie siegten über die Russen und Briten unter dem Herzog von York, die in Nordholland gelandet waren." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "ru" , "value": "Битва у Бергена (1799)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "hu" , "value": "A bergeni csata (vagy más néven az úgynevezett bergen\u2013binneni csata) 1799. szeptember 19-én zajlott le a második koalíciós háború során. Francia\u2013holland (batáviai) győzelmet eredményezett Brune és Daendels vezetésével az Észak-Hollandiában a yorki herceg vezetésével partraszálló orosz és brit seregek felett. A csatateret orosz emlékmű jelöli(1902)." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "ru" , "value": "Битва у Бергена (1799)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The Battle of Bergen, also called the Battle of Bergen-Binnen, was fought on 19 September 1799, and resulted in a French-Dutch victory under General Brune and General Daendels against the Russians and British under the Duke of York who had landed in North Holland. The battlefield is marked by the Russisch Monument (1902)." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "ru" , "value": "Битва у Бергена (1799)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "nl" , "value": "De Slag bij Bergen op 19 september 1799, ook wel de Slag bij Bergen-Binnen genoemd, was een Frans-Bataafse overwinning tegen de Britten en Russen, die enkele weken daarvoor in Noord-Holland waren geland.Plaatsnamen in Bergen als de Russenweg, het Slagduin en boerderij De Franschman herinneren nog aan de veldslag. Ook de vele kogelgaten en -inslagen in de Ruïnekerk van Bergen zijn nog een overblijfsel van de slag." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "ru" , "value": "Битва у Бергена (1799)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Bergen_(1799)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "52.67" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "4.7" } ,
+        "description": { "type": "literal" , "xml:lang": "pl" , "value": "Bitwa pod Bergen aan Zee \u2013 starcie zbrojne, które miało miejsce 19 września 1799 roku podczas wojny Francji z drugą koalicją.Armia francusko-holenderska (22 000 żołnierzy, w tym 12 000 Holendrów) dowodzona przez generała Brune'a (Holendrami dowodził generał Herman Willem Daendels) zajmowała stanowisko na wąskim pasie stałego lądu między Morzem Północnym a okolicznymi bagnami tzw. \"zachodniego polderu\". Książę Yorku Fryderyk wylądował w Holandii 15 września i połączył się z Rosjanami." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1799-09-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "ru" , "value": "Битва у Бергена (1799)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La troisième bataille de Changsha a eu lieu entre la fin 1941 et le début 1942. Elle opposa l'Armée impériale et la Marine impériale japonaise à l'Armée nationale révolutionnaire chinoise et à la guérilla des communistes chinois." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille de Changsha (1942)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "id" , "value": "Pertempuran Changsha ketiga (24 Desember 1941 \u2013 15 Januari 1942) adalah pertempuran antara Tiongkok Nasionalis dan Jepang. Serangan ini awalnya bertujuan untuk mencegah tentara Tiongkok membantu tentara Persemakmuran Britania di Pertempuran Hong Kong. Dengan direbutnya Hong Kong pada 25 Desember, Jepang memilih meneruskan serangan terhadap Changsha untuk meningkatkan tekanan terhadap pemerintah Tiongkok." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille de Changsha (1942)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "de" , "value": "Die Schlacht um Changsha, die vom 24. Dezember 1941 bis zum 15. Januar 1942 andauerte, war der dritte japanische Versuch, die Stadt Changsha in der zentralen südchinesischen Provinz Hunan im Verlauf des Zweiten Japanisch-Chinesischen Kriegs einzunehmen." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille de Changsha (1942)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "ja" , "value": "第二次長沙作戦（だいにじちょうささくせん）とは、日中戦争中の1941年12月24日から1942年1月16日まで、湖南省の長沙周辺で行われた日本陸軍の作戦である。太平洋戦争の開戦により始まった香港攻略作戦（第23軍）を支援する目的で第11軍が実施した。広東方面へ南下した中国軍を牽制するのが当初の目的だったが、長沙攻略戦へと発展した。しかし、日本軍は長沙周辺で頑強な抵抗を受け、その後反転して引きあげたため中国側は戦勝を喧伝した。当初の作戦呼称はさ号作戦。中国側呼称は第三次長沙会戦。" } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille de Changsha (1942)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "ru" , "value": "Третья Чаншайская операция \u2014 первое крупное японское наступление в Китае со дня нападения на Пёрл-Харбор24 декабря японцы предприняли третье за войну наступление на Чанша. Третья Чаншайская операция же не увенчалась успехом и завершилась 15 января 1942 года отходом японских частей 11-й армии на исходные позиции." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille de Changsha (1942)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The third Battle of Changsha (24 December 1941\u201315 January 1942) was the first major invasion in China by Imperial Japanese forces following the Japanese attack on the Western Allies.The offensive was originally intended to prevent Chinese forces from reinforcing the British Commonwealth forces engaged in Hong Kong." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille de Changsha (1942)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La troisième bataille de Changsha a eu lieu entre la fin 1941 et le début 1942. Elle opposa l'Armée impériale et la Marine impériale japonaise à l'Armée nationale révolutionnaire chinoise et à la guérilla des communistes chinois." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "en" , "value": "Battle of Changsha (1942)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "id" , "value": "Pertempuran Changsha ketiga (24 Desember 1941 \u2013 15 Januari 1942) adalah pertempuran antara Tiongkok Nasionalis dan Jepang. Serangan ini awalnya bertujuan untuk mencegah tentara Tiongkok membantu tentara Persemakmuran Britania di Pertempuran Hong Kong. Dengan direbutnya Hong Kong pada 25 Desember, Jepang memilih meneruskan serangan terhadap Changsha untuk meningkatkan tekanan terhadap pemerintah Tiongkok." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "en" , "value": "Battle of Changsha (1942)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "de" , "value": "Die Schlacht um Changsha, die vom 24. Dezember 1941 bis zum 15. Januar 1942 andauerte, war der dritte japanische Versuch, die Stadt Changsha in der zentralen südchinesischen Provinz Hunan im Verlauf des Zweiten Japanisch-Chinesischen Kriegs einzunehmen." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "en" , "value": "Battle of Changsha (1942)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "ja" , "value": "第二次長沙作戦（だいにじちょうささくせん）とは、日中戦争中の1941年12月24日から1942年1月16日まで、湖南省の長沙周辺で行われた日本陸軍の作戦である。太平洋戦争の開戦により始まった香港攻略作戦（第23軍）を支援する目的で第11軍が実施した。広東方面へ南下した中国軍を牽制するのが当初の目的だったが、長沙攻略戦へと発展した。しかし、日本軍は長沙周辺で頑強な抵抗を受け、その後反転して引きあげたため中国側は戦勝を喧伝した。当初の作戦呼称はさ号作戦。中国側呼称は第三次長沙会戦。" } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "en" , "value": "Battle of Changsha (1942)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "ru" , "value": "Третья Чаншайская операция \u2014 первое крупное японское наступление в Китае со дня нападения на Пёрл-Харбор24 декабря японцы предприняли третье за войну наступление на Чанша. Третья Чаншайская операция же не увенчалась успехом и завершилась 15 января 1942 года отходом японских частей 11-й армии на исходные позиции." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "en" , "value": "Battle of Changsha (1942)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The third Battle of Changsha (24 December 1941\u201315 January 1942) was the first major invasion in China by Imperial Japanese forces following the Japanese attack on the Western Allies.The offensive was originally intended to prevent Chinese forces from reinforcing the British Commonwealth forces engaged in Hong Kong." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "en" , "value": "Battle of Changsha (1942)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La troisième bataille de Changsha a eu lieu entre la fin 1941 et le début 1942. Elle opposa l'Armée impériale et la Marine impériale japonaise à l'Armée nationale révolutionnaire chinoise et à la guérilla des communistes chinois." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "id" , "value": "Pertempuran Changsha (1942)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "id" , "value": "Pertempuran Changsha ketiga (24 Desember 1941 \u2013 15 Januari 1942) adalah pertempuran antara Tiongkok Nasionalis dan Jepang. Serangan ini awalnya bertujuan untuk mencegah tentara Tiongkok membantu tentara Persemakmuran Britania di Pertempuran Hong Kong. Dengan direbutnya Hong Kong pada 25 Desember, Jepang memilih meneruskan serangan terhadap Changsha untuk meningkatkan tekanan terhadap pemerintah Tiongkok." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "id" , "value": "Pertempuran Changsha (1942)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "de" , "value": "Die Schlacht um Changsha, die vom 24. Dezember 1941 bis zum 15. Januar 1942 andauerte, war der dritte japanische Versuch, die Stadt Changsha in der zentralen südchinesischen Provinz Hunan im Verlauf des Zweiten Japanisch-Chinesischen Kriegs einzunehmen." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "id" , "value": "Pertempuran Changsha (1942)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "ja" , "value": "第二次長沙作戦（だいにじちょうささくせん）とは、日中戦争中の1941年12月24日から1942年1月16日まで、湖南省の長沙周辺で行われた日本陸軍の作戦である。太平洋戦争の開戦により始まった香港攻略作戦（第23軍）を支援する目的で第11軍が実施した。広東方面へ南下した中国軍を牽制するのが当初の目的だったが、長沙攻略戦へと発展した。しかし、日本軍は長沙周辺で頑強な抵抗を受け、その後反転して引きあげたため中国側は戦勝を喧伝した。当初の作戦呼称はさ号作戦。中国側呼称は第三次長沙会戦。" } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "id" , "value": "Pertempuran Changsha (1942)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "ru" , "value": "Третья Чаншайская операция \u2014 первое крупное японское наступление в Китае со дня нападения на Пёрл-Харбор24 декабря японцы предприняли третье за войну наступление на Чанша. Третья Чаншайская операция же не увенчалась успехом и завершилась 15 января 1942 года отходом японских частей 11-й армии на исходные позиции." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "id" , "value": "Pertempuran Changsha (1942)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The third Battle of Changsha (24 December 1941\u201315 January 1942) was the first major invasion in China by Imperial Japanese forces following the Japanese attack on the Western Allies.The offensive was originally intended to prevent Chinese forces from reinforcing the British Commonwealth forces engaged in Hong Kong." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "id" , "value": "Pertempuran Changsha (1942)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La troisième bataille de Changsha a eu lieu entre la fin 1941 et le début 1942. Elle opposa l'Armée impériale et la Marine impériale japonaise à l'Armée nationale révolutionnaire chinoise et à la guérilla des communistes chinois." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "de" , "value": "Schlacht um Changsha (1942)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "id" , "value": "Pertempuran Changsha ketiga (24 Desember 1941 \u2013 15 Januari 1942) adalah pertempuran antara Tiongkok Nasionalis dan Jepang. Serangan ini awalnya bertujuan untuk mencegah tentara Tiongkok membantu tentara Persemakmuran Britania di Pertempuran Hong Kong. Dengan direbutnya Hong Kong pada 25 Desember, Jepang memilih meneruskan serangan terhadap Changsha untuk meningkatkan tekanan terhadap pemerintah Tiongkok." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "de" , "value": "Schlacht um Changsha (1942)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "de" , "value": "Die Schlacht um Changsha, die vom 24. Dezember 1941 bis zum 15. Januar 1942 andauerte, war der dritte japanische Versuch, die Stadt Changsha in der zentralen südchinesischen Provinz Hunan im Verlauf des Zweiten Japanisch-Chinesischen Kriegs einzunehmen." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "de" , "value": "Schlacht um Changsha (1942)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "ja" , "value": "第二次長沙作戦（だいにじちょうささくせん）とは、日中戦争中の1941年12月24日から1942年1月16日まで、湖南省の長沙周辺で行われた日本陸軍の作戦である。太平洋戦争の開戦により始まった香港攻略作戦（第23軍）を支援する目的で第11軍が実施した。広東方面へ南下した中国軍を牽制するのが当初の目的だったが、長沙攻略戦へと発展した。しかし、日本軍は長沙周辺で頑強な抵抗を受け、その後反転して引きあげたため中国側は戦勝を喧伝した。当初の作戦呼称はさ号作戦。中国側呼称は第三次長沙会戦。" } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "de" , "value": "Schlacht um Changsha (1942)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "ru" , "value": "Третья Чаншайская операция \u2014 первое крупное японское наступление в Китае со дня нападения на Пёрл-Харбор24 декабря японцы предприняли третье за войну наступление на Чанша. Третья Чаншайская операция же не увенчалась успехом и завершилась 15 января 1942 года отходом японских частей 11-й армии на исходные позиции." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "de" , "value": "Schlacht um Changsha (1942)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The third Battle of Changsha (24 December 1941\u201315 January 1942) was the first major invasion in China by Imperial Japanese forces following the Japanese attack on the Western Allies.The offensive was originally intended to prevent Chinese forces from reinforcing the British Commonwealth forces engaged in Hong Kong." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "de" , "value": "Schlacht um Changsha (1942)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La troisième bataille de Changsha a eu lieu entre la fin 1941 et le début 1942. Elle opposa l'Armée impériale et la Marine impériale japonaise à l'Armée nationale révolutionnaire chinoise et à la guérilla des communistes chinois." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "ru" , "value": "Третья Чаншайская операция" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "id" , "value": "Pertempuran Changsha ketiga (24 Desember 1941 \u2013 15 Januari 1942) adalah pertempuran antara Tiongkok Nasionalis dan Jepang. Serangan ini awalnya bertujuan untuk mencegah tentara Tiongkok membantu tentara Persemakmuran Britania di Pertempuran Hong Kong. Dengan direbutnya Hong Kong pada 25 Desember, Jepang memilih meneruskan serangan terhadap Changsha untuk meningkatkan tekanan terhadap pemerintah Tiongkok." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "ru" , "value": "Третья Чаншайская операция" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "de" , "value": "Die Schlacht um Changsha, die vom 24. Dezember 1941 bis zum 15. Januar 1942 andauerte, war der dritte japanische Versuch, die Stadt Changsha in der zentralen südchinesischen Provinz Hunan im Verlauf des Zweiten Japanisch-Chinesischen Kriegs einzunehmen." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "ru" , "value": "Третья Чаншайская операция" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "ja" , "value": "第二次長沙作戦（だいにじちょうささくせん）とは、日中戦争中の1941年12月24日から1942年1月16日まで、湖南省の長沙周辺で行われた日本陸軍の作戦である。太平洋戦争の開戦により始まった香港攻略作戦（第23軍）を支援する目的で第11軍が実施した。広東方面へ南下した中国軍を牽制するのが当初の目的だったが、長沙攻略戦へと発展した。しかし、日本軍は長沙周辺で頑強な抵抗を受け、その後反転して引きあげたため中国側は戦勝を喧伝した。当初の作戦呼称はさ号作戦。中国側呼称は第三次長沙会戦。" } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "ru" , "value": "Третья Чаншайская операция" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "ru" , "value": "Третья Чаншайская операция \u2014 первое крупное японское наступление в Китае со дня нападения на Пёрл-Харбор24 декабря японцы предприняли третье за войну наступление на Чанша. Третья Чаншайская операция же не увенчалась успехом и завершилась 15 января 1942 года отходом японских частей 11-й армии на исходные позиции." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "ru" , "value": "Третья Чаншайская операция" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The third Battle of Changsha (24 December 1941\u201315 January 1942) was the first major invasion in China by Imperial Japanese forces following the Japanese attack on the Western Allies.The offensive was originally intended to prevent Chinese forces from reinforcing the British Commonwealth forces engaged in Hong Kong." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "ru" , "value": "Третья Чаншайская операция" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La troisième bataille de Changsha a eu lieu entre la fin 1941 et le début 1942. Elle opposa l'Armée impériale et la Marine impériale japonaise à l'Armée nationale révolutionnaire chinoise et à la guérilla des communistes chinois." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "ja" , "value": "第二次長沙作戦" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "id" , "value": "Pertempuran Changsha ketiga (24 Desember 1941 \u2013 15 Januari 1942) adalah pertempuran antara Tiongkok Nasionalis dan Jepang. Serangan ini awalnya bertujuan untuk mencegah tentara Tiongkok membantu tentara Persemakmuran Britania di Pertempuran Hong Kong. Dengan direbutnya Hong Kong pada 25 Desember, Jepang memilih meneruskan serangan terhadap Changsha untuk meningkatkan tekanan terhadap pemerintah Tiongkok." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "ja" , "value": "第二次長沙作戦" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "de" , "value": "Die Schlacht um Changsha, die vom 24. Dezember 1941 bis zum 15. Januar 1942 andauerte, war der dritte japanische Versuch, die Stadt Changsha in der zentralen südchinesischen Provinz Hunan im Verlauf des Zweiten Japanisch-Chinesischen Kriegs einzunehmen." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "ja" , "value": "第二次長沙作戦" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "ja" , "value": "第二次長沙作戦（だいにじちょうささくせん）とは、日中戦争中の1941年12月24日から1942年1月16日まで、湖南省の長沙周辺で行われた日本陸軍の作戦である。太平洋戦争の開戦により始まった香港攻略作戦（第23軍）を支援する目的で第11軍が実施した。広東方面へ南下した中国軍を牽制するのが当初の目的だったが、長沙攻略戦へと発展した。しかし、日本軍は長沙周辺で頑強な抵抗を受け、その後反転して引きあげたため中国側は戦勝を喧伝した。当初の作戦呼称はさ号作戦。中国側呼称は第三次長沙会戦。" } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "ja" , "value": "第二次長沙作戦" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "ru" , "value": "Третья Чаншайская операция \u2014 первое крупное японское наступление в Китае со дня нападения на Пёрл-Харбор24 декабря японцы предприняли третье за войну наступление на Чанша. Третья Чаншайская операция же не увенчалась успехом и завершилась 15 января 1942 года отходом японских частей 11-й армии на исходные позиции." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "ja" , "value": "第二次長沙作戦" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Changsha_(1942)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "28.2" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "112.967" } ,
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The third Battle of Changsha (24 December 1941\u201315 January 1942) was the first major invasion in China by Imperial Japanese forces following the Japanese attack on the Western Allies.The offensive was originally intended to prevent Chinese forces from reinforcing the British Commonwealth forces engaged in Hong Kong." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1941-12-24+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "ja" , "value": "第二次長沙作戦" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Neuwarp" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "53.8044" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "14.1403" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La bataille navale de Neuwarp est livrée le 10 septembre 1759, dans la lagune de Stettin, entre une escadre suédoise et une flottille prussienne, pendant la guerre de Sept Ans (1756-1763).↑ (sv) Gunnar Åselius, Svenska slagfält, Wahlström & Widstrand, 2003, p. 366\u2014373, (ISBN 91-46-21087-3)" } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1759-09-10+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1759-09-10+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille de Neuwarp" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Neuwarp" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "53.8044" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "14.1403" } ,
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The battle of Frisches Haff or battle of Neuwarp was a naval battle between Sweden and Prussia that took place 10 September 1759 as part of the ongoing Seven Years' War." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1759-09-10+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1759-09-10+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille de Neuwarp" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Neuwarp" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "53.8044" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "14.1403" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La bataille navale de Neuwarp est livrée le 10 septembre 1759, dans la lagune de Stettin, entre une escadre suédoise et une flottille prussienne, pendant la guerre de Sept Ans (1756-1763).↑ (sv) Gunnar Åselius, Svenska slagfält, Wahlström & Widstrand, 2003, p. 366\u2014373, (ISBN 91-46-21087-3)" } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1759-09-10+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1759-09-10+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "en" , "value": "Battle of Frisches Haff" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Neuwarp" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "53.8044" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "14.1403" } ,
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The battle of Frisches Haff or battle of Neuwarp was a naval battle between Sweden and Prussia that took place 10 September 1759 as part of the ongoing Seven Years' War." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1759-09-10+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1759-09-10+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "en" , "value": "Battle of Frisches Haff" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Stockach_(1800)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "47.51" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "9.1" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La seconde bataille de Stockach eut lieu à Stockach, le 3 mai 1800 (12 floréal de l'an VIII), entre l'armée française commandée par Claude Jacques Lecourbe et l'armée Autrichienne commandée par le Prince Joseph Marie de Vaudémont et se solda par une victoire française.↑ Le spectateur militaire, Recueil de science, d'art et d'histoire, tome XXII, p.571." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1800-05-03+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1800-05-03+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille de Stockach (1800)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Stockach_(1800)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "47.51" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "9.1" } ,
+        "description": { "type": "literal" , "xml:lang": "hu" , "value": "Ez a szócikk a második stockachi csatáról (1800) szól, az első stockachi csatáról (1799) lásd stockachi csata (1799)A második stockachi csata 1800. május 3-án a Második koalíciós háború során zajlott le a Claude Lecourbe vezette francia és a Joseph Marie de Vaudémont irányította osztrák seregek között és a franciák győzelmével ért véget." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1800-05-03+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1800-05-03+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille de Stockach (1800)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Stockach_(1800)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "47.51" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "9.1" } ,
+        "description": { "type": "literal" , "xml:lang": "cs" , "value": "Bitva u Stockachu (1800) byla jednou z bitev Druhé koaliční války. Na bojišti se utkaly 3. května 1800 jednotky Francouzského Direktoria a Rakouského impéria." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1800-05-03+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1800-05-03+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille de Stockach (1800)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Stockach_(1800)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "47.51" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "9.1" } ,
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The Battle of Stockach and Engen was fought on 3 May 1800 between the army of the First French Republic under Jean Victor Marie Moreau and the army of Habsburg Austria led by Pál Kray. The fighting near Engen resulted in a stalemate with heavy losses on both sides. However, while the two main armies were engaged at Engen, Claude Lecourbe captured Stockach from its Austrian defenders under the Joseph, Prince of Lorraine-Vaudemont." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1800-05-03+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1800-05-03+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille de Stockach (1800)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Stockach_(1800)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "47.51" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "9.1" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La seconde bataille de Stockach eut lieu à Stockach, le 3 mai 1800 (12 floréal de l'an VIII), entre l'armée française commandée par Claude Jacques Lecourbe et l'armée Autrichienne commandée par le Prince Joseph Marie de Vaudémont et se solda par une victoire française.↑ Le spectateur militaire, Recueil de science, d'art et d'histoire, tome XXII, p.571." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1800-05-03+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1800-05-03+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "en" , "value": "Battle of Stockach (1800)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Stockach_(1800)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "47.51" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "9.1" } ,
+        "description": { "type": "literal" , "xml:lang": "hu" , "value": "Ez a szócikk a második stockachi csatáról (1800) szól, az első stockachi csatáról (1799) lásd stockachi csata (1799)A második stockachi csata 1800. május 3-án a Második koalíciós háború során zajlott le a Claude Lecourbe vezette francia és a Joseph Marie de Vaudémont irányította osztrák seregek között és a franciák győzelmével ért véget." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1800-05-03+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1800-05-03+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "en" , "value": "Battle of Stockach (1800)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Stockach_(1800)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "47.51" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "9.1" } ,
+        "description": { "type": "literal" , "xml:lang": "cs" , "value": "Bitva u Stockachu (1800) byla jednou z bitev Druhé koaliční války. Na bojišti se utkaly 3. května 1800 jednotky Francouzského Direktoria a Rakouského impéria." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1800-05-03+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1800-05-03+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "en" , "value": "Battle of Stockach (1800)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Stockach_(1800)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "47.51" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "9.1" } ,
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The Battle of Stockach and Engen was fought on 3 May 1800 between the army of the First French Republic under Jean Victor Marie Moreau and the army of Habsburg Austria led by Pál Kray. The fighting near Engen resulted in a stalemate with heavy losses on both sides. However, while the two main armies were engaged at Engen, Claude Lecourbe captured Stockach from its Austrian defenders under the Joseph, Prince of Lorraine-Vaudemont." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1800-05-03+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1800-05-03+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "en" , "value": "Battle of Stockach (1800)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Stockach_(1800)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "47.51" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "9.1" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La seconde bataille de Stockach eut lieu à Stockach, le 3 mai 1800 (12 floréal de l'an VIII), entre l'armée française commandée par Claude Jacques Lecourbe et l'armée Autrichienne commandée par le Prince Joseph Marie de Vaudémont et se solda par une victoire française.↑ Le spectateur militaire, Recueil de science, d'art et d'histoire, tome XXII, p.571." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1800-05-03+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1800-05-03+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "cs" , "value": "Bitva u Stockachu (1800)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Stockach_(1800)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "47.51" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "9.1" } ,
+        "description": { "type": "literal" , "xml:lang": "hu" , "value": "Ez a szócikk a második stockachi csatáról (1800) szól, az első stockachi csatáról (1799) lásd stockachi csata (1799)A második stockachi csata 1800. május 3-án a Második koalíciós háború során zajlott le a Claude Lecourbe vezette francia és a Joseph Marie de Vaudémont irányította osztrák seregek között és a franciák győzelmével ért véget." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1800-05-03+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1800-05-03+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "cs" , "value": "Bitva u Stockachu (1800)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Stockach_(1800)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "47.51" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "9.1" } ,
+        "description": { "type": "literal" , "xml:lang": "cs" , "value": "Bitva u Stockachu (1800) byla jednou z bitev Druhé koaliční války. Na bojišti se utkaly 3. května 1800 jednotky Francouzského Direktoria a Rakouského impéria." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1800-05-03+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1800-05-03+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "cs" , "value": "Bitva u Stockachu (1800)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Stockach_(1800)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "47.51" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "9.1" } ,
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The Battle of Stockach and Engen was fought on 3 May 1800 between the army of the First French Republic under Jean Victor Marie Moreau and the army of Habsburg Austria led by Pál Kray. The fighting near Engen resulted in a stalemate with heavy losses on both sides. However, while the two main armies were engaged at Engen, Claude Lecourbe captured Stockach from its Austrian defenders under the Joseph, Prince of Lorraine-Vaudemont." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1800-05-03+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1800-05-03+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "cs" , "value": "Bitva u Stockachu (1800)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Stockach_(1800)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "47.51" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "9.1" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La seconde bataille de Stockach eut lieu à Stockach, le 3 mai 1800 (12 floréal de l'an VIII), entre l'armée française commandée par Claude Jacques Lecourbe et l'armée Autrichienne commandée par le Prince Joseph Marie de Vaudémont et se solda par une victoire française.↑ Le spectateur militaire, Recueil de science, d'art et d'histoire, tome XXII, p.571." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1800-05-03+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1800-05-03+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "hu" , "value": "Stockachi csata (1800)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Stockach_(1800)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "47.51" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "9.1" } ,
+        "description": { "type": "literal" , "xml:lang": "hu" , "value": "Ez a szócikk a második stockachi csatáról (1800) szól, az első stockachi csatáról (1799) lásd stockachi csata (1799)A második stockachi csata 1800. május 3-án a Második koalíciós háború során zajlott le a Claude Lecourbe vezette francia és a Joseph Marie de Vaudémont irányította osztrák seregek között és a franciák győzelmével ért véget." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1800-05-03+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1800-05-03+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "hu" , "value": "Stockachi csata (1800)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Stockach_(1800)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "47.51" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "9.1" } ,
+        "description": { "type": "literal" , "xml:lang": "cs" , "value": "Bitva u Stockachu (1800) byla jednou z bitev Druhé koaliční války. Na bojišti se utkaly 3. května 1800 jednotky Francouzského Direktoria a Rakouského impéria." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1800-05-03+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1800-05-03+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "hu" , "value": "Stockachi csata (1800)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Stockach_(1800)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "47.51" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "9.1" } ,
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The Battle of Stockach and Engen was fought on 3 May 1800 between the army of the First French Republic under Jean Victor Marie Moreau and the army of Habsburg Austria led by Pál Kray. The fighting near Engen resulted in a stalemate with heavy losses on both sides. However, while the two main armies were engaged at Engen, Claude Lecourbe captured Stockach from its Austrian defenders under the Joseph, Prince of Lorraine-Vaudemont." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1800-05-03+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1800-05-03+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "hu" , "value": "Stockachi csata (1800)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_d'Aughrim" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "53.295" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "-8.312" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La bataille d'Aughrim a été la bataille décisive de la guerre williamite en Irlande. Elle opposa les Jacobites aux forces de Guillaume III (les williamites), le 22 juillet 1691, près du village d'Aughrim, dans le comté de Galway à l'ouest de Ballinasloe.Ce fut la bataille la plus sanglante jamais menée sur le sol irlandais - plus de 7000 personnes y trouvèrent la mort. Elle signifia la fin effective du jacobitisme en Irlande, même si la ville de Limerick tint bon jusqu'à l'automne 1691." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1691-07-22+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1691-07-22+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille d'Aughrim" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_d'Aughrim" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "53.295" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "-8.312" } ,
+        "description": { "type": "literal" , "xml:lang": "pl" , "value": "Bitwa pod Aughrim \u2013 starcie zbrojne, które miało miejsce 12 (22 lipca) 1691, w pobliżu wioski Aughrim w hrabstwie Galway. Była to rozstrzygająca bitwa w wojnie Wilhelma w Irlandii.Bitwa była bardzo krwawa (zginęło ponad 7 000 ludzi) i oznaczała ostateczny koniec jakobityzmu w Irlandii, chociaż miasto Limerick broniło się jeszcze do jesieni 1691 roku." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1691-07-22+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1691-07-22+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille d'Aughrim" }
+      }
+    ]
+  }
+}

@@ -1,0 +1,534 @@
+{
+  "head": {
+    "vars": [ "evenements" , "latitude" , "longitude" , "description" , "startDate" , "endDate" , "label" ]
+  },
+  "results": {
+    "bindings": [
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" },
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" },
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" },
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La  seconde bataille de Buzenval  se déroula le 19 janvier 1871, pendant la guerre franco-prussienne, sur le territoire des communes de Rueil-Malmaison, Garches et Saint-Cloud, alors en Seine-et-Oise." },
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" },
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" },
+        "label": { "type": "literal" , "xml:lang": "en" , "value": "Battle of Buzenval (1871)" }
+      },
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" },
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" },
+        "description": { "type": "literal" , "xml:lang": "de" , "value": "Die Schlacht bei Buzenval zwischen Paris und Versailles fand am 19. Januar 1871 im Deutsch-Französischen Krieg zwischen dem V. Korps General von Kirchbach der deutschen 3. Armee unter dem Oberkommando von Prinz Friedrich Wilhelm von Preußen und der französischen Nationalgarde sowie weiteren Verbänden der Pariser Verteidigungsarmee unter General Louis Jules Trochu statt." },
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" },
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" },
+        "label": { "type": "literal" , "xml:lang": "en" , "value": "Battle of Buzenval (1871)" }
+      },
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" },
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" },
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" },
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The (Second) Battle of Buzenval, also known as the Battle of Mont Valérien, was part of the siege of Paris during the Franco-Prussian War. On January 19 1871, the day after Wilhelm I was proclaimed German Emperor, Louis Jules Trochu attacked the Germans west of Paris in Buzenval Park. The attackers seized the town of Saint-Cloud coming close to the new Emperor's headquarters at Versailles. Trochu was able to maintain his position at St." },
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" },
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" },
+        "label": { "type": "literal" , "xml:lang": "en" , "value": "Battle of Buzenval (1871)" }
+      },
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "it" , "value": "La battaglia di Buzenval fu parte dell'assedio di Parigi portato avanti dai tedeschi durante la guerra franco-prussiana.Il 19 gennaio 1871, il giorno successivo all'incoronazione di Guglielmo I di Germania a imperatore tedesco, il generale francese Louis-Jules Trochu attaccò gli assedianti ad est di Parigi, nel parco di Buzenval, riuscendo ad occupare la città di Saint-Cloud non troppo lontana dal nuovo quartier generale dei loro nemici, situato a Versailles." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "en" , "value": "Battle of Buzenval (1871)" }
+      },
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "es" , "value": "La batalla de Buzenval, también conocida como batalla de Mont Valerien, fue una parte del sitio de París durante la Guerra franco-prusiana. El 19 de enero de 1871, el día siguiente de que Guillermo de Prusia fuera coronado Emperador de Alemania, Louis Jules Trochu atacó a los prusianos al oeste de París, en el Parque de Buzenval. Los atacantes sitiaron la ciudad de Saint-Cloud, que se encontraba cerca de la oficina central del nuevo emperador en Versalles." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "en" , "value": "Battle of Buzenval (1871)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "ru" , "value": "Битва при Бюзенвале, также известная как битва при Мон-Вадерьене, была одной из последних битв Франко-прусской войны. В этой битве французский командующий Луи Трошю предпринял попытку прорвать кольцо окружения немецкой армии, удерживающей столицу Франции в осаде уже 4 месяца.Сен-Клу \u2014 западный пригород Парижа, в котором размещался в период осады города прусский штаб. 19 января, на следующий день после коронации германского императора Вильгельма I, Луи Трошю атаковал этот штаб в парке Бюзенваль." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "en" , "value": "Battle of Buzenval (1871)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La  seconde bataille de Buzenval  se déroula le 19 janvier 1871, pendant la guerre franco-prussienne, sur le territoire des communes de Rueil-Malmaison, Garches et Saint-Cloud, alors en Seine-et-Oise." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "es" , "value": "Batalla de Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "de" , "value": "Die Schlacht bei Buzenval zwischen Paris und Versailles fand am 19. Januar 1871 im Deutsch-Französischen Krieg zwischen dem V. Korps General von Kirchbach der deutschen 3. Armee unter dem Oberkommando von Prinz Friedrich Wilhelm von Preußen und der französischen Nationalgarde sowie weiteren Verbänden der Pariser Verteidigungsarmee unter General Louis Jules Trochu statt." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "es" , "value": "Batalla de Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The (Second) Battle of Buzenval, also known as the Battle of Mont Valérien, was part of the siege of Paris during the Franco-Prussian War. On January 19 1871, the day after Wilhelm I was proclaimed German Emperor, Louis Jules Trochu attacked the Germans west of Paris in Buzenval Park. The attackers seized the town of Saint-Cloud coming close to the new Emperor's headquarters at Versailles. Trochu was able to maintain his position at St." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "es" , "value": "Batalla de Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "it" , "value": "La battaglia di Buzenval fu parte dell'assedio di Parigi portato avanti dai tedeschi durante la guerra franco-prussiana.Il 19 gennaio 1871, il giorno successivo all'incoronazione di Guglielmo I di Germania a imperatore tedesco, il generale francese Louis-Jules Trochu attaccò gli assedianti ad est di Parigi, nel parco di Buzenval, riuscendo ad occupare la città di Saint-Cloud non troppo lontana dal nuovo quartier generale dei loro nemici, situato a Versailles." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "es" , "value": "Batalla de Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "es" , "value": "La batalla de Buzenval, también conocida como batalla de Mont Valerien, fue una parte del sitio de París durante la Guerra franco-prusiana. El 19 de enero de 1871, el día siguiente de que Guillermo de Prusia fuera coronado Emperador de Alemania, Louis Jules Trochu atacó a los prusianos al oeste de París, en el Parque de Buzenval. Los atacantes sitiaron la ciudad de Saint-Cloud, que se encontraba cerca de la oficina central del nuevo emperador en Versalles." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "es" , "value": "Batalla de Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "ru" , "value": "Битва при Бюзенвале, также известная как битва при Мон-Вадерьене, была одной из последних битв Франко-прусской войны. В этой битве французский командующий Луи Трошю предпринял попытку прорвать кольцо окружения немецкой армии, удерживающей столицу Франции в осаде уже 4 месяца.Сен-Клу \u2014 западный пригород Парижа, в котором размещался в период осады города прусский штаб. 19 января, на следующий день после коронации германского императора Вильгельма I, Луи Трошю атаковал этот штаб в парке Бюзенваль." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "es" , "value": "Batalla de Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La  seconde bataille de Buzenval  se déroula le 19 janvier 1871, pendant la guerre franco-prussienne, sur le territoire des communes de Rueil-Malmaison, Garches et Saint-Cloud, alors en Seine-et-Oise." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "ru" , "value": "Битва при Бюзенвале" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "de" , "value": "Die Schlacht bei Buzenval zwischen Paris und Versailles fand am 19. Januar 1871 im Deutsch-Französischen Krieg zwischen dem V. Korps General von Kirchbach der deutschen 3. Armee unter dem Oberkommando von Prinz Friedrich Wilhelm von Preußen und der französischen Nationalgarde sowie weiteren Verbänden der Pariser Verteidigungsarmee unter General Louis Jules Trochu statt." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "ru" , "value": "Битва при Бюзенвале" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The (Second) Battle of Buzenval, also known as the Battle of Mont Valérien, was part of the siege of Paris during the Franco-Prussian War. On January 19 1871, the day after Wilhelm I was proclaimed German Emperor, Louis Jules Trochu attacked the Germans west of Paris in Buzenval Park. The attackers seized the town of Saint-Cloud coming close to the new Emperor's headquarters at Versailles. Trochu was able to maintain his position at St." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "ru" , "value": "Битва при Бюзенвале" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "it" , "value": "La battaglia di Buzenval fu parte dell'assedio di Parigi portato avanti dai tedeschi durante la guerra franco-prussiana.Il 19 gennaio 1871, il giorno successivo all'incoronazione di Guglielmo I di Germania a imperatore tedesco, il generale francese Louis-Jules Trochu attaccò gli assedianti ad est di Parigi, nel parco di Buzenval, riuscendo ad occupare la città di Saint-Cloud non troppo lontana dal nuovo quartier generale dei loro nemici, situato a Versailles." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "ru" , "value": "Битва при Бюзенвале" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "es" , "value": "La batalla de Buzenval, también conocida como batalla de Mont Valerien, fue una parte del sitio de París durante la Guerra franco-prusiana. El 19 de enero de 1871, el día siguiente de que Guillermo de Prusia fuera coronado Emperador de Alemania, Louis Jules Trochu atacó a los prusianos al oeste de París, en el Parque de Buzenval. Los atacantes sitiaron la ciudad de Saint-Cloud, que se encontraba cerca de la oficina central del nuevo emperador en Versalles." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "ru" , "value": "Битва при Бюзенвале" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "ru" , "value": "Битва при Бюзенвале, также известная как битва при Мон-Вадерьене, была одной из последних битв Франко-прусской войны. В этой битве французский командующий Луи Трошю предпринял попытку прорвать кольцо окружения немецкой армии, удерживающей столицу Франции в осаде уже 4 месяца.Сен-Клу \u2014 западный пригород Парижа, в котором размещался в период осады города прусский штаб. 19 января, на следующий день после коронации германского императора Вильгельма I, Луи Трошю атаковал этот штаб в парке Бюзенваль." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "ru" , "value": "Битва при Бюзенвале" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La  seconde bataille de Buzenval  se déroula le 19 janvier 1871, pendant la guerre franco-prussienne, sur le territoire des communes de Rueil-Malmaison, Garches et Saint-Cloud, alors en Seine-et-Oise." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille de Buzenval (1871)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "de" , "value": "Die Schlacht bei Buzenval zwischen Paris und Versailles fand am 19. Januar 1871 im Deutsch-Französischen Krieg zwischen dem V. Korps General von Kirchbach der deutschen 3. Armee unter dem Oberkommando von Prinz Friedrich Wilhelm von Preußen und der französischen Nationalgarde sowie weiteren Verbänden der Pariser Verteidigungsarmee unter General Louis Jules Trochu statt." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille de Buzenval (1871)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The (Second) Battle of Buzenval, also known as the Battle of Mont Valérien, was part of the siege of Paris during the Franco-Prussian War. On January 19 1871, the day after Wilhelm I was proclaimed German Emperor, Louis Jules Trochu attacked the Germans west of Paris in Buzenval Park. The attackers seized the town of Saint-Cloud coming close to the new Emperor's headquarters at Versailles. Trochu was able to maintain his position at St." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille de Buzenval (1871)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "it" , "value": "La battaglia di Buzenval fu parte dell'assedio di Parigi portato avanti dai tedeschi durante la guerra franco-prussiana.Il 19 gennaio 1871, il giorno successivo all'incoronazione di Guglielmo I di Germania a imperatore tedesco, il generale francese Louis-Jules Trochu attaccò gli assedianti ad est di Parigi, nel parco di Buzenval, riuscendo ad occupare la città di Saint-Cloud non troppo lontana dal nuovo quartier generale dei loro nemici, situato a Versailles." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille de Buzenval (1871)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "es" , "value": "La batalla de Buzenval, también conocida como batalla de Mont Valerien, fue una parte del sitio de París durante la Guerra franco-prusiana. El 19 de enero de 1871, el día siguiente de que Guillermo de Prusia fuera coronado Emperador de Alemania, Louis Jules Trochu atacó a los prusianos al oeste de París, en el Parque de Buzenval. Los atacantes sitiaron la ciudad de Saint-Cloud, que se encontraba cerca de la oficina central del nuevo emperador en Versalles." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille de Buzenval (1871)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "ru" , "value": "Битва при Бюзенвале, также известная как битва при Мон-Вадерьене, была одной из последних битв Франко-прусской войны. В этой битве французский командующий Луи Трошю предпринял попытку прорвать кольцо окружения немецкой армии, удерживающей столицу Франции в осаде уже 4 месяца.Сен-Клу \u2014 западный пригород Парижа, в котором размещался в период осады города прусский штаб. 19 января, на следующий день после коронации германского императора Вильгельма I, Луи Трошю атаковал этот штаб в парке Бюзенваль." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille de Buzenval (1871)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La  seconde bataille de Buzenval  se déroula le 19 janvier 1871, pendant la guerre franco-prussienne, sur le territoire des communes de Rueil-Malmaison, Garches et Saint-Cloud, alors en Seine-et-Oise." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "it" , "value": "Battaglia di Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "de" , "value": "Die Schlacht bei Buzenval zwischen Paris und Versailles fand am 19. Januar 1871 im Deutsch-Französischen Krieg zwischen dem V. Korps General von Kirchbach der deutschen 3. Armee unter dem Oberkommando von Prinz Friedrich Wilhelm von Preußen und der französischen Nationalgarde sowie weiteren Verbänden der Pariser Verteidigungsarmee unter General Louis Jules Trochu statt." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "it" , "value": "Battaglia di Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The (Second) Battle of Buzenval, also known as the Battle of Mont Valérien, was part of the siege of Paris during the Franco-Prussian War. On January 19 1871, the day after Wilhelm I was proclaimed German Emperor, Louis Jules Trochu attacked the Germans west of Paris in Buzenval Park. The attackers seized the town of Saint-Cloud coming close to the new Emperor's headquarters at Versailles. Trochu was able to maintain his position at St." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "it" , "value": "Battaglia di Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "it" , "value": "La battaglia di Buzenval fu parte dell'assedio di Parigi portato avanti dai tedeschi durante la guerra franco-prussiana.Il 19 gennaio 1871, il giorno successivo all'incoronazione di Guglielmo I di Germania a imperatore tedesco, il generale francese Louis-Jules Trochu attaccò gli assedianti ad est di Parigi, nel parco di Buzenval, riuscendo ad occupare la città di Saint-Cloud non troppo lontana dal nuovo quartier generale dei loro nemici, situato a Versailles." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "it" , "value": "Battaglia di Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "es" , "value": "La batalla de Buzenval, también conocida como batalla de Mont Valerien, fue una parte del sitio de París durante la Guerra franco-prusiana. El 19 de enero de 1871, el día siguiente de que Guillermo de Prusia fuera coronado Emperador de Alemania, Louis Jules Trochu atacó a los prusianos al oeste de París, en el Parque de Buzenval. Los atacantes sitiaron la ciudad de Saint-Cloud, que se encontraba cerca de la oficina central del nuevo emperador en Versalles." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "it" , "value": "Battaglia di Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "ru" , "value": "Битва при Бюзенвале, также известная как битва при Мон-Вадерьене, была одной из последних битв Франко-прусской войны. В этой битве французский командующий Луи Трошю предпринял попытку прорвать кольцо окружения немецкой армии, удерживающей столицу Франции в осаде уже 4 месяца.Сен-Клу \u2014 западный пригород Парижа, в котором размещался в период осады города прусский штаб. 19 января, на следующий день после коронации германского императора Вильгельма I, Луи Трошю атаковал этот штаб в парке Бюзенваль." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "it" , "value": "Battaglia di Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La  seconde bataille de Buzenval  se déroula le 19 janvier 1871, pendant la guerre franco-prussienne, sur le territoire des communes de Rueil-Malmaison, Garches et Saint-Cloud, alors en Seine-et-Oise." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "de" , "value": "Schlacht bei Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "de" , "value": "Die Schlacht bei Buzenval zwischen Paris und Versailles fand am 19. Januar 1871 im Deutsch-Französischen Krieg zwischen dem V. Korps General von Kirchbach der deutschen 3. Armee unter dem Oberkommando von Prinz Friedrich Wilhelm von Preußen und der französischen Nationalgarde sowie weiteren Verbänden der Pariser Verteidigungsarmee unter General Louis Jules Trochu statt." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "de" , "value": "Schlacht bei Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The (Second) Battle of Buzenval, also known as the Battle of Mont Valérien, was part of the siege of Paris during the Franco-Prussian War. On January 19 1871, the day after Wilhelm I was proclaimed German Emperor, Louis Jules Trochu attacked the Germans west of Paris in Buzenval Park. The attackers seized the town of Saint-Cloud coming close to the new Emperor's headquarters at Versailles. Trochu was able to maintain his position at St." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "de" , "value": "Schlacht bei Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "it" , "value": "La battaglia di Buzenval fu parte dell'assedio di Parigi portato avanti dai tedeschi durante la guerra franco-prussiana.Il 19 gennaio 1871, il giorno successivo all'incoronazione di Guglielmo I di Germania a imperatore tedesco, il generale francese Louis-Jules Trochu attaccò gli assedianti ad est di Parigi, nel parco di Buzenval, riuscendo ad occupare la città di Saint-Cloud non troppo lontana dal nuovo quartier generale dei loro nemici, situato a Versailles." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "de" , "value": "Schlacht bei Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "es" , "value": "La batalla de Buzenval, también conocida como batalla de Mont Valerien, fue una parte del sitio de París durante la Guerra franco-prusiana. El 19 de enero de 1871, el día siguiente de que Guillermo de Prusia fuera coronado Emperador de Alemania, Louis Jules Trochu atacó a los prusianos al oeste de París, en el Parque de Buzenval. Los atacantes sitiaron la ciudad de Saint-Cloud, que se encontraba cerca de la oficina central del nuevo emperador en Versalles." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "de" , "value": "Schlacht bei Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1871)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "ru" , "value": "Битва при Бюзенвале, также известная как битва при Мон-Вадерьене, была одной из последних битв Франко-прусской войны. В этой битве французский командующий Луи Трошю предпринял попытку прорвать кольцо окружения немецкой армии, удерживающей столицу Франции в осаде уже 4 месяца.Сен-Клу \u2014 западный пригород Парижа, в котором размещался в период осады города прусский штаб. 19 января, на следующий день после коронации германского императора Вильгельма I, Луи Трошю атаковал этот штаб в парке Бюзенваль." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1871-01-19+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "de" , "value": "Schlacht bei Buzenval" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1870)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La première bataille de Buzenval  (commune de Rueil-Malmaison, Hauts-de-Seine) eut lieu le 21 octobre 1870, pendant la guerre franco-prussienne. Les troupes assiégées dans Paris sous les ordres du général Louis Trochu firent une sortie en direction de Versailles et des hauteurs avoisinantes.↑ Un second combat, aura lieu le 19 janvier 1871↑ Rapports militaires officiels du siège de Paris de 1870-1871" } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1870-10-21+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1870-10-21+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille de Buzenval (1870)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1870)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The (First) Battle of Buzenval, part of the siege of Paris during the Franco-Prussian War, took place on 21 October 1870 under the orders of French General Auguste-Alexandre Ducrot, whose objective was to take the hamlets of Malmaison, La Jonchère, and the Château de Buzenval in Rueil-Malmaison defended by the Prussian army's 3rd Division of the 5th Corps, with part of the 4th Corps and a regimental guard." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1870-10-21+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1870-10-21+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "fr" , "value": "Bataille de Buzenval (1870)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1870)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "fr" , "value": "La première bataille de Buzenval  (commune de Rueil-Malmaison, Hauts-de-Seine) eut lieu le 21 octobre 1870, pendant la guerre franco-prussienne. Les troupes assiégées dans Paris sous les ordres du général Louis Trochu firent une sortie en direction de Versailles et des hauteurs avoisinantes.↑ Un second combat, aura lieu le 19 janvier 1871↑ Rapports militaires officiels du siège de Paris de 1870-1871" } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1870-10-21+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1870-10-21+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "en" , "value": "Battle of Buzenval (1870)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Buzenval_(1870)" } ,
+        "latitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "48.8778" } ,
+        "longitude": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "2.18132" } ,
+        "description": { "type": "literal" , "xml:lang": "en" , "value": "The (First) Battle of Buzenval, part of the siege of Paris during the Franco-Prussian War, took place on 21 October 1870 under the orders of French General Auguste-Alexandre Ducrot, whose objective was to take the hamlets of Malmaison, La Jonchère, and the Château de Buzenval in Rueil-Malmaison defended by the Prussian army's 3rd Division of the 5th Corps, with part of the 4th Corps and a regimental guard." } ,
+        "startDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1870-10-21+02:00" } ,
+        "endDate": { "datatype": "http://www.w3.org/2001/XMLSchema#date" , "type": "typed-literal" , "value": "1870-10-21+02:00" } ,
+        "label": { "type": "literal" , "xml:lang": "en" , "value": "Battle of Buzenval (1870)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_du_cap_Finisterre_(octobre_1747)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Guerre_des_Cévennes" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_d'Issy_(1815)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Höchstädt_(1704)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Jeux_olympiques_d'été_de_1924" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Rallye_Dakar" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_des_Ardennes" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Semaine_sanglante" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Siège_de_Québec_(1759)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Siège_de_Paris_(1870)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_de_France_de_cyclisme_sur_route" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_de_France_de_natation_1899" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Opération_Greif" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_la_Butte-aux-Cailles" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Course_Paris-Versailles" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_cycliste_de_L'Humanité" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Le_Mois_Molière" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_la_Grenade" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_de_France_de_football_2011-2012" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Siège_de_Lorient" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_de_France_de_triathlon" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Grand_Prix_automobile_de_France" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Guerre_de_Sept_Ans" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Guerre_franco-allemande_de_1870" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Guerres_de_la_Révolution_française" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Prise_de_la_Bastille" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Denain" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Paris-Rouen_(automobile)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Siège_de_Gibraltar_(1779-1783)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Gondelour_(1758)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_de_France_de_cyclo-cross" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Tir_aux_Jeux_olympiques_d'été_de_1924" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_Gambardella_2008-2009" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Guerre_de_Succession_de_Bavière" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Paris_(1814)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Journée_du_10_août_1792" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Massacre_de_Lachine" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Rocquencourt" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Boucles_de_la_Seine" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Montenotte" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_la_Martinique_(1779)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Combat_du_17_juin_1778" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_de_l'Outre-Mer_2012" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_France_d'ultimate_indoor_D1" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnat_de_France_d'ultimate_outdoor_open" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Rallye_Dakar_1988" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Minorque_(1756)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Pondichéry" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Gondelour_(1783)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Coupe_de_France_de_football_2009-2010" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Le_Potager_du_Rock" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Meudon" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Bataille_de_Rueil" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Chronologie_du_siège_de_Paris_(1870)" }
+      } ,
+      {
+        "evenements": { "type": "uri" , "value": "http://fr.dbpedia.org/resource/Championnats_de_France_de_triathlon_cross" }
+      }
+    ]
+  }
+}
