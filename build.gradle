@@ -100,9 +100,23 @@ sourceSets {
         }
     }
 
+    datasourceDbpediaMock {
+        java {
+            srcDirs = ['src/core', 'src/datasource/dbpediamock']
+            compileClasspath += core.compileClasspath + core.output
+        }
+    }
+
     datasourceOpenAgenda {
         java {
             srcDirs = ['src/core', 'src/datasource/openagenda']
+            compileClasspath += core.compileClasspath + core.output
+        }
+    }
+
+    datasourceOpenAgendaMock {
+        java {
+            srcDirs = ['src/core', 'src/datasource/openagendamock']
             compileClasspath += core.compileClasspath + core.output
         }
     }
@@ -146,9 +160,9 @@ sourceSets {
         java {
             srcDirs = ['src/core', 'src/consumer', 'src/producer', 'src/test/', 'src/datasource', 'src/scoring',
                        'src/communication/web', 'src/datasource/weather', 'src/datasource/rss', 'src/communication/kafka',
-                       'src/datasource/twitter', 'src/datasource/twittermock', 'src/datasource/facebookmock', 'src/datasource/dbpedia',
-					   'src/datasource/owm', 'src/datasource/facebook', 'src/datasource/openagenda', 'src/communication/web', 'src/scoring/twitter',
-                        'src/scoring/owm', 'src/scoring/mock', 'src/scoring/event', 'src/scoring/openagenda']
+                       'src/datasource/twitter', 'src/datasource/twittermock', 'src/datasource/dbpedia', 'src/datasource/dbpediamock', 'src/datasource/owm',
+                        'src/datasource/facebook', 'src/datasource/openagenda', 'src/communication/web', 'src/scoring/twitter',
+                        'src/scoring/owm', 'src/scoring/mock', 'src/scoring/event', 'src/scoring/openagenda', 'src/datasource/openagendamock']
 
             compileClasspath += core.compileClasspath + core.output + consumer.compileClasspath + consumer.output +
                     producer.compileClasspath + producer.output + communicationKafka.compileClasspath +
@@ -166,7 +180,9 @@ sourceSets {
                     scoringTwitter.compileClasspath + scoringTwitter.output +
                     scoringMock.compileClasspath + scoringMock.output +
                     scoringEvent.compileClasspath + scoringEvent.output +
-                    scoringOpenAgenda.compileClasspath + scoringOpenAgenda.output
+                    scoringOpenAgenda.compileClasspath + scoringOpenAgenda.output +
+                    datasourceDbpediaMock.compileClasspath + datasourceDbpediaMock.output +
+                    datasourceOpenAgendaMock.compileClasspath + datasourceOpenAgendaMock.output
 
             runtimeClasspath = output + compileClasspath + runtimeClasspath
         }
@@ -292,12 +308,32 @@ task packageDbpediaJar(type: Jar, description: 'Package the Dbpedia Jar') {
     with jar
 }
 
+task packageDbpediaMockJar(type: Jar, description: 'Package the Dbpedia Mock Jar') {
+    archiveName = "resources/datasource/dbpediamock/ikb4stream-$version-datasource-dbpediamock.jar"
+    manifest {
+        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.datasource.dbpediamock.DBpediaMock'
+    }
+    from sourceSets.datasourceDbpediaMock.output
+    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) }}
+    with jar
+}
+
 task packageOpenAgendaJar(type: Jar, description: 'Package the OpenAgenda Jar') {
     archiveName = "resources/datasource/openagenda/ikb4stream-$version-datasource-openagenda.jar"
     manifest {
         attributes 'Module-Class': 'com.waves_rsp.ikb4stream.datasource.openagenda.OpenAgendaProducerConnector'
     }
     from sourceSets.datasourceOpenAgenda.output
+    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) }}
+    with jar
+}
+
+task packageOpenAgendaMockJar(type: Jar, description: 'Package the OpenAgenda Mock Jar') {
+    archiveName = "resources/datasource/openagendamock/ikb4stream-$version-datasource-openagendamock.jar"
+    manifest {
+        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.datasource.openagendamock.OpenAgendaMock'
+    }
+    from sourceSets.datasourceOpenAgendaMock.output
     from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) }}
     with jar
 }
