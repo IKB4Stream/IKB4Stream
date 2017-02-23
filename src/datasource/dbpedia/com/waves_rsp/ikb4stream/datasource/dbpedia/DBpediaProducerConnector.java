@@ -34,7 +34,7 @@ public class DBpediaProducerConnector implements IProducerConnector {
     private final double longitudeMin;
     private final String resource;
     private final int limit;
-    private final long sleep_time;
+    private final long sleepTime;
 
 
     /**
@@ -49,7 +49,7 @@ public class DBpediaProducerConnector implements IProducerConnector {
             longitudeMax = Double.valueOf(PROPERTIES_MANAGER.getProperty("dbpedia.longitude.maximum"));
             longitudeMin = Double.valueOf(PROPERTIES_MANAGER.getProperty("dbpedia.longitude.minimum"));
             resource = PROPERTIES_MANAGER.getProperty("dbpedia.resource");
-            sleep_time = Long.valueOf(PROPERTIES_MANAGER.getProperty("dbpedia.sleep_time"));
+            sleepTime = Long.valueOf(PROPERTIES_MANAGER.getProperty("dbpedia.sleep_time"));
             limit = Integer.valueOf(PROPERTIES_MANAGER.getProperty("dbpedia.limit"));
         } catch (IllegalArgumentException e) {
             LOGGER.error("Bad properties loaded: {}", e);
@@ -110,7 +110,7 @@ public class DBpediaProducerConnector implements IProducerConnector {
                     Event event = getEventFromRDFNodes(latitudeNode, longitudeNode, startDateNode, endDateNode, descriptionNode, source);
                     pushIfValidEvent(dataProducer, event, start);
                 }
-                Thread.sleep(this.sleep_time);
+                Thread.sleep(this.sleepTime);
             } catch (IllegalStateException err) {
                 LOGGER.error(err.getMessage());
                 Thread.currentThread().interrupt();

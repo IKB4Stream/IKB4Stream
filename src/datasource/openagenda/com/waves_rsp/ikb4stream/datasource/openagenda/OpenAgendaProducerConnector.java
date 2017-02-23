@@ -34,14 +34,14 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
     private final String propDateStart;
     private final String propDateEnd;
     private final String bbox;
-    private final long sleep_time;
+    private final long sleepTime;
 
     /**
      * Instantiate the OpenAgendaProducerConnector object with load properties to connect to the OPen Agenda API
      */
     public OpenAgendaProducerConnector() {
         try {
-            this.sleep_time = Long.valueOf(PROPERTIES_MANAGER.getProperty("openagenda.sleep_time"));
+            this.sleepTime = Long.valueOf(PROPERTIES_MANAGER.getProperty("openagenda.sleep_time"));
             this.source = PROPERTIES_MANAGER.getProperty("openagenda.source");
             this.propDateStart = PROPERTIES_MANAGER.getProperty("openagenda.date_start");
             this.propDateEnd = PROPERTIES_MANAGER.getProperty("openagenda.date_end");
@@ -74,7 +74,7 @@ public class OpenAgendaProducerConnector implements IProducerConnector {
                 long time = System.currentTimeMillis() - start;
                 events.forEach(dataProducer::push);
                 METRICS_LOGGER.log("time_process_"+this.source, time);
-                Thread.sleep(this.sleep_time);
+                Thread.sleep(this.sleepTime);
             } catch (InterruptedException e) {
                 LOGGER.error("Current thread has been interrupted: {}", e);
             } finally {
