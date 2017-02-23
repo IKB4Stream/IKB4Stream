@@ -1,12 +1,17 @@
 package com.waves_rsp.ikb4stream.scoring.owm;
 
+import com.waves_rsp.ikb4stream.core.model.Event;
+import com.waves_rsp.ikb4stream.core.model.LatLong;
 import org.junit.Test;
+import twitter4j.JSONException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import java.util.Calendar;
+import java.util.Date;
 
 public class OWMScoreProcessorTest {
     private final OWMScoreProcessor tsp = new OWMScoreProcessor();
+    private final LatLong latlong = new LatLong(2, 3);
+    private final Date date = Calendar.getInstance().getTime();
     private final String source = "OpenWeatherMap";
 
     @Test
@@ -16,12 +21,12 @@ public class OWMScoreProcessorTest {
 
     @Test
     public void testNotNullSources() {
-        assertNotNull(tsp.getSources());
+        assert(tsp.getSources() != null);
     }
 
     @Test
     public void testSourceExist() {
-        assertEquals(true, tsp.getSources().contains(source));
+        assert (tsp.getSources().contains(source));
     }
 
     @Test(expected = NullPointerException.class)
@@ -31,16 +36,24 @@ public class OWMScoreProcessorTest {
 
     @Test
     public void testMinValues(){
-        assertEquals(0, tsp.verifyMaxScore((byte) -50));
+        assert (Event.getScoreMin() == tsp.verifyMaxScore((byte) -50));
     }
 
     @Test
     public void testMaxValues(){
-        assertEquals(100, tsp.verifyMaxScore((byte) 102));
+        assert (Event.getScoreMax() == tsp.verifyMaxScore((byte) 102));
     }
 
     @Test
     public void testRightValues(){
-        assertEquals(50, tsp.verifyMaxScore((byte) 50));
+        assert (50 == tsp.verifyMaxScore((byte) 50));
+    }
+
+    @Test
+    public void checkScore() throws JSONException {
+        String description = "{\"main\": {\"temp\": 48}, \"weather\": [{\"main\": \"rain\", \"description\": \"Il pleut\"}]}";
+        Event event = new Event(latlong, date, date, description, source);
+        Event clone = tsp.processScore(event);
+        assert (clone.getScore() != -1);
     }
 }
