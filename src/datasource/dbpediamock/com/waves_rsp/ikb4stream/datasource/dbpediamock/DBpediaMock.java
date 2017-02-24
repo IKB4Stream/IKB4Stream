@@ -48,37 +48,7 @@ public class DBpediaMock implements IProducerConnectorMock {
     @Override
     public void load(IDataProducer dataProducer) {
         Objects.requireNonNull(dataProducer);
-
-        while(!Thread.currentThread().isInterrupted()) {
-            ObjectMapper mapper = new ObjectMapper();
-            JsonParser parser = null;
-            long start = System.currentTimeMillis();
-            try {
-                if(inputStream != null) {
-                    parser = mapper.getFactory().createParser(inputStream);
-                    checkParser(mapper, parser, dataProducer, start);
-                }
-
-                Thread.sleep(sleepTime);
-            } catch (IOException e) {
-                LOGGER.warn("The current json is invalid: {}", e);
-                return;
-            } catch (InterruptedException e) {
-                LOGGER.error("Current thread has been interrupted: {}", e);
-                return;
-            } finally {
-                if(inputStream != null && parser != null) {
-                    try {
-                        parser.close();
-                        inputStream.close();
-                    } catch (IOException e) {
-                        LOGGER.error("An error has occured while closing the dbpedia file: {}", e);
-                    }
-                }
-
-                Thread.currentThread().interrupt();
-            }
-        }
+        load(dataProducer, PROPERTIES_MANAGER, "dbpediamock.path");
     }
 
     /**

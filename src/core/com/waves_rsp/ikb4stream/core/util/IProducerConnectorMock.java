@@ -31,12 +31,11 @@ public interface IProducerConnectorMock extends IProducerConnector {
     default void load(IDataProducer dataProducer, PropertiesManager propertiesManager, String pathString) {
         Objects.requireNonNull(dataProducer);
         ObjectMapper mapper = new ObjectMapper();
-        JsonParser parser;
         Path path = Paths.get(propertiesManager.getProperty(pathString));
 
         long start = System.currentTimeMillis();
-        try (InputStream inputStream = new FileInputStream(path.toString())) {
-            parser = mapper.getFactory().createParser(inputStream);
+        try (InputStream inputStream = new FileInputStream(path.toString());
+                JsonParser parser = mapper.getFactory().createParser(inputStream)) {
             while (!Thread.currentThread().isInterrupted()) {
                 if (readMockFile(dataProducer, mapper, parser, start)) {
                     return;
