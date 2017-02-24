@@ -3,7 +3,6 @@ package com.waves_rsp.ikb4stream.consumer;
 import com.waves_rsp.ikb4stream.consumer.manager.CommunicationManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.util.Scanner;
 
 
 /**
@@ -11,8 +10,8 @@ import java.util.Scanner;
  * @see CommunicationManager will be launch
  */
 public class Main {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
     private static final CommunicationManager COMMUNICATION_MANAGER = CommunicationManager.getInstance();
+    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
     /**
      * Private constructor to block instantiation
@@ -28,26 +27,9 @@ public class Main {
     public static void main(String[] args) {
         LOGGER.info("IKB4Stream Consumer Module start");
         COMMUNICATION_MANAGER.start();
-    }
-
-    private static void process(String command) {
-        switch (command) {
-            case "START":
-                LOGGER.info("threads for consumer started.");
-                COMMUNICATION_MANAGER.start();
-                break;
-            case "STOP":
-                LOGGER.info("threads have been properly stopped.");
-                COMMUNICATION_MANAGER.stop();
-                break;
-            case "RESTART":
-                LOGGER.info("restarted threads for consumer.");
-                COMMUNICATION_MANAGER.stop();
-                COMMUNICATION_MANAGER.start();
-                break;
-            default:
-                LOGGER.warn("Wrong command send, only these commands are allowed : START, RESTART, STOP, STOP -F");
-                break;
-        }
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            LOGGER.info("IKB4Stream Consumer Module stop");
+            COMMUNICATION_MANAGER.stop();
+        }));
     }
 }

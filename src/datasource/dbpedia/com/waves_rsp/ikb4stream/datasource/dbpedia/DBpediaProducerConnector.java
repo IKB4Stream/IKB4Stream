@@ -119,9 +119,8 @@ public class DBpediaProducerConnector implements IProducerConnector {
                 LOGGER.error("bad date format given: ", dtp);
                 throw new IllegalStateException(dtp.getMessage());
             } catch (InterruptedException e) {
-               LOGGER.error("Current thread has been interrupted : {} ", e);
-            } finally{
                 Thread.currentThread().interrupt();
+            } finally{
                 if(qexec != null) {
                     qexec.close();
                 }

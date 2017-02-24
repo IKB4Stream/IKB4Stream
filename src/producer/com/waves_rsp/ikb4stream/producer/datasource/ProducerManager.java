@@ -42,9 +42,8 @@ public class ProducerManager {
 
     /**
      * Instantiate all consumers and producers
-     * @throws IOException If there isn't config.properties file in resource directory
      */
-    public void instantiate() throws IOException {
+    public void instantiate() {
         launchDataConsumer();
         launchDataProducer();
     }
@@ -154,17 +153,6 @@ public class ProducerManager {
             }
         }
 
-        dataConsumers.forEach(Thread::interrupt);
-        LOGGER.info("All consumers has been stopped");
-    }
-
-    /**
-     * Force stop all producers and consumers
-     */
-    public void forceStop() {
-        LOGGER.info("Force stop");
-        producerConnectors.forEach(Thread::interrupt);
-        LOGGER.info("All producer has been stopped");
         dataConsumers.forEach(Thread::interrupt);
         LOGGER.info("All consumers has been stopped");
     }

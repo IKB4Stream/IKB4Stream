@@ -103,8 +103,6 @@ public class OWMProducerConnector implements IProducerConnector{
                 }
                 Thread.sleep(requestInterval);
             } catch (InterruptedException e) {
-                LOGGER.error(e.getMessage());
-            } finally {
                 Thread.currentThread().interrupt();
             }
         }
