@@ -84,6 +84,8 @@ public class TwitterProducerConnector implements IProducerConnector {
             twitterStream.addListener(streamListener);
             twitterStream.filter(filterQuery);
 
+            twitterStream.sample();
+
             Thread.currentThread().join();
         }catch (IllegalArgumentException | IllegalStateException err) {
             LOGGER.error("Error loading : " + err.getMessage());
