@@ -20,7 +20,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class OpenAgendaMock implements IProducerConnector {
-    private static final String UTF8 = "utf-8";
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(OpenAgendaMock.class, "resources/datasource/openagendamock/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenAgendaMock.class);
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
@@ -46,7 +45,6 @@ public class OpenAgendaMock implements IProducerConnector {
         }
     }
 
-
     /**
      * Listen events from openAgenda and load them with the data producer object
      *
@@ -56,7 +54,6 @@ public class OpenAgendaMock implements IProducerConnector {
     public void load(IDataProducer dataProducer) {
         Objects.requireNonNull(dataProducer);
         Objects.requireNonNull(dataProducer);
-        ObjectMapper mapper = new ObjectMapper();
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 long start = System.currentTimeMillis();
@@ -77,7 +74,6 @@ public class OpenAgendaMock implements IProducerConnector {
             }
         }
     }
-
 
     /**
      * Parse JSON from Open Agenda API get by the URL
@@ -114,7 +110,6 @@ public class OpenAgendaMock implements IProducerConnector {
         }
         return events;
     }
-
 
     /**
      * Format attributes from the Open Agenda API to create an event
@@ -177,13 +172,6 @@ public class OpenAgendaMock implements IProducerConnector {
             LOGGER.warn("Open agenda datasource not activated: {}", e);
             return true;
         }
-    }
-
-    public static void main (String[] args){
-        OpenAgendaMock p = new OpenAgendaMock();
-        p.load(e->{
-            System.out.println(e+"\n");
-        });
     }
 }
 

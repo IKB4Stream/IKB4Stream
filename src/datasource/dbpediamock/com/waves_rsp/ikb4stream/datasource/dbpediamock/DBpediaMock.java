@@ -6,11 +6,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
-import com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector;
 import com.waves_rsp.ikb4stream.core.metrics.MetricsLogger;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
+import com.waves_rsp.ikb4stream.core.util.IProducerConnectorMock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
-public class DBpediaMock implements IProducerConnector {
+public class DBpediaMock implements IProducerConnectorMock {
     private static final Logger LOGGER = LoggerFactory.getLogger(DBpediaMock.class);
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(DBpediaMock.class, "resources/datasource/dbpediamock/config.properties");
@@ -108,7 +108,7 @@ public class DBpediaMock implements IProducerConnector {
      * @return a valid Event
      * @throws ParseException {@param objectNode} if the current objectNode with a json cannot be parsed
      */
-    private Event getEventFromJson(ObjectNode objectNode) {
+    public Event getEventFromJson(ObjectNode objectNode) {
         Date startDate;
         Date endDate;
 

@@ -162,7 +162,8 @@ sourceSets {
                        'src/communication/web', 'src/datasource/weather', 'src/datasource/rss', 'src/communication/kafka',
                        'src/datasource/twitter', 'src/datasource/twittermock', 'src/datasource/dbpedia', 'src/datasource/dbpediamock', 'src/datasource/owm',
                         'src/datasource/facebook', 'src/datasource/openagenda', 'src/communication/web', 'src/scoring/twitter',
-                        'src/scoring/owm', 'src/scoring/mock', 'src/scoring/event', 'src/scoring/openagenda', 'src/datasource/openagendamock']
+                        'src/scoring/owm', 'src/scoring/mock', 'src/scoring/event', 'src/scoring/openagenda', 'src/datasource/openagendamock',
+                        'src/datasource/facebookmock']
 
             compileClasspath += core.compileClasspath + core.output + consumer.compileClasspath + consumer.output +
                     producer.compileClasspath + producer.output + communicationKafka.compileClasspath +
