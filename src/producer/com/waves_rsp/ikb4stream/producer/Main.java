@@ -36,7 +36,7 @@ public class Main {
 
     /**
      * This method executes the program
-     * @param args a array of string
+     * @param args producer module starting arguments
      */
     public static void main(String[] args) {
         LOGGER.info("IKB4Stream Producer Module start");

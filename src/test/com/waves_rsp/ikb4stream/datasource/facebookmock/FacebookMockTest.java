@@ -12,7 +12,6 @@ public class FacebookMockTest {
 
     @Test(expected = NullPointerException.class)
     public void getDateFromJsonNullTest() {
-        FacebookMock fm = new FacebookMock();
-        fm.getDateFromJson(null);
+        FacebookMock.getDateFromJson(null);
     }
 }

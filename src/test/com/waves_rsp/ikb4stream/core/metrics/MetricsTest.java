@@ -63,9 +63,7 @@ public class MetricsTest {
     public void checkTimeWhileAddedPointData() {
         final int max = 10;
         Point[] points = new Point[max];
-        IntStream.range(0, max).forEach(i -> {
-            points[i] = Point.measurement("test_reports").addField("test_reports", "metrics"+i).build();
-        });
+        IntStream.range(0, max).forEach(i -> points[i] = Point.measurement("test_reports").addField("test_reports", "metrics"+i).build());
 
         long start = System.currentTimeMillis();
         logger.log(points);
@@ -89,10 +87,8 @@ public class MetricsTest {
 
         long start = System.currentTimeMillis();
         final Point[] points = new Point[max];
-        IntStream.range(0, points.length).forEach(i -> {
-            points[i] = Point.measurement("test_metrics").time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
-                                                                     .addField("event_test", "data"+i).build();
-        });
+        IntStream.range(0, points.length).forEach(i -> points[i] = Point.measurement("test_metrics").time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
+                                                                 .addField("event_test", "data"+i).build());
 
         IntStream.range(0, max).forEach(i -> {
             threads[i] = new Thread(() -> {
@@ -107,8 +103,8 @@ public class MetricsTest {
 
         Assert.assertTrue(result < 700);
 
-        for(int i=0; i < threads.length; i++){
-            threads[i].interrupt();
+        for (Thread thread : threads) {
+            thread.interrupt();
         }
     }
 

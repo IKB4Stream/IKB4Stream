@@ -53,13 +53,11 @@ public class FacebookProducerConnectorTest {
     @Test
     public void checkFacebookEventsWithPoolThreads() {
         Thread[] threads = new Thread[10];
-        IntStream.range(0, threads.length).forEach(i -> {
-            threads[i] = new Thread(() -> {
-                fb.load(dataProducer -> {
-                    //Do nothing
-                });
+        IntStream.range(0, threads.length).forEach(i -> threads[i] = new Thread(() -> {
+            fb.load(dataProducer -> {
+                //Do nothing
             });
-        });
+        }));
 
         Arrays.stream(threads).forEach(Thread::start);
 
@@ -77,9 +75,7 @@ public class FacebookProducerConnectorTest {
 
     @Test
     public void testDescriptionFBEventIsNotNull() {
-        Thread t = new Thread(() -> fb.load(event -> {
-            assertNotNull(event.getDescription());
-        }));
+        Thread t = new Thread(() -> fb.load(event -> assertNotNull(event.getDescription())));
         t.start();
         try {
             Thread.sleep(1000);
@@ -93,9 +89,7 @@ public class FacebookProducerConnectorTest {
 
     @Test
     public void testSourceFBEventIsNotNull() {
-        Thread t = new Thread(() -> fb.load(event -> {
-            assertNotNull(event.getSource());
-        }));
+        Thread t = new Thread(() -> fb.load(event -> assertNotNull(event.getSource())));
         t.start();
         try {
             Thread.sleep(1000);
@@ -125,9 +119,7 @@ public class FacebookProducerConnectorTest {
 
     @Test
     public void testLatLongFBEventIsNotNull() {
-        Thread t = new Thread(() -> fb.load(event -> {
-            assertNotNull(event.getLocation());
-        }));
+        Thread t = new Thread(() -> fb.load(event -> assertNotNull(event.getLocation())));
         t.start();
         try {
             Thread.sleep(1000);

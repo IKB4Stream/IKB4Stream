@@ -24,7 +24,7 @@ package com.waves_rsp.ikb4stream.core.datasource.model;
 public interface IProducerConnector {
     /**
      * This method registers a DataProducer which allows to push in DataQueue
-     * @param dataProducer
+     * @param dataProducer contains the data queue
      */
     void load(IDataProducer dataProducer);
 

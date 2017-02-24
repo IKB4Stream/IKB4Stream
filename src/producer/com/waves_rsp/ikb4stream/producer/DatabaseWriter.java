@@ -51,16 +51,14 @@ public class DatabaseWriter {
     private final MongoCollection<Document> mongoCollection;
     private static final String LOCATION_FIELD = "location";
     private final ObjectMapper mapper = new ObjectMapper();
-    private final MongoDatabase mongoDatabase;
-    private final MongoClient mongoClient;
 
     /**
      * DataWriter constructor
      */
     private DatabaseWriter() {
         checkConfiguration();
-        this.mongoClient = MongoClients.create(PROPERTIES_MANAGER.getProperty("database.host"));
-        this.mongoDatabase = mongoClient.getDatabase(PROPERTIES_MANAGER.getProperty("database.datasource"));
+        final MongoClient mongoClient = MongoClients.create(PROPERTIES_MANAGER.getProperty("database.host"));
+        final MongoDatabase mongoDatabase = mongoClient.getDatabase(PROPERTIES_MANAGER.getProperty("database.datasource"));
         this.mongoCollection = mongoDatabase.getCollection(PROPERTIES_MANAGER.getProperty("database.collection"));
         LOGGER.info("DatabaseWriter has been instantiate");
     }

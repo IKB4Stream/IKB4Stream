@@ -49,7 +49,7 @@ public class CommunicationManager {
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(CommunicationManager.class, "resources/config.properties");
     private final Map<Thread, ICommunication> threadCommunications = new HashMap<>();
     private final ClassLoader parent = CommunicationManager.class.getClassLoader();
-    private static CommunicationManager ourInstance = new CommunicationManager();
+    private static final CommunicationManager ourInstance = new CommunicationManager();
     private final DatabaseReader databaseReader;
 
     /**

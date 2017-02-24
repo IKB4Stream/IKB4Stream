@@ -16,11 +16,9 @@ public class DBpediaProducerTest {
     @Test
     public void checkProducerResults() {
         DBpediaProducerConnector dBpediaProducerConnector = new DBpediaProducerConnector();
-        Thread thread = new Thread(() -> {
-            dBpediaProducerConnector.load(dataProducer -> {
-                //Do nothing
-            });
-        });
+        Thread thread = new Thread(() -> dBpediaProducerConnector.load(dataProducer -> {
+            //Do nothing
+        }));
 
         thread.start();
         try {
@@ -37,11 +35,9 @@ public class DBpediaProducerTest {
     public void checkIllegalArgument() {
         try {
             DBpediaProducerConnector producerConnector = new DBpediaProducerConnector();
-            Thread thread = new Thread(() -> {
-                producerConnector.load(dataProducer -> {
-                    //Do nothing
-                });
-            });
+            Thread thread = new Thread(() -> producerConnector.load(dataProducer -> {
+                //Do nothing
+            }));
             thread.start();
             try {
                 Thread.sleep(300);
@@ -59,11 +55,9 @@ public class DBpediaProducerTest {
     @Test
     public void checkThreadForDataProducer() {
         final DBpediaProducerConnector producerConnector = new DBpediaProducerConnector();
-        Thread thread = new Thread(() -> {
-            producerConnector.load(dataProducer -> {
-                //Do Nothing
-            });
-        });
+        Thread thread = new Thread(() -> producerConnector.load(dataProducer -> {
+            //Do Nothing
+        }));
 
         thread.start();
 

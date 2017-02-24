@@ -45,7 +45,7 @@ public class FacebookMock implements IProducerConnectorMock {
 
     /**
      * Load data registered into a json twitter file and parse them to create event
-     * @param dataProducer
+     * @param dataProducer contains the data queue
      */
     @Override
     public void load(IDataProducer dataProducer) {
@@ -100,8 +100,7 @@ public class FacebookMock implements IProducerConnectorMock {
 
     /**
      * Create LatLong from an ObjectNode object and parse it to get GPS coordinates
-     *
-     * @param objectNode
+     * @param objectNode the json latlong to format
      * @return latlong object containing latitude and longitude values
      */
     private static LatLong jsonToLatLong(ObjectNode objectNode) {

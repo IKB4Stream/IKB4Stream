@@ -39,7 +39,7 @@ import java.util.Date;
  */
 public class VertxServer extends AbstractVerticle {
     private static final Logger LOGGER = LoggerFactory.getLogger(VertxServer.class);
-    private IDatabaseReader databaseReader = WebCommunication.databaseReader;
+    private final IDatabaseReader databaseReader = WebCommunication.databaseReader;
 
     /**
      * Server starting behaviour

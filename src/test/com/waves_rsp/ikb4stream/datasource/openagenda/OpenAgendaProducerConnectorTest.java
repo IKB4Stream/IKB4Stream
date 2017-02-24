@@ -117,9 +117,9 @@ public class OpenAgendaProducerConnectorTest {
         Arrays.stream(threads).forEach(Thread::start);
 
         try {
-            for (int i = 0; i < threads.length; i++) {
-                threads[i].join();
-                threads[i].interrupt();
+            for (Thread thread : threads) {
+                thread.join();
+                thread.interrupt();
             }
         } catch (InterruptedException err) {
             //Do nothing

@@ -70,9 +70,8 @@ public class MetricsLogger {
 
     /**
      * Log a long value into influx database with a specific field
-     *
-     * @param field
-     * @param value
+     * @param field name of the metric field
+     * @param value value of the field, usually a timestamp in millis
      * @throws NullPointerException if {@param field} is null
      */
     public void log(String field, long value) {

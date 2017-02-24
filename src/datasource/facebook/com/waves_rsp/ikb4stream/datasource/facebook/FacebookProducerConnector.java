@@ -101,7 +101,7 @@ public class FacebookProducerConnector implements IProducerConnector {
 
     /**
      * Check if an event is valid i.e parameters are correctly set
-     * @param event
+     * @param event to test
      * @return True if valid
      */
     private boolean isValidEvent(Event event) {
@@ -116,8 +116,7 @@ public class FacebookProducerConnector implements IProducerConnector {
 
     /**
      * Load valid events from Facebook into the data producer object
-     *
-     * @param dataProducer
+     * @param dataProducer contains the data queue
      * @throws NullPointerException if dataProducer is null
      * @throws InterruptedException if the current thread to listen facebook has been interrupted
      */

@@ -24,8 +24,8 @@ public class LatLong {
 
     /**
      * Create a LatLong
-     * @param latitude
-     * @param longitude
+     * @param latitude latitude of the event
+     * @param longitude longitude of the event
      * @throws IllegalArgumentException if {@param latitude} is not between -90 an 90, or {@param longitude} is not between -180 and 180
      */
     public LatLong(double latitude, double longitude) {

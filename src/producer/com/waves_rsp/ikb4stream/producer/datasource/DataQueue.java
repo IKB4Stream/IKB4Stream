@@ -32,7 +32,7 @@ import java.util.concurrent.BlockingQueue;
  * This class stores and provides data (Event) for DataConsumer
  * @see DataConsumer
  */
-public class DataQueue {
+class DataQueue {
 
 	    private class PackagedEvent{
         private final Event event;

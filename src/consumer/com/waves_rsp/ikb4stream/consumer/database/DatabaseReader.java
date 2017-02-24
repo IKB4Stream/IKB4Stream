@@ -49,8 +49,6 @@ public class DatabaseReader implements IDatabaseReader {
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseReader.class);
     private static final DatabaseReader DATABASE_READER = new DatabaseReader();
     private final MongoCollection<Document> mongoCollection;
-    private final MongoDatabase mongoDatabase;
-    private final MongoClient mongoClient;
     private final int limit;
 
     /**
@@ -59,8 +57,8 @@ public class DatabaseReader implements IDatabaseReader {
      */
     private DatabaseReader() {
         checkConfiguration();
-        this.mongoClient = MongoClients.create(PROPERTIES_MANAGER.getProperty("database.host"));
-        this.mongoDatabase = mongoClient.getDatabase(PROPERTIES_MANAGER.getProperty("database.datasource"));
+        final MongoClient mongoClient = MongoClients.create(PROPERTIES_MANAGER.getProperty("database.host"));
+        final MongoDatabase mongoDatabase = mongoClient.getDatabase(PROPERTIES_MANAGER.getProperty("database.datasource"));
         this.mongoCollection = mongoDatabase.getCollection(PROPERTIES_MANAGER.getProperty("database.collection"));
         int tmp = 50000;
         try {

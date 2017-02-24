@@ -41,7 +41,7 @@ public class ProducerManager {
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(ProducerManager.class, "resources/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(ProducerManager.class);
     private final ClassLoader parent = ProducerManager.class.getClassLoader();
-    private static ProducerManager ourInstance = new ProducerManager();
+    private static final ProducerManager ourInstance = new ProducerManager();
     private final List<Thread> producerConnectors = new ArrayList<>();
     private final List<Thread> dataConsumers = new ArrayList<>();
     private final DataQueue dataQueue = new DataQueue();

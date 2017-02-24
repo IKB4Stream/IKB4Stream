@@ -44,7 +44,6 @@ public class OWMProducerConnector implements IProducerConnector{
     private final double longitude;
     private final double latitude;
     private final String source;
-    private final String owmKey;
 
     /**
      * Instantiate the OWMProducerConnector object with load properties
@@ -52,7 +51,7 @@ public class OWMProducerConnector implements IProducerConnector{
     public OWMProducerConnector() {
         try {
             this.source = PROPERTIES_MANAGER.getProperty("OWMProducerConnector.source");
-            this.owmKey = PROPERTIES_MANAGER.getProperty("OWMProducerConnector.key");
+            final String owmKey = PROPERTIES_MANAGER.getProperty("OWMProducerConnector.key");
             this.latitude =  Double.valueOf(PROPERTIES_MANAGER.getProperty("OWMProducerConnector.latitude"));
             this.longitude =  Double.valueOf(PROPERTIES_MANAGER.getProperty("OWMProducerConnector.longitude"));
             this.requestInterval = Long.valueOf(PROPERTIES_MANAGER.getProperty("OWMProducerConnector.sleep"));

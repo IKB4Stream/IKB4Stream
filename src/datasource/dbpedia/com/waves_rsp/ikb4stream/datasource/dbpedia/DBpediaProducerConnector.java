@@ -79,7 +79,7 @@ public class DBpediaProducerConnector implements IProducerConnector {
      * Sent the sparql query to dbpedia service and load rdf data parsed into IDataProducer object.
      * The dbpedia service return a rdf response with nodes corresponding to the fields requested
      *
-     * @param dataProducer
+     * @param dataProducer contains data queue
      */
     @Override
     public void load(IDataProducer dataProducer) {
@@ -159,7 +159,7 @@ public class DBpediaProducerConnector implements IProducerConnector {
     /**
      * Check if the RDFNodes are null or not
      *
-     * @param rdfNodes
+     * @param rdfNodes RDF nodes to check
      * @return true if the rdf nodes are not null
      */
     private static boolean checkRDFNodes(RDFNode... rdfNodes) {
@@ -169,8 +169,8 @@ public class DBpediaProducerConnector implements IProducerConnector {
     /**
      * Parse specific RDFNodes in order to get GPS data with latitude and longitude
      *
-     * @param latitudeNode
-     * @param longitudeNode
+     * @param latitudeNode RDF formatted latitude node
+     * @param longitudeNode RDF formatted longitude node
      * @return latlong object with the coordinates
      */
     private static LatLong getLatlongFromRDFNodes(RDFNode latitudeNode, RDFNode longitudeNode) {
@@ -184,12 +184,12 @@ public class DBpediaProducerConnector implements IProducerConnector {
      * Check the date from startDate and endDate RDF nodes.
      * Retrieve the label and description from labelNode and descriptionNode.
      *
-     * @param latitudeNode
-     * @param longitudeNode
-     * @param startDate
-     * @param endDate
-     * @param descriptionNode
-     * @param label
+     * @param latitudeNode RDF formatted latitude node
+     * @param longitudeNode RDF formatted longitude node
+     * @param startDate filter start date
+     * @param endDate filter end date
+     * @param descriptionNode contains the event
+     * @param label tags
      * @return null if the checkRDFNodes is false or a ParseException has been caught, else the Even object
      */
     private static Event getEventFromRDFNodes(RDFNode latitudeNode, RDFNode longitudeNode, RDFNode startDate, RDFNode endDate, RDFNode descriptionNode, String label) {
@@ -210,6 +210,12 @@ public class DBpediaProducerConnector implements IProducerConnector {
         return null;
     }
 
+    /**
+     * Push events if scored
+     * @param dataProducer contains the data queue
+     * @param event the event to push
+     * @param start process start time, used for the metrics module
+     */
     private void pushIfValidEvent(IDataProducer dataProducer, Event event, long start) {
         if(event != null) {
             dataProducer.push(event);
