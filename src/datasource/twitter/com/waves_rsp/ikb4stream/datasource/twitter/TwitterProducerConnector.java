@@ -43,6 +43,7 @@ public class TwitterProducerConnector implements IProducerConnector {
     private final double latitudeMin;
     private final double longitudeMax;
     private final double longitudeMin;
+    private final double[][] boundingBox;
 
     /**
      * Instantiate the object
@@ -54,6 +55,10 @@ public class TwitterProducerConnector implements IProducerConnector {
             latitudeMin = Double.valueOf(PROPERTIES_MANAGER.getProperty("twitter.latitude.minimum"));
             longitudeMax = Double.valueOf(PROPERTIES_MANAGER.getProperty("twitter.longitude.maximum"));
             longitudeMin = Double.valueOf(PROPERTIES_MANAGER.getProperty("twitter.longitude.minimum"));
+            boundingBox = new double[][]{
+                    {longitudeMin, latitudeMin},
+                    {longitudeMax, latitudeMax}
+            };
         } catch (IllegalArgumentException e) {
             LOGGER.error("Invalid properties {}", e.getMessage());
             throw new IllegalStateException(e);
@@ -72,11 +77,12 @@ public class TwitterProducerConnector implements IProducerConnector {
         try {
             TwitterStreamListener streamListener = new TwitterStreamListener(dataProducer);
             twitterStream = new TwitterStreamFactory(confBuilder.build()).getInstance();
-            twitterStream.addListener(streamListener);
+
             FilterQuery filterQuery = new FilterQuery();
-            filterQuery.locations(new double[]{longitudeMin, latitudeMin, longitudeMax, latitudeMax});
+            filterQuery.locations(boundingBox);
+
+            twitterStream.addListener(streamListener);
             twitterStream.filter(filterQuery);
-            twitterStream.sample("fr");
 
             Thread.currentThread().join();
         }catch (IllegalArgumentException | IllegalStateException err) {
@@ -86,10 +92,12 @@ public class TwitterProducerConnector implements IProducerConnector {
             LOGGER.info("Close twitter");
             Thread.currentThread().interrupt();
         } finally {
-            Thread.currentThread().interrupt();
             if(twitterStream != null) {
+                twitterStream.cleanUp();
                 twitterStream.shutdown();
             }
+
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -134,6 +142,7 @@ public class TwitterProducerConnector implements IProducerConnector {
             Date start = status.getCreatedAt();
             Date end = status.getCreatedAt();
             User user = status.getUser();
+
             LatLong[] latLong = getLatLong(status);
 
             if(latLong.length > 0) {
