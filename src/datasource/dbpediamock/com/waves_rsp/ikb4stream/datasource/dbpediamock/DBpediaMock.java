@@ -6,17 +6,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
-import com.waves_rsp.ikb4stream.core.metrics.MetricsLogger;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
 import com.waves_rsp.ikb4stream.core.util.IProducerConnectorMock;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,22 +19,16 @@ import java.util.Date;
 import java.util.Objects;
 
 public class DBpediaMock implements IProducerConnectorMock {
-    private static final Logger LOGGER = LoggerFactory.getLogger(DBpediaMock.class);
-    private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(DBpediaMock.class, "resources/datasource/dbpediamock/config.properties");
     private static final String VALUE = "value";
     private final String lang;
-    private final long sleepTime;
-    private final InputStream inputStream;
     private final String source;
 
     public DBpediaMock() {
         try {
             this.source = PROPERTIES_MANAGER.getProperty("dbpediamock.source");
             this.lang = PROPERTIES_MANAGER.getProperty("dbpediamock.language");
-            sleepTime = Long.valueOf(PROPERTIES_MANAGER.getProperty("dbpediamock.sleep_time"));
-            this.inputStream = new FileInputStream(PROPERTIES_MANAGER.getProperty("dbpediamock.path"));
-        }catch (IllegalArgumentException | IOException e) {
+        }catch (IllegalArgumentException e) {
             LOGGER.error("Bad properties loaded: {}", e);
             throw new IllegalStateException(e.getMessage());
         }
