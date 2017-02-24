@@ -28,28 +28,6 @@ public class Main {
     public static void main(String[] args) {
         LOGGER.info("IKB4Stream Consumer Module start");
         COMMUNICATION_MANAGER.start();
-        /*Thread listener = new Thread(() -> {
-            try(Scanner sc = new Scanner(System.in)) {
-                while(!Thread.interrupted()) {
-                    if (sc.hasNextLine()) {
-                        process(sc.nextLine());
-                    }
-                }
-            }
-        });
-        listener.setName("ConsumerMain");
-        Runtime runtime = Runtime.getRuntime();
-        try {
-            listener.start();
-            if(runtime.removeShutdownHook(listener)) {
-                runtime.addShutdownHook(listener);
-            }
-        }catch (IllegalArgumentException err) {
-            LOGGER.error("Hook has already running: {}", err.toString());
-            return;
-        }finally {
-            runtime.removeShutdownHook(listener);
-        }*/
     }
 
     private static void process(String command) {

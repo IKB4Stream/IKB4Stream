@@ -31,30 +31,6 @@ public class Main {
             LOGGER.error("Unable to read config file in order to create threads producer: {}", e);
             return;
         }
-       /* Thread listener = new Thread(() -> {
-            try(Scanner sc = new Scanner(System.in)) {
-                while(!Thread.interrupted()) {
-                    if(sc.hasNextLine()) {
-                        process(sc.nextLine());
-                    }
-                }
-            } catch (IOException e) {
-                LOGGER.error("Unable to read config file in order to create threads producer: {}", e);
-                Thread.currentThread().interrupt();
-            }
-        });
-        Runtime runtime = Runtime.getRuntime();
-        try {
-            listener.setName("ProducerMain");
-            listener.start();
-            if(runtime.removeShutdownHook(listener)) {
-                runtime.addShutdownHook(listener);
-            }
-        }catch (IllegalArgumentException err) {
-            LOGGER.error("Runtime thread hook got an error : {}", err.getMessage());
-        }finally {
-            runtime.removeShutdownHook(listener);
-        }*/
     }
 
     private static void process(String command) throws IOException {
