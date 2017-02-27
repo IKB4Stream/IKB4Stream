@@ -42,9 +42,18 @@ public class KafkaCommunication implements ICommunication {
     private final String kafkaResponseTopic;
     private KafkaStreams streams;
 
+    /**
+     * Constructor which init Request Topic and Response Topic get from properties file
+     * @throws IllegalStateException if the properties file is invalid
+     */
     public KafkaCommunication() {
-        this.kafkaRequestTopic = PROPERTIES_MANAGER.getProperty("communications.kafka.request_topic");
-        this.kafkaResponseTopic = PROPERTIES_MANAGER.getProperty("communications.kafka.response_topic");
+        try {
+            this.kafkaRequestTopic = PROPERTIES_MANAGER.getProperty("communications.kafka.request_topic");
+            this.kafkaResponseTopic = PROPERTIES_MANAGER.getProperty("communications.kafka.response_topic");
+        } catch (IllegalArgumentException e) {
+            LOGGER.error(e.getMessage());
+            throw new IllegalStateException(e);
+        }
     }
 
     /**
