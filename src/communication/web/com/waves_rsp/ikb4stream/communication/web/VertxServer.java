@@ -24,11 +24,14 @@ import com.waves_rsp.ikb4stream.core.communication.model.Request;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
+import io.vertx.core.http.HttpMethod;
+import io.vertx.core.json.DecodeException;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
+import io.vertx.ext.web.handler.CorsHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,7 +52,14 @@ public class VertxServer extends AbstractVerticle {
     public void start(Future<Void> fut) {
         Router router = Router.router(vertx);
 
+        router.route().handler(CorsHandler.create("*")
+                .allowedMethod(HttpMethod.GET)
+                .allowedMethod(HttpMethod.OPTIONS)
+                .allowedHeader("X-PINGARUNER")
+                .allowedHeader("Content-Type"));
+
         router.route("/anomaly*").handler(BodyHandler.create()); // enable reading of request's body
+
         router.get("/anomaly").handler(this::getAnomalies);
         vertx
             .createHttpServer()
@@ -72,15 +82,21 @@ public class VertxServer extends AbstractVerticle {
      * @param rc RoutingContext, which contains the request, and the response
      */
     private void getAnomalies(RoutingContext rc) {
-        // curl http://localhost:8081/anomaly -X GET -H "Content-Type: application/json" -d '{"start":1487004295000,"end":1487004295000, "boundingBox":{"points": [{"latitude":10, "longitude":20},{"latitude":15, "longitude":25},{"latitude":25, "longitude":30},{"latitude":10, "longitude":20}]}, "requestReception":1487004295000}'
-        LOGGER.info("Received web request: {}", rc.getBodyAsJson());
+        try {
+            // curl http://localhost:8081/anomaly -X GET -H "Content-Type: application/json" -d '{"start":1487004295000,"end":1487004295000, "boundingBox":{"points": [{"latitude":10, "longitude":20},{"latitude":15, "longitude":25},{"latitude":25, "longitude":30},{"latitude":10, "longitude":20}]}, "requestReception":1487004295000}'
+            LOGGER.info("Received web request: {}", rc.getBodyAsJson());
 
-        Request request = parseRequest(rc.getBodyAsJson());
-        rc.response().putHeader("content-type", "application/json");
+            Request request = parseRequest(rc.getBodyAsJson());
+            rc.response().putHeader("content-type", "application/json");
 
-        JsonObject jsonResponse = getEvent(request);
-        rc.response()
-            .end(jsonResponse.encode());
+            JsonObject jsonResponse = getEvent(request);
+            rc.response()
+                    .end(jsonResponse.encode());
+        } catch (DecodeException e) {
+            LOGGER.info("Received an invalid format request");
+            LOGGER.debug("DecodeException: {}", e);
+            rc.fail(400);
+        }
     }
 
     /**
