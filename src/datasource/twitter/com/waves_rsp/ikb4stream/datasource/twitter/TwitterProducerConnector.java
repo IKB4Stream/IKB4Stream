@@ -84,8 +84,6 @@ public class TwitterProducerConnector implements IProducerConnector {
             twitterStream.addListener(streamListener);
             twitterStream.filter(filterQuery);
 
-            twitterStream.sample();
-
             Thread.currentThread().join();
         }catch (IllegalArgumentException | IllegalStateException err) {
             LOGGER.error("Error loading : " + err.getMessage());
@@ -167,10 +165,12 @@ public class TwitterProducerConnector implements IProducerConnector {
 
         private LatLong[] getLatLong(Status status) {
             if (status.getGeoLocation() != null) {
+                LOGGER.info("Status geolocation found !");
                 return new LatLong[] {new LatLong(status.getGeoLocation().getLatitude(), status.getGeoLocation().getLongitude())};
             } else if (status.getPlace() != null && status.getPlace().getBoundingBoxCoordinates() != null) {
                 return getLatLongFromBoudingBox(status.getPlace().getBoundingBoxCoordinates());
             } else {
+                LOGGER.info("Status geolocation cannot be found !");
                 return new LatLong[] {
                         new LatLong(latitudeMin, longitudeMin),
                         new LatLong(latitudeMax, longitudeMin),

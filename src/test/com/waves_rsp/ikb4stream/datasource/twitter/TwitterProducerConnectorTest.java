@@ -76,7 +76,7 @@ public class TwitterProducerConnectorTest {
         TwitterProducerConnector producerConnector = new TwitterProducerConnector();
         try {
             producerConnector.load(dataProducer -> {
-
+                //Do nothing
             });
         }catch (IllegalArgumentException err) {
             //Do nothing
