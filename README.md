@@ -32,3 +32,7 @@ IKB4Stream is a module inside WAVES. Its goal is to detect false positives among
 # Run Guide
 
 > TODO
+
+# License
+
+See the [LICENSE](LICENSE.md) file for license rights and limitations (MIT).
