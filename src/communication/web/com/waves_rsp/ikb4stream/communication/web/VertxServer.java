@@ -46,6 +46,7 @@ public class VertxServer extends AbstractVerticle {
 
     /**
      * Server starting behaviour
+     *
      * @param fut Future that handles the start status
      */
     @Override
@@ -54,46 +55,51 @@ public class VertxServer extends AbstractVerticle {
 
         router.route().handler(CorsHandler.create("*")
                 .allowedMethod(HttpMethod.GET)
+                .allowedMethod(HttpMethod.POST)
                 .allowedMethod(HttpMethod.OPTIONS)
                 .allowedHeader("X-PINGARUNER")
-                .allowedHeader("Content-Type"));
+                .allowedHeader("Content-Type")
+        );
 
         router.route("/anomaly*").handler(BodyHandler.create()); // enable reading of request's body
 
         router.get("/anomaly").handler(this::getAnomalies);
+        router.post("/anomaly").handler(this::getAnomalies);
         vertx
-            .createHttpServer()
-            .requestHandler(router::accept)
-            .listen(
-                config().getInteger("http.port", 8081), // default value: 8081
-                result -> {
-                    if (result.succeeded()) {
-                        fut.complete();
-                    } else {
-                        fut.fail(result.cause());
-                    }
-                }
-            );
+                .createHttpServer()
+                .requestHandler(router::accept)
+                .listen(
+                        config().getInteger("http.port", 8081), // default value: 8081
+                        result -> {
+                            if (result.succeeded()) {
+                                fut.complete();
+                            } else {
+                                fut.fail(result.cause());
+                            }
+                        }
+                );
         LOGGER.info("VertxServer started");
     }
 
     /**
      * Reads a request from a routing context, and attach the response to it. It requests the database with DatabaseReader.
+     *
      * @param rc RoutingContext, which contains the request, and the response
      */
     private void getAnomalies(RoutingContext rc) {
         try {
-            // curl http://localhost:8081/anomaly -X GET -H "Content-Type: application/json" -d '{"start":1487004295000,"end":1487004295000, "boundingBox":{"points": [{"latitude":10, "longitude":20},{"latitude":15, "longitude":25},{"latitude":25, "longitude":30},{"latitude":10, "longitude":20}]}, "requestReception":1487004295000}'
+            // curl http://localhost:8081/anomaly -X POST -H "Content-Type: application/json" -d '{"start":1487004295000,"end":1487004295000, "boundingBox":{"points": [{"latitude":10, "longitude":20},{"latitude":15, "longitude":25},{"latitude":25, "longitude":30},{"latitude":10, "longitude":20}]}, "requestReception":1487004295000}'
             LOGGER.info("Received web request: {}", rc.getBodyAsJson());
 
             Request request = parseRequest(rc.getBodyAsJson());
+
             rc.response().putHeader("content-type", "application/json");
 
             JsonObject jsonResponse = getEvent(request);
             rc.response()
                     .end(jsonResponse.encode());
-        } catch (DecodeException e) {
-            LOGGER.info("Received an invalid format request");
+        } catch (DecodeException | NullPointerException e) {
+            LOGGER.info("Received an invalid format request : {} ", e.getMessage());
             LOGGER.debug("DecodeException: {}", e);
             rc.fail(400);
         }
@@ -101,6 +107,7 @@ public class VertxServer extends AbstractVerticle {
 
     /**
      * Convert a request from Json to Java object
+     *
      * @param jsonRequest json formatted request
      * @return Java Request
      */
@@ -112,7 +119,7 @@ public class VertxServer extends AbstractVerticle {
         JsonObject jsonbb = jsonRequest.getJsonObject("boundingBox");
         JsonArray latlongs = jsonbb.getJsonArray("points");
         LatLong[] ll = new LatLong[latlongs.size()];
-        for (int i=0; i < latlongs.size(); i++) {
+        for (int i = 0; i < latlongs.size(); i++) {
             JsonObject latlong = latlongs.getJsonObject(i);
             double latitude = latlong.getDouble("latitude");
             double longitude = latlong.getDouble("longitude");
@@ -125,14 +132,16 @@ public class VertxServer extends AbstractVerticle {
 
     /**
      * Retrieve an event from database
+     *
      * @param request the user web request
      * @return a JSon Object extracted from the database
      */
     private JsonObject getEvent(Request request) {
         String[] r = new String[1];
         databaseReader.getEvent(request, (t, result) -> {
-            if(t != null) {
-                LOGGER.error("DatabaseReader error: " + t.getMessage()); return;
+            if (t != null) {
+                LOGGER.error("DatabaseReader error: " + t.getMessage());
+                return;
             }
             r[0] = result;
         });
@@ -143,8 +152,17 @@ public class VertxServer extends AbstractVerticle {
             response = new JsonObject("{\"events\": []}");
         } else {
             LOGGER.info("Found events: {}", r[0]);
-            response = new JsonObject("{\"events\":" + r[0] +"}");
+            response = new JsonObject("{\"events\":" + r[0] + "}");
         }
         return response;
     }
+
+    public static void main(String[] args) {
+
+        WebCommunication webCommunication = new WebCommunication();
+        webCommunication.start((request, callback) ->
+                callback.onResult(null, "{}"));
+    }
+
+
 }
