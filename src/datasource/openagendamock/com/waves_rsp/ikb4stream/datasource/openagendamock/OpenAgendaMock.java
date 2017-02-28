@@ -28,14 +28,44 @@ import java.io.*;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Mock of {@link com.waves_rsp.ikb4stream.datasource.openagenda.OpenAgendaProducerConnector OpenAgendaProducerConnector}
+ * @author ikb4stream
+ * @version 1.0
+ * @see com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector
+ * @see com.waves_rsp.ikb4stream.core.datasource.IOpenAgenda
+ */
 public class OpenAgendaMock implements IOpenAgenda {
+    /**
+     * Properties of this module
+     * @see PropertiesManager
+     * @see PropertiesManager#getProperty(String)
+     * @see PropertiesManager#getInstance(Class, String)
+     */
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(OpenAgendaMock.class, "resources/datasource/openagendamock/config.properties");
-    private final String source;
-    private final long sleepTime;
+    /**
+     *
+     * @see OpenAgendaMock#load(IDataProducer)
+     */
     private final InputStream input;
+    /**
+     * Interval time between two batch
+     * @see OpenAgendaMock#load(IDataProducer)
+     */
+    private final long sleepTime;
+    /**
+     * Source name of corresponding {@link Event}
+     * @see OpenAgendaMock#load(IDataProducer)
+     */
+    private final String source;
 
     /**
      * Instantiate the OpenAgendaMock object with load properties to connect to the OPen Agenda API
+     * @throws IllegalStateException
+     * @throws IllegalArgumentException
+     * @see OpenAgendaMock#source
+     * @see OpenAgendaMock#sleepTime
+     * @see OpenAgendaMock#input
      */
     public OpenAgendaMock() {
         try {
@@ -52,11 +82,12 @@ public class OpenAgendaMock implements IOpenAgenda {
         }
     }
 
-
     /**
      * Listen events from openAgenda and load them with the data producer object
-     *
-     * @param dataProducer producer
+     * @param dataProducer Instance of {@link IDataProducer}
+     * @see OpenAgendaMock#input
+     * @see OpenAgendaMock#source
+     * @see OpenAgendaMock#sleepTime
      */
     @Override
     public void load(IDataProducer dataProducer) {
@@ -83,9 +114,12 @@ public class OpenAgendaMock implements IOpenAgenda {
         }
     }
 
-
+    /**
+     * Check if this jar is active
+     * @return true if it should be started
+     * @see OpenAgendaMock#PROPERTIES_MANAGER
+     */
     public boolean isActive() {
         return this.isActive(PROPERTIES_MANAGER.getProperty("openagendamock.enable"));
     }
-
 }

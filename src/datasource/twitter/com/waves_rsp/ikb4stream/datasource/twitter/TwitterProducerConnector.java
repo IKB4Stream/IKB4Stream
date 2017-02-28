@@ -32,17 +32,49 @@ import java.util.*;
 
 /**
  * Listen any events provided by the twitter api and load them into a IDataProducer object.
- *
+ * @author ikb4stream
+ * @version 1.0
+ * @see com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector
  */
 public class TwitterProducerConnector implements IProducerConnector {
+    /**
+     * Properties of this module
+     * @see PropertiesManager
+     * @see PropertiesManager#getProperty(String)
+     * @see PropertiesManager#getInstance(Class, String)
+     */
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(TwitterProducerConnector.class, "resources/datasource/twitter/config.properties");
+    /**
+     * Logger used to log all information in this module
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(TwitterProducerConnector.class);
+    /**
+     *
+     */
     private final ConfigurationBuilder confBuilder = new ConfigurationBuilder();
+    /**
+     *
+     */
     private final String source = PROPERTIES_MANAGER.getProperty("twitter.source");
+    /**
+     *
+     */
     private final double latitudeMax;
+    /**
+     *
+     */
     private final double latitudeMin;
+    /**
+     *
+     */
     private final double longitudeMax;
+    /**
+     *
+     */
     private final double longitudeMin;
+    /**
+     *
+     */
     private final double[][] boundingBox;
 
     /**
@@ -67,8 +99,7 @@ public class TwitterProducerConnector implements IProducerConnector {
 
     /**
      * Listen tweets from twitter with a bounding box and load them with the data producer object
-     *
-     * @param dataProducer
+     * @param dataProducer {@link IDataProducer} contains the data queue
      */
     @Override
     public void load(IDataProducer dataProducer) {
@@ -77,13 +108,10 @@ public class TwitterProducerConnector implements IProducerConnector {
         try {
             TwitterStreamListener streamListener = new TwitterStreamListener(dataProducer);
             twitterStream = new TwitterStreamFactory(confBuilder.build()).getInstance();
-
             FilterQuery filterQuery = new FilterQuery();
             filterQuery.locations(boundingBox);
-
             twitterStream.addListener(streamListener);
             twitterStream.filter(filterQuery);
-
             Thread.currentThread().join();
         }catch (IllegalArgumentException | IllegalStateException err) {
             LOGGER.error("Error loading : " + err.getMessage());
@@ -96,11 +124,14 @@ public class TwitterProducerConnector implements IProducerConnector {
                 twitterStream.cleanUp();
                 twitterStream.shutdown();
             }
-
             Thread.currentThread().interrupt();
         }
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean isActive() {
         try {
@@ -128,23 +159,34 @@ public class TwitterProducerConnector implements IProducerConnector {
 
     /**
      * A status listener in order to get tweets with the method onStatus
+     * @author ikb4stream
+     * @version 1.0
      */
     private class TwitterStreamListener implements StatusListener {
+        /**
+         *
+         */
         private final IDataProducer dataProducer;
 
+        /**
+         *
+         * @param dataProducer
+         */
         private TwitterStreamListener(IDataProducer dataProducer) {
             this.dataProducer = dataProducer;
         }
 
+        /**
+         *
+         * @param status
+         */
         @Override
         public void onStatus(Status status) {
             String description = status.getText();
             Date start = status.getCreatedAt();
             Date end = status.getCreatedAt();
             User user = status.getUser();
-
             LatLong[] latLong = getLatLong(status);
-
             if(latLong.length > 0) {
                 JSONObject jsonObject = new JSONObject();
                 try {
@@ -163,6 +205,11 @@ public class TwitterProducerConnector implements IProducerConnector {
             }
         }
 
+        /**
+         *
+         * @param status
+         * @return
+         */
         private LatLong[] getLatLong(Status status) {
             if (status.getGeoLocation() != null) {
                 LOGGER.info("Status geolocation found !");
@@ -181,6 +228,11 @@ public class TwitterProducerConnector implements IProducerConnector {
             }
         }
 
+        /**
+         *
+         * @param geoLocations
+         * @return
+         */
         private LatLong[] getLatLongFromBoudingBox(GeoLocation[][] geoLocations) {
             List<LatLong> latLongList = new ArrayList<>();
             Arrays.stream(geoLocations)
@@ -194,27 +246,48 @@ public class TwitterProducerConnector implements IProducerConnector {
             return latLong;
         }
 
+        /**
+         *
+         * @param statusDeletionNotice
+         */
         @Override
         public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice) {
             LOGGER.info(""+statusDeletionNotice.getStatusId());
         }
 
+        /**
+         *
+         * @param numberOfLimitedStatuses
+         */
         @Override
         public void onTrackLimitationNotice(int numberOfLimitedStatuses) {
             LOGGER.info("number of limited status : "+numberOfLimitedStatuses);
 
         }
 
+        /**
+         *
+         * @param userId
+         * @param upToStatusId
+         */
         @Override
         public void onScrubGeo(long userId, long upToStatusId) {
             LOGGER.info("user id : "+userId+", "+upToStatusId);
         }
 
+        /**
+         *
+         * @param warning
+         */
         @Override
         public void onStallWarning(StallWarning warning) {
             LOGGER.warn(warning.getMessage());
         }
 
+        /**
+         *
+         * @param ex
+         */
         @Override
         public void onException(Exception ex) {
             LOGGER.error(ex.getMessage());

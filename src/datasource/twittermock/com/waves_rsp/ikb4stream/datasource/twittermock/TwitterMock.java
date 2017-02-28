@@ -33,19 +33,39 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Objects;
 
-
+/**
+ * @author ikb4stream
+ * @version 1.0
+ * @see com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector
+ * @see com.waves_rsp.ikb4stream.core.datasource.IProducerConnectorMock
+ */
 public class TwitterMock implements IProducerConnectorMock {
+    /**
+     * Properties of this module
+     * @see PropertiesManager
+     * @see PropertiesManager#getProperty(String)
+     * @see PropertiesManager#getInstance(Class, String)
+     */
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(TwitterMock.class, "resources/datasource/twittermock/config.properties");
+    /**
+     *
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(TwitterMock.class);
+    /**
+     *
+     */
     private static final String SOURCE = "Twitter";
 
+    /**
+     *
+     */
     public TwitterMock() {
         // Do Nothing
     }
 
     /**
      * Load data registered into a json twitter file and parse them to create event
-     * @param dataProducer
+     * @param dataProducer {@link IDataProducer} contains the data queue
      */
     @Override
     public void load(IDataProducer dataProducer) {
@@ -85,7 +105,6 @@ public class TwitterMock implements IProducerConnectorMock {
 
     /**
      * Create LatLong from a jsonNode object and parse it to get GPS coordinates
-     *
      * @param jsonCoordinates json coordinates to parse
      * @return latlong the parsed latlong
      */

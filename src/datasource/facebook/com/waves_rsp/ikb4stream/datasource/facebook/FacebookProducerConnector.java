@@ -59,28 +59,32 @@ public class FacebookProducerConnector implements IProducerConnector {
      */
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     /**
-     *
+     * Token to access to Facebook API
      * @see FacebookProducerConnector#searchWordFromGeolocation(String, int, double, double)
      */
     private final String pageAccessToken;
     /**
+     * Name of source in {@link com.waves_rsp.ikb4stream.core.model.Event#source}
      * @see FacebookProducerConnector#searchWordFromGeolocation(String, int, double, double)
      */
     private final String source;
     /**
+     * Keyword to search
      * @see FacebookProducerConnector#load(IDataProducer)
      */
     private final String word;
     /**
+     * Latitude limit to get {@link com.waves_rsp.ikb4stream.core.model.Event Event}
      * @see FacebookProducerConnector#load(IDataProducer)
      */
     private final double lat;
     /**
+     * Longitude limit to get {@link com.waves_rsp.ikb4stream.core.model.Event Event}
      * @see FacebookProducerConnector#load(IDataProducer)
      */
     private final double lon;
     /**
-     *
+     * Limit to get {@link com.waves_rsp.ikb4stream.core.model.Event Event}
      * @see FacebookProducerConnector#load(IDataProducer)
      */
     private final int limit;

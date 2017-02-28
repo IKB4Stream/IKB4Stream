@@ -43,15 +43,58 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Get data flow from RSS
+ * @author ikb4stream
+ * @version 1.0
+ * @see com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector
+ */
 public class RSSProducerConnector implements IProducerConnector {
+    /**
+     * Properties of this module
+     * @see PropertiesManager
+     * @see PropertiesManager#getProperty(String)
+     * @see PropertiesManager#getInstance(Class, String)
+     */
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(RSSProducerConnector.class, "resources/datasource/rss/config.properties");
+    /**
+     * Logger used to log all information in this module
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(RSSProducerConnector.class);
+    /**
+     * Object to add metrics from this class
+     * @see MetricsLogger#log(String, long)
+     * @see MetricsLogger#getMetricsLogger()
+     */
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
+    /**
+     * Single instance of {@link OpenNLP} per each Thread
+     * @see RSSProducerConnector#geocodeRSS(String)
+     */
     private final OpenNLP openNLP = OpenNLP.getOpenNLP(Thread.currentThread());
+    /**
+     * Source name of corresponding {@link Event}
+     * @see RSSProducerConnector#geocodeRSS(String)
+     * @see RSSProducerConnector#load(IDataProducer)
+     */
     private final String source;
+    /**
+     * Interval time between two batch
+     * @see RSSProducerConnector#load(IDataProducer)
+     */
     private final int interval;
+    /**
+     * @see RSSProducerConnector#load(IDataProducer)
+     */
     private final URL url;
 
+    /**
+     * Public constructor to init variable from {@link RSSProducerConnector#PROPERTIES_MANAGER}
+     * @throws IllegalStateException if invalid value in configuration file
+     * @see RSSProducerConnector#source
+     * @see RSSProducerConnector#interval
+     * @see RSSProducerConnector#url
+     */
     public RSSProducerConnector() {
         try {
             this.source = PROPERTIES_MANAGER.getProperty("RSSProducerConnector.source");
@@ -63,6 +106,14 @@ public class RSSProducerConnector implements IProducerConnector {
         }
     }
 
+    /**
+     * Listen {@link Event} from RSS
+     * @param dataProducer {@link IDataProducer} contains the data queue
+     * @throws NullPointerException if dataProducer is null
+     * @see RSSProducerConnector#source
+     * @see RSSProducerConnector#url
+     * @see RSSProducerConnector#interval
+     */
     @Override
     public void load(IDataProducer dataProducer) {
         Objects.requireNonNull(dataProducer);
@@ -100,6 +151,13 @@ public class RSSProducerConnector implements IProducerConnector {
         }
     }
 
+    /**
+     * Getting a {@link LatLong} from a GeoRSSModule or a description
+     * @param module GeoRSSModule that represent a {@link LatLong}
+     * @param desc Description of {@link Event}
+     * @return {@link LatLong} if found something or null
+     * @see LatLong
+     */
     private LatLong getLatLong(GeoRSSModule module, String desc) {
         if (module != null) {
             return new LatLong(module.getPosition().getLatitude(), module.getPosition().getLongitude());
@@ -109,6 +167,11 @@ public class RSSProducerConnector implements IProducerConnector {
         return null;
     }
 
+    /**
+     * Check if this jar is active
+     * @return true if it should be started
+     * @see RSSProducerConnector#PROPERTIES_MANAGER
+     */
     @Override
     public boolean isActive() {
         try {
@@ -123,6 +186,8 @@ public class RSSProducerConnector implements IProducerConnector {
      * Then, geolocalize the first location found with the geocoder Nominatim (OSM)
      * @param text to analyze
      * @return a latLong coordinates
+     * @see RSSProducerConnector#openNLP
+     * @see RSSProducerConnector#source
      */
     private LatLong geocodeRSS(String text) {
         long start = System.currentTimeMillis();

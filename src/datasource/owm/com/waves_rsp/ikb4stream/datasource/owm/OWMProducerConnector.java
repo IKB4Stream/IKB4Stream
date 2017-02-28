@@ -35,18 +35,67 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * Get weather from OpenWeatherMap API
+ * @author ikb4stream
+ * @version 1.0
+ * @see com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector
+ */
 public class OWMProducerConnector implements IProducerConnector{
+    /**
+     * Properties of this module
+     * @see PropertiesManager
+     * @see PropertiesManager#getProperty(String)
+     * @see PropertiesManager#getInstance(Class, String)
+     */
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(OWMProducerConnector.class, "resources/datasource/owm/config.properties");
+    /**
+     * Logger used to log all information in this module
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(OWMProducerConnector.class);
+    /**
+     * Object to add metrics from this class
+     * @see MetricsLogger#log(String, long)
+     * @see MetricsLogger#getMetricsLogger()
+     */
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
+    /**
+     * @see OWMProducerConnector#getCurrentWeather(double, double)
+     */
     private final OpenWeatherMap openWeatherMap;
+    /**
+     * Interval time between two batch
+     * @see OWMProducerConnector#getCurrentWeather(double, double)
+     * @see OWMProducerConnector#load(IDataProducer)
+     */
     private final Long requestInterval;
+    /**
+     * Longitude limit to get {@link Event}
+     * @see OWMProducerConnector#getCurrentWeather(double, double)
+     * @see OWMProducerConnector#load(IDataProducer)
+     */
     private final double longitude;
+    /**
+     * Latitude limit to get {@link Event}
+     * @see OWMProducerConnector#getCurrentWeather(double, double)
+     * @see OWMProducerConnector#load(IDataProducer)
+     */
     private final double latitude;
+    /**
+     * Source name of corresponding {@link Event}
+     * @see OWMProducerConnector#getCurrentWeather(double, double)
+     * @see OWMProducerConnector#load(IDataProducer)
+     */
     private final String source;
 
     /**
      * Instantiate the OWMProducerConnector object with load properties
+     * @throws IllegalArgumentException if invalid values in configuration file
+     * @see OWMProducerConnector#source
+     * @see OWMProducerConnector#latitude
+     * @see OWMProducerConnector#longitude
+     * @see OWMProducerConnector#requestInterval
+     * @see OWMProducerConnector#openWeatherMap
      */
     public OWMProducerConnector() {
         try {
@@ -65,11 +114,14 @@ public class OWMProducerConnector implements IProducerConnector{
 
     /**
      * Get the current weather from OpenWeatherMap
-     *
      * @return an Event which contains information about current weather
      * @throws IOException
+     * @see OWMProducerConnector#openWeatherMap
+     * @see OWMProducerConnector#latitude
+     * @see OWMProducerConnector#longitude
+     * @see OWMProducerConnector#requestInterval
+     * @see OWMProducerConnector#source
      */
-
     private Event getCurrentWeather(double latitude, double longitude) {
         Objects.requireNonNull(latitude);
         Objects.requireNonNull(longitude);
@@ -82,19 +134,19 @@ public class OWMProducerConnector implements IProducerConnector{
             Date start = new Date(Long.valueOf(jn.path("dt").toString())*1000);
             Date end = new Date(start.getTime()+requestInterval-1000);
             return new Event(latLong, start, end, description, this.source);
-        }catch ( NumberFormatException e){
+        } catch ( NumberFormatException e){
             LOGGER.warn("value of() failed: {}", e.getMessage());
             return null;
-        }catch (IOException e){
+        } catch (IOException e){
             LOGGER.warn("Current weather failed: {}", e.getMessage());
             return  null;
         }
     }
 
     /**
-     * Listen events from Open Weather Map and load them with the data producer object
-     *
-     *
+     * Check if this jar is active
+     * @return true if it should be started
+     * @see OWMProducerConnector#PROPERTIES_MANAGER
      */
     @Override
     public boolean isActive() {
@@ -105,6 +157,14 @@ public class OWMProducerConnector implements IProducerConnector{
         }
     }
 
+    /**
+     * Listen {@link Event} from OWM
+     * @param dataProducer {@link IDataProducer} contains the data queue
+     * @see OWMProducerConnector#latitude
+     * @see OWMProducerConnector#longitude
+     * @see OWMProducerConnector#source
+     * @see OWMProducerConnector#requestInterval
+     */
     @Override
     public void load(IDataProducer dataProducer) {
         Objects.requireNonNull(dataProducer);

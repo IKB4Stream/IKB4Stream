@@ -41,11 +41,34 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
+/**
+ * @author ikb4stream
+ * @version 1.0
+ * @see com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector
+ */
 public class WeatherProducerConnector implements IProducerConnector {
+    /**
+     * Properties of this module
+     * @see PropertiesManager
+     * @see PropertiesManager#getProperty(String)
+     * @see PropertiesManager#getInstance(Class, String)
+     */
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(WeatherProducerConnector.class, "resources/datasource/weather/config.properties");
+    /**
+     *
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(WeatherProducerConnector.class);
+    /**
+     *
+     */
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
+    /**
+     *
+     */
     private final String source;
+    /**
+     *
+     */
     private final URL url;
 
     /**
@@ -63,8 +86,7 @@ public class WeatherProducerConnector implements IProducerConnector {
 
     /**
      * Check a RSS flow from an
-     *
-     * @param dataProducer
+     * @param dataProducer {@link IDataProducer} contains the data queue
      */
     @Override
     public void load(IDataProducer dataProducer) {
@@ -102,6 +124,10 @@ public class WeatherProducerConnector implements IProducerConnector {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean isActive() {
         try {
