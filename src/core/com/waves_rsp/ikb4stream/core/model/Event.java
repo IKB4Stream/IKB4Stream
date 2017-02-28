@@ -25,15 +25,47 @@ import java.util.stream.Collectors;
 
 /**
  * Event class represents an event with starting date and end date
+ * @author ikb4stream
+ * @version 1.0
  */
 public class Event {
+    /**
+     * Properties of this class
+     * @see PropertiesManager
+     * @see PropertiesManager#getProperty(String)
+     * @see PropertiesManager#getInstance(Class)
+     */
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(Event.class);
+    /**
+     * Position of the {@link Event} represented by a BoundingBox
+     * @see Event#getLocation()
+     */
     private final LatLong[] location;
-    private final Date start;
-    private final Date end;
+    /**
+     * Description of an {@link Event}
+     * @see Event#getDescription()
+     */
     private final String description;
-    private final byte score;
+    /**
+     * Source where {@link Event} provides
+     * @see Event#getSource()
+     */
     private final String source;
+    /**
+     * Beginning of {@link Event}
+     * @see Event#getStart()
+     */
+    private final Date start;
+    /**
+     * Score associated to this {@link Event}
+     * @see Event#getScore()
+     */
+    private final byte score;
+    /**
+     * End of this {@link Event}
+     * @see Event#getEnd()
+     */
+    private final Date end;
 
     /**
      * Create an Event without score
@@ -42,8 +74,8 @@ public class Event {
      * @param end End of the event, or the current date
      * @param description the event content. For instance, the message of a tweet.
      * @param source from which datasource the event is provided
-     * @throws NullPointerException If a param is null
-     * @throws IllegalArgumentException If {@param source} is empty
+     * @throws NullPointerException if a param is null
+     * @throws IllegalArgumentException if source is empty
      */
     public Event(LatLong[] location, Date start, Date end, String description, String source) {
         Objects.requireNonNull(location);
@@ -55,7 +87,6 @@ public class Event {
         if(!location[0].equals(location[location.length - 1])) {
             throw new IllegalArgumentException("BoundingBox is not closed.");
         }
-
         this.location = location;
         this.start = start;
         this.end = end;
@@ -73,7 +104,7 @@ public class Event {
      * @param score Score of this event between 0 and 100
      * @param source from which datasource the event is provided
      * @throws NullPointerException If one params is null
-     * @throws IllegalArgumentException If {@param source} is empty or {@param score} is not between 0 and 100
+     * @throws IllegalArgumentException If source is empty or score is not between 0 and 100
      */
     public Event(LatLong[] location, Date start, Date end, String description, byte score, String source) {
         Objects.requireNonNull(location);
@@ -86,8 +117,6 @@ public class Event {
         if(!location[0].equals(location[location.length - 1])) {
             throw new IllegalArgumentException("BoundingBox is not closed.");
         }
-
-
         this.location = location;
         this.start = start;
         this.end = end;
@@ -104,7 +133,7 @@ public class Event {
      * @param description the event content. For instance, the message of a tweet.
      * @param source from which datasource the event is provided
      * @throws NullPointerException If a param is null
-     * @throws IllegalArgumentException If {@param source} is empty
+     * @throws IllegalArgumentException If source is empty
      */
     public Event(LatLong location, Date start, Date end, String description, String source) {
         this(new LatLong[]{location}, start, end, description, source);
@@ -119,7 +148,7 @@ public class Event {
      * @param score Score of this event between 0 and 100
      * @param source from which datasource the event is provided
      * @throws NullPointerException If one params is null
-     * @throws IllegalArgumentException If {@param source} is empty or {@param score} is not between 0 and 100
+     * @throws IllegalArgumentException If source is empty or score is not between 0 and 100
      */
     public Event(LatLong location, Date start, Date end, String description, byte score, String source) {
         this(new LatLong[]{location}, start, end, description, score, source);
@@ -128,6 +157,7 @@ public class Event {
     /**
      * Get location of this event
      * @return LatLong[] to represent the position of this Event
+     * @see Event#location
      */
     public LatLong[] getLocation() {
         return location;
@@ -136,6 +166,7 @@ public class Event {
     /**
      * Get the moment when the event begins
      * @return start date
+     * @see Event#start
      */
     public Date getStart() {
         return start;
@@ -144,6 +175,7 @@ public class Event {
     /**
      * Get the moment when the end of the event
      * @return end date
+     * @see Event#end
      */
     public Date getEnd() {
         return end;
@@ -152,6 +184,7 @@ public class Event {
     /**
      * Get description of this event
      * @return description
+     * @see Event#description
      */
     public String getDescription() {
         return description;
@@ -160,6 +193,7 @@ public class Event {
     /**
      * Get source from which datasource, this event is provided
      * @return source
+     * @see Event#source
      */
     public String getSource() {
         return source;
@@ -168,20 +202,23 @@ public class Event {
     /**
      * Get score of this event after score processing
      * @return score or -1 if this event hasn't been analysed by score processor
+     * @see Event#score
      */
     public byte getScore() {
         return score;
     }
 
+    /**
+     * Generated method to test if {@link Event} are same
+     * @param o Other {@link Event} to compare
+     * @return true if there are equals
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Event event = (Event) o;
-
         if (score != event.score) return false;
-        // Probably incorrect - comparing Object[] arrays with Arrays.equals
         if (!Arrays.equals(location, event.location)) return false;
         if (start != null ? !start.equals(event.start) : event.start != null) return false;
         if (end != null ? !end.equals(event.end) : event.end != null) return false;
@@ -189,6 +226,10 @@ public class Event {
         return source != null ? source.equals(event.source) : event.source == null;
     }
 
+    /**
+     * Generated method
+     * @return hashcode of {@link Event}
+     */
     @Override
     public int hashCode() {
         int result = Arrays.hashCode(location);
@@ -201,8 +242,14 @@ public class Event {
     }
 
     /**
-     *
+     * Represent this {@link Event} as a String
      * @return a string which contains information about an event
+     * @see Event#location
+     * @see Event#start
+     * @see Event#end
+     * @see Event#description
+     * @see Event#score
+     * @see Event#source
      */
     @Override
     public String toString() {
@@ -219,6 +266,7 @@ public class Event {
     /**
      * Get score min for an event
      * @return Score min to apply to an event
+     * @see Event#PROPERTIES_MANAGER
      */
     public static byte getScoreMin() {
         try {
@@ -231,6 +279,7 @@ public class Event {
     /**
      * Get score max for an event
      * @return Score max to apply to an event
+     * @see Event#PROPERTIES_MANAGER
      */
     public static byte getScoreMax() {
         try {

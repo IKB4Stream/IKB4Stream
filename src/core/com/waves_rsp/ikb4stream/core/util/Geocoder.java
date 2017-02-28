@@ -19,7 +19,6 @@ import java.util.Objects;
 
 
 public class Geocoder {
-
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(Geocoder.class, "resources/config.properties");
     private static final Logger LOGGER = LoggerFactory.getLogger(Geocoder.class);
     private final LatLong latLong;
@@ -163,4 +162,3 @@ public class Geocoder {
         }
     }
 }
-

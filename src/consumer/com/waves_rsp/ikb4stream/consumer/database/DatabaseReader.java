@@ -42,29 +42,67 @@ import static com.mongodb.client.model.Filters.*;
 
 /**
  * DatabaseReader class reads data (Events) from mongodb database
+ * @author ikb4stream
+ * @version 1.0
+ * @see com.waves_rsp.ikb4stream.core.communication.IDatabaseReader
  */
 public class DatabaseReader implements IDatabaseReader {
+    /**
+     * Properties of this class
+     * @see PropertiesManager
+     * @see PropertiesManager#getProperty(String)
+     * @see PropertiesManager#getInstance(Class)
+     */
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(DatabaseReader.class);
+    /**
+     * Object to add metrics from this class
+     * @see MetricsLogger#getMetricsLogger()
+     * @see MetricsLogger#log(String, long)
+     */
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
+    /**
+     * Logger used to log all information in this class
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseReader.class);
+    /**
+     * Single instance of {@link DatabaseReader}
+     * @see DatabaseReader#getEvent(Request, DatabaseReaderCallback)
+     * @see DatabaseReader#getInstance()
+     */
     private static final DatabaseReader DATABASE_READER = new DatabaseReader();
+    /**
+     * Object use to read Document from MongoDb
+     * @see DatabaseReader#getEvent(Request, DatabaseReaderCallback)
+     */
     private final MongoCollection<Document> mongoCollection;
+    /**
+     * Result limit of request
+     * @see DatabaseReader#getEvent(Request, DatabaseReaderCallback)
+     */
     private final int limit;
 
     /**
-     * The constructor of DatabaseReader
+     * The constructor of {@link DatabaseReader}
      * This class is a singleton
+     * @see DatabaseReader#checkConfiguration()
+     * @see DatabaseReader#PROPERTIES_MANAGER
+     * @see DatabaseReader#mongoCollection
+     * @see DatabaseReader#limit
      */
     private DatabaseReader() {
-        checkConfiguration();
-        final MongoClient mongoClient = MongoClients.create(PROPERTIES_MANAGER.getProperty("database.host"));
-        final MongoDatabase mongoDatabase = mongoClient.getDatabase(PROPERTIES_MANAGER.getProperty("database.datasource"));
-        this.mongoCollection = mongoDatabase.getCollection(PROPERTIES_MANAGER.getProperty("database.collection"));
+        try {
+            checkConfiguration();
+            final MongoClient mongoClient = MongoClients.create(PROPERTIES_MANAGER.getProperty("database.host"));
+            final MongoDatabase mongoDatabase = mongoClient.getDatabase(PROPERTIES_MANAGER.getProperty("database.datasource"));
+            this.mongoCollection = mongoDatabase.getCollection(PROPERTIES_MANAGER.getProperty("database.collection"));
+        } catch (IllegalArgumentException e) {
+            LOGGER.error(e.getMessage());
+            throw new IllegalStateException(e);
+        }
         int tmp = 50000;
         try {
             tmp = Integer.parseInt(PROPERTIES_MANAGER.getProperty("database.limit"));
         } catch (IllegalArgumentException e) {
-            // NumberFormatException is a subclass of IllegalArgumentException
             LOGGER.warn("Use default database.limit");
         }
         this.limit = tmp;
@@ -73,22 +111,18 @@ public class DatabaseReader implements IDatabaseReader {
 
     /**
      * Check configuration of Database
-     * @throws IllegalStateException if database configuration is not set
+     * @see DatabaseReader#PROPERTIES_MANAGER
      */
     private static void checkConfiguration() {
-        try {
-            PROPERTIES_MANAGER.getProperty("database.host");
-            PROPERTIES_MANAGER.getProperty("database.datasource");
-            PROPERTIES_MANAGER.getProperty("database.collection");
-        } catch (IllegalArgumentException e) {
-            LOGGER.error(e.getMessage());
-            throw new IllegalStateException(e.getMessage());
-        }
+        PROPERTIES_MANAGER.getProperty("database.host");
+        PROPERTIES_MANAGER.getProperty("database.datasource");
+        PROPERTIES_MANAGER.getProperty("database.collection");
     }
 
     /**
      * Get instance of Singleton DatabaseReader
-     * @return an instance of DatabaseReader
+     * @return an instance of {@link DatabaseReader}
+     * @see DatabaseReader#DATABASE_READER
      */
     public static DatabaseReader getInstance() {
         return DATABASE_READER;
@@ -98,6 +132,8 @@ public class DatabaseReader implements IDatabaseReader {
      * This method requests events from mongodb database and filters from data coming to the request object in parameter
      * @param request Request to apply to Mongo
      * @param callback Callback method call after select operation
+     * @see DatabaseReader#limit
+     * @see DatabaseReader#mongoCollection
      */
     @Override
     public void getEvent(Request request, DatabaseReaderCallback callback) {
@@ -122,6 +158,6 @@ public class DatabaseReader implements IDatabaseReader {
                                     t,
                                     "[" + result.stream().map(d -> d.toJson()).collect(Collectors.joining(", ")) + "]"
                             );
-                });
+                        });
     }
 }

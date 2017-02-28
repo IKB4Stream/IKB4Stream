@@ -18,6 +18,7 @@
 
 package com.waves_rsp.ikb4stream.core.util.nlp;
 
+import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
 import opennlp.tools.lemmatizer.DictionaryLemmatizer;
 import opennlp.tools.lemmatizer.SimpleLemmatizer;
 import opennlp.tools.namefind.NameFinderME;
@@ -34,20 +35,66 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
+/**
+ * @author ikb4stream
+ * @version 1.0
+ */
 public class OpenNLP {
-    private static final String PATH_DICTIONARIES = "resources/opennlp-models/dictionaries/lemma_dict_lefff";
+    /**
+     * Properties of this class
+     * @see PropertiesManager
+     * @see PropertiesManager#getProperty(String)
+     * @see PropertiesManager#getInstance(Class)
+     */
+    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(OpenNLP.class);
+    /**
+     * Logger used to log all information in this class
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenNLP.class);
+    /**
+     * Store unique instance per Thread of {@link OpenNLP}
+     * @see OpenNLP#getOpenNLP(Thread)
+     */
     private static final Map<Thread, OpenNLP> INSTANCES = new HashMap<>();
+    /**
+     * Load lemmatizer model
+     * @see OpenNLP#lemmatize(String)
+     */
     private final DictionaryLemmatizer lemmatizer;
+    /**
+     * Use to do sentence detection
+     * @see OpenNLP#detectSentences(String)
+     */
     private final SentenceDetectorME detector;
+    /**
+     * Use to apply person name finder
+     * @see OpenNLP#findPersonName(String[])
+     */
     private final NameFinderME nameFinderPers;
+    /**
+     * Use to apply organization name finder
+     * @see OpenNLP#findOrganizationName(String[])
+     */
     private final NameFinderME nameFinderOrg;
+    /**
+     * Use to apply location name finder
+     * @see OpenNLP#findLocationName(String[])
+     */
     private final NameFinderME nameFinderLoc;
+    /**
+     * Use to apply tokenization
+     * @see OpenNLP#learnableTokenize(String)
+     */
     private final Tokenizer tokenizer;
+    /**
+     * Use to apply part-of-speech tagger
+     * @see OpenNLP#posTagging(String[])
+     */
     private final POSTaggerME tagger;
 
     /**
-     *
+     * Private constructor to allow only one {@link OpenNLP} for each Thread
+     * @throws IllegalStateException if an error occurred from {@link LoaderNLP} or {@link PropertiesManager}
      */
     private OpenNLP() {
         try {
@@ -57,21 +104,24 @@ public class OpenNLP {
             nameFinderOrg = new NameFinderME(LoaderNLP.getTokenNameFinderModelOrg());
             nameFinderLoc = new NameFinderME(LoaderNLP.getTokenNameFinderModelLoc());
             nameFinderPers = new NameFinderME(LoaderNLP.getTokenNameFinderModelPers());
-            InputStream inputStream = new FileInputStream(PATH_DICTIONARIES);
+            InputStream inputStream = new FileInputStream(PROPERTIES_MANAGER.getProperty("nlp.dictionaries.path"));
             lemmatizer = new SimpleLemmatizer(inputStream);
             inputStream.close();
-        } catch (IOException e) {
+        } catch (IllegalArgumentException | IOException e) {
             LOGGER.error(e.getMessage());
             throw new IllegalStateException(e);
         }
     }
 
     /**
-     * Get instance of OpenNLP for each thread because Apache OpenNLP is not thread safe
-     * @param thread Thread needs OpenNLP
-     * @return Instance of OpenNLP
+     * Get instance of {@link OpenNLP} for each thread because Apache OpenNLP is not thread safe
+     * @param thread Thread needs {@link OpenNLP}
+     * @return Instance of {@link OpenNLP}
+     * @throws NullPointerException if thread is null
+     * @see OpenNLP#INSTANCES
      */
     public static OpenNLP getOpenNLP(Thread thread) {
+        Objects.requireNonNull(thread);
         return INSTANCES.computeIfAbsent(thread, t -> new OpenNLP());
     }
 
@@ -84,9 +134,10 @@ public class OpenNLP {
 
     /**
      * OpenNLP : split a text in sentences
-     *
      * @param text to analyze
      * @return an array of sentences
+     * @throws NullPointerException if text is null
+     * @see OpenNLP#detector
      */
     private String[] detectSentences(String text) {
         Objects.requireNonNull(text);
@@ -95,9 +146,10 @@ public class OpenNLP {
 
     /**
      * OpenNLP : learnableTokenize. The function tokenize a text
-     *
      * @param text to tokenize
      * @return an array of words
+     * @throws NullPointerException if text is null
+     * @see OpenNLP#tokenizer
      */
     private String[] learnableTokenize(String text) {
         Objects.requireNonNull(text);
@@ -106,9 +158,10 @@ public class OpenNLP {
 
     /**
      * OpenNLP : posTagging affect a tag to each word (V, NC, NP, ADJ...)
-     *
      * @param tokens is a tokenize text
      * @return an array of posTag
+     * @throws NullPointerException if tokens is null
+     * @see OpenNLP#tagger
      */
     private String[] posTagging(String[] tokens) {
         Objects.requireNonNull(tokens);
@@ -117,9 +170,10 @@ public class OpenNLP {
 
     /**
      * OpenNLP : name entity recognizer function. Detect organizations names.
-     *
      * @param tokens are an array of string to analyze
      * @return an array of entity detected as an organization
+     * @throws NullPointerException if tokens is null
+     * @see OpenNLP#nameFinderOrg
      */
     private Span[] findOrganizationName(String[] tokens) {
         Objects.requireNonNull(tokens);
@@ -128,9 +182,10 @@ public class OpenNLP {
 
     /**
      * OpenNLP : name entity recognizer function. Detect locations names.
-     *
      * @param tokens are an array of string to analyze
      * @return an array of entity detected as a location
+     * @throws NullPointerException if tokens is null
+     * @see OpenNLP#nameFinderLoc
      */
     private Span[] findLocationName(String[] tokens) {
         Objects.requireNonNull(tokens);
@@ -139,9 +194,10 @@ public class OpenNLP {
 
     /**
      * OpenNLP : name entity recognizer function. Detect persons names.
-     *
      * @param tokens are an array of string to analyze
      * @return an array of entity detected as a personnality
+     * @throws NullPointerException if tokens is null
+     * @see OpenNLP#nameFinderPers
      */
     private Span[] findPersonName(String[] tokens) {
         Objects.requireNonNull(tokens);
@@ -150,9 +206,10 @@ public class OpenNLP {
 
     /**
      * OpenNLP : lemmatization. The function simplify the step of POStagging for the verbs category.
-     *
      * @param text to lemmatize
      * @return Map of each lemmatize word with the POStag associate
+     * @throws NullPointerException if text is null
+     * @see OpenNLP#lemmatizer
      */
     private Map<String, String> lemmatize(String text) {
         Objects.requireNonNull(text);
@@ -179,10 +236,10 @@ public class OpenNLP {
 
     /**
      * Apply the OpenNLP Lemmatization with a dictionnary. Keep only words with the verbs and nouns.
-     *
      * @param post is the text to lemmatize
      * @param limit is the limit to have the n first characters
      * @return list of selected words.
+     * @throws NullPointerException if post is null
      */
     public List<String> applyNLPlemma(String post, int limit) {
         Objects.requireNonNull(post);
@@ -195,34 +252,33 @@ public class OpenNLP {
         input = lemmatize(tmpPost);
         input.forEach((w, pos) -> {
             if (w.startsWith("#")) {
-                //if it's a hashtag
                 output.add(w);
             } else {
                 if (pos.startsWith("N") || pos.startsWith("V")) {
                     output.add(w);
                 }
             }
-
         });
         return output;
     }
 
     /**
      * Apply the OpenNLP Lemmatization with a dictionnary. Keep only words with the verbs and nouns.
-     *
      * @param post is the text to lemmatize. We only use the 1250 first characters
      * @return list of selected words.
+     * @throws NullPointerException if post is null
      */
     public List<String> applyNLPlemma(String post) {
+        Objects.requireNonNull(post);
         return applyNLPlemma(post, 1250);
     }
 
     /**
      * Apply the ÖpenNLP ner (name entity recognizer) algorithm on a text. Keep only distinct words from a text.
-     *
      * @param post to analyze
      * @param ner  ENUM : LOCATION, ORGANIZATION or PERSON : type of NER analyse
      * @return List of selected words by NER
+     * @throws NullPointerException if post or ner is null
      */
     public List<String> applyNLPner(String post, nerOptions ner) {
         Objects.requireNonNull(post);
@@ -246,7 +302,6 @@ public class OpenNLP {
                     LOGGER.warn("Bad NER option.\n use : 'LOCATION', 'PERSON' or 'ORGANIZATION'");
                     return words; //return empty list
             }
-            //Add each entity in the list 'words'
             Arrays.asList(Span.spansToStrings(spans, learnableTokens)).forEach(words::add);
         }
         return words;

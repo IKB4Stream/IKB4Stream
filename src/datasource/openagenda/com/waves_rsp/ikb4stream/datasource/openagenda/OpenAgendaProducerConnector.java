@@ -20,7 +20,7 @@ package com.waves_rsp.ikb4stream.datasource.openagenda;
 
 
 import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
-import com.waves_rsp.ikb4stream.core.datasource.model.IOpenAgenda;
+import com.waves_rsp.ikb4stream.core.datasource.IOpenAgenda;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
 

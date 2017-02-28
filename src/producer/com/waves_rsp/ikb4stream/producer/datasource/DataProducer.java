@@ -24,28 +24,54 @@ import com.waves_rsp.ikb4stream.core.model.Event;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Objects;
+
 /**
- *This class receives data (Event) from connectors and push in DataQueue
- * @see DataQueue
+ * This class receives {@link Event} from connectors and push in {@link DataQueue}
+ * @author ikb4stream
+ * @version 1.0
  */
 public class DataProducer implements IDataProducer {
+    /**
+     * Object to add metrics from this class
+     * @see DataProducer#push(Event)
+     * @see MetricsLogger#log(String, long)
+     * @see MetricsLogger#getMetricsLogger()
+     */
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
+    /**
+     * Logger used to log all information in this class
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(DataProducer.class);
+    /**
+     * Single instance of {@link DataQueue}
+     * @see DataQueue#pop()
+     * @see DataProducer#push(Event)
+     * @see DataProducer#DataProducer(DataQueue)
+     */
     private final DataQueue dataQueue;
 
     /**
-     * The constructor with a DataQueue in param
-     * @param dataQueue Set the dataQueue to this Producer
+     * Give the unique instance of {@link DataQueue}
+     * @param dataQueue Set the {@link DataQueue} to this Producer
+     * @throws NullPointerException if dataQueue is null
+     * @see DataProducer#dataQueue
      */
     public DataProducer(DataQueue dataQueue) {
+        Objects.requireNonNull(dataQueue);
         this.dataQueue = dataQueue;
     }
 
     /**
-     * Push an event into DataQueue
-     * @param event Event to push in DataQueue to be analysed
+     * Push an {@link Event} into DataQueue
+     * @param event {@link Event} to push in {@link DataQueue} to be analysed
+     * @throws NullPointerException if event is null
+     * @see Event
+     * @see DataProducer#dataQueue
+     * @see DataProducer#METRICS_LOGGER
      */
     public void push(Event event) {
+        Objects.requireNonNull(event);
         long start = System.currentTimeMillis();
         dataQueue.push(event);
         long end = System.currentTimeMillis();

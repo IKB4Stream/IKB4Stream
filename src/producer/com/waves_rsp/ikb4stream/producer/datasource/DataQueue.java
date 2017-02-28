@@ -29,30 +29,51 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 /**
- * This class stores and provides data (Event) for DataConsumer
- * @see DataConsumer
+ * This class stores and provides {@link Event} for {@link DataConsumer} and {@link DataProducer}
+ * @author ikb4stream
+ * @version 1.0
  */
 class DataQueue {
-
-	    private class PackagedEvent{
-        private final Event event;
-        private final long arrivedTime;
-
-        private PackagedEvent(Event event, long arrivedTime) {
-            Objects.requireNonNull(event);
-            Objects.requireNonNull(arrivedTime);
-            this.event = event;
-            this.arrivedTime = arrivedTime;
-        }
-    }
-
+    /**
+     * Properties of this class
+     * @see PropertiesManager
+     * @see PropertiesManager#getProperty(String)
+     * @see PropertiesManager#getInstance(Class)
+     */
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(DataQueue.class);
+    /**
+     * Object to add metrics from this class
+     * @see DataProducer#push(Event)
+     * @see MetricsLogger#log(String, long)
+     * @see MetricsLogger#getMetricsLogger()
+     */
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
+    /**
+     * Logger used to log all information in this class
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(DataQueue.class);
+    /**
+     * Single instance of {@link DataQueue}
+     * @see DataQueue#createDataQueue()
+     */
+    private static final DataQueue DATA_QUEUE = new DataQueue();
+    /**
+     * {@link Event} will be push in this {@link DataQueue#queue}
+     * @see DataQueue#push(Event)
+     * @see DataQueue#isEmpty()
+     * @see DataQueue#pop()
+     */
     private final BlockingQueue<PackagedEvent> queue;
+    /**
+     * Size of {@link DataQueue#queue}
+     * @see DataQueue#isEmpty()
+     */
     private final int size;
 
-    public DataQueue() {
+    /**
+     * Private constructor to block instantiation, use {@link DataQueue#createDataQueue()} instead
+     */
+    private DataQueue() {
         int defaultSize = 500;
         try {
             defaultSize = Integer.parseInt(PROPERTIES_MANAGER.getProperty("producer.sizequeue"));
@@ -64,9 +85,20 @@ class DataQueue {
     }
 
     /**
-     * Push a new event
-     * @param event you want to add
-     * @throws NullPointerException if {@param event} is null
+     * Singleton of {@link DataQueue}
+     * @return Single instance {@link DataQueue}
+     * @see DataQueue#DATA_QUEUE
+     */
+    public static DataQueue createDataQueue() {
+        return DATA_QUEUE;
+    }
+
+    /**
+     * Push a new {@link Event}, if {@link DataQueue#queue} is full the event is ignored
+     * @param event {@link Event} to push in this {@link DataQueue}
+     * @throws NullPointerException if event is null
+     * @see DataQueue#METRICS_LOGGER
+     * @see DataQueue#queue
      */
     public void push(Event event) {
         Objects.requireNonNull(event);
@@ -79,12 +111,16 @@ class DataQueue {
     }
 
     /**
-     * Return the last event (Blocking)
-     * @return Event
+     * Return the first {@link Event} in {@link DataQueue#queue}
+     * @return {@link Event} in {@link DataQueue}
+     * @see DataQueue#METRICS_LOGGER
+     * @see DataQueue#queue
+     * @see PackagedEvent
+     * @see Event
      */
     public Event pop() throws InterruptedException {
-    	PackagedEvent packEvent = queue.take();
-    	Event popEvent = packEvent.event;
+        PackagedEvent packEvent = queue.take();
+        Event popEvent = packEvent.event;
         long time = System.currentTimeMillis() - packEvent.arrivedTime;
         METRICS_LOGGER.log("life_in_queue_" + popEvent.getSource(), time);
         return popEvent;
@@ -92,8 +128,44 @@ class DataQueue {
 
     /**
      * @return Return true if the DataQueue is empty
+     * @see DataQueue#queue
+     * @see DataQueue#size
      */
     public boolean isEmpty() {
         return queue.remainingCapacity() == size;
+    }
+
+    /**
+     * Packaged {@link Event} to apply metrics in {@link DataQueue#queue}
+     * @author ikb4stream
+     * @version 1.0
+     */
+    private class PackagedEvent{
+        /**
+         * Arrival time in {@link DataQueue#queue}
+         * @see DataQueue#push(Event)
+         * @see DataQueue#pop()
+         */
+        private final long arrivedTime;
+        /**
+         * {@link Event} to package
+         * @see DataQueue#push(Event)
+         * @see DataQueue#pop()
+         */
+        private final Event event;
+
+        /**
+         * Create a {@link PackagedEvent} with {@link Event}
+         * @param event {@link Event} to package before insertion in {@link DataQueue#queue}
+         * @param arrivedTime Arrival time in {@link DataQueue#queue}
+         * @throws NullPointerException if event or arrivedTime is null
+         * @see Event
+         */
+        private PackagedEvent(Event event, long arrivedTime) {
+            Objects.requireNonNull(event);
+            Objects.requireNonNull(arrivedTime);
+            this.event = event;
+            this.arrivedTime = arrivedTime;
+        }
     }
 }

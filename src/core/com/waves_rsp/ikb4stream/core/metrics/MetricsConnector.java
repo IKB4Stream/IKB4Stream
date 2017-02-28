@@ -25,23 +25,55 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.ConnectException;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
  * Defines the connector to influx database and instances it
+ * @author ikb4stream
+ * @version 1.0
  */
 public class MetricsConnector {
+    /**
+     * Properties of this class
+     * @see PropertiesManager#getInstance(Class)
+     * @see PropertiesManager#getProperty(String)
+     */
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(MetricsConnector.class);
+    /**
+     * Logger used to log all information in this class
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(MetricsConnector.class);
+    /**
+     * Single instance of {@link MetricsConnector}
+     */
+    private static final MetricsConnector METRICS_CONNECTOR = new MetricsConnector();
+    /**
+     * Properties of InfluxDB
+     * @see MetricsConnector#checkInfluxConnexion()
+     * @see MetricsConnector#getProperties()
+     */
+    private final MetricsProperties properties = MetricsProperties.create();
+    /**
+     * Internal class of {@link MetricsConnector}
+     * @see MetricsConnectorService
+     * @see MetricsConnectorService#getInfluxDB()
+     * @see MetricsConnector#getInfluxDB()
+     * @see MetricsConnector#getConnectorService()
+     * @see MetricsConnector#close()
+     */
     private final MetricsConnectorService connectorService;
-    private final MetricsProperties properties;
+    /**
+     * Status of InfluxDB
+     * @see MetricsConnector#isConnexionEnabled()
+     */
     private final boolean isConnexionEnabled;
 
+    /**
+     * Instantiate a {@link MetricsConnector} with initialisation of InfluxDB
+     */
     private MetricsConnector() {
-        this.properties = MetricsProperties.create();
         this.isConnexionEnabled = Boolean.valueOf(PROPERTIES_MANAGER.getProperty("database.connexion.enabled"));
-        LOGGER.info("is influxdb connexion enabled : "+isConnexionEnabled);
-
         if(!isConnexionEnabled) {
             LOGGER.warn("Connexion to influxdb disabled.");
             this.connectorService = null;
@@ -55,7 +87,6 @@ public class MetricsConnector {
             } catch (RuntimeException | ConnectException e) {
                 LOGGER.error("Can't connect to the influx service: {}", e);
             }
-
             if(influxDB != null) {
                 this.connectorService = new MetricsConnectorService(influxDB);
                 LOGGER.info("Connexion to the influx database " + influxDB.version() + " for metrics is started");
@@ -70,11 +101,12 @@ public class MetricsConnector {
      * @return metrics connector
      */
     static MetricsConnector getMetricsConnector() {
-        return new MetricsConnector();
+        return METRICS_CONNECTOR;
     }
 
     /**
      * Close the connexion with influx
+     * @see MetricsConnector#connectorService
      */
     public void close() {
         if(connectorService!= null && connectorService.getInfluxDB() != null) {
@@ -84,10 +116,20 @@ public class MetricsConnector {
         }
     }
 
+    /**
+     * Get the state of {@link MetricsConnector}
+     * @return Status of {@link MetricsConnector}
+     * @see MetricsConnector#isConnexionEnabled
+     */
     boolean isConnexionEnabled() {
         return isConnexionEnabled;
     }
 
+    /**
+     * Get an instance of InfluxDB object
+     * @return Instance of InfluxDB associate to {@link MetricsConnector#connectorService}
+     * @see MetricsConnector#connectorService
+     */
     InfluxDB getInfluxDB() {
         if(connectorService == null) {
             return null;
@@ -97,17 +139,26 @@ public class MetricsConnector {
         return influxDBOptional.orElse(null);
     }
 
+    /**
+     * Get {@link MetricsProperties} associate to instance of {@link MetricsConnector}
+     * @return {@link MetricsProperties} object
+     * @see MetricsConnector#properties
+     */
     public MetricsProperties getProperties() {
         return properties;
     }
 
+    /**
+     * Get {@link MetricsConnectorService} associate to instance of {@link MetricsConnector}
+     * @return {@link MetricsConnectorService} object
+     * @see MetricsConnector#connectorService
+     */
     public MetricsConnectorService getConnectorService() {
         return connectorService;
     }
 
     /**
      * Try to connect to the influxDB with Influx factory
-     *
      * @return the instance of influx object
      * @throws ConnectException if the connexion has failed
      */
@@ -119,15 +170,33 @@ public class MetricsConnector {
     }
 
     /**
+     * @author ikb4stream
+     * @version 1.0
      * Encapsulate an InfluxDB object in order to instantiate it
      */
     private class MetricsConnectorService {
+        /**
+         * InfluxDB java object
+         * @see MetricsConnectorService#getInfluxDB()
+         */
         private final InfluxDB influxDB;
 
+        /**
+         * Allow instantiation only in {@link MetricsConnector}
+         * @param influxDB Copy of influxDB object
+         * @throws NullPointerException if influxDB is null
+         */
         private MetricsConnectorService(InfluxDB influxDB) {
+            Objects.requireNonNull(influxDB);
             this.influxDB = influxDB;
         }
 
+        /**
+         * Get instance of {@link MetricsConnectorService#influxDB}
+         * @return {@link InfluxDB} object
+         * @see InfluxDB
+         * @see MetricsConnectorService#influxDB
+         */
         InfluxDB getInfluxDB() {
             return influxDB;
         }

@@ -21,9 +21,16 @@ package com.waves_rsp.ikb4stream.core.communication;
 import com.waves_rsp.ikb4stream.core.communication.model.Request;
 
 /**
- * A functional interface
+ * Interface of {@link com.waves_rsp.ikb4stream.consumer.database.DatabaseReader DatabaseReader} given to {@link ICommunication}
+ * @author ikb4stream
+ * @version 1.0
  */
 @FunctionalInterface
 public interface IDatabaseReader {
+    /**
+     * Get Event based on {@link Request}
+     * @param request {@link Request} Request to execute on database
+     * @param callback {@link DatabaseReaderCallback} Callback use after response of request
+     */
     void getEvent(Request request, DatabaseReaderCallback callback);
 }

@@ -24,19 +24,31 @@ import org.slf4j.LoggerFactory;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class UtilManager {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UtilManager.class);
+/**
+ * ClassManager which provides static method to apply to Class
+ * @author ikb4stream
+ * @version 1.0
+ * @see JarLoader
+ */
+public class ClassManager {
+    /**
+     * Logger used to log all information in this class
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(ClassManager.class);
 
-    private UtilManager() {
+    /**
+     * Private constructor to prevent instantiation
+     */
+    private ClassManager() {
 
     }
 
     /**
-     * Create a new instance of {@param clazz}
+     * Create a new instance of clazz
      * @param clazz Class to instantiate
-     * @return New object instantiated of {@param clazz}
-     * @throws NullPointerException if {@param clazz} is null
-     * @throws IllegalArgumentException if {@param clazz} cannot be instantiated
+     * @return New object instantiated of clazz
+     * @throws NullPointerException if clazz is null
+     * @throws IllegalArgumentException if clazz cannot be instantiated
      */
     public static Object newInstance(Class clazz) {
         Objects.requireNonNull(clazz);
@@ -48,11 +60,11 @@ public class UtilManager {
     }
 
     /**
-     * Load class which has {@param className} as class name
+     * Load class which has className as class name
      * @param className Class name to load
-     * @param child ClassLoader used to load this {@param className}
+     * @param child ClassLoader used to load this className
      * @return Class if it's can be instantiate or null otherwise
-     * @throws NullPointerException if {@param className} or {@param child} is null
+     * @throws NullPointerException if className or child is null
      */
     public static Class<?> loadClass(String className, ClassLoader child) {
         Objects.requireNonNull(className);
@@ -69,11 +81,11 @@ public class UtilManager {
     }
 
     /**
-     * Test if {@param clazz} implements {@param interfaceClass}
+     * Test if clazz implements interfaceClass
      * @param clazz Class to test
      * @param interfaceClass Interface to test if it's implement
-     * @return True if {@param clazz} implement {@param interfaceClass}
-     * @throws NullPointerException if {@param interfaceClass} is null
+     * @return True if clazz implement interfaceClass
+     * @throws NullPointerException if interfaceClass is null
      */
     public static boolean implementInterface(Class clazz, Class interfaceClass) {
         if (clazz == null) return false;

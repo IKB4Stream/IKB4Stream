@@ -161,9 +161,9 @@ sourceSets {
             srcDirs = ['src/core', 'src/consumer', 'src/producer', 'src/test/', 'src/datasource', 'src/scoring',
                        'src/communication/web', 'src/datasource/weather', 'src/datasource/rss', 'src/communication/kafka',
                        'src/datasource/twitter', 'src/datasource/twittermock', 'src/datasource/dbpedia', 'src/datasource/dbpediamock', 'src/datasource/owm',
-                        'src/datasource/facebook', 'src/datasource/openagenda', 'src/communication/web', 'src/scoring/twitter',
-                        'src/scoring/owm', 'src/scoring/mock', 'src/scoring/event', 'src/scoring/openagenda', 'src/datasource/openagendamock',
-                        'src/datasource/facebookmock']
+                       'src/datasource/facebook', 'src/datasource/openagenda', 'src/communication/web', 'src/scoring/twitter',
+                       'src/scoring/owm', 'src/scoring/mock', 'src/scoring/event', 'src/scoring/openagenda', 'src/datasource/openagendamock',
+                       'src/datasource/facebookmock']
 
             compileClasspath += core.compileClasspath + core.output + consumer.compileClasspath + consumer.output +
                     producer.compileClasspath + producer.output + communicationKafka.compileClasspath +
@@ -174,7 +174,7 @@ sourceSets {
                     datasourceTwitter.compileClasspath + datasourceTwitter.output +
                     datasourceDbpedia.output + datasourceDbpedia.compileClasspath +
                     datasourceFacebook.output + datasourceFacebook.compileClasspath +
-					datasourceOWM.output + datasourceOWM.compileClasspath +
+                    datasourceOWM.output + datasourceOWM.compileClasspath +
                     datasourceOpenAgenda.output + datasourceOpenAgenda.compileClasspath +
                     communicationWeb.output + communicationWeb.compileClasspath +
                     scoringOWM.compileClasspath + scoringOWM.output +
@@ -188,6 +188,56 @@ sourceSets {
             runtimeClasspath = output + compileClasspath + runtimeClasspath
         }
     }
+}
+
+task generateJavadoc(type: Javadoc) {
+    source += sourceSets.core.allJava +
+            sourceSets.consumer.allJava +
+            sourceSets.producer.allJava +
+            sourceSets.communicationKafka.allJava +
+            sourceSets.datasourceMeteo.allJava +
+            sourceSets.datasourceRSS.allJava +
+            sourceSets.datasourceTwittermock.allJava +
+            sourceSets.datasourceFacebookmock.allJava +
+            sourceSets.datasourceTwitter.allJava +
+            sourceSets.datasourceDbpedia.allJava +
+            sourceSets.datasourceFacebook.allJava +
+            sourceSets.datasourceOWM.allJava +
+            sourceSets.datasourceOpenAgenda.allJava +
+            sourceSets.communicationWeb.allJava +
+            sourceSets.scoringOWM.allJava +
+            sourceSets.scoringTwitter.allJava +
+            sourceSets.scoringMock.allJava +
+            sourceSets.scoringEvent.allJava +
+            sourceSets.scoringOpenAgenda.allJava +
+            sourceSets.datasourceDbpediaMock.allJava +
+            sourceSets.datasourceOpenAgendaMock.allJava
+    classpath += sourceSets.core.compileClasspath +
+            sourceSets.consumer.compileClasspath +
+            sourceSets.producer.compileClasspath +
+            sourceSets.communicationKafka.compileClasspath +
+            sourceSets.datasourceMeteo.compileClasspath +
+            sourceSets.datasourceRSS.compileClasspath +
+            sourceSets.datasourceTwittermock.compileClasspath +
+            sourceSets.datasourceFacebookmock.compileClasspath +
+            sourceSets.datasourceTwitter.compileClasspath +
+            sourceSets.datasourceDbpedia.compileClasspath +
+            sourceSets.datasourceFacebook.compileClasspath +
+            sourceSets.datasourceOWM.compileClasspath +
+            sourceSets.datasourceOpenAgenda.compileClasspath +
+            sourceSets.communicationWeb.compileClasspath +
+            sourceSets.scoringOWM.compileClasspath +
+            sourceSets.scoringTwitter.compileClasspath +
+            sourceSets.scoringMock.compileClasspath +
+            sourceSets.scoringEvent.compileClasspath +
+            sourceSets.scoringOpenAgenda.compileClasspath +
+            sourceSets.datasourceDbpediaMock.compileClasspath +
+            sourceSets.datasourceOpenAgendaMock.compileClasspath
+    destinationDir = file("${buildDir}/docs/javadoc")
+    options.memberLevel = JavadocMemberLevel.PRIVATE
+    options.author = true
+    options.version = true
+    println (title == null? '<null>' : title)
 }
 
 task packageCoreJar(type: Jar, description: 'Package the Core Jar') {
@@ -425,9 +475,9 @@ task zipBuild(type: Zip) {
 }
 
 task packageAll(dependsOn: ['copyConfigProperties', 'packageConsumerJar', 'packageProducerJar', 'packageWeatherJar',
-    'packageRssJar', 'packageKafkaCommunicationJar', 'packageTwitterJar', 'packageDbpediaJar', 'packageFacebookJar',
-    'packageOwmJar', 'packageOpenAgendaJar', 'packageCommunicationWebJar', 'packageEventScoringJar', 'packageTwitterScoringJar',
-    'packageOpenAgendaScoringJar', 'packageTwitterMockJar', 'packageFacebookMockJar']) {
+                            'packageRssJar', 'packageKafkaCommunicationJar', 'packageTwitterJar', 'packageDbpediaJar', 'packageFacebookJar',
+                            'packageOwmJar', 'packageOpenAgendaJar', 'packageCommunicationWebJar', 'packageEventScoringJar', 'packageTwitterScoringJar',
+                            'packageOpenAgendaScoringJar', 'packageTwitterMockJar', 'packageFacebookMockJar']) {
 }
 
 task ci(dependsOn: ['packageAll', 'zipBuild']) {
@@ -474,7 +524,7 @@ dependencies {
     // datasource_rss
     datasourceRSSCompile 'com.rometools:rome-modules:1.7.1'
 
-	//datasource_OPWweather
+    //datasource_OPWweather
     datasourceOWMCompile 'net.aksingh:owm-japis:2.5.0.3'
     datasourceOWMCompile 'org.json:json:20140107'
 

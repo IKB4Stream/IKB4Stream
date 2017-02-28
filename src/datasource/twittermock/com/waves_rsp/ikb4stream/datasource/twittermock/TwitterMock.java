@@ -24,7 +24,7 @@ import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
-import com.waves_rsp.ikb4stream.core.util.IProducerConnectorMock;
+import com.waves_rsp.ikb4stream.core.datasource.IProducerConnectorMock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

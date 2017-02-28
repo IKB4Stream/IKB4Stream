@@ -25,10 +25,18 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Main class executes the program and launchs the CommunicationManager
- * @see CommunicationManager will be launch
+ * @author ikb4stream
+ * @version 1.0
  */
 public class Main {
+    /**
+     * CommunicationManager is the first class to be launch
+     * @see CommunicationManager#getInstance()
+     */
     private static final CommunicationManager COMMUNICATION_MANAGER = CommunicationManager.getInstance();
+    /**
+     * Logger used to log all information in this class
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
     /**

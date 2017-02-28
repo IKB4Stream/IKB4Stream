@@ -18,7 +18,6 @@
 
 package com.waves_rsp.ikb4stream.communication.web;
 
-
 import com.waves_rsp.ikb4stream.core.communication.ICommunication;
 import com.waves_rsp.ikb4stream.core.communication.IDatabaseReader;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
@@ -32,15 +31,39 @@ import java.util.Objects;
 
 /**
  * Web communication connector that handles REST requests
+ * @author ikb4stream
+ * @version 1.0
+ * @see com.waves_rsp.ikb4stream.core.communication.ICommunication
  */
 public class WebCommunication implements ICommunication {
-    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(WebCommunication.class, "resources/communication/web/config.properties");
+    /**
+     * Properties of this module
+     * @see PropertiesManager
+     * @see PropertiesManager#getProperty(String)
+     * @see PropertiesManager#getInstance(Class, String)
+     */
+    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(WebCommunication.class,
+            "resources/communication/web/config.properties");
+    /**
+     * Logger used to log all information in this module
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(WebCommunication.class);
+    /**
+     * Connection to database to get Event
+     * @see WebCommunication#start(IDatabaseReader)
+     * @see WebCommunication#configureDatabaseReader(IDatabaseReader)
+     */
     static IDatabaseReader databaseReader;
+    /**
+     * VertX use to do Web API in Java
+     * @see WebCommunication#start(IDatabaseReader)
+     * @see WebCommunication#close()
+     */
     private Vertx server;
 
     /**
      * Overrides default constructor
+     * @see WebCommunication
      */
     public WebCommunication() {
         // Do nothing
@@ -48,14 +71,15 @@ public class WebCommunication implements ICommunication {
 
     /**
      * Starts the server, implemented by vertx.
-     * @param databaseReader
-     * @throws NullPointerException if {@param databaseReader} is null
+     * @param databaseReader {@link IDatabaseReader} is the connection to database to get Event
+     * @throws NullPointerException if databaseReader is null
+     * @see WebCommunication#PROPERTIES_MANAGER
+     * @see WebCommunication#server
      */
     @Override
     public void start(IDatabaseReader databaseReader) {
         Objects.requireNonNull(databaseReader);
         configureDatabaseReader(databaseReader);
-
         LOGGER.info("Starting WebCommunication module");
         server = Vertx.vertx();
         DeploymentOptions deploymentOptions = new DeploymentOptions();
@@ -70,25 +94,26 @@ public class WebCommunication implements ICommunication {
         } catch (IllegalArgumentException e) {
             LOGGER.info("Property 'communications.web.port' not set. Use default value for score.target");
         }
-
         JsonObject jsonObject = new JsonObject();
         jsonObject.put("http.port", port);
-
         deploymentOptions.setConfig(jsonObject);
-
         server.deployVerticle(VertxServer.class.getName(), deploymentOptions);
     }
 
     /**
      * Set the static databaseReader of WebCommunication
      * @param dbReader IDatabaseReader to set in WebCommunication
+     * @throws NullPointerException if dbReader is null
+     * @see WebCommunication#databaseReader
      */
     private static void configureDatabaseReader(IDatabaseReader dbReader) {
+        Objects.requireNonNull(dbReader);
         databaseReader = dbReader;
     }
 
     /**
      * Closes the server if it is started.
+     * @see WebCommunication#server
      */
     @Override
     public void close() {
@@ -98,6 +123,11 @@ public class WebCommunication implements ICommunication {
         LOGGER.info("WebCommunication module stopped");
     }
 
+    /**
+     * Check if this jar is active
+     * @return True if it should be started
+     * @see WebCommunication#PROPERTIES_MANAGER
+     */
     @Override
     public boolean isActive() {
         try {

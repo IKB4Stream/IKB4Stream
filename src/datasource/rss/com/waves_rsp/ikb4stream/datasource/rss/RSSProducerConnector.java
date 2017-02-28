@@ -121,7 +121,6 @@ public class RSSProducerConnector implements IProducerConnector {
     /**
      * Select a list of location from a RSS with the NER OpenNLP algorithme.
      * Then, geolocalize the first location found with the geocoder Nominatim (OSM)
-     *
      * @param text to analyze
      * @return a latLong coordinates
      */

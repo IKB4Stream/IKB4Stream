@@ -39,24 +39,87 @@ import java.util.Objects;
 
 /**
  * Search rdf data from dbpedia service from a sparql query
+ * @author ikb4stream
+ * @version 1.0
+ * @see com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector
  */
 public class DBpediaProducerConnector implements IProducerConnector {
+    /**
+     * Properties of this module
+     * @see PropertiesManager
+     * @see PropertiesManager#getProperty(String)
+     * @see PropertiesManager#getInstance(Class, String)
+     */
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(DBpediaProducerConnector.class, "resources/datasource/dbpedia/config.properties");
+    /**
+     * Logger used to log all information in this module
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(DBpediaProducerConnector.class);
+    /**
+     * Object to add metrics from this class
+     * @see MetricsLogger#log(String, long)
+     * @see MetricsLogger#getMetricsLogger()
+     * @see DBpediaProducerConnector#pushIfValidEvent(IDataProducer, Event, long)
+     */
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
-    private final String source;
-    private final String service;
-    private final double latitudeMax;
-    private final double latitudeMin ;
+    /**
+     * Longitude max of {@link com.waves_rsp.ikb4stream.core.communication.model.BoundingBox BoundingBox}
+     * @see DBpediaProducerConnector#load(IDataProducer)
+     */
     private final double longitudeMax;
+    /**
+     * Longitude min of {@link com.waves_rsp.ikb4stream.core.communication.model.BoundingBox BoundingBox}
+     * @see DBpediaProducerConnector#load(IDataProducer)
+     */
     private final double longitudeMin;
+    /**
+     * Latitude max of {@link com.waves_rsp.ikb4stream.core.communication.model.BoundingBox BoundingBox}
+     * @see DBpediaProducerConnector#load(IDataProducer)
+     */
+    private final double latitudeMax;
+    /**
+     * Latitude min of {@link com.waves_rsp.ikb4stream.core.communication.model.BoundingBox BoundingBox}
+     * @see DBpediaProducerConnector#load(IDataProducer)
+     */
+    private final double latitudeMin;
+    /**
+     * Name of city to request
+     * @see DBpediaProducerConnector#load(IDataProducer)
+     */
     private final String resource;
-    private final int limit;
+    /**
+     * DBpedia url to request
+     * @see DBpediaProducerConnector#load(IDataProducer)
+     */
+    private final String service;
+    /**
+     * Interval time between two batch
+     * @see DBpediaProducerConnector#load(IDataProducer)
+     */
     private final long sleepTime;
-
+    /**
+     * Source name of corresponding {@link Event}
+     * @see DBpediaProducerConnector#load(IDataProducer)
+     */
+    private final String source;
+    /**
+     * Limit of {@link Event} to get from {@link DBpediaProducerConnector#source}
+     * @see DBpediaProducerConnector#load(IDataProducer)
+     */
+    private final int limit;
 
     /**
      * Instantiate DBpediaProducerConnector object from static method
+     * @see DBpediaProducerConnector#PROPERTIES_MANAGER
+     * @see DBpediaProducerConnector#source
+     * @see DBpediaProducerConnector#service
+     * @see DBpediaProducerConnector#latitudeMax
+     * @see DBpediaProducerConnector#latitudeMin
+     * @see DBpediaProducerConnector#longitudeMax
+     * @see DBpediaProducerConnector#longitudeMin
+     * @see DBpediaProducerConnector#resource
+     * @see DBpediaProducerConnector#sleepTime
+     * @see DBpediaProducerConnector#limit
      */
     public DBpediaProducerConnector() {
         try {
@@ -76,10 +139,19 @@ public class DBpediaProducerConnector implements IProducerConnector {
     }
 
     /**
-     * Sent the sparql query to dbpedia service and load rdf data parsed into IDataProducer object.
+     * Sent the sparql query to dbpedia service and load rdf data parsed into {@link IDataProducer} object.
      * The dbpedia service return a rdf response with nodes corresponding to the fields requested
-     *
-     * @param dataProducer contains data queue
+     * @param dataProducer contains {@link com.waves_rsp.ikb4stream.producer.datasource.DataQueue DataQueue}
+     * @throws NullPointerException if dataProducer is null
+     * @see DBpediaProducerConnector#source
+     * @see DBpediaProducerConnector#service
+     * @see DBpediaProducerConnector#latitudeMax
+     * @see DBpediaProducerConnector#latitudeMin
+     * @see DBpediaProducerConnector#longitudeMax
+     * @see DBpediaProducerConnector#longitudeMin
+     * @see DBpediaProducerConnector#resource
+     * @see DBpediaProducerConnector#sleepTime
+     * @see DBpediaProducerConnector#limit
      */
     @Override
     public void load(IDataProducer dataProducer) {
@@ -113,11 +185,9 @@ public class DBpediaProducerConnector implements IProducerConnector {
                         "      )\n" +
                         "   }\n" +
                         "} LIMIT "+limit;
-
                 Query request = QueryFactory.create(query);
                 qexec = QueryExecutionFactory.sparqlService(service, request);
                 ResultSet resultSet = qexec.execSelect();
-
                 while(resultSet.hasNext()) {
                     QuerySolution qs = resultSet.nextSolution();
                     RDFNode latitudeNode = qs.get("latitude");
@@ -146,6 +216,11 @@ public class DBpediaProducerConnector implements IProducerConnector {
         }
     }
 
+    /**
+     * Check if this jar is active
+     * @return True if it should be started
+     * @see DBpediaProducerConnector#PROPERTIES_MANAGER
+     */
     @Override
     public boolean isActive() {
         try {
@@ -158,7 +233,6 @@ public class DBpediaProducerConnector implements IProducerConnector {
 
     /**
      * Check if the RDFNodes are null or not
-     *
      * @param rdfNodes RDF nodes to check
      * @return true if the rdf nodes are not null
      */
@@ -168,10 +242,10 @@ public class DBpediaProducerConnector implements IProducerConnector {
 
     /**
      * Parse specific RDFNodes in order to get GPS data with latitude and longitude
-     *
      * @param latitudeNode RDF formatted latitude node
      * @param longitudeNode RDF formatted longitude node
-     * @return latlong object with the coordinates
+     * @return {@link LatLong} object with the coordinates
+     * @see LatLong
      */
     private static LatLong getLatlongFromRDFNodes(RDFNode latitudeNode, RDFNode longitudeNode) {
         double latitude = latitudeNode.asLiteral().getDouble();
@@ -180,17 +254,18 @@ public class DBpediaProducerConnector implements IProducerConnector {
     }
 
     /**
-     * Parse specific nodes in order to create an Event object.
+     * Parse specific nodes in order to create an {@link Event} object.
      * Check the date from startDate and endDate RDF nodes.
      * Retrieve the label and description from labelNode and descriptionNode.
-     *
      * @param latitudeNode RDF formatted latitude node
      * @param longitudeNode RDF formatted longitude node
      * @param startDate filter start date
      * @param endDate filter end date
      * @param descriptionNode contains the event
      * @param label tags
-     * @return null if the checkRDFNodes is false or a ParseException has been caught, else the Even object
+     * @return null if the checkRDFNodes is false or a ParseException has been caught, else the {@link Event} object
+     * @see LatLong
+     * @see Event
      */
     private static Event getEventFromRDFNodes(RDFNode latitudeNode, RDFNode longitudeNode, RDFNode startDate, RDFNode endDate, RDFNode descriptionNode, String label) {
         if(checkRDFNodes(latitudeNode, longitudeNode, startDate, endDate, descriptionNode)) {
@@ -206,15 +281,17 @@ public class DBpediaProducerConnector implements IProducerConnector {
                 return null;
             }
         }
-
         return null;
     }
 
     /**
-     * Push events if scored
-     * @param dataProducer contains the data queue
-     * @param event the event to push
+     * Push {@link Event} if scored
+     * @param dataProducer contains the {@link com.waves_rsp.ikb4stream.producer.datasource.DataQueue}
+     * @param event the {@link Event} to push
      * @param start process start time, used for the metrics module
+     * @see Event
+     * @see IDataProducer
+     * @see DBpediaProducerConnector#METRICS_LOGGER
      */
     private void pushIfValidEvent(IDataProducer dataProducer, Event event, long start) {
         if(event != null) {

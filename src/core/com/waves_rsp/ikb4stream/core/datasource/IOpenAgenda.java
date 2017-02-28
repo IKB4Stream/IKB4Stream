@@ -16,12 +16,12 @@
  *
  */
 
-package com.waves_rsp.ikb4stream.core.datasource.model;
-
+package com.waves_rsp.ikb4stream.core.datasource;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector;
 import com.waves_rsp.ikb4stream.core.metrics.MetricsLogger;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
@@ -33,22 +33,37 @@ import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
+/**
+ * Share code between instance of {@link com.waves_rsp.ikb4stream.datasource.openagenda.OpenAgendaProducerConnector OpenAgendaProducerConnector} and {@link com.waves_rsp.ikb4stream.datasource.openagendamock.OpenAgendaMock OpenAgendaMock}
+ * @author ikb4stream
+ * @version 1.0
+ */
 public interface IOpenAgenda extends IProducerConnector {
-    String UTF8 = "utf-8";
-    Logger LOGGER = LoggerFactory.getLogger(IOpenAgenda.class);
+    /**
+     * Object to add metrics from this interface
+     * @see MetricsLogger#getMetricsLogger()
+     */
     MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
+
+    Logger LOGGER = LoggerFactory.getLogger(IOpenAgenda.class);
+    /**
+     * Default charset
+     */
+    String UTF8 = "utf-8";
 
     /**
      * Parse JSON from Open Agenda API get by the URL
-     *
-     * @return a list of events
+     * @param is Stream of {@link Event} from OpenAgenda
+     * @param source Name of source of this data
+     * @return a list of {@link Event}
+     * @throws NullPointerException if is or source is null
+     * @see Event
      */
     default List<Event> searchEvents(InputStream is, String source) {
+        Objects.requireNonNull(is);
+        Objects.requireNonNull(source);
         List<Event> events = new ArrayList<>();
         ObjectMapper mapper = new ObjectMapper();
         ObjectMapper fieldMapper = new ObjectMapper();
@@ -81,27 +96,34 @@ public interface IOpenAgenda extends IProducerConnector {
 
     /**
      * Format attributes from the Open Agenda API to create an event
-     *
-     * @param latlon      : event's location
-     * @param title       : event's title
-     * @param description : event's description
-     * @param dateStart   : date when the event starting
-     * @param dateEnd     : date when the event ending
-     * @param city        : city where the event take place
-     * @param source      : event's source
-     * @return an event
+     * @param latlong event's location
+     * @param title event's title
+     * @param description event's description
+     * @param dateStart date when the event starting
+     * @param dateEnd date when the event ending
+     * @param city city where the event take place
+     * @param source event's source
+     * @return {@link Event} with this information
+     * @throws NullPointerException if one of this param is null
+     * @see Event
      */
-    default Event createEvent(String latlon, String title, String description, String dateStart, String dateEnd, String city, String source) {
-        String[] coord = new String[2];
+    default Event createEvent(String latlong, String title, String description, String dateStart, String dateEnd, String city, String source) {
+        Objects.requireNonNull(latlong);
+        Objects.requireNonNull(title);
+        Objects.requireNonNull(description);
+        Objects.requireNonNull(dateStart);
+        Objects.requireNonNull(dateEnd);
+        Objects.requireNonNull(city);
+        Objects.requireNonNull(source);
+        String[] coord;
         try {
-            coord = latlon.substring(1, latlon.length() - 1).split(",");
+            coord = latlong.substring(1, latlong.length() - 1).split(",");
         } catch (StringIndexOutOfBoundsException e) {
             LOGGER.warn("Cannot find latlong attribute");
             return null;
         }
         LatLong latLong = new LatLong(Double.parseDouble(coord[0]), Double.parseDouble(coord[1]));
         DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
-
         ObjectMapper objectMapper = new ObjectMapper();
         ObjectNode jsonDescription = objectMapper.createObjectNode();
         jsonDescription.put("title", title);
@@ -121,17 +143,28 @@ public interface IOpenAgenda extends IProducerConnector {
             LOGGER.warn("Cannot find the date of end on OpenAgenda.");
             end = Calendar.getInstance().getTime();
         }
-
         return new Event(latLong, start, end, jsonDescription.toString(), source);
     }
 
+    /**
+     * Add {@link Event} if it's not null
+     * @param events List of {@link Event}
+     * @param event {@link Event} to add in this list
+     * @throws NullPointerException if events is null
+     * @see Event
+     */
     default void pushIfNotNullEvent(List<Event> events, Event event) {
+        Objects.requireNonNull(events);
         if (event != null) {
             events.add(event);
         }
     }
 
-
+    /**
+     * Check if this jar is active
+     * @param property boolean as string
+     * @return true if it should be started
+     */
     default boolean isActive(String property) {
         try {
             return Boolean.valueOf(property);
