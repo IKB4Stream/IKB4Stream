@@ -30,7 +30,7 @@ import com.waves_rsp.ikb4stream.core.metrics.MetricsLogger;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
-import com.waves_rsp.ikb4stream.core.util.GeoCoderJacksonParser;
+import com.waves_rsp.ikb4stream.core.util.Geocoder;
 import com.waves_rsp.ikb4stream.core.util.nlp.OpenNLP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -127,12 +127,12 @@ public class RSSProducerConnector implements IProducerConnector {
      */
     private LatLong geocodeRSS(String text) {
         long start = System.currentTimeMillis();
-        GeoCoderJacksonParser geocoder = new GeoCoderJacksonParser();
+
         List<String> locations = openNLP.applyNLPner(text, OpenNLP.nerOptions.LOCATION);
         if (!locations.isEmpty()) {
             long time = System.currentTimeMillis() - start;
             METRICS_LOGGER.log("time_geocode_" + this.source, time);
-            return geocoder.parse(locations.get(0));
+            return Geocoder.geocode(locations.get(0)).getLatLong();
         }
         return null;
     }

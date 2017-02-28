@@ -2,29 +2,26 @@ package com.waves_rsp.ikb4stream.core.util;
 
 import com.waves_rsp.ikb4stream.core.model.LatLong;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
-public class GeoCodeJacksonParserTest {
+public class GeocoderTest {
 
-    @Ignore
-    @Test
-    public void testCreate() {
-        new GeoCoderJacksonParser();
-    }
 
-    @Ignore
+
     @Test(expected = NullPointerException.class)
     public void testNullAddress() {
-        new GeoCoderJacksonParser().parse(null);
+        Geocoder.geocode(null);
     }
 
-    @Ignore
+
     @Test
     public void testResultFromFullName(){
-        GeoCoderJacksonParser gc = new GeoCoderJacksonParser();
-        LatLong ll = gc.parse("noisy le grand");
+        Geocoder gc = Geocoder.geocode("Noisy le grand");
+        LatLong ll = gc.getLatLong();
+        LatLong[] bbox = gc.getBbox();
         Assert.assertTrue(ll.getLatitude() >=48 && ll.getLatitude() <=49);
+        Assert.assertTrue(bbox[0].getLatitude() >=48 && bbox[0].getLatitude() <=49);
         Assert.assertTrue(ll.getLongitude()>=2 && ll.getLongitude()<3);
+        Assert.assertTrue(bbox[0].getLongitude()>=2 && bbox[0].getLongitude()<3);
     }
 }
