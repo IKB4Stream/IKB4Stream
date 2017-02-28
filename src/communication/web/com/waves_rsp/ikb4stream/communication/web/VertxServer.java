@@ -70,11 +70,15 @@ public class VertxServer extends AbstractVerticle {
         Router router = Router.router(vertx);
         router.route().handler(CorsHandler.create("*")
                 .allowedMethod(HttpMethod.GET)
+                .allowedMethod(HttpMethod.POST)
                 .allowedMethod(HttpMethod.OPTIONS)
                 .allowedHeader("X-PINGARUNER")
-                .allowedHeader("Content-Type"));
+                .allowedHeader("Content-Type")
+        );
+
         router.route("/anomaly*").handler(BodyHandler.create()); // enable reading of request's body
         router.get("/anomaly").handler(this::getAnomalies);
+        router.post("/anomaly").handler(this::getAnomalies);
         vertx
                 .createHttpServer()
                 .requestHandler(router::accept)
@@ -100,14 +104,16 @@ public class VertxServer extends AbstractVerticle {
      */
     private void getAnomalies(RoutingContext rc) {
         try {
+            // curl http://localhost:8081/anomaly -X POST -H "Content-Type: application/json" -d '{"start":1487004295000,"end":1487004295000, "boundingBox":{"points": [{"latitude":10, "longitude":20},{"latitude":15, "longitude":25},{"latitude":25, "longitude":30},{"latitude":10, "longitude":20}]}, "requestReception":1487004295000}'
             LOGGER.info("Received web request: {}", rc.getBodyAsJson());
             Request request = parseRequest(rc.getBodyAsJson());
+
             rc.response().putHeader("content-type", "application/json");
             JsonObject jsonResponse = getEvent(request);
             rc.response()
                     .end(jsonResponse.encode());
-        } catch (DecodeException e) {
-            LOGGER.info("Received an invalid format request");
+        } catch (DecodeException | NullPointerException e) {
+            LOGGER.info("Received an invalid format request : {} ", e.getMessage());
             LOGGER.debug("DecodeException: {}", e);
             rc.fail(400);
         }
@@ -171,4 +177,13 @@ public class VertxServer extends AbstractVerticle {
         }
         return response;
     }
+
+    public static void main(String[] args) {
+
+        WebCommunication webCommunication = new WebCommunication();
+        webCommunication.start((request, callback) ->
+                callback.onResult(null, "{}"));
+    }
+
+
 }
