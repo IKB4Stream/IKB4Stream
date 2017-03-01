@@ -42,6 +42,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 /**
+ * Get {@link Event} from RSS data flow
  * @author ikb4stream
  * @version 1.0
  * @see com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector
@@ -55,24 +56,30 @@ public class WeatherProducerConnector implements IProducerConnector {
      */
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(WeatherProducerConnector.class, "resources/datasource/weather/config.properties");
     /**
-     *
+     * Logger used to log all information in this module
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(WeatherProducerConnector.class);
     /**
-     *
+     * Object to add metrics from this class
+     * @see MetricsLogger#log(String, long)
+     * @see MetricsLogger#getMetricsLogger()
      */
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     /**
-     *
+     * Source name of corresponding {@link Event}
+     * @see WeatherProducerConnector#load(IDataProducer)
      */
     private final String source;
     /**
-     *
+     * RSS URL
      */
     private final URL url;
 
     /**
      * Instantiate the WeatherProducerConnector object with load properties to connect to the RSS flow
+     * @see WeatherProducerConnector#source
+     * @see WeatherProducerConnector#url
+     * @see WeatherProducerConnector#PROPERTIES_MANAGER
      */
     public WeatherProducerConnector() {
         try {
@@ -85,8 +92,10 @@ public class WeatherProducerConnector implements IProducerConnector {
     }
 
     /**
-     * Check a RSS flow from an
+     * Check a RSS flow from an URL
      * @param dataProducer {@link IDataProducer} contains the data queue
+     * @see WeatherProducerConnector#source
+     * @see WeatherProducerConnector#METRICS_LOGGER
      */
     @Override
     public void load(IDataProducer dataProducer) {
@@ -125,8 +134,9 @@ public class WeatherProducerConnector implements IProducerConnector {
     }
 
     /**
-     *
-     * @return
+     * Check if this jar is active
+     * @return true if it should be started
+     * @see WeatherProducerConnector#PROPERTIES_MANAGER
      */
     @Override
     public boolean isActive() {

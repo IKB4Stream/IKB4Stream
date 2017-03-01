@@ -156,7 +156,7 @@ public class DatabaseReader implements IDatabaseReader {
                             LOGGER.info("get event request has been sent to mongo.");
                             callback.onResult(
                                     t,
-                                    "[" + result.stream().map(d -> d.toJson()).collect(Collectors.joining(", ")) + "]"
+                                    "[" + result.stream().map(Document::toJson).collect(Collectors.joining(", ")) + "]"
                             );
                         });
     }

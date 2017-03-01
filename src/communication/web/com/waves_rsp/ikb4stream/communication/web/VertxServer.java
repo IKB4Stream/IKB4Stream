@@ -54,7 +54,7 @@ public class VertxServer extends AbstractVerticle {
      * {@link IDatabaseReader} object to read data from database
      * @see VertxServer#getEvent(Request)
      */
-    private final IDatabaseReader databaseReader = WebCommunication.databaseReader;
+    private static final IDatabaseReader DATABASE_READER = WebCommunication.databaseReader;
 
     /**
      * Server starting behaviour
@@ -144,11 +144,11 @@ public class VertxServer extends AbstractVerticle {
      * Retrieve an event from database
      * @param request {@link Request} the user web request
      * @return {@link JsonObject} extracted from the database
-     * @see VertxServer#databaseReader
+     * @see VertxServer#DATABASE_READER
      */
     private JsonObject getEvent(Request request) {
         String[] r = new String[1];
-        databaseReader.getEvent(request, (t, result) -> {
+        DATABASE_READER.getEvent(request, (t, result) -> {
             if(t != null) {
                 LOGGER.error("DatabaseReader error: " + t.getMessage()); return;
             }
