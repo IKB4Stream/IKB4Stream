@@ -135,7 +135,7 @@ public class Geocoder {
         URL url;
         try {
             String addressEncode = URLEncoder.encode(address, "utf-8");
-            String geocodeURL = PROPERTIES_MANAGER.getProperty("geocode.url");
+            String geocodeURL = PROPERTIES_MANAGER.getPropertyOrDefault("geocode.url", "http://photon.komoot.de/api/?osm_tag=place&lang=fr&limit=1&q=");
             String formattedUrl = geocodeURL + addressEncode;
             url = new URL(formattedUrl);
         } catch (MalformedURLException | UnsupportedEncodingException e) {

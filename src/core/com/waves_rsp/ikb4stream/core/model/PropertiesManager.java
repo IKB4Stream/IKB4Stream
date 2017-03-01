@@ -101,4 +101,20 @@ public class PropertiesManager {
         }
         return value;
     }
+
+    /**
+     * Get property
+     * @param property Property to get from configuration file
+     * @param defaultValue Default value to return
+     * @return Value of property
+     * @throws NullPointerException if property is null
+     */
+    public String getPropertyOrDefault(String property, String defaultValue) {
+        Objects.requireNonNull(property);
+        String value = config.getProperty(property);
+        if (value == null) {
+            return defaultValue;
+        }
+        return value;
+    }
 }
