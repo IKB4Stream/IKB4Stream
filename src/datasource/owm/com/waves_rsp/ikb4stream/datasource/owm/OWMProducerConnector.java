@@ -60,6 +60,7 @@ public class OWMProducerConnector implements IProducerConnector{
      */
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     /**
+     * OpenWeatherMap java API
      * @see OWMProducerConnector#getCurrentWeather(double, double)
      */
     private final OpenWeatherMap openWeatherMap;
@@ -89,7 +90,7 @@ public class OWMProducerConnector implements IProducerConnector{
     private final String source;
 
     /**
-     * Instantiate the OWMProducerConnector object with load properties
+     * Instantiate the {@link OWMProducerConnector} object with load properties
      * @throws IllegalArgumentException if invalid values in configuration file
      * @see OWMProducerConnector#source
      * @see OWMProducerConnector#latitude

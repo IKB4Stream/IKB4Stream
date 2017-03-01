@@ -48,16 +48,17 @@ public class TwitterMock implements IProducerConnectorMock {
      */
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(TwitterMock.class, "resources/datasource/twittermock/config.properties");
     /**
-     *
+     * Logger used to log all information in this module
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(TwitterMock.class);
     /**
-     *
+     * Source name of corresponding {@link Event}
+     * @see TwitterMock#getEventFromJson(ObjectNode)
      */
     private static final String SOURCE = "Twitter";
 
     /**
-     *
+     * Override default constructor
      */
     public TwitterMock() {
         // Do Nothing
@@ -66,6 +67,7 @@ public class TwitterMock implements IProducerConnectorMock {
     /**
      * Load data registered into a json twitter file and parse them to create event
      * @param dataProducer {@link IDataProducer} contains the data queue
+     * @see IProducerConnectorMock#load(IDataProducer, PropertiesManager, String)
      */
     @Override
     public void load(IDataProducer dataProducer) {
@@ -76,6 +78,7 @@ public class TwitterMock implements IProducerConnectorMock {
     /**
      * Indicates whether this producer is enabled or not, according to twittermock.enable
      * @return true is facebookmock.enable is true
+     * @see TwitterMock#PROPERTIES_MANAGER
      */
     @Override
     public boolean isActive() {
@@ -83,9 +86,10 @@ public class TwitterMock implements IProducerConnectorMock {
     }
 
     /**
-     * Parse an object node in order to create an Event object
-     * @param objectNode object node to convert to Event
-     * @return Event converted format
+     * Parse an object node in order to create an {@link Event} object
+     * @param objectNode object node to convert to {@link Event}
+     * @return {@link Event} converted format
+     * @see TwitterMock#SOURCE
      */
     @Override
     public Event getEventFromJson(ObjectNode objectNode) {
@@ -104,9 +108,9 @@ public class TwitterMock implements IProducerConnectorMock {
     }
 
     /**
-     * Create LatLong from a jsonNode object and parse it to get GPS coordinates
+     * Create {@link LatLong} from a jsonNode object and parse it to get GPS coordinates
      * @param jsonCoordinates json coordinates to parse
-     * @return latlong the parsed latlong
+     * @return {@link LatLong} the parsed latlong from jsonCoordinates
      */
     private static LatLong jsonToLatLong(JsonNode jsonCoordinates) {
         JsonNode main = jsonCoordinates.elements().next();
