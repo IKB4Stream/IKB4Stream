@@ -24,12 +24,14 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Define properties to connect to the influx database for metrics
+ *
  * @author ikb4stream
  * @version 1.0
  */
 public class MetricsProperties {
     /**
      * Properties of this class
+     *
      * @see PropertiesManager
      * @see PropertiesManager#getProperty(String)
      * @see PropertiesManager#getInstance(Class)
@@ -45,32 +47,38 @@ public class MetricsProperties {
     private static final MetricsProperties METRICS_PROPERTIES = new MetricsProperties();
     /**
      * Host of InfluxDB
+     *
      * @see MetricsProperties#getHost()
      */
     private final String host;
     /**
      * Username to log in into InfluxDB
+     *
      * @see MetricsProperties#getUser()
      */
     private final String user;
     /**
      * Password associate to {@link MetricsProperties#host}
+     *
      * @see MetricsProperties#getPassword()
      */
     private final String password;
     /**
      * Database name where values will be store
+     *
      * @see MetricsProperties#getDbName()
      */
     private final String dbName;
     /**
      * Name of the collection into {@link MetricsProperties#dbName}
+     *
      * @see MetricsProperties#getMeasurement()
      */
     private final String measurement;
 
     /**
      * Create MetricsProperties with configuration into configuration file
+     *
      * @throws IllegalStateException If configuration of Influx is not correct
      */
     private MetricsProperties() {
@@ -89,6 +97,7 @@ public class MetricsProperties {
 
     /**
      * Singleton to get properties from influx database
+     *
      * @return the object instance for MetricsProperties
      * @throws IllegalStateException If configuration of Influx is not correct
      * @see MetricsProperties#METRICS_PROPERTIES
@@ -99,6 +108,7 @@ public class MetricsProperties {
 
     /**
      * Get host of influx database
+     *
      * @return Host of influx database
      * @see MetricsProperties#host
      */
@@ -108,6 +118,7 @@ public class MetricsProperties {
 
     /**
      * Get user of influx database
+     *
      * @return User of influx database
      * @see MetricsProperties#user
      */
@@ -117,6 +128,7 @@ public class MetricsProperties {
 
     /**
      * Get password of influx database
+     *
      * @return Password of influx database
      * @see MetricsProperties#password
      */
@@ -126,6 +138,7 @@ public class MetricsProperties {
 
     /**
      * Get database name of influx database
+     *
      * @return Database name of influx database
      * @see MetricsProperties#dbName
      */
@@ -135,6 +148,7 @@ public class MetricsProperties {
 
     /**
      * Get table of metrics from influx database
+     *
      * @return Table's name of Measurement
      * @see MetricsProperties#measurement
      */

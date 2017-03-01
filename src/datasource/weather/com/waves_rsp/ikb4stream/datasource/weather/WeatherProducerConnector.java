@@ -43,6 +43,7 @@ import java.util.Objects;
 
 /**
  * Get {@link Event} from RSS data flow
+ *
  * @author ikb4stream
  * @version 1.0
  * @see com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector
@@ -50,6 +51,7 @@ import java.util.Objects;
 public class WeatherProducerConnector implements IProducerConnector {
     /**
      * Properties of this module
+     *
      * @see PropertiesManager
      * @see PropertiesManager#getProperty(String)
      * @see PropertiesManager#getInstance(Class, String)
@@ -61,12 +63,14 @@ public class WeatherProducerConnector implements IProducerConnector {
     private static final Logger LOGGER = LoggerFactory.getLogger(WeatherProducerConnector.class);
     /**
      * Object to add metrics from this class
+     *
      * @see MetricsLogger#log(String, long)
      * @see MetricsLogger#getMetricsLogger()
      */
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     /**
      * Source name of corresponding {@link Event}
+     *
      * @see WeatherProducerConnector#load(IDataProducer)
      */
     private final String source;
@@ -77,6 +81,7 @@ public class WeatherProducerConnector implements IProducerConnector {
 
     /**
      * Instantiate the WeatherProducerConnector object with load properties to connect to the RSS flow
+     *
      * @see WeatherProducerConnector#source
      * @see WeatherProducerConnector#url
      * @see WeatherProducerConnector#PROPERTIES_MANAGER
@@ -93,6 +98,7 @@ public class WeatherProducerConnector implements IProducerConnector {
 
     /**
      * Check a RSS flow from an URL
+     *
      * @param dataProducer {@link IDataProducer} contains the data queue
      * @see WeatherProducerConnector#source
      * @see WeatherProducerConnector#METRICS_LOGGER
@@ -122,7 +128,7 @@ public class WeatherProducerConnector implements IProducerConnector {
                         dataProducer.push(event);
                         long end = System.currentTimeMillis();
                         long result = end - start;
-                        METRICS_LOGGER.log("time_process_"+this.source, result);
+                        METRICS_LOGGER.log("time_process_" + this.source, result);
                         LOGGER.info("Event " + event + " has been pushed");
                     }
                 });
@@ -135,6 +141,7 @@ public class WeatherProducerConnector implements IProducerConnector {
 
     /**
      * Check if this jar is active
+     *
      * @return true if it should be started
      * @see WeatherProducerConnector#PROPERTIES_MANAGER
      */

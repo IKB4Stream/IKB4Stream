@@ -20,12 +20,14 @@ package com.waves_rsp.ikb4stream.core.communication;
 
 /**
  * Interface to implement if you want to use your class as module of communication
+ *
  * @author ikb4stream
  * @version 1.0
  */
 public interface ICommunication {
     /**
      * Called at startup
+     *
      * @param databaseReader Implementation of {@link com.waves_rsp.ikb4stream.consumer.database.DatabaseReader DatabaseReader}
      * @see IDatabaseReader
      */
@@ -38,6 +40,7 @@ public interface ICommunication {
 
     /**
      * Called to know if module should be launch
+     *
      * @return true if Communication module must be started
      */
     boolean isActive();

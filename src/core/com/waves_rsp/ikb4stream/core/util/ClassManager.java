@@ -26,6 +26,7 @@ import java.util.Objects;
 
 /**
  * ClassManager which provides static method to apply to Class
+ *
  * @author ikb4stream
  * @version 1.0
  * @see JarLoader
@@ -45,9 +46,10 @@ public class ClassManager {
 
     /**
      * Create a new instance of clazz
+     *
      * @param clazz Class to instantiate
      * @return New object instantiated of clazz
-     * @throws NullPointerException if clazz is null
+     * @throws NullPointerException     if clazz is null
      * @throws IllegalArgumentException if clazz cannot be instantiated
      */
     public static Object newInstance(Class clazz) {
@@ -61,8 +63,9 @@ public class ClassManager {
 
     /**
      * Load class which has className as class name
+     *
      * @param className Class name to load
-     * @param child ClassLoader used to load this className
+     * @param child     ClassLoader used to load this className
      * @return Class if it's can be instantiate or null otherwise
      * @throws NullPointerException if className or child is null
      */
@@ -82,7 +85,8 @@ public class ClassManager {
 
     /**
      * Test if clazz implements interfaceClass
-     * @param clazz Class to test
+     *
+     * @param clazz          Class to test
      * @param interfaceClass Interface to test if it's implement
      * @return True if clazz implement interfaceClass
      * @throws NullPointerException if interfaceClass is null

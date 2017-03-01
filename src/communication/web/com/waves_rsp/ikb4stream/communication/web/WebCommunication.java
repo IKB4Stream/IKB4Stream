@@ -31,6 +31,7 @@ import java.util.Objects;
 
 /**
  * Web communication connector that handles REST requests
+ *
  * @author ikb4stream
  * @version 1.0
  * @see com.waves_rsp.ikb4stream.core.communication.ICommunication
@@ -38,6 +39,7 @@ import java.util.Objects;
 public class WebCommunication implements ICommunication {
     /**
      * Properties of this module
+     *
      * @see PropertiesManager
      * @see PropertiesManager#getProperty(String)
      * @see PropertiesManager#getInstance(Class, String)
@@ -50,12 +52,14 @@ public class WebCommunication implements ICommunication {
     private static final Logger LOGGER = LoggerFactory.getLogger(WebCommunication.class);
     /**
      * Connection to database to get Event
+     *
      * @see WebCommunication#start(IDatabaseReader)
      * @see WebCommunication#configureDatabaseReader(IDatabaseReader)
      */
     static IDatabaseReader databaseReader;
     /**
      * VertX use to do Web API in Java
+     *
      * @see WebCommunication#start(IDatabaseReader)
      * @see WebCommunication#close()
      */
@@ -63,6 +67,7 @@ public class WebCommunication implements ICommunication {
 
     /**
      * Overrides default constructor
+     *
      * @see WebCommunication
      */
     public WebCommunication() {
@@ -71,6 +76,7 @@ public class WebCommunication implements ICommunication {
 
     /**
      * Starts the server, implemented by vertx.
+     *
      * @param databaseReader {@link IDatabaseReader} is the connection to database to get Event
      * @throws NullPointerException if databaseReader is null
      * @see WebCommunication#PROPERTIES_MANAGER
@@ -102,6 +108,7 @@ public class WebCommunication implements ICommunication {
 
     /**
      * Set the static databaseReader of WebCommunication
+     *
      * @param dbReader IDatabaseReader to set in WebCommunication
      * @throws NullPointerException if dbReader is null
      * @see WebCommunication#databaseReader
@@ -113,6 +120,7 @@ public class WebCommunication implements ICommunication {
 
     /**
      * Closes the server if it is started.
+     *
      * @see WebCommunication#server
      */
     @Override
@@ -125,6 +133,7 @@ public class WebCommunication implements ICommunication {
 
     /**
      * Check if this jar is active
+     *
      * @return True if it should be started
      * @see WebCommunication#PROPERTIES_MANAGER
      */

@@ -25,12 +25,14 @@ import java.util.stream.Collectors;
 
 /**
  * Event class represents an event with starting date and end date
+ *
  * @author ikb4stream
  * @version 1.0
  */
 public class Event {
     /**
      * Properties of this class
+     *
      * @see PropertiesManager
      * @see PropertiesManager#getProperty(String)
      * @see PropertiesManager#getInstance(Class)
@@ -38,43 +40,50 @@ public class Event {
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(Event.class);
     /**
      * Position of the {@link Event} represented by a BoundingBox
+     *
      * @see Event#getLocation()
      */
     private final LatLong[] location;
     /**
      * Description of an {@link Event}
+     *
      * @see Event#getDescription()
      */
     private final String description;
     /**
      * Source where {@link Event} provides
+     *
      * @see Event#getSource()
      */
     private final String source;
     /**
      * Beginning of {@link Event}
+     *
      * @see Event#getStart()
      */
     private final Date start;
     /**
      * Score associated to this {@link Event}
+     *
      * @see Event#getScore()
      */
     private final byte score;
     /**
      * End of this {@link Event}
+     *
      * @see Event#getEnd()
      */
     private final Date end;
 
     /**
      * Create an Event without score
-     * @param location the location of the event, defined by a BondingBox (LatLong[])
-     * @param start The moment when the event begins
-     * @param end End of the event, or the current date
+     *
+     * @param location    the location of the event, defined by a BondingBox (LatLong[])
+     * @param start       The moment when the event begins
+     * @param end         End of the event, or the current date
      * @param description the event content. For instance, the message of a tweet.
-     * @param source from which datasource the event is provided
-     * @throws NullPointerException if a param is null
+     * @param source      from which datasource the event is provided
+     * @throws NullPointerException     if a param is null
      * @throws IllegalArgumentException if source is empty
      */
     public Event(LatLong[] location, Date start, Date end, String description, String source) {
@@ -83,8 +92,10 @@ public class Event {
         Objects.requireNonNull(end);
         Objects.requireNonNull(description);
         Objects.requireNonNull(source);
-        if(source.isEmpty()) { throw new IllegalArgumentException("Source argument cannot be empty."); }
-        if(!location[0].equals(location[location.length - 1])) {
+        if (source.isEmpty()) {
+            throw new IllegalArgumentException("Source argument cannot be empty.");
+        }
+        if (!location[0].equals(location[location.length - 1])) {
             throw new IllegalArgumentException("BoundingBox is not closed.");
         }
         this.location = location;
@@ -97,13 +108,14 @@ public class Event {
 
     /**
      * Create an Event with a score
-     * @param location the location of the event, defined by a BondingBox (LatLong[])
-     * @param start The moment when the event begins
-     * @param end End of the event, or the current date
+     *
+     * @param location    the location of the event, defined by a BondingBox (LatLong[])
+     * @param start       The moment when the event begins
+     * @param end         End of the event, or the current date
      * @param description the event content. For instance, the message of a tweet.
-     * @param score Score of this event between 0 and 100
-     * @param source from which datasource the event is provided
-     * @throws NullPointerException If one params is null
+     * @param score       Score of this event between 0 and 100
+     * @param source      from which datasource the event is provided
+     * @throws NullPointerException     If one params is null
      * @throws IllegalArgumentException If source is empty or score is not between 0 and 100
      */
     public Event(LatLong[] location, Date start, Date end, String description, byte score, String source) {
@@ -112,9 +124,13 @@ public class Event {
         Objects.requireNonNull(end);
         Objects.requireNonNull(description);
         Objects.requireNonNull(source);
-        if(source.isEmpty()) { throw new IllegalArgumentException("Source argument cannot be empty."); }
-        if(score < 0 || score > 100) { throw new IllegalArgumentException("Score need to be between 0 and 100."); }
-        if(!location[0].equals(location[location.length - 1])) {
+        if (source.isEmpty()) {
+            throw new IllegalArgumentException("Source argument cannot be empty.");
+        }
+        if (score < 0 || score > 100) {
+            throw new IllegalArgumentException("Score need to be between 0 and 100.");
+        }
+        if (!location[0].equals(location[location.length - 1])) {
             throw new IllegalArgumentException("BoundingBox is not closed.");
         }
         this.location = location;
@@ -127,12 +143,13 @@ public class Event {
 
     /**
      * Create an Event without score
-     * @param location the location of the event, defined by a LatLong
-     * @param start The moment when the event begins
-     * @param end End of the event, or the current date
+     *
+     * @param location    the location of the event, defined by a LatLong
+     * @param start       The moment when the event begins
+     * @param end         End of the event, or the current date
      * @param description the event content. For instance, the message of a tweet.
-     * @param source from which datasource the event is provided
-     * @throws NullPointerException If a param is null
+     * @param source      from which datasource the event is provided
+     * @throws NullPointerException     If a param is null
      * @throws IllegalArgumentException If source is empty
      */
     public Event(LatLong location, Date start, Date end, String description, String source) {
@@ -141,13 +158,14 @@ public class Event {
 
     /**
      * Create an Event with a score
-     * @param location the location of the event, defined by a LatLong
-     * @param start The moment when the event begins
-     * @param end End of the event, or the current date
+     *
+     * @param location    the location of the event, defined by a LatLong
+     * @param start       The moment when the event begins
+     * @param end         End of the event, or the current date
      * @param description the event content. For instance, the message of a tweet.
-     * @param score Score of this event between 0 and 100
-     * @param source from which datasource the event is provided
-     * @throws NullPointerException If one params is null
+     * @param score       Score of this event between 0 and 100
+     * @param source      from which datasource the event is provided
+     * @throws NullPointerException     If one params is null
      * @throws IllegalArgumentException If source is empty or score is not between 0 and 100
      */
     public Event(LatLong location, Date start, Date end, String description, byte score, String source) {
@@ -156,6 +174,7 @@ public class Event {
 
     /**
      * Get location of this event
+     *
      * @return LatLong[] to represent the position of this Event
      * @see Event#location
      */
@@ -165,6 +184,7 @@ public class Event {
 
     /**
      * Get the moment when the event begins
+     *
      * @return start date
      * @see Event#start
      */
@@ -174,6 +194,7 @@ public class Event {
 
     /**
      * Get the moment when the end of the event
+     *
      * @return end date
      * @see Event#end
      */
@@ -183,6 +204,7 @@ public class Event {
 
     /**
      * Get description of this event
+     *
      * @return description
      * @see Event#description
      */
@@ -192,6 +214,7 @@ public class Event {
 
     /**
      * Get source from which datasource, this event is provided
+     *
      * @return source
      * @see Event#source
      */
@@ -201,6 +224,7 @@ public class Event {
 
     /**
      * Get score of this event after score processing
+     *
      * @return score or -1 if this event hasn't been analysed by score processor
      * @see Event#score
      */
@@ -210,6 +234,7 @@ public class Event {
 
     /**
      * Generated method to test if {@link Event} are same
+     *
      * @param o Other {@link Event} to compare
      * @return true if there are equals
      */
@@ -228,6 +253,7 @@ public class Event {
 
     /**
      * Generated method
+     *
      * @return hashcode of {@link Event}
      */
     @Override
@@ -243,6 +269,7 @@ public class Event {
 
     /**
      * Represent this {@link Event} as a String
+     *
      * @return a string which contains information about an event
      * @see Event#location
      * @see Event#start
@@ -265,6 +292,7 @@ public class Event {
 
     /**
      * Get score min for an event
+     *
      * @return Score min to apply to an event
      * @see Event#PROPERTIES_MANAGER
      */
@@ -278,6 +306,7 @@ public class Event {
 
     /**
      * Get score max for an event
+     *
      * @return Score max to apply to an event
      * @see Event#PROPERTIES_MANAGER
      */

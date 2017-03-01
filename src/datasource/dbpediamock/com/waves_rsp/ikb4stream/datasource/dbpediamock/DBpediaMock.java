@@ -34,6 +34,7 @@ import java.util.Objects;
 
 /**
  * Mock of {@link com.waves_rsp.ikb4stream.datasource.dbpedia.DBpediaProducerConnector DBpediaProducerConnector}
+ *
  * @author ikb4stream
  * @version 1.0
  * @see com.waves_rsp.ikb4stream.core.datasource.IProducerConnectorMock
@@ -42,6 +43,7 @@ import java.util.Objects;
 public class DBpediaMock implements IProducerConnectorMock {
     /**
      * Properties of this module
+     *
      * @see PropertiesManager
      * @see PropertiesManager#getProperty(String)
      * @see PropertiesManager#getInstance(Class, String)
@@ -54,11 +56,13 @@ public class DBpediaMock implements IProducerConnectorMock {
     private static final String VALUE = "value";
     /**
      * Source name of corresponding {@link Event}
+     *
      * @see DBpediaMock#getEventFromJson(ObjectNode)
      */
     private final String source;
     /**
      * Language of data receive
+     *
      * @see DBpediaMock#checkValidData(JsonNode, JsonNode, JsonNode, LatLong, JsonNode)
      */
     private final String lang;
@@ -70,7 +74,7 @@ public class DBpediaMock implements IProducerConnectorMock {
         try {
             this.source = PROPERTIES_MANAGER.getProperty("dbpediamock.source");
             this.lang = PROPERTIES_MANAGER.getProperty("dbpediamock.language");
-        }catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             LOGGER.error("Bad properties loaded: {}", e);
             throw new IllegalStateException(e.getMessage());
         }
@@ -79,6 +83,7 @@ public class DBpediaMock implements IProducerConnectorMock {
     /**
      * Common method of {@link com.waves_rsp.ikb4stream.core.datasource.model.IScoreProcessor IScoreProcessor} called
      * by {@link com.waves_rsp.ikb4stream.producer.datasource.ProducerManager ProducerManager}
+     *
      * @param dataProducer {@link IDataProducer} contains the data queue
      * @see DBpediaMock#PROPERTIES_MANAGER
      */
@@ -90,9 +95,10 @@ public class DBpediaMock implements IProducerConnectorMock {
 
     /**
      * Get an {@link Event} object from an ObjectNode if it's possible
+     *
      * @param objectNode {@link Event} as JSON Object
      * @return a valid {@link Event}
-     * @throws ParseException objectNode if the current objectNode with a json cannot be parsed
+     * @throws ParseException       objectNode if the current objectNode with a json cannot be parsed
      * @throws NullPointerException if objectNode is null
      * @see DBpediaMock#VALUE
      * @see DBpediaMock#source
@@ -109,7 +115,7 @@ public class DBpediaMock implements IProducerConnectorMock {
             JsonNode descriptionNode = objectNode.findValue("description").findValue(VALUE);
             JsonNode langNode = objectNode.findValue("xml:lang");
             LatLong latLong = jsonToLatLong(objectNode);
-            if(checkValidData(startNode, endNode, descriptionNode, latLong, langNode)) {
+            if (checkValidData(startNode, endNode, descriptionNode, latLong, langNode)) {
                 String start = startNode.asText();
                 String end = endNode.asText();
                 startDate = dateFormat.parse(start);
@@ -117,7 +123,7 @@ public class DBpediaMock implements IProducerConnectorMock {
                 String description = descriptionNode.asText();
                 return new Event(latLong, startDate, endDate, description, source);
             }
-        }catch (ParseException e) {
+        } catch (ParseException e) {
             LOGGER.error("Invalid fields found: {}", e);
         }
         return null;
@@ -125,21 +131,23 @@ public class DBpediaMock implements IProducerConnectorMock {
 
     /**
      * Check if the json nodes and {@link LatLong} objects are valid
-     * @param startNode Start date in JSON of future {@link Event}
-     * @param endNode End date in JSON of future {@link Event}
+     *
+     * @param startNode       Start date in JSON of future {@link Event}
+     * @param endNode         End date in JSON of future {@link Event}
      * @param descriptionNode Description in JSON of future {@link Event}
-     * @param latLong {@link LatLong} of the {@link Event}
-     * @param langNode Language used in {@link Event}
+     * @param latLong         {@link LatLong} of the {@link Event}
+     * @param langNode        Language used in {@link Event}
      * @return true if data are valid
      * @see DBpediaMock#lang
      */
     private boolean checkValidData(JsonNode startNode, JsonNode endNode, JsonNode descriptionNode, LatLong latLong, JsonNode langNode) {
         return startNode != null && endNode != null && descriptionNode != null
-                &&  lang.equals(langNode.asText()) && latLong != null;
+                && lang.equals(langNode.asText()) && latLong != null;
     }
 
     /**
      * Parse a json node object in order to create a valid {@link LatLong} object
+     *
      * @param objectNode {@link LatLong} in JSON format
      * @return a valid {@link LatLong}
      * @see LatLong
@@ -148,7 +156,7 @@ public class DBpediaMock implements IProducerConnectorMock {
     private static LatLong jsonToLatLong(JsonNode objectNode) {
         JsonNode latitudeNode = objectNode.findValue("latitude");
         JsonNode longitudeNode = objectNode.findValue("longitude");
-        if(latitudeNode != null && longitudeNode != null) {
+        if (latitudeNode != null && longitudeNode != null) {
             double latitude = latitudeNode.findValue(VALUE).asDouble();
             double longitude = longitudeNode.findValue(VALUE).asDouble();
             return new LatLong(latitude, longitude);
@@ -158,6 +166,7 @@ public class DBpediaMock implements IProducerConnectorMock {
 
     /**
      * Check if this jar is active
+     *
      * @return true if it should be started
      * @see DBpediaMock#PROPERTIES_MANAGER
      */

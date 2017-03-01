@@ -39,6 +39,7 @@ import java.util.Objects;
 
 /**
  * Interface to generify mock of {@link IProducerConnector}
+ *
  * @author ikb4stream
  * @version 1.0
  */
@@ -49,6 +50,7 @@ public interface IProducerConnectorMock extends IProducerConnector {
     Logger LOGGER = LoggerFactory.getLogger(IProducerConnectorMock.class);
     /**
      * Object to add metrics from this interface
+     *
      * @see MetricsLogger#getMetricsLogger()
      * @see MetricsLogger#log(String, long)
      */
@@ -56,9 +58,10 @@ public interface IProducerConnectorMock extends IProducerConnector {
 
     /**
      * Load data registered into a json file and parse them to create event
-     * @param dataProducer {@link IDataProducer} that contains the queue
+     *
+     * @param dataProducer      {@link IDataProducer} that contains the queue
      * @param propertiesManager {@link PropertiesManager} instance of class which instantiate this interface
-     * @param pathString Key in configuration file to find
+     * @param pathString        Key in configuration file to find
      * @throws NullPointerException if one of param is null
      * @see IDataProducer
      * @see PropertiesManager
@@ -71,7 +74,7 @@ public interface IProducerConnectorMock extends IProducerConnector {
         Path path = Paths.get(propertiesManager.getProperty(pathString));
         long start = System.currentTimeMillis();
         try (InputStream inputStream = new FileInputStream(path.toString());
-                JsonParser parser = mapper.getFactory().createParser(inputStream)) {
+             JsonParser parser = mapper.getFactory().createParser(inputStream)) {
             while (!Thread.currentThread().isInterrupted()) {
                 if (readMockFile(dataProducer, mapper, parser, start)) {
                     return;
@@ -84,8 +87,9 @@ public interface IProducerConnectorMock extends IProducerConnector {
 
     /**
      * Indicates whether this producer is enabled or not, according to enable
+     *
      * @param propertiesManager {@link PropertiesManager} instance of class which instantiate this interface
-     * @param enableString Key in configuration file
+     * @param enableString      Key in configuration file
      * @return true is enable is true
      * @throws NullPointerException if one of param is null
      * @see PropertiesManager
@@ -102,10 +106,11 @@ public interface IProducerConnectorMock extends IProducerConnector {
 
     /**
      * Read events mock file, and push it
+     *
      * @param dataProducer contains the queue
-     * @param mapper indicates how to parse the file
-     * @param parser contains mocks
-     * @param start time when method is called
+     * @param mapper       indicates how to parse the file
+     * @param parser       contains mocks
+     * @param start        time when method is called
      * @return true if interrupted, False if it ended with normal behaviour
      * @see IDataProducer
      */
@@ -127,6 +132,7 @@ public interface IProducerConnectorMock extends IProducerConnector {
 
     /**
      * Parse an object node in order to create an Event object
+     *
      * @param objectNode object node to convert to Event
      * @return {@link Event} converted format
      * @see Event
@@ -135,9 +141,10 @@ public interface IProducerConnectorMock extends IProducerConnector {
 
     /**
      * Push a valid event into the data producer object
+     *
      * @param dataProducer {@link IDataProducer} that contains the queue
-     * @param event {@link Event} to push
-     * @param start time when method is called
+     * @param event        {@link Event} to push
+     * @param start        time when method is called
      * @throws NullPointerException if dataProducer is null
      * @see IDataProducer
      * @see Event
@@ -148,8 +155,8 @@ public interface IProducerConnectorMock extends IProducerConnector {
             dataProducer.push(event);
             long end = System.currentTimeMillis();
             long result = end - start;
-            METRICS_LOGGER.log("time_process_"+event.getSource(), result);
-            LOGGER.info("Event "+event.toString()+" was correctly pushed");
+            METRICS_LOGGER.log("time_process_" + event.getSource(), result);
+            LOGGER.info("Event " + event.toString() + " was correctly pushed");
         } else {
             LOGGER.error("An event was discard (missing field)");
         }

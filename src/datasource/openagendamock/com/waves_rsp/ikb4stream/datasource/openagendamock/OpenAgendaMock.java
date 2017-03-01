@@ -19,8 +19,8 @@
 package com.waves_rsp.ikb4stream.datasource.openagendamock;
 
 
-import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
 import com.waves_rsp.ikb4stream.core.datasource.IOpenAgenda;
+import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
 
@@ -30,6 +30,7 @@ import java.util.Objects;
 
 /**
  * Mock of {@link com.waves_rsp.ikb4stream.datasource.openagenda.OpenAgendaProducerConnector OpenAgendaProducerConnector}
+ *
  * @author ikb4stream
  * @version 1.0
  * @see com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector
@@ -38,29 +39,32 @@ import java.util.Objects;
 public class OpenAgendaMock implements IOpenAgenda {
     /**
      * Properties of this module
+     *
      * @see PropertiesManager
      * @see PropertiesManager#getProperty(String)
      * @see PropertiesManager#getInstance(Class, String)
      */
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(OpenAgendaMock.class, "resources/datasource/openagendamock/config.properties");
     /**
-     *
      * @see OpenAgendaMock#load(IDataProducer)
      */
     private final InputStream input;
     /**
      * Interval time between two batch
+     *
      * @see OpenAgendaMock#load(IDataProducer)
      */
     private final long sleepTime;
     /**
      * Source name of corresponding {@link Event}
+     *
      * @see OpenAgendaMock#load(IDataProducer)
      */
     private final String source;
 
     /**
      * Instantiate the OpenAgendaMock object with load properties to connect to the OPen Agenda API
+     *
      * @throws IllegalStateException
      * @throws IllegalArgumentException
      * @see OpenAgendaMock#source
@@ -84,6 +88,7 @@ public class OpenAgendaMock implements IOpenAgenda {
 
     /**
      * Listen events from openAgenda and load them with the data producer object
+     *
      * @param dataProducer Instance of {@link IDataProducer}
      * @see OpenAgendaMock#input
      * @see OpenAgendaMock#source
@@ -116,6 +121,7 @@ public class OpenAgendaMock implements IOpenAgenda {
 
     /**
      * Check if this jar is active
+     *
      * @return true if it should be started
      * @see OpenAgendaMock#PROPERTIES_MANAGER
      */

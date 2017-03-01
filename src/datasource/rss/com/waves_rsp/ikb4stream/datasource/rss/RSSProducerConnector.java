@@ -45,6 +45,7 @@ import java.util.Objects;
 
 /**
  * Get data flow from RSS
+ *
  * @author ikb4stream
  * @version 1.0
  * @see com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector
@@ -52,6 +53,7 @@ import java.util.Objects;
 public class RSSProducerConnector implements IProducerConnector {
     /**
      * Properties of this module
+     *
      * @see PropertiesManager
      * @see PropertiesManager#getProperty(String)
      * @see PropertiesManager#getInstance(Class, String)
@@ -63,23 +65,27 @@ public class RSSProducerConnector implements IProducerConnector {
     private static final Logger LOGGER = LoggerFactory.getLogger(RSSProducerConnector.class);
     /**
      * Object to add metrics from this class
+     *
      * @see MetricsLogger#log(String, long)
      * @see MetricsLogger#getMetricsLogger()
      */
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     /**
      * Single instance of {@link OpenNLP} per each Thread
+     *
      * @see RSSProducerConnector#geocodeRSS(String)
      */
     private final OpenNLP openNLP = OpenNLP.getOpenNLP(Thread.currentThread());
     /**
      * Source name of corresponding {@link Event}
+     *
      * @see RSSProducerConnector#geocodeRSS(String)
      * @see RSSProducerConnector#load(IDataProducer)
      */
     private final String source;
     /**
      * Interval time between two batch
+     *
      * @see RSSProducerConnector#load(IDataProducer)
      */
     private final int interval;
@@ -90,6 +96,7 @@ public class RSSProducerConnector implements IProducerConnector {
 
     /**
      * Public constructor to init variable from {@link RSSProducerConnector#PROPERTIES_MANAGER}
+     *
      * @throws IllegalStateException if invalid value in configuration file
      * @see RSSProducerConnector#source
      * @see RSSProducerConnector#interval
@@ -108,6 +115,7 @@ public class RSSProducerConnector implements IProducerConnector {
 
     /**
      * Listen {@link Event} from RSS
+     *
      * @param dataProducer {@link IDataProducer} contains the data queue
      * @throws NullPointerException if dataProducer is null
      * @see RSSProducerConnector#source
@@ -153,8 +161,9 @@ public class RSSProducerConnector implements IProducerConnector {
 
     /**
      * Getting a {@link LatLong} from a GeoRSSModule or a description
+     *
      * @param module GeoRSSModule that represent a {@link LatLong}
-     * @param desc Description of {@link Event}
+     * @param desc   Description of {@link Event}
      * @return {@link LatLong} if found something or null
      * @see LatLong
      */
@@ -169,6 +178,7 @@ public class RSSProducerConnector implements IProducerConnector {
 
     /**
      * Check if this jar is active
+     *
      * @return true if it should be started
      * @see RSSProducerConnector#PROPERTIES_MANAGER
      */
@@ -184,6 +194,7 @@ public class RSSProducerConnector implements IProducerConnector {
     /**
      * Select a list of location from a RSS with the NER OpenNLP algorithme.
      * Then, geolocalize the first location found with the geocoder Nominatim (OSM)
+     *
      * @param text to analyze
      * @return a latLong coordinates
      * @see RSSProducerConnector#openNLP

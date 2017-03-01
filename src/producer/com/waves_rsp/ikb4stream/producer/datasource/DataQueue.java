@@ -30,12 +30,14 @@ import java.util.concurrent.BlockingQueue;
 
 /**
  * This class stores and provides {@link Event} for {@link DataConsumer} and {@link DataProducer}
+ *
  * @author ikb4stream
  * @version 1.0
  */
 class DataQueue {
     /**
      * Properties of this class
+     *
      * @see PropertiesManager
      * @see PropertiesManager#getProperty(String)
      * @see PropertiesManager#getInstance(Class)
@@ -43,6 +45,7 @@ class DataQueue {
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(DataQueue.class);
     /**
      * Object to add metrics from this class
+     *
      * @see DataProducer#push(Event)
      * @see MetricsLogger#log(String, long)
      * @see MetricsLogger#getMetricsLogger()
@@ -54,11 +57,13 @@ class DataQueue {
     private static final Logger LOGGER = LoggerFactory.getLogger(DataQueue.class);
     /**
      * Single instance of {@link DataQueue}
+     *
      * @see DataQueue#createDataQueue()
      */
     private static final DataQueue DATA_QUEUE = new DataQueue();
     /**
      * {@link Event} will be push in this {@link DataQueue#queue}
+     *
      * @see DataQueue#push(Event)
      * @see DataQueue#isEmpty()
      * @see DataQueue#pop()
@@ -66,6 +71,7 @@ class DataQueue {
     private final BlockingQueue<PackagedEvent> queue;
     /**
      * Size of {@link DataQueue#queue}
+     *
      * @see DataQueue#isEmpty()
      */
     private final int size;
@@ -86,6 +92,7 @@ class DataQueue {
 
     /**
      * Singleton of {@link DataQueue}
+     *
      * @return Single instance {@link DataQueue}
      * @see DataQueue#DATA_QUEUE
      */
@@ -95,6 +102,7 @@ class DataQueue {
 
     /**
      * Push a new {@link Event}, if {@link DataQueue#queue} is full the event is ignored
+     *
      * @param event {@link Event} to push in this {@link DataQueue}
      * @throws NullPointerException if event is null
      * @see DataQueue#METRICS_LOGGER
@@ -112,6 +120,7 @@ class DataQueue {
 
     /**
      * Return the first {@link Event} in {@link DataQueue#queue}
+     *
      * @return {@link Event} in {@link DataQueue}
      * @see DataQueue#METRICS_LOGGER
      * @see DataQueue#queue
@@ -137,18 +146,21 @@ class DataQueue {
 
     /**
      * Packaged {@link Event} to apply metrics in {@link DataQueue#queue}
+     *
      * @author ikb4stream
      * @version 1.0
      */
-    private class PackagedEvent{
+    private class PackagedEvent {
         /**
          * Arrival time in {@link DataQueue#queue}
+         *
          * @see DataQueue#push(Event)
          * @see DataQueue#pop()
          */
         private final long arrivedTime;
         /**
          * {@link Event} to package
+         *
          * @see DataQueue#push(Event)
          * @see DataQueue#pop()
          */
@@ -156,7 +168,8 @@ class DataQueue {
 
         /**
          * Create a {@link PackagedEvent} with {@link Event}
-         * @param event {@link Event} to package before insertion in {@link DataQueue#queue}
+         *
+         * @param event       {@link Event} to package before insertion in {@link DataQueue#queue}
          * @param arrivedTime Arrival time in {@link DataQueue#queue}
          * @throws NullPointerException if event or arrivedTime is null
          * @see Event

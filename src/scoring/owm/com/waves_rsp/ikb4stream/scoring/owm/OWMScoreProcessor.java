@@ -31,6 +31,7 @@ import java.util.*;
 
 /**
  * {@link OWMScoreProcessor} class set up score for events
+ *
  * @author ikb4stream
  * @version 1.0
  * @see IScoreProcessor
@@ -38,6 +39,7 @@ import java.util.*;
 public class OWMScoreProcessor implements IScoreProcessor {
     /**
      * Properties of this module
+     *
      * @see PropertiesManager
      * @see PropertiesManager#getProperty(String)
      * @see PropertiesManager#getInstance(Class, String)
@@ -49,37 +51,44 @@ public class OWMScoreProcessor implements IScoreProcessor {
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(OWMScoreProcessor.class);
     /**
      * Score depending on weather type
+     *
      * @see OWMScoreProcessor#processScore(Event)
      */
     private final Map<String, Integer> weatherValues = new HashMap<>();
     /**
      * Weather object receive
+     *
      * @see OWMScoreProcessor#processScore(Event)
      */
     private final ObjectMapper objectMapper = new ObjectMapper();
     /**
      * Max score to an {@link Event}
+     *
      * @see OWMScoreProcessor#processScore(Event)
      */
     private static final byte MAX_SCORE = Event.getScoreMax();
     /**
      * Min score to an {@link Event}
+     *
      * @see OWMScoreProcessor#processScore(Event)
      */
     private static final byte MIN_SCORE = Event.getScoreMin();
     /**
      * Threshold in temperature to reach
+     *
      * @see OWMScoreProcessor#processScore(Event)
      */
     private final int threshold;
     /**
      * Factor to multiply of temperature
+     *
      * @see OWMScoreProcessor#processScore(Event)
      */
     private final int factor;
 
     /**
      * Default constructor to initialize {@link OWMScoreProcessor} with custom rules
+     *
      * @see OWMScoreProcessor#threshold
      * @see OWMScoreProcessor#factor
      * @see OWMScoreProcessor#weatherValues
@@ -104,8 +113,9 @@ public class OWMScoreProcessor implements IScoreProcessor {
 
     /**
      * Get new score for a weather type
+     *
      * @param score Actual score of the event
-     * @param type Weather type
+     * @param type  Weather type
      * @return Score updated
      * @throws NullPointerException if type is null
      */
@@ -113,7 +123,7 @@ public class OWMScoreProcessor implements IScoreProcessor {
         Objects.requireNonNull(type);
         Integer sc = weatherValues.get(type);
         if (sc == null) return score;
-        return (byte)(score + sc);
+        return (byte) (score + sc);
     }
 
     /**
@@ -125,7 +135,7 @@ public class OWMScoreProcessor implements IScoreProcessor {
     byte verifyMaxScore(byte score) {
         if (score > MAX_SCORE) {
             return MAX_SCORE;
-        }else if(score < MIN_SCORE){
+        } else if (score < MIN_SCORE) {
             return MIN_SCORE;
         }
         return score;
@@ -133,6 +143,7 @@ public class OWMScoreProcessor implements IScoreProcessor {
 
     /**
      * Process score of an event from an {@link Event}
+     *
      * @param event an {@link Event} without {@link Event#score}
      * @return Event with a score after temperature analysis
      * @throws NullPointerException if event is null
@@ -147,7 +158,7 @@ public class OWMScoreProcessor implements IScoreProcessor {
             JsonNode jn = objectMapper.readTree(jsonString);
             double temperature = convertFromFahrenheitToCelsius(jn.path("main").path("temp").asDouble());
             //We suppose that if the T° < threshold, no one turn on fill up his pool
-            byte score1 = (byte)((temperature - threshold)* factor);
+            byte score1 = (byte) ((temperature - threshold) * factor);
             //About the weather, if it rain or snow
             byte score2 = weatherType(score1, jn.path("weather").get(0).path("main").asText());
             String description = jn.path("weather").get(0).path("description").asText();
@@ -160,6 +171,7 @@ public class OWMScoreProcessor implements IScoreProcessor {
 
     /**
      * Convert Fahrenheit to Celsius
+     *
      * @param fahrenheit temperature to convert
      * @return temperature in celsius
      */
@@ -169,6 +181,7 @@ public class OWMScoreProcessor implements IScoreProcessor {
 
     /**
      * Get all sources that {@link IScoreProcessor} will be applied
+     *
      * @return List of sources accepted
      * @see OWMScoreProcessor#PROPERTIES_MANAGER
      */

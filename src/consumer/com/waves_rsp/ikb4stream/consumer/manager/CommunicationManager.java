@@ -41,12 +41,14 @@ import java.util.stream.Stream;
 
 /**
  * CommunicationManager class ensure the communication between IKB4Stream module and external services
+ *
  * @author ikb4stream
  * @version 1.0
  */
 public class CommunicationManager {
     /**
      * Properties of this class
+     *
      * @see PropertiesManager
      * @see PropertiesManager#getProperty(String)
      * @see PropertiesManager#getInstance(Class)
@@ -62,10 +64,10 @@ public class CommunicationManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(CommunicationManager.class);
     /**
      * Map< Thread,ICommunication > to associate a thread to a ICommunication
+     *
      * @see ICommunication
      * @see CommunicationManager#launchModule(JarLoader)
      * @see CommunicationManager#stop()
-     *
      */
     private final Map<Thread, ICommunication> threadCommunications = new HashMap<>();
     /**
@@ -86,6 +88,7 @@ public class CommunicationManager {
 
     /**
      * Get single instance of {@link CommunicationManager}
+     *
      * @return Single instance of {@link CommunicationManager}
      * @see CommunicationManager#COMMUNICATION_MANAGER
      */
@@ -95,6 +98,7 @@ public class CommunicationManager {
 
     /**
      * This method launches the CommunicationManager
+     *
      * @throws IllegalArgumentException if communication.path is not set
      */
     public void start() {
@@ -115,6 +119,7 @@ public class CommunicationManager {
 
     /**
      * Launch module
+     *
      * @param jarLoader JarLoader that represents module
      * @see CommunicationManager#databaseReader
      * @see CommunicationManager#threadCommunications
@@ -147,6 +152,7 @@ public class CommunicationManager {
 
     /**
      * This method stop the CommunicationManager properly
+     *
      * @see CommunicationManager#threadCommunications
      */
     public void stop() {
@@ -161,6 +167,7 @@ public class CommunicationManager {
 
     /**
      * Get path where Communication are store
+     *
      * @return Path or null if there is invalid configuration
      * @see CommunicationManager#PROPERTIES_MANAGER
      */

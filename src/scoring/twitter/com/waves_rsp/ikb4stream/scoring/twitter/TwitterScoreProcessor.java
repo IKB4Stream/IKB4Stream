@@ -32,6 +32,7 @@ import java.util.*;
 
 /**
  * {@link IScoreProcessor} will be applied to Twitter sources
+ *
  * @author ikb4stream
  * @version 1.0
  * @see IScoreProcessor
@@ -39,6 +40,7 @@ import java.util.*;
 public class TwitterScoreProcessor implements IScoreProcessor {
     /**
      * Properties of this module
+     *
      * @see PropertiesManager
      * @see PropertiesManager#getProperty(String)
      * @see PropertiesManager#getInstance(Class, String)
@@ -50,17 +52,20 @@ public class TwitterScoreProcessor implements IScoreProcessor {
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(TwitterScoreProcessor.class);
     /**
      * Object to add metrics from this class
+     *
      * @see MetricsLogger#log(String, long)
      * @see MetricsLogger#getMetricsLogger()
      */
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     /**
      * Single instance per thread of {@link OpenNLP}
+     *
      * @see TwitterScoreProcessor#processScore(Event)
      */
     private final OpenNLP openNLP = OpenNLP.getOpenNLP(Thread.currentThread());
     /**
      * Max score to an {@link Event}
+     *
      * @see TwitterScoreProcessor#processScore(Event)
      */
     private static final byte MAX_SCORE = Event.getScoreMax();
@@ -79,6 +84,7 @@ public class TwitterScoreProcessor implements IScoreProcessor {
 
     /**
      * Default constructor to initialize {@link TwitterScoreProcessor#rulesMap} with a {@link PropertiesManager}
+     *
      * @see TwitterScoreProcessor#rulesMap
      * @see TwitterScoreProcessor#PROPERTIES_MANAGER
      */
@@ -94,6 +100,7 @@ public class TwitterScoreProcessor implements IScoreProcessor {
 
     /**
      * Check that the score can't overtake {@link TwitterScoreProcessor#MAX_SCORE}
+     *
      * @param score calculated by OpenNLP processing
      * @return score (max = {@link TwitterScoreProcessor#MAX_SCORE})
      * @see TwitterScoreProcessor#MAX_SCORE
@@ -107,6 +114,7 @@ public class TwitterScoreProcessor implements IScoreProcessor {
 
     /**
      * Check if the word is a hashtag
+     *
      * @param word to analyze
      * @return true if the word begin with '#'
      */
@@ -116,9 +124,10 @@ public class TwitterScoreProcessor implements IScoreProcessor {
 
     /**
      * Parse a JSONObject from a tweet and check if the twitter account is certified
+     *
      * @param json JSONObject to parse
      * @return true if the twitter account is certified
-     * @throws JSONException if json is an invalid tweet
+     * @throws JSONException        if json is an invalid tweet
      * @throws NullPointerException if json is null
      */
     private boolean isCertified(JSONObject json) throws JSONException {
@@ -130,9 +139,10 @@ public class TwitterScoreProcessor implements IScoreProcessor {
 
     /**
      * Parse a JSONObject from a tweet and extract the tweet description
+     *
      * @param json JSONObject to parse
      * @return the description of a tweet
-     * @throws JSONException if json is an invalid json
+     * @throws JSONException        if json is an invalid json
      * @throws NullPointerException if json is null
      */
     private String getParseDescription(JSONObject json) throws JSONException {
@@ -143,9 +153,10 @@ public class TwitterScoreProcessor implements IScoreProcessor {
 
     /**
      * Process score of an event from {@link com.waves_rsp.ikb4stream.datasource.twitter.TwitterProducerConnector TwitterProducerConnector}
+     *
      * @param event an event without score
      * @return Event with a score after OpenNLP processing
-     * @throws NullPointerException if event is null
+     * @throws NullPointerException     if event is null
      * @throws IllegalArgumentException if event is invalid
      * @see TwitterScoreProcessor#openNLP
      * @see TwitterScoreProcessor#COEFF_HASHTAG
@@ -176,6 +187,7 @@ public class TwitterScoreProcessor implements IScoreProcessor {
 
     /**
      * Get all sources that {@link IScoreProcessor} will be applied
+     *
      * @return List of sources accepted
      * @see TwitterScoreProcessor#PROPERTIES_MANAGER
      */
@@ -193,7 +205,8 @@ public class TwitterScoreProcessor implements IScoreProcessor {
 
     /**
      * Score a tweet depending {@link TwitterScoreProcessor#rulesMap}
-     * @param score Actual score of {@link Event}
+     *
+     * @param score    Actual score of {@link Event}
      * @param tweetMap List of word of tweet
      * @return New score of {@link Event}
      * @throws NullPointerException if tweetMap is null

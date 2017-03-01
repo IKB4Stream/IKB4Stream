@@ -20,6 +20,7 @@ package com.waves_rsp.ikb4stream.core.communication;
 
 /**
  * FunctionalInterface use after reading in database
+ *
  * @author ikb4stream
  * @version 1.0
  */
@@ -27,7 +28,8 @@ package com.waves_rsp.ikb4stream.core.communication;
 public interface DatabaseReaderCallback {
     /**
      * Method call after reading in database
-     * @param t Throwable in case of error during reading
+     *
+     * @param t      Throwable in case of error during reading
      * @param result Result of database request
      */
     void onResult(Throwable t, String result);

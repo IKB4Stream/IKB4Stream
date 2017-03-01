@@ -40,6 +40,7 @@ import java.util.Objects;
 
 /**
  * This server relies on Vertx, to handle the REST requests. It is instanciated by the web communication connector.
+ *
  * @author ikb4stream
  * @version 1.0
  * @see io.vertx.core.Verticle
@@ -52,12 +53,14 @@ public class VertxServer extends AbstractVerticle {
     private static final Logger LOGGER = LoggerFactory.getLogger(VertxServer.class);
     /**
      * {@link IDatabaseReader} object to read data from database
+     *
      * @see VertxServer#getEvent(Request)
      */
     private static final IDatabaseReader DATABASE_READER = WebCommunication.databaseReader;
 
     /**
      * Server starting behaviour
+     *
      * @param fut Future that handles the start status
      * @throws NullPointerException if fut is null
      */
@@ -91,6 +94,7 @@ public class VertxServer extends AbstractVerticle {
     /**
      * Reads a request from a routing context, and attach the response to it. It requests the database
      * with DatabaseReader.
+     *
      * @param rc {@link RoutingContext}, which contains the request, and the response
      * @throws NullPointerException if rc is null
      */
@@ -118,6 +122,7 @@ public class VertxServer extends AbstractVerticle {
 
     /**
      * Convert a request from Json to Java object
+     *
      * @param jsonRequest {@link JsonObject} json formatted request
      * @return {@link Request}
      * @throws NullPointerException if jsonRequest is null
@@ -130,7 +135,7 @@ public class VertxServer extends AbstractVerticle {
         JsonObject jsonbb = jsonRequest.getJsonObject("boundingBox");
         JsonArray latlongs = jsonbb.getJsonArray("points");
         LatLong[] ll = new LatLong[latlongs.size()];
-        for (int i=0; i < latlongs.size(); i++) {
+        for (int i = 0; i < latlongs.size(); i++) {
             JsonObject latlong = latlongs.getJsonObject(i);
             double latitude = latlong.getDouble("latitude");
             double longitude = latlong.getDouble("longitude");
@@ -142,6 +147,7 @@ public class VertxServer extends AbstractVerticle {
 
     /**
      * Retrieve an event from database
+     *
      * @param request {@link Request} the user web request
      * @return {@link JsonObject} extracted from the database
      * @see VertxServer#DATABASE_READER
@@ -149,8 +155,9 @@ public class VertxServer extends AbstractVerticle {
     private JsonObject getEvent(Request request) {
         String[] r = new String[1];
         DATABASE_READER.getEvent(request, (t, result) -> {
-            if(t != null) {
-                LOGGER.error("DatabaseReader error: " + t.getMessage()); return;
+            if (t != null) {
+                LOGGER.error("DatabaseReader error: " + t.getMessage());
+                return;
             }
             r[0] = result;
         });
@@ -160,7 +167,7 @@ public class VertxServer extends AbstractVerticle {
             response = new JsonObject("{\"events\": []}");
         } else {
             LOGGER.info("Found events: {}", r[0]);
-            response = new JsonObject("{\"events\":" + r[0] +"}");
+            response = new JsonObject("{\"events\":" + r[0] + "}");
         }
         return response;
     }

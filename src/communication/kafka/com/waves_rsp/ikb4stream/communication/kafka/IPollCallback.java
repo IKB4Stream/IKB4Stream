@@ -22,6 +22,7 @@ import com.waves_rsp.ikb4stream.core.communication.model.Request;
 
 /**
  * Functional Interface called after Kafka Request
+ *
  * @author ikb4stream
  * @version 1.0
  */
@@ -29,6 +30,7 @@ import com.waves_rsp.ikb4stream.core.communication.model.Request;
 public interface IPollCallback {
     /**
      * Method call when a new request come
+     *
      * @param request {@link Request} from Kafka
      * @return The result of Kafka Request
      */

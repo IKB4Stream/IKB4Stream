@@ -30,17 +30,20 @@ import java.util.Objects;
 
 /**
  * Object to consume {@link Event} in {@link DataQueue}
+ *
  * @author ikb4stream
  * @version 1.0
  */
 public class DataConsumer {
     /**
      * {@link ScoreProcessorManager} to apply to an {@link Event} in {@link DataConsumer#consume()}
+     *
      * @see DataConsumer#consume()
      */
     private final ScoreProcessorManager scoreProcessorManger = new ScoreProcessorManager();
     /**
      * Object to add metrics from this class
+     *
      * @see DataConsumer#consume()
      * @see MetricsLogger#log(String, long)
      * @see MetricsLogger#getMetricsLogger()
@@ -48,6 +51,7 @@ public class DataConsumer {
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     /**
      * {@link DatabaseWriter} to write {@link Event} in database
+     *
      * @see DataConsumer#consume()
      */
     private static final DatabaseWriter DATABASE_WRITER = DatabaseWriter.getInstance();
@@ -57,6 +61,7 @@ public class DataConsumer {
     private static final Logger LOGGER = LoggerFactory.getLogger(DataConsumer.class);
     /**
      * Single instance of {@link DataQueue}
+     *
      * @see DataQueue#pop()
      * @see DataConsumer#consume()
      * @see DataConsumer#createDataConsumer(DataQueue)
@@ -64,6 +69,7 @@ public class DataConsumer {
     private final DataQueue dataQueue;
     /**
      * Target score to reach for an {@link Event}
+     *
      * @see DataConsumer#filter(Event, int)
      * @see DataConsumer#createDataConsumer(DataQueue)
      */
@@ -71,7 +77,8 @@ public class DataConsumer {
 
     /**
      * Private constructor, you must use {@link DataConsumer#createDataConsumer(DataQueue)}
-     * @param dataQueue Single instance of {@link DataQueue}
+     *
+     * @param dataQueue   Single instance of {@link DataQueue}
      * @param targetScore Target score to reach
      * @see DataConsumer#dataQueue
      * @see DataConsumer#targetScore
@@ -83,6 +90,7 @@ public class DataConsumer {
 
     /**
      * Create a {@link DataConsumer}
+     *
      * @param dataQueue Single instance of {@link DataQueue}
      * @return {@link DataConsumer}
      * @throws NullPointerException if dataQueue is null
@@ -104,6 +112,7 @@ public class DataConsumer {
 
     /**
      * Filter an {@link Event}
+     *
      * @param event {@link Event} to be filter
      * @param score Target score to reach to be insert into database
      * @return True if it's greater than score
@@ -115,6 +124,7 @@ public class DataConsumer {
 
     /**
      * Consume Event in dataQueue and send to scoreProcessor
+     *
      * @see DataConsumer#DATABASE_WRITER
      * @see DataConsumer#METRICS_LOGGER
      * @see DataConsumer#targetScore
@@ -129,11 +139,11 @@ public class DataConsumer {
 
                 if (filter(eventClone, targetScore)) {
                     DATABASE_WRITER.insertEvent(eventClone, t -> {
-                        METRICS_LOGGER.log("event_scored_"+event.getSource(), eventClone.getScore());
+                        METRICS_LOGGER.log("event_scored_" + event.getSource(), eventClone.getScore());
                         LOGGER.error(t.getMessage());
                     });
-                }else {
-                    METRICS_LOGGER.log("scored_not_kept_"+event.getSource(), eventClone.getScore());
+                } else {
+                    METRICS_LOGGER.log("scored_not_kept_" + event.getSource(), eventClone.getScore());
                 }
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();

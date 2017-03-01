@@ -42,6 +42,7 @@ import java.util.*;
 public class OpenNLP {
     /**
      * Properties of this class
+     *
      * @see PropertiesManager
      * @see PropertiesManager#getProperty(String)
      * @see PropertiesManager#getInstance(Class)
@@ -53,47 +54,56 @@ public class OpenNLP {
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenNLP.class);
     /**
      * Store unique instance per Thread of {@link OpenNLP}
+     *
      * @see OpenNLP#getOpenNLP(Thread)
      */
     private static final Map<Thread, OpenNLP> INSTANCES = new HashMap<>();
     /**
      * Load lemmatizer model
+     *
      * @see OpenNLP#lemmatize(String)
      */
     private final DictionaryLemmatizer lemmatizer;
     /**
      * Use to do sentence detection
+     *
      * @see OpenNLP#detectSentences(String)
      */
     private final SentenceDetectorME detector;
     /**
      * Use to apply person name finder
+     *
      * @see OpenNLP#findPersonName(String[])
      */
     private final NameFinderME nameFinderPers;
     /**
      * Use to apply organization name finder
+     *
      * @see OpenNLP#findOrganizationName(String[])
      */
     private final NameFinderME nameFinderOrg;
     /**
      * Use to apply location name finder
+     *
      * @see OpenNLP#findLocationName(String[])
      */
     private final NameFinderME nameFinderLoc;
     /**
      * Use to apply tokenization
+     *
      * @see OpenNLP#learnableTokenize(String)
      */
     private final Tokenizer tokenizer;
     /**
      * Use to apply part-of-speech tagger
+     *
      * @see OpenNLP#posTagging(String[])
      */
     private final POSTaggerME tagger;
 
     /**
      * Private constructor to allow only one {@link OpenNLP} for each Thread
+     *
      * @throws IllegalStateException if an error occurred from {@link LoaderNLP} or {@link PropertiesManager}
      */
     private OpenNLP() {
@@ -115,6 +125,7 @@ public class OpenNLP {
 
     /**
      * Get instance of {@link OpenNLP} for each thread because Apache OpenNLP is not thread safe
+     *
      * @param thread Thread needs {@link OpenNLP}
      * @return Instance of {@link OpenNLP}
      * @throws NullPointerException if thread is null
@@ -134,6 +145,7 @@ public class OpenNLP {
 
     /**
      * OpenNLP : split a text in sentences
+     *
      * @param text to analyze
      * @return an array of sentences
      * @throws NullPointerException if text is null
@@ -146,6 +158,7 @@ public class OpenNLP {
 
     /**
      * OpenNLP : learnableTokenize. The function tokenize a text
+     *
      * @param text to tokenize
      * @return an array of words
      * @throws NullPointerException if text is null
@@ -158,6 +171,7 @@ public class OpenNLP {
 
     /**
      * OpenNLP : posTagging affect a tag to each word (V, NC, NP, ADJ...)
+     *
      * @param tokens is a tokenize text
      * @return an array of posTag
      * @throws NullPointerException if tokens is null
@@ -170,6 +184,7 @@ public class OpenNLP {
 
     /**
      * OpenNLP : name entity recognizer function. Detect organizations names.
+     *
      * @param tokens are an array of string to analyze
      * @return an array of entity detected as an organization
      * @throws NullPointerException if tokens is null
@@ -182,6 +197,7 @@ public class OpenNLP {
 
     /**
      * OpenNLP : name entity recognizer function. Detect locations names.
+     *
      * @param tokens are an array of string to analyze
      * @return an array of entity detected as a location
      * @throws NullPointerException if tokens is null
@@ -194,6 +210,7 @@ public class OpenNLP {
 
     /**
      * OpenNLP : name entity recognizer function. Detect persons names.
+     *
      * @param tokens are an array of string to analyze
      * @return an array of entity detected as a personnality
      * @throws NullPointerException if tokens is null
@@ -206,6 +223,7 @@ public class OpenNLP {
 
     /**
      * OpenNLP : lemmatization. The function simplify the step of POStagging for the verbs category.
+     *
      * @param text to lemmatize
      * @return Map of each lemmatize word with the POStag associate
      * @throws NullPointerException if text is null
@@ -236,7 +254,8 @@ public class OpenNLP {
 
     /**
      * Apply the OpenNLP Lemmatization with a dictionnary. Keep only words with the verbs and nouns.
-     * @param post is the text to lemmatize
+     *
+     * @param post  is the text to lemmatize
      * @param limit is the limit to have the n first characters
      * @return list of selected words.
      * @throws NullPointerException if post is null
@@ -264,6 +283,7 @@ public class OpenNLP {
 
     /**
      * Apply the OpenNLP Lemmatization with a dictionnary. Keep only words with the verbs and nouns.
+     *
      * @param post is the text to lemmatize. We only use the 1250 first characters
      * @return list of selected words.
      * @throws NullPointerException if post is null
@@ -275,6 +295,7 @@ public class OpenNLP {
 
     /**
      * Apply the ÖpenNLP ner (name entity recognizer) algorithm on a text. Keep only distinct words from a text.
+     *
      * @param post to analyze
      * @param ner  ENUM : LOCATION, ORGANIZATION or PERSON : type of NER analyse
      * @return List of selected words by NER

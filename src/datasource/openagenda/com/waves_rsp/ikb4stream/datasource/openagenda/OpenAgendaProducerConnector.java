@@ -19,8 +19,8 @@
 package com.waves_rsp.ikb4stream.datasource.openagenda;
 
 
-import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
 import com.waves_rsp.ikb4stream.core.datasource.IOpenAgenda;
+import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
 
@@ -33,6 +33,7 @@ import java.util.Objects;
 
 /**
  * Get public {@link Event}
+ *
  * @author ikb4stream
  * @version 1.0
  * @see com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector
@@ -41,6 +42,7 @@ import java.util.Objects;
 public class OpenAgendaProducerConnector implements IOpenAgenda {
     /**
      * Properties of this module
+     *
      * @see PropertiesManager
      * @see PropertiesManager#getProperty(String)
      * @see PropertiesManager#getInstance(Class, String)
@@ -48,32 +50,38 @@ public class OpenAgendaProducerConnector implements IOpenAgenda {
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(OpenAgendaProducerConnector.class, "resources/datasource/openagenda/config.properties");
     /**
      * Start date
+     *
      * @see OpenAgendaProducerConnector#createURL()
      */
     private final String propDateStart;
     /**
      * End date
+     *
      * @see OpenAgendaProducerConnector#createURL()
      */
     private final String propDateEnd;
     /**
      * Interval time between two batch
+     *
      * @see OpenAgendaProducerConnector#load(IDataProducer)
      */
     private final long sleepTime;
     /**
      * Source name of corresponding {@link Event}
+     *
      * @see OpenAgendaProducerConnector#load(IDataProducer)
      */
     private final String source;
     /**
      * BoundingBox to apply
+     *
      * @see OpenAgendaProducerConnector#createURL()
      */
     private final String bbox;
 
     /**
      * Instantiate the OpenAgendaMock object with load properties to connect to the OPen Agenda API
+     *
      * @throws IllegalStateException if invalid configuration
      * @see OpenAgendaProducerConnector#sleepTime
      * @see OpenAgendaProducerConnector#source
@@ -102,8 +110,9 @@ public class OpenAgendaProducerConnector implements IOpenAgenda {
 
     /**
      * Listen {@link Event} from openAgenda and load them with the data producer object
+     *
      * @param dataProducer Instance of {@link IDataProducer}
-     * @throws NullPointerException if dataProducer is null
+     * @throws NullPointerException     if dataProducer is null
      * @throws IllegalArgumentException Exception during opening stream
      * @see OpenAgendaProducerConnector#source
      * @see OpenAgendaProducerConnector#sleepTime
@@ -142,6 +151,7 @@ public class OpenAgendaProducerConnector implements IOpenAgenda {
 
     /**
      * Create the URL from properties (bbox and dates) for accessing to the webservice
+     *
      * @return an URL
      * @throws IllegalArgumentException if some problem come during reading
      * @see OpenAgendaProducerConnector#bbox
@@ -173,6 +183,7 @@ public class OpenAgendaProducerConnector implements IOpenAgenda {
 
     /**
      * Check if this jar is active
+     *
      * @return true if it should be started
      * @see OpenAgendaProducerConnector#PROPERTIES_MANAGER
      */

@@ -29,6 +29,7 @@ import java.util.*;
 
 /**
  * {@link IScoreProcessor} will be applied to different mock sources
+ *
  * @author ikb4stream
  * @version 1.0
  * @see IScoreProcessor
@@ -36,6 +37,7 @@ import java.util.*;
 public class MockScoreProcessor implements IScoreProcessor {
     /**
      * Properties of this module
+     *
      * @see PropertiesManager
      * @see PropertiesManager#getProperty(String)
      * @see PropertiesManager#getInstance(Class, String)
@@ -47,6 +49,7 @@ public class MockScoreProcessor implements IScoreProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(MockScoreProcessor.class);
     /**
      * Object to add metrics from this class
+     *
      * @see MetricsLogger#log(String, long)
      * @see MetricsLogger#getMetricsLogger()
      */
@@ -61,6 +64,7 @@ public class MockScoreProcessor implements IScoreProcessor {
 
     /**
      * Process score of an event from an {@link Event}
+     *
      * @param event an {@link Event} without {@link Event#score}
      * @return Event with a random score
      * @throws NullPointerException if event is null
@@ -72,7 +76,7 @@ public class MockScoreProcessor implements IScoreProcessor {
         Objects.requireNonNull(event);
         long start = System.currentTimeMillis();
         Random rand = new Random();
-        byte nombreAleatoire = (byte)rand.nextInt(Event.getScoreMax() + 1);
+        byte nombreAleatoire = (byte) rand.nextInt(Event.getScoreMax() + 1);
         LOGGER.info("Score aléatoire: " + nombreAleatoire);
         long time = System.currentTimeMillis() - start;
         METRICS_LOGGER.log("time_scoring_" + event.getSource(), time);
@@ -81,6 +85,7 @@ public class MockScoreProcessor implements IScoreProcessor {
 
     /**
      * Get all sources that {@link IScoreProcessor} will be applied
+     *
      * @return List of sources accepted
      * @see MockScoreProcessor#PROPERTIES_MANAGER
      */

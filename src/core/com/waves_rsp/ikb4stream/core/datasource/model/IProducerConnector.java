@@ -20,18 +20,21 @@ package com.waves_rsp.ikb4stream.core.datasource.model;
 
 /**
  * Interface to implement if you want to use your class as module of producer
+ *
  * @author ikb4stream
  * @version 1.0
  */
 public interface IProducerConnector {
     /**
      * This method registers a DataProducer which allows to push in DataQueue
+     *
      * @param dataProducer {@link IDataProducer} contains the data queue
      */
     void load(IDataProducer dataProducer);
 
     /**
      * This method indicates whether the ProducerConnector is enable
+     *
      * @return true if we should launch this module
      */
     boolean isActive();

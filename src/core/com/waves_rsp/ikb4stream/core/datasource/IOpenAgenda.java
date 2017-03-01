@@ -37,12 +37,14 @@ import java.util.*;
 
 /**
  * Share code between instance of {@link com.waves_rsp.ikb4stream.datasource.openagenda.OpenAgendaProducerConnector OpenAgendaProducerConnector} and {@link com.waves_rsp.ikb4stream.datasource.openagendamock.OpenAgendaMock OpenAgendaMock}
+ *
  * @author ikb4stream
  * @version 1.0
  */
 public interface IOpenAgenda extends IProducerConnector {
     /**
      * Object to add metrics from this interface
+     *
      * @see MetricsLogger#getMetricsLogger()
      */
     MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
@@ -55,7 +57,8 @@ public interface IOpenAgenda extends IProducerConnector {
 
     /**
      * Parse JSON from Open Agenda API get by the URL
-     * @param is Stream of {@link Event} from OpenAgenda
+     *
+     * @param is     Stream of {@link Event} from OpenAgenda
      * @param source Name of source of this data
      * @return a list of {@link Event}
      * @throws NullPointerException if is or source is null
@@ -96,13 +99,14 @@ public interface IOpenAgenda extends IProducerConnector {
 
     /**
      * Format attributes from the Open Agenda API to create an event
-     * @param latlong event's location
-     * @param title event's title
+     *
+     * @param latlong     event's location
+     * @param title       event's title
      * @param description event's description
-     * @param dateStart date when the event starting
-     * @param dateEnd date when the event ending
-     * @param city city where the event take place
-     * @param source event's source
+     * @param dateStart   date when the event starting
+     * @param dateEnd     date when the event ending
+     * @param city        city where the event take place
+     * @param source      event's source
      * @return {@link Event} with this information
      * @throws NullPointerException if one of this param is null
      * @see Event
@@ -148,8 +152,9 @@ public interface IOpenAgenda extends IProducerConnector {
 
     /**
      * Add {@link Event} if it's not null
+     *
      * @param events List of {@link Event}
-     * @param event {@link Event} to add in this list
+     * @param event  {@link Event} to add in this list
      * @throws NullPointerException if events is null
      * @see Event
      */
@@ -162,6 +167,7 @@ public interface IOpenAgenda extends IProducerConnector {
 
     /**
      * Check if this jar is active
+     *
      * @param property boolean as string
      * @return true if it should be started
      */

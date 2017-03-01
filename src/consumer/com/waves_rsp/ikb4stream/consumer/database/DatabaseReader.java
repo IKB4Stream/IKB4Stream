@@ -42,6 +42,7 @@ import static com.mongodb.client.model.Filters.*;
 
 /**
  * DatabaseReader class reads data (Events) from mongodb database
+ *
  * @author ikb4stream
  * @version 1.0
  * @see com.waves_rsp.ikb4stream.core.communication.IDatabaseReader
@@ -49,6 +50,7 @@ import static com.mongodb.client.model.Filters.*;
 public class DatabaseReader implements IDatabaseReader {
     /**
      * Properties of this class
+     *
      * @see PropertiesManager
      * @see PropertiesManager#getProperty(String)
      * @see PropertiesManager#getInstance(Class)
@@ -56,6 +58,7 @@ public class DatabaseReader implements IDatabaseReader {
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(DatabaseReader.class);
     /**
      * Object to add metrics from this class
+     *
      * @see MetricsLogger#getMetricsLogger()
      * @see MetricsLogger#log(String, long)
      */
@@ -66,17 +69,20 @@ public class DatabaseReader implements IDatabaseReader {
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseReader.class);
     /**
      * Single instance of {@link DatabaseReader}
+     *
      * @see DatabaseReader#getEvent(Request, DatabaseReaderCallback)
      * @see DatabaseReader#getInstance()
      */
     private static final DatabaseReader DATABASE_READER = new DatabaseReader();
     /**
      * Object use to read Document from MongoDb
+     *
      * @see DatabaseReader#getEvent(Request, DatabaseReaderCallback)
      */
     private final MongoCollection<Document> mongoCollection;
     /**
      * Result limit of request
+     *
      * @see DatabaseReader#getEvent(Request, DatabaseReaderCallback)
      */
     private final int limit;
@@ -84,6 +90,7 @@ public class DatabaseReader implements IDatabaseReader {
     /**
      * The constructor of {@link DatabaseReader}
      * This class is a singleton
+     *
      * @see DatabaseReader#checkConfiguration()
      * @see DatabaseReader#PROPERTIES_MANAGER
      * @see DatabaseReader#mongoCollection
@@ -111,6 +118,7 @@ public class DatabaseReader implements IDatabaseReader {
 
     /**
      * Check configuration of Database
+     *
      * @see DatabaseReader#PROPERTIES_MANAGER
      */
     private static void checkConfiguration() {
@@ -121,6 +129,7 @@ public class DatabaseReader implements IDatabaseReader {
 
     /**
      * Get instance of Singleton DatabaseReader
+     *
      * @return an instance of {@link DatabaseReader}
      * @see DatabaseReader#DATABASE_READER
      */
@@ -130,7 +139,8 @@ public class DatabaseReader implements IDatabaseReader {
 
     /**
      * This method requests events from mongodb database and filters from data coming to the request object in parameter
-     * @param request Request to apply to Mongo
+     *
+     * @param request  Request to apply to Mongo
      * @param callback Callback method call after select operation
      * @see DatabaseReader#limit
      * @see DatabaseReader#mongoCollection

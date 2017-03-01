@@ -38,6 +38,7 @@ import java.util.Objects;
 
 /**
  * Parser class to parse stream RDF
+ *
  * @author ikb4stream
  * @version 1.0
  */
@@ -56,10 +57,11 @@ public class RDFParser {
 
     /**
      * Parse RDF input as string
+     *
      * @param input RDF values as String
      * @return an {@link Request} object which contains information about latitude, longitude and date
      * @throws IllegalStateException if RDF is not literal
-     * @throws NullPointerException if input is null
+     * @throws NullPointerException  if input is null
      */
     public static Request parse(String input) {
         Objects.requireNonNull(input);
@@ -69,7 +71,7 @@ public class RDFParser {
         Map<String, Object> map = new HashMap<>();
         model.listStatements().forEachRemaining(statement -> {
             RDFNode rdfNode = statement.getObject();
-            if(rdfNode.isLiteral()) {
+            if (rdfNode.isLiteral()) {
                 try {
                     map.put(statement.getPredicate().getLocalName(), statement.getObject().asLiteral().getValue());
                 } catch (Exception e) {
@@ -85,9 +87,10 @@ public class RDFParser {
 
     /**
      * Get an AnomalyRequest from Map< String, Object >
+     *
      * @param map {@link Request} represented as Map Object
      * @return {@link Request} object which contains information about latitude, longitude and date
-     * @throws NullPointerException if map is null
+     * @throws NullPointerException     if map is null
      * @throws IllegalArgumentException if map doesn't have needed values
      */
     private static Request getDataFromMap(Map<String, Object> map) {
@@ -124,6 +127,7 @@ public class RDFParser {
 
     /**
      * Check if map has needed values
+     *
      * @param map Map to check
      * @throws IllegalArgumentException If map doesn't have all information
      */
@@ -141,6 +145,7 @@ public class RDFParser {
 
     /**
      * Check position valid
+     *
      * @param map Map to check
      * @throws IllegalArgumentException if map is invalid
      */

@@ -24,12 +24,14 @@ import org.slf4j.LoggerFactory;
 
 /**
  * This is the entry point for producer module. its goal is to initialize the class {@link ProducerManager}
+ *
  * @author ikb4stream
  * @version 1.0
  */
 public class Main {
     /**
      * Single instance of {@link ProducerManager}
+     *
      * @see ProducerManager#getInstance()
      * @see ProducerManager#instantiate()
      * @see ProducerManager#stop()
@@ -50,6 +52,7 @@ public class Main {
 
     /**
      * This method executes the program
+     *
      * @param args producer module starting arguments
      * @see Main#PRODUCER_MANAGER
      */

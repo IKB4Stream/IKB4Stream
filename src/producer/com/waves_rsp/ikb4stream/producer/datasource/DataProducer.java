@@ -28,12 +28,14 @@ import java.util.Objects;
 
 /**
  * This class receives {@link Event} from connectors and push in {@link DataQueue}
+ *
  * @author ikb4stream
  * @version 1.0
  */
 public class DataProducer implements IDataProducer {
     /**
      * Object to add metrics from this class
+     *
      * @see DataProducer#push(Event)
      * @see MetricsLogger#log(String, long)
      * @see MetricsLogger#getMetricsLogger()
@@ -45,6 +47,7 @@ public class DataProducer implements IDataProducer {
     private static final Logger LOGGER = LoggerFactory.getLogger(DataProducer.class);
     /**
      * Single instance of {@link DataQueue}
+     *
      * @see DataQueue#pop()
      * @see DataProducer#push(Event)
      * @see DataProducer#DataProducer(DataQueue)
@@ -53,6 +56,7 @@ public class DataProducer implements IDataProducer {
 
     /**
      * Give the unique instance of {@link DataQueue}
+     *
      * @param dataQueue Set the {@link DataQueue} to this Producer
      * @throws NullPointerException if dataQueue is null
      * @see DataProducer#dataQueue
@@ -64,6 +68,7 @@ public class DataProducer implements IDataProducer {
 
     /**
      * Push an {@link Event} into DataQueue
+     *
      * @param event {@link Event} to push in {@link DataQueue} to be analysed
      * @throws NullPointerException if event is null
      * @see Event
@@ -76,7 +81,7 @@ public class DataProducer implements IDataProducer {
         dataQueue.push(event);
         long end = System.currentTimeMillis();
         long result = end - start;
-        METRICS_LOGGER.log("time_process_"+event.getSource(), result);
+        METRICS_LOGGER.log("time_process_" + event.getSource(), result);
         LOGGER.info("The event {} has been pushed into database.", event.getSource());
     }
 }

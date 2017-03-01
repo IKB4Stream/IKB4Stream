@@ -23,6 +23,7 @@ import java.util.Objects;
 
 /**
  * Request class which represents an anomaly
+ *
  * @author ikb4stream
  * @version 1.0
  */
@@ -46,9 +47,10 @@ public class Request {
 
     /**
      * The Request class constructor
-     * @param start is the starting date of an anomaly
-     * @param end is the end date of an anomaly
-     * @param boundingBox coordinates
+     *
+     * @param start            is the starting date of an anomaly
+     * @param end              is the end date of an anomaly
+     * @param boundingBox      coordinates
      * @param requestReception is the reception date of the request
      * @throws NullPointerException if one of params is null
      */
@@ -66,6 +68,7 @@ public class Request {
 
     /**
      * Get starting date
+     *
      * @return the starting date of an anomaly
      * @see Request#start
      */
@@ -75,6 +78,7 @@ public class Request {
 
     /**
      * Get ending date
+     *
      * @return the end date of an anomaly
      * @see Request#end
      */
@@ -84,6 +88,7 @@ public class Request {
 
     /**
      * Get {@link BoundingBox} of Request
+     *
      * @return the coordinates of the {@link BoundingBox}
      * @see Request#boundingBox
      */
@@ -93,6 +98,7 @@ public class Request {
 
     /**
      * Represent that object in string
+     *
      * @return String that represents this {@link Request}
      * @see Request#start
      * @see Request#end

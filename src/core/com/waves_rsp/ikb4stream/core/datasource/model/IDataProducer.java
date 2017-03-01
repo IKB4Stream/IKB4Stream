@@ -22,6 +22,7 @@ import com.waves_rsp.ikb4stream.core.model.Event;
 
 /**
  * This class establishes the connexion between an external source and the DataQueue
+ *
  * @author ikb4stream
  * @version 1.0
  */
@@ -29,6 +30,7 @@ import com.waves_rsp.ikb4stream.core.model.Event;
 public interface IDataProducer {
     /**
      * Push an {@link Event} to be analyse by a {@link IScoreProcessor}
+     *
      * @param event {@link Event} to push in process
      */
     void push(Event event);

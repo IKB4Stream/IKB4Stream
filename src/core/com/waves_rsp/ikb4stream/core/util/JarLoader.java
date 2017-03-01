@@ -34,12 +34,14 @@ import java.util.jar.Manifest;
 
 /**
  * JarLoader that permits to load JAR File at Runtime
+ *
  * @author ikb4stream
  * @version 1.0
  */
 public class JarLoader {
     /**
      * Properties of this class
+     *
      * @see PropertiesManager
      * @see PropertiesManager#getProperty(String)
      * @see PropertiesManager#getInstance(Class)
@@ -51,24 +53,28 @@ public class JarLoader {
     private static final Logger LOGGER = LoggerFactory.getLogger(ClassManager.class);
     /**
      * List of class name in {@link JarLoader#jar}
+     *
      * @see JarLoader#addModule(String, File)
      * @see JarLoader#getClasses()
      */
     private final List<String> classes = new ArrayList<>();
     /**
      * URL object that correspond to this {@link JarLoader#jar}
+     *
      * @see JarLoader#addModule(String, File)
      * @see JarLoader#getUrls()
      */
     private final List<URL> urls = new ArrayList<>();
     /**
      * Name of JAR to load
+     *
      * @see JarLoader#getModuleClasses()
      */
     private final String jar;
 
     /**
      * Take jar of JAR file, and Interface to implement
+     *
      * @param jar Path to JAR file to load
      * @throws NullPointerException if jar is null
      * @see JarLoader#jar
@@ -80,6 +86,7 @@ public class JarLoader {
 
     /**
      * Create a JarLoader
+     *
      * @param jar Jar to load
      * @return Instance of {@link JarLoader} or null
      * @throws NullPointerException if jar is null
@@ -94,6 +101,7 @@ public class JarLoader {
 
     /**
      * Get list of all modules from JAR
+     *
      * @throws NullPointerException if {@link JarLoader#jar} is null
      * @see JarLoader#jar
      */
@@ -108,8 +116,9 @@ public class JarLoader {
 
     /**
      * Add module to JarLoader
+     *
      * @param moduleClassName Class to load
-     * @param file JAR's file
+     * @param file            JAR's file
      * @throws NullPointerException if file is null
      * @see JarLoader#urls
      * @see JarLoader#classes
@@ -128,6 +137,7 @@ public class JarLoader {
 
     /**
      * Close a JarFile
+     *
      * @param jarFile JarFile to close
      */
     private static void closeJarFile(JarFile jarFile) {
@@ -142,9 +152,10 @@ public class JarLoader {
 
     /**
      * Get jar from a file
+     *
      * @param f File which represents a JAR
      * @return A JarFile object
-     * @throws NullPointerException if f is null
+     * @throws NullPointerException     if f is null
      * @throws IllegalArgumentException if f is not a JAR
      */
     private static JarFile getJarFile(File f) {
@@ -161,6 +172,7 @@ public class JarLoader {
 
     /**
      * Get module class name to load
+     *
      * @param jarFile JarFile where there is the module to load
      * @return String of module's name
      * @throws NullPointerException if jarFile is null
@@ -185,6 +197,7 @@ public class JarLoader {
 
     /**
      * Get all list of class to load as String
+     *
      * @return List of class name
      * @see JarLoader#classes
      */
@@ -194,6 +207,7 @@ public class JarLoader {
 
     /**
      * Get all list of jar to load as URL
+     *
      * @return List of jar as url
      * @see JarLoader#urls
      */

@@ -31,6 +31,7 @@ import java.util.*;
 
 /**
  * {@link IScoreProcessor} will be applied to different sources
+ *
  * @author ikb4stream
  * @version 1.0
  * @see com.waves_rsp.ikb4stream.core.datasource.model.IScoreProcessor
@@ -38,6 +39,7 @@ import java.util.*;
 public class EventScoreProcessor implements IScoreProcessor {
     /**
      * Properties of this module
+     *
      * @see PropertiesManager
      * @see PropertiesManager#getProperty(String)
      * @see PropertiesManager#getInstance(Class, String)
@@ -49,28 +51,33 @@ public class EventScoreProcessor implements IScoreProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(EventScoreProcessor.class);
     /**
      * Object to add metrics from this class
+     *
      * @see MetricsLogger#log(String, long)
      * @see MetricsLogger#getMetricsLogger()
      */
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     /**
      * Single instance per thread of {@link OpenNLP}
+     *
      * @see EventScoreProcessor#processScore(Event)
      */
     private final OpenNLP openNLP = OpenNLP.getOpenNLP(Thread.currentThread());
     /**
      * Max score to an {@link Event}
+     *
      * @see EventScoreProcessor#processScore(Event)
      */
     private static final byte MAX = Event.getScoreMax();
     /**
      * Map word, score
+     *
      * @see EventScoreProcessor#processScore(Event)
      */
     private final Map<String, Integer> rulesMap;
 
     /**
      * Default constructor to initialize {@link EventScoreProcessor#rulesMap} with a {@link PropertiesManager}
+     *
      * @see EventScoreProcessor#rulesMap
      * @see EventScoreProcessor#PROPERTIES_MANAGER
      */
@@ -86,6 +93,7 @@ public class EventScoreProcessor implements IScoreProcessor {
 
     /**
      * Process score of an event from an {@link Event}
+     *
      * @param event an {@link Event} without {@link Event#score}
      * @return Event with a score after {@link OpenNLP} processing
      * @throws NullPointerException if event is null
@@ -116,6 +124,7 @@ public class EventScoreProcessor implements IScoreProcessor {
 
     /**
      * Get all sources that {@link IScoreProcessor} will be applied
+     *
      * @return List of sources accepted
      * @see EventScoreProcessor#PROPERTIES_MANAGER
      */

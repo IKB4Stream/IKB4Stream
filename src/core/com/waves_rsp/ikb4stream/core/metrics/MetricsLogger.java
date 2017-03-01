@@ -33,12 +33,14 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Class used in whole project to log value into InfluxDB
+ *
  * @author ikb4stream
  * @version 1.0
  */
 public class MetricsLogger {
     /**
      * Object used to log into InfluxDB
+     *
      * @see MetricsLogger#close()
      * @see MetricsLogger#getMetricsLogger()
      * @see MetricsLogger#checkValidInfluxDBConnexion()
@@ -60,6 +62,7 @@ public class MetricsLogger {
     private static final MetricsLogger METRICS_LOGGER = new MetricsLogger();
     /**
      * Constant value {@value AUTOGEN}
+     *
      * @see MetricsLogger#log(Event)
      * @see MetricsLogger#log(String, long)
      * @see MetricsLogger#log(String, String)
@@ -68,6 +71,7 @@ public class MetricsLogger {
     private static final String AUTOGEN = "autogen";
     /**
      * Constant value {@value ASYNC}
+     *
      * @see MetricsLogger#log(Event)
      * @see MetricsLogger#log(String, long)
      * @see MetricsLogger#log(String, String)
@@ -76,6 +80,7 @@ public class MetricsLogger {
     private static final String ASYNC = "async";
     /**
      * Name of the collection in InfluxDB
+     *
      * @see MetricsLogger#log(Event)
      * @see MetricsLogger#log(String, long)
      * @see MetricsLogger#log(String, String)
@@ -87,15 +92,16 @@ public class MetricsLogger {
      */
     private MetricsLogger() {
         this.measurement = metricsConnector.getProperties().getMeasurement();
-        if(!this.metricsConnector.isConnexionEnabled() || this.metricsConnector.getInfluxDB() == null) {
+        if (!this.metricsConnector.isConnexionEnabled() || this.metricsConnector.getInfluxDB() == null) {
             LOGGER.warn("influxdb connexion disabled");
-        }else {
-            LOGGER.info(MetricsLogger.class.getName()+" has been started ...");
+        } else {
+            LOGGER.info(MetricsLogger.class.getName() + " has been started ...");
         }
     }
 
     /**
      * Get instance of singleton MetricsLogger
+     *
      * @return An unique instance of MetricsLogger
      */
     public static MetricsLogger getMetricsLogger() {
@@ -104,10 +110,11 @@ public class MetricsLogger {
 
     /**
      * Close the connexion with the influx database
+     *
      * @see MetricsLogger#metricsConnector
      */
     public void close() {
-        if(metricsConnector != null) {
+        if (metricsConnector != null) {
             metricsConnector.close();
             Thread.currentThread().interrupt();
         }
@@ -115,6 +122,7 @@ public class MetricsLogger {
 
     /**
      * Log a long value into influx database with a specific field
+     *
      * @param field name of the metric field
      * @param value value of the field, usually a timestamp in millis
      * @throws NullPointerException if field is null
@@ -125,20 +133,21 @@ public class MetricsLogger {
      */
     public void log(String field, long value) {
         Objects.requireNonNull(field);
-        if(checkValidInfluxDBConnexion()) {
+        if (checkValidInfluxDBConnexion()) {
             final InfluxDB influxDB = metricsConnector.getInfluxDB();
             Point point = Point.measurement(measurement).tag(ASYNC, "true")
                     .time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
                     .addField(field, value).build();
             influxDB.write(metricsConnector.getProperties().getDbName(), AUTOGEN, point);
-            LOGGER.info(MetricsLogger.class.getName()+" : indexed points "+point);
+            LOGGER.info(MetricsLogger.class.getName() + " : indexed points " + point);
         }
     }
 
     /**
      * Log a data as value sent to the influx database into a specific measurement
+     *
      * @param field specify the field in order to build a point
-     * @param data the value to stock
+     * @param data  the value to stock
      * @throws NullPointerException if field or data is null
      * @see MetricsLogger#metricsConnector
      * @see MetricsLogger#measurement
@@ -149,7 +158,7 @@ public class MetricsLogger {
         Objects.requireNonNull(field);
         Objects.requireNonNull(data);
 
-        if(checkValidInfluxDBConnexion()) {
+        if (checkValidInfluxDBConnexion()) {
             final InfluxDB influxDB = metricsConnector.getInfluxDB();
             Point point = Point.measurement(measurement)
                     .tag(ASYNC, "true")
@@ -162,9 +171,10 @@ public class MetricsLogger {
 
     /**
      * Create a new metric with a data set (field, value) loaded into influx database if it's possible
+     *
      * @param measurement Name of new metric
-     * @param field specify the field in order to build a point
-     * @param data the value to stock
+     * @param field       specify the field in order to build a point
+     * @param data        the value to stock
      * @throws NullPointerException if at least one of these arguments measurement, field, data are null
      * @see MetricsLogger#metricsConnector
      * @see MetricsLogger#ASYNC
@@ -174,19 +184,20 @@ public class MetricsLogger {
         Objects.requireNonNull(measurement);
         Objects.requireNonNull(field);
         Objects.requireNonNull(data);
-        if(checkValidInfluxDBConnexion()) {
+        if (checkValidInfluxDBConnexion()) {
             final InfluxDB influxDB = metricsConnector.getInfluxDB();
             Point point = Point.measurement(measurement)
                     .tag(ASYNC, "true")
                     .time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
                     .addField(field, data).build();
             influxDB.write(metricsConnector.getProperties().getDbName(), AUTOGEN, point);
-            LOGGER.info(MetricsLogger.class.getName()+" : indexed points "+point.toString());
+            LOGGER.info(MetricsLogger.class.getName() + " : indexed points " + point.toString());
         }
     }
 
     /**
      * Log a not null event into the influx database if it's possible
+     *
      * @param event {@link Event} to stock
      * @throws NullPointerException if event is null
      * @see MetricsLogger#metricsConnector
@@ -195,7 +206,7 @@ public class MetricsLogger {
      */
     public void log(Event event) {
         Objects.requireNonNull(event);
-        if(checkValidInfluxDBConnexion()) {
+        if (checkValidInfluxDBConnexion()) {
             final InfluxDB influxDB = metricsConnector.getInfluxDB();
             Point point = Point.measurement(measurement).tag("event_source", event.getSource())
                     .time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
@@ -203,19 +214,20 @@ public class MetricsLogger {
             BatchPoints.Builder builder = BatchPoints.database(metricsConnector.getProperties().getDbName());
             BatchPoints points = builder.point(point).build();
             influxDB.write(points);
-            LOGGER.info(MetricsLogger.class.getName()+" : indexed "+points.getPoints());
+            LOGGER.info(MetricsLogger.class.getName() + " : indexed " + points.getPoints());
         }
     }
 
     /**
      * Log a collections of point and send them into influx database
+     *
      * @param points the points to check metrics
      * @throws NullPointerException if points is null
      * @see MetricsLogger#metricsConnector
      */
     public void log(Point... points) {
         Objects.requireNonNull(points);
-        if(checkValidInfluxDBConnexion()) {
+        if (checkValidInfluxDBConnexion()) {
             final InfluxDB influxDB = metricsConnector.getInfluxDB();
             influxDB.setLogLevel(InfluxDB.LogLevel.BASIC);
             BatchPoints.Builder builder = BatchPoints.database(metricsConnector.getProperties().getDbName());
@@ -223,13 +235,14 @@ public class MetricsLogger {
             BatchPoints batchPoints = builder.build();
             influxDB.write(batchPoints);
             batchPoints.getPoints().stream().map(Point::lineProtocol).forEach(point ->
-                    LOGGER.info(MetricsLogger.class.getName()+" : push metrics point " + point)
+                    LOGGER.info(MetricsLogger.class.getName() + " : push metrics point " + point)
             );
         }
     }
 
     /**
      * Check if there is a valid instance of InfluxDB
+     *
      * @return true if {@link MetricsLogger} is valid
      * @see MetricsLogger#metricsConnector
      */
@@ -239,13 +252,14 @@ public class MetricsLogger {
 
     /**
      * Read the result of a request to read data loaded into influxdb
+     *
      * @param request the specific request
      * @throws NullPointerException if request is null
      * @see MetricsLogger#metricsConnector
      */
     public void read(String request) {
         Objects.requireNonNull(request);
-        if(checkValidInfluxDBConnexion()) {
+        if (checkValidInfluxDBConnexion()) {
             final Query query = new Query(request, metricsConnector.getProperties().getDbName());
             QueryResult fixes = this.metricsConnector.getInfluxDB().query(query);
             List<QueryResult.Result> resultsList = fixes.getResults();

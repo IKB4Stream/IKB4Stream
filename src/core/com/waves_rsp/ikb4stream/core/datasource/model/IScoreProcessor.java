@@ -24,12 +24,14 @@ import java.util.List;
 
 /**
  * Interface to implement if you want to use your class as module of ScoreProcessor
+ *
  * @author ikb4stream
  * @version 1.0
  */
 public interface IScoreProcessor {
     /**
      * This method create a score to the event in param
+     *
      * @param event {@link Event} without score
      * @return {@link Event} with score gave by processScore
      */
@@ -37,6 +39,7 @@ public interface IScoreProcessor {
 
     /**
      * List all sources that ScoreProcessor can be use
+     *
      * @return List of sources
      */
     List<String> getSources();

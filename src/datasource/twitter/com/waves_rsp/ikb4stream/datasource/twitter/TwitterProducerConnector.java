@@ -32,6 +32,7 @@ import java.util.*;
 
 /**
  * Listen any events provided by the twitter api and load them into a IDataProducer object.
+ *
  * @author ikb4stream
  * @version 1.0
  * @see com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector
@@ -39,6 +40,7 @@ import java.util.*;
 public class TwitterProducerConnector implements IProducerConnector {
     /**
      * Properties of this module
+     *
      * @see PropertiesManager
      * @see PropertiesManager#getProperty(String)
      * @see PropertiesManager#getInstance(Class, String)
@@ -50,42 +52,50 @@ public class TwitterProducerConnector implements IProducerConnector {
     private static final Logger LOGGER = LoggerFactory.getLogger(TwitterProducerConnector.class);
     /**
      * Configuration to use Twitter Stream API
+     *
      * @see TwitterProducerConnector#loadTwitterProperties()
      */
     private final ConfigurationBuilder confBuilder = new ConfigurationBuilder();
     /**
      * Source name of corresponding {@link Event}
+     *
      * @see TwitterStreamListener#onStatus(Status)
      */
     private final String source = PROPERTIES_MANAGER.getProperty("twitter.source");
     /**
      * Latitude max of {@link com.waves_rsp.ikb4stream.core.communication.model.BoundingBox BoundingBox}
+     *
      * @see TwitterStreamListener#getLatLong(Status)
      */
     private final double latitudeMax;
     /**
      * Latitude min of {@link com.waves_rsp.ikb4stream.core.communication.model.BoundingBox BoundingBox}
+     *
      * @see TwitterStreamListener#getLatLong(Status)
      */
     private final double latitudeMin;
     /**
      * Longitude max of {@link com.waves_rsp.ikb4stream.core.communication.model.BoundingBox BoundingBox}
+     *
      * @see TwitterStreamListener#getLatLong(Status)
      */
     private final double longitudeMax;
     /**
      * Longitude min of {@link com.waves_rsp.ikb4stream.core.communication.model.BoundingBox BoundingBox}
+     *
      * @see TwitterStreamListener#getLatLong(Status)
      */
     private final double longitudeMin;
     /**
      * Represent bounding to analyse
+     *
      * @see TwitterProducerConnector#load(IDataProducer)
      */
     private final double[][] boundingBox;
 
     /**
      * Instantiate the {@link TwitterProducerConnector} object with load properties
+     *
      * @see TwitterProducerConnector#latitudeMax
      * @see TwitterProducerConnector#latitudeMin
      * @see TwitterProducerConnector#longitudeMax
@@ -111,6 +121,7 @@ public class TwitterProducerConnector implements IProducerConnector {
 
     /**
      * Listen tweets from twitter with a bounding box and load them with the data producer object
+     *
      * @param dataProducer {@link IDataProducer} contains the data queue
      * @see TwitterProducerConnector#confBuilder
      * @see TwitterProducerConnector#boundingBox
@@ -127,14 +138,14 @@ public class TwitterProducerConnector implements IProducerConnector {
             twitterStream.addListener(streamListener);
             twitterStream.filter(filterQuery);
             Thread.currentThread().join();
-        }catch (IllegalArgumentException | IllegalStateException err) {
+        } catch (IllegalArgumentException | IllegalStateException err) {
             LOGGER.error("Error loading : " + err.getMessage());
             throw new IllegalStateException(err.getMessage());
         } catch (InterruptedException e) {
             LOGGER.info("Close twitter");
             Thread.currentThread().interrupt();
         } finally {
-            if(twitterStream != null) {
+            if (twitterStream != null) {
                 twitterStream.cleanUp();
                 twitterStream.shutdown();
             }
@@ -144,6 +155,7 @@ public class TwitterProducerConnector implements IProducerConnector {
 
     /**
      * Check if this jar is active
+     *
      * @return true if it should be started
      * @see TwitterProducerConnector#PROPERTIES_MANAGER
      */
@@ -158,6 +170,7 @@ public class TwitterProducerConnector implements IProducerConnector {
 
     /**
      * Load properties for twitter connector
+     *
      * @see TwitterProducerConnector#confBuilder
      * @see TwitterProducerConnector#PROPERTIES_MANAGER
      */
@@ -168,7 +181,7 @@ public class TwitterProducerConnector implements IProducerConnector {
             confBuilder.setOAuthConsumerKey(PROPERTIES_MANAGER.getProperty("twitter.key.consumer.accesstoken"));
             confBuilder.setOAuthConsumerSecret(PROPERTIES_MANAGER.getProperty("twitter.secret.consumer.accesstoken"));
             confBuilder.setJSONStoreEnabled(true);
-        }catch (IllegalArgumentException err) {
+        } catch (IllegalArgumentException err) {
             LOGGER.error("Load Twitter Properties {} ", err.getMessage());
             throw new IllegalStateException(err.getMessage());
         }
@@ -176,6 +189,7 @@ public class TwitterProducerConnector implements IProducerConnector {
 
     /**
      * A status listener in order to get tweets with the method onStatus
+     *
      * @author ikb4stream
      * @version 1.0
      */
@@ -187,6 +201,7 @@ public class TwitterProducerConnector implements IProducerConnector {
 
         /**
          * Instantiate a Twitter listener with a copy of {@link IDataProducer}
+         *
          * @param dataProducer {@link IDataProducer} from {@link TwitterProducerConnector}
          */
         private TwitterStreamListener(IDataProducer dataProducer) {
@@ -195,6 +210,7 @@ public class TwitterProducerConnector implements IProducerConnector {
 
         /**
          * Method called when a new Tweet is pushed in Twitter Stream API
+         *
          * @param status Represent a Tweet
          * @see TwitterProducerConnector#source
          * @see TwitterStreamListener#dataProducer
@@ -206,7 +222,7 @@ public class TwitterProducerConnector implements IProducerConnector {
             Date end = status.getCreatedAt();
             User user = status.getUser();
             LatLong[] latLong = getLatLong(status);
-            if(latLong.length > 0) {
+            if (latLong.length > 0) {
                 JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.append("description", description);
@@ -226,6 +242,7 @@ public class TwitterProducerConnector implements IProducerConnector {
 
         /**
          * Get position of Tweet
+         *
          * @param status Tweet to analyse
          * @return {@link LatLong} to represent position of Tweet
          * @see TwitterProducerConnector#longitudeMin
@@ -236,12 +253,12 @@ public class TwitterProducerConnector implements IProducerConnector {
         private LatLong[] getLatLong(Status status) {
             if (status.getGeoLocation() != null) {
                 LOGGER.info("Status geolocation found !");
-                return new LatLong[] {new LatLong(status.getGeoLocation().getLatitude(), status.getGeoLocation().getLongitude())};
+                return new LatLong[]{new LatLong(status.getGeoLocation().getLatitude(), status.getGeoLocation().getLongitude())};
             } else if (status.getPlace() != null && status.getPlace().getBoundingBoxCoordinates() != null) {
                 return getLatLongFromBoudingBox(status.getPlace().getBoundingBoxCoordinates());
             } else {
                 LOGGER.info("Status geolocation cannot be found !");
-                return new LatLong[] {
+                return new LatLong[]{
                         new LatLong(latitudeMin, longitudeMin),
                         new LatLong(latitudeMax, longitudeMin),
                         new LatLong(latitudeMax, longitudeMax),
@@ -253,6 +270,7 @@ public class TwitterProducerConnector implements IProducerConnector {
 
         /**
          * Get an array of {@link LatLong} from GeoLocation object of Status
+         *
          * @param geoLocations Array of GeoLocation
          * @return Array of {@link LatLong}
          */
@@ -271,6 +289,7 @@ public class TwitterProducerConnector implements IProducerConnector {
 
         /**
          * Called upon deletionNotice notices. Clients are urged to honor deletionNotice requests and discard deleted statuses immediately. At times, status deletionNotice messages may arrive before the status. Even in this case, the late arriving status should be deleted from your backing store.
+         *
          * @param statusDeletionNotice the deletionNotice notice
          */
         @Override
@@ -298,7 +317,7 @@ public class TwitterProducerConnector implements IProducerConnector {
          */
         @Override
         public void onScrubGeo(long userId, long upToStatusId) {
-            LOGGER.info("user id : "+userId+", "+upToStatusId);
+            LOGGER.info("user id : " + userId + ", " + upToStatusId);
         }
 
         /**
@@ -313,6 +332,7 @@ public class TwitterProducerConnector implements IProducerConnector {
 
         /**
          * When exception append
+         *
          * @param ex Exception to catch
          */
         @Override

@@ -20,8 +20,8 @@ package com.waves_rsp.ikb4stream.producer.datasource;
 
 import com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
-import com.waves_rsp.ikb4stream.core.util.JarLoader;
 import com.waves_rsp.ikb4stream.core.util.ClassManager;
+import com.waves_rsp.ikb4stream.core.util.JarLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,12 +39,14 @@ import java.util.stream.Stream;
 
 /**
  * Object which manage all {@link IProducerConnector} and {@link DataConsumer}
+ *
  * @author ikb4stream
  * @version 1.0
  */
 public class ProducerManager {
     /**
      * Properties of this class
+     *
      * @see PropertiesManager
      * @see PropertiesManager#getProperty(String)
      * @see PropertiesManager#getInstance(Class)
@@ -56,28 +58,33 @@ public class ProducerManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProducerManager.class);
     /**
      * Single instance of {@link ProducerManager}
+     *
      * @see ProducerManager#getInstance()
      */
     private static final ProducerManager PRODUCER_MANAGER = new ProducerManager();
     /**
      * ClassLoader of {@link ProducerManager}
+     *
      * @see ProducerManager#launchModule(JarLoader)
      */
     private final ClassLoader parent = ProducerManager.class.getClassLoader();
     /**
      * List of Thread for each {@link IProducerConnector}
+     *
      * @see ProducerManager#launchModule(JarLoader)
      * @see ProducerManager#stop()
      */
     private final List<Thread> producerConnectors = new ArrayList<>();
     /**
      * Single instance of {@link DataQueue}
+     *
      * @see ProducerManager#launchModule(JarLoader)
      * @see ProducerManager#stop()
      */
     private final DataQueue dataQueue = DataQueue.createDataQueue();
     /**
      * List of Thread for each {@link DataConsumer}
+     *
      * @see ProducerManager#launchDataConsumer()
      * @see ProducerManager#stop()
      */
@@ -92,6 +99,7 @@ public class ProducerManager {
 
     /**
      * Get single instance of {@link ProducerManager}
+     *
      * @return Single instance of {@link ProducerManager}
      * @see ProducerManager#PRODUCER_MANAGER
      */
@@ -101,6 +109,7 @@ public class ProducerManager {
 
     /**
      * Instantiate all consumers and producers
+     *
      * @see ProducerManager#launchDataProducer()
      * @see ProducerManager#launchDataConsumer()
      */
@@ -111,6 +120,7 @@ public class ProducerManager {
 
     /**
      * Launch all consumers
+     *
      * @see ProducerManager#PRODUCER_MANAGER
      * @see ProducerManager#dataConsumers
      */
@@ -156,6 +166,7 @@ public class ProducerManager {
 
     /**
      * Get path where ProducerConnector are store
+     *
      * @return Path or null if there is invalid configuration
      * @see ProducerManager#PROPERTIES_MANAGER
      */
@@ -170,6 +181,7 @@ public class ProducerManager {
 
     /**
      * Launch module
+     *
      * @param jarLoader {@link JarLoader} that represents module
      * @see ProducerManager#producerConnectors
      * @see ProducerManager#dataQueue
@@ -201,6 +213,7 @@ public class ProducerManager {
 
     /**
      * Stop producer and consumer when dataQueue is empty
+     *
      * @see ProducerManager#producerConnectors
      * @see ProducerManager#dataConsumers
      * @see ProducerManager#dataQueue

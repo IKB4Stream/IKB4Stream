@@ -23,6 +23,7 @@ import com.waves_rsp.ikb4stream.core.model.Event;
 /**
  * Functional interface called in {@link com.waves_rsp.ikb4stream.producer.DatabaseWriter#insertEvent(Event, DatabaseWriterCallback)}
  * after insertion in database
+ *
  * @author ikb4stream
  * @version 1.0
  */
@@ -30,6 +31,7 @@ import com.waves_rsp.ikb4stream.core.model.Event;
 public interface DatabaseWriterCallback {
     /**
      * Method called after insertion in database {@link com.waves_rsp.ikb4stream.producer.DatabaseWriter#insertEvent(Event, DatabaseWriterCallback)}
+     *
      * @param t Throwable in case of error
      */
     void onResult(Throwable t);

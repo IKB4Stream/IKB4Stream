@@ -20,11 +20,11 @@ package com.waves_rsp.ikb4stream.datasource.facebookmock;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.waves_rsp.ikb4stream.core.datasource.IProducerConnectorMock;
 import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
-import com.waves_rsp.ikb4stream.core.datasource.IProducerConnectorMock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,6 +36,7 @@ import java.util.TimeZone;
 
 /**
  * Mock of {@link com.waves_rsp.ikb4stream.datasource.facebook.FacebookProducerConnector FacebookProducerConnector}
+ *
  * @author ikb4stream
  * @version 1.0
  * @see com.waves_rsp.ikb4stream.core.datasource.IProducerConnectorMock
@@ -44,6 +45,7 @@ import java.util.TimeZone;
 public class FacebookMock implements IProducerConnectorMock {
     /**
      * Properties of this module
+     *
      * @see PropertiesManager
      * @see PropertiesManager#getProperty(String)
      * @see PropertiesManager#getInstance(Class, String)
@@ -55,6 +57,7 @@ public class FacebookMock implements IProducerConnectorMock {
     private static final Logger LOGGER = LoggerFactory.getLogger(FacebookMock.class);
     /**
      * Constant value {@value SOURCE}
+     *
      * @see FacebookMock#getEventFromJson(ObjectNode)
      */
     private static final String SOURCE = "Facebook";
@@ -68,6 +71,7 @@ public class FacebookMock implements IProducerConnectorMock {
 
     /**
      * Load data registered into a json twitter file and parse them to create {@link Event}
+     *
      * @param dataProducer contains the {@link com.waves_rsp.ikb4stream.producer.datasource.DataQueue DataQueue}
      * @throws NullPointerException if dataProducer is null
      * @see FacebookMock#PROPERTIES_MANAGER
@@ -80,6 +84,7 @@ public class FacebookMock implements IProducerConnectorMock {
 
     /**
      * Indicates whether this producer is enabled or not, according to facebookmock.enable
+     *
      * @return true is facebookmock.enable is true
      * @see FacebookMock#PROPERTIES_MANAGER
      */
@@ -90,16 +95,17 @@ public class FacebookMock implements IProducerConnectorMock {
 
     /**
      * Parse a json node in order to create a Date object
+     *
      * @param jsonNode json to parse to Date
      * @return null if a ParseException has been thrown, else the Date object created
      * @throws NullPointerException if jsonNode is null
      */
-    static Date getDateFromJson (JsonNode jsonNode) {
+    static Date getDateFromJson(JsonNode jsonNode) {
         Objects.requireNonNull(jsonNode);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss-SSS");
         TimeZone tz = TimeZone.getTimeZone("CET");
         String timeString = jsonNode.toString();
-        timeString = timeString.substring(1, timeString.length()-4);
+        timeString = timeString.substring(1, timeString.length() - 4);
         dateFormat.setTimeZone(tz);
         try {
             return dateFormat.parse(timeString);
@@ -111,6 +117,7 @@ public class FacebookMock implements IProducerConnectorMock {
 
     /**
      * Parse an object node in order to create an {@link Event} object
+     *
      * @param objectNode object node to convert to {@link Event}
      * @return Event converted format
      * @throws NullPointerException if objectNode is null
@@ -132,6 +139,7 @@ public class FacebookMock implements IProducerConnectorMock {
 
     /**
      * Create {@link LatLong} from an ObjectNode object and parse it to get GPS coordinates
+     *
      * @param objectNode the json {@link LatLong} to format
      * @return {@link LatLong} object containing latitude and longitude values
      * @throws NullPointerException if objectNode is null

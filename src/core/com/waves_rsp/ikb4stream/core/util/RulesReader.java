@@ -31,6 +31,7 @@ import java.util.Objects;
 
 /**
  * This class provides only static method {@link RulesReader#parseJSONRules(String)}
+ *
  * @author ikb4stream
  * @version 1.0
  */
@@ -49,6 +50,7 @@ public class RulesReader {
 
     /**
      * Parse file
+     *
      * @param filename as JSON to parse
      * @return Map<String, Integer> contains Json elements within rules.json
      * @throws NullPointerException if filename is null

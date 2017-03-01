@@ -32,12 +32,14 @@ import java.io.InputStream;
 
 /**
  * Load NLP binaries to permit to library OpenNLP to be executed in multiple thread
+ *
  * @author ikb4stream
  * @version 1.0
  */
 class LoaderNLP {
     /**
      * Properties of this class
+     *
      * @see PropertiesManager
      * @see PropertiesManager#getProperty(String)
      * @see PropertiesManager#getInstance(Class)
@@ -49,31 +51,37 @@ class LoaderNLP {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoaderNLP.class);
     /**
      * Load model to apply person name finder
+     *
      * @see LoaderNLP#getTokenNameFinderModelPers()
      */
     private static final TokenNameFinderModel TOKEN_NAME_FINDER_MODEL_PERS;
     /**
      * Load model to apply organization name finder
+     *
      * @see LoaderNLP#getTokenNameFinderModelOrg()
      */
     private static final TokenNameFinderModel TOKEN_NAME_FINDER_MODEL_ORG;
     /**
      * Load model to apply localisation name finder
+     *
      * @see LoaderNLP#getTokenNameFinderModelLoc()
      */
     private static final TokenNameFinderModel TOKEN_NAME_FINDER_MODEL_LOC;
     /**
      * Load model to apply tokenization
+     *
      * @see LoaderNLP#getTokenizerModel()
      */
     private static final TokenizerModel TOKENIZER_MODEL;
     /**
      * Load model to apply sentence detection
+     *
      * @see LoaderNLP#getSentenceModel()
      */
     private static final SentenceModel SENTENCE_MODEL;
     /**
      * Load model to apply part-of-speech tagger
+     *
      * @see LoaderNLP#getPosModel()
      */
     private static final POSModel POS_MODEL;
@@ -114,6 +122,7 @@ class LoaderNLP {
 
     /**
      * Get model to apply person name finder
+     *
      * @return {@link LoaderNLP#TOKEN_NAME_FINDER_MODEL_PERS}
      * @see LoaderNLP#TOKEN_NAME_FINDER_MODEL_PERS
      */
@@ -123,6 +132,7 @@ class LoaderNLP {
 
     /**
      * Get model to apply organization name finder
+     *
      * @return {@link LoaderNLP#TOKEN_NAME_FINDER_MODEL_ORG}
      * @see LoaderNLP#TOKEN_NAME_FINDER_MODEL_ORG
      */
@@ -132,6 +142,7 @@ class LoaderNLP {
 
     /**
      * Get model to apply location name finder
+     *
      * @return {@link LoaderNLP#TOKEN_NAME_FINDER_MODEL_LOC}
      * @see LoaderNLP#TOKEN_NAME_FINDER_MODEL_LOC
      */
@@ -141,6 +152,7 @@ class LoaderNLP {
 
     /**
      * Get model to apply tokenization
+     *
      * @return {@link LoaderNLP#TOKENIZER_MODEL}
      * @see LoaderNLP#TOKENIZER_MODEL
      */
@@ -150,6 +162,7 @@ class LoaderNLP {
 
     /**
      * Get model to apply sentence detection
+     *
      * @return {@link LoaderNLP#SENTENCE_MODEL}
      * @see LoaderNLP#SENTENCE_MODEL
      */
@@ -159,6 +172,7 @@ class LoaderNLP {
 
     /**
      * Get model to apply part-of-speech tagger
+     *
      * @return {@link LoaderNLP#POS_MODEL}
      * @see LoaderNLP#POS_MODEL
      */

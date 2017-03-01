@@ -39,12 +39,14 @@ import java.util.stream.Stream;
 
 /**
  * Object which manage all {@link IScoreProcessor}
+ *
  * @author ikb4stream
  * @version 1.0
  */
 public class ScoreProcessorManager {
     /**
      * Properties of this class
+     *
      * @see PropertiesManager
      * @see PropertiesManager#getProperty(String)
      * @see PropertiesManager#getInstance(Class)
@@ -56,18 +58,21 @@ public class ScoreProcessorManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(ScoreProcessorManager.class);
     /**
      * Association {@link Event#source} to a list of {@link IScoreProcessor}
+     *
      * @see ScoreProcessorManager#findIScoreProcessor(String)
      * @see ScoreProcessorManager#launchModule(JarLoader)
      */
-    private final Map<String,List<IScoreProcessor>> scoreProcessors = new HashMap<>();
+    private final Map<String, List<IScoreProcessor>> scoreProcessors = new HashMap<>();
     /**
      * ClassLoader of {@link ScoreProcessorManager}
+     *
      * @see ScoreProcessorManager#launchModule(JarLoader)
      */
     private final ClassLoader parent = ScoreProcessorManager.class.getClassLoader();
 
     /**
      * Override default constructor
+     *
      * @see ScoreProcessorManager#instanciate()
      */
     public ScoreProcessorManager() {
@@ -76,6 +81,7 @@ public class ScoreProcessorManager {
 
     /**
      * Process NLP Algorithm to an event
+     *
      * @param event {@link Event} to score
      * @return Copy of {@link Event} with a new score
      * @throws NullPointerException if event is null
@@ -90,6 +96,7 @@ public class ScoreProcessorManager {
 
     /**
      * Find {@link IScoreProcessor} to apply to a {@link Event#source}
+     *
      * @param source Origin of the {@link Event}
      * @return List of all {@link IScoreProcessor} to apply
      * @throws NullPointerException if source is null
@@ -104,8 +111,9 @@ public class ScoreProcessorManager {
 
     /**
      * Apply all {@link IScoreProcessor} to the {@link Event}
+     *
      * @param scoreProcessor List of all {@link IScoreProcessor} to apply
-     * @param event {@link Event} to process
+     * @param event          {@link Event} to process
      * @return Copy of {@link Event} with its {@link Event#score} process
      * @throws NullPointerException if scoreProcessor or event is null
      */
@@ -141,6 +149,7 @@ public class ScoreProcessorManager {
 
     /**
      * Get path where {@link IScoreProcessor} are store
+     *
      * @return Path or null if there is invalid configuration
      * @see ScoreProcessorManager#PROPERTIES_MANAGER
      */
@@ -156,6 +165,7 @@ public class ScoreProcessorManager {
 
     /**
      * Launch module of {@link IScoreProcessor}
+     *
      * @param jarLoader {@link JarLoader} that represents module
      * @see ScoreProcessorManager#scoreProcessors
      * @see ScoreProcessorManager#parent

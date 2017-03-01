@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.util.*;
 
 /**
+ * {@link IScoreProcessor} will be applied to OpenAgenda {@link Event}
  *
  * @author ikb4stream
  * @version 1.0
@@ -40,6 +41,7 @@ import java.util.*;
 public class OpenAgendaScoreProcessor implements IScoreProcessor {
     /**
      * Properties of this module
+     *
      * @see PropertiesManager
      * @see PropertiesManager#getProperty(String)
      * @see PropertiesManager#getInstance(Class, String)
@@ -51,28 +53,33 @@ public class OpenAgendaScoreProcessor implements IScoreProcessor {
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(OpenAgendaScoreProcessor.class);
     /**
      * Object to add metrics from this class
+     *
      * @see MetricsLogger#log(String, long)
      * @see MetricsLogger#getMetricsLogger()
      */
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     /**
      * Single instance per thread of {@link OpenNLP}
+     *
      * @see OpenAgendaScoreProcessor#processScore(Event)
      */
     private final OpenNLP openNLP = OpenNLP.getOpenNLP(Thread.currentThread());
     /**
      * Max score to an {@link Event}
+     *
      * @see OpenAgendaScoreProcessor#verifyMaxScore(byte)
      */
     private static final byte MAX_SCORE = Event.getScoreMax();
     /**
      * Map word, score
+     *
      * @see OpenAgendaScoreProcessor#processScore(Event)
      */
     private final Map<String, Integer> rulesMap;
 
     /**
      * Default constructor to initialize {@link OpenAgendaScoreProcessor#rulesMap} with a {@link PropertiesManager}
+     *
      * @see OpenAgendaScoreProcessor#rulesMap
      * @see OpenAgendaScoreProcessor#PROPERTIES_MANAGER
      */
@@ -88,6 +95,7 @@ public class OpenAgendaScoreProcessor implements IScoreProcessor {
 
     /**
      * Process score of an event from an {@link Event}
+     *
      * @param event an {@link Event} without {@link Event#score}
      * @return Event with a score after {@link OpenNLP} processing
      * @throws NullPointerException if event is null
@@ -125,6 +133,7 @@ public class OpenAgendaScoreProcessor implements IScoreProcessor {
 
     /**
      * Get all sources that {@link IScoreProcessor} will be applied
+     *
      * @return List of sources accepted
      * @see OpenAgendaScoreProcessor#PROPERTIES_MANAGER
      */
@@ -142,6 +151,7 @@ public class OpenAgendaScoreProcessor implements IScoreProcessor {
 
     /**
      * Check that the score can't overtake {@link OpenAgendaScoreProcessor#MAX_SCORE}
+     *
      * @param score calculated by {@link OpenNLP} processing
      * @return score {@link OpenAgendaScoreProcessor#MAX_SCORE}
      */

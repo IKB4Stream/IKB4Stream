@@ -37,13 +37,15 @@ import java.util.Objects;
 
 /**
  * Get weather from OpenWeatherMap API
+ *
  * @author ikb4stream
  * @version 1.0
  * @see com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector
  */
-public class OWMProducerConnector implements IProducerConnector{
+public class OWMProducerConnector implements IProducerConnector {
     /**
      * Properties of this module
+     *
      * @see PropertiesManager
      * @see PropertiesManager#getProperty(String)
      * @see PropertiesManager#getInstance(Class, String)
@@ -55,35 +57,41 @@ public class OWMProducerConnector implements IProducerConnector{
     private static final Logger LOGGER = LoggerFactory.getLogger(OWMProducerConnector.class);
     /**
      * Object to add metrics from this class
+     *
      * @see MetricsLogger#log(String, long)
      * @see MetricsLogger#getMetricsLogger()
      */
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
     /**
      * OpenWeatherMap java API
+     *
      * @see OWMProducerConnector#getCurrentWeather(double, double)
      */
     private final OpenWeatherMap openWeatherMap;
     /**
      * Interval time between two batch
+     *
      * @see OWMProducerConnector#getCurrentWeather(double, double)
      * @see OWMProducerConnector#load(IDataProducer)
      */
     private final Long requestInterval;
     /**
      * Longitude limit to get {@link Event}
+     *
      * @see OWMProducerConnector#getCurrentWeather(double, double)
      * @see OWMProducerConnector#load(IDataProducer)
      */
     private final double longitude;
     /**
      * Latitude limit to get {@link Event}
+     *
      * @see OWMProducerConnector#getCurrentWeather(double, double)
      * @see OWMProducerConnector#load(IDataProducer)
      */
     private final double latitude;
     /**
      * Source name of corresponding {@link Event}
+     *
      * @see OWMProducerConnector#getCurrentWeather(double, double)
      * @see OWMProducerConnector#load(IDataProducer)
      */
@@ -91,6 +99,7 @@ public class OWMProducerConnector implements IProducerConnector{
 
     /**
      * Instantiate the {@link OWMProducerConnector} object with load properties
+     *
      * @throws IllegalArgumentException if invalid values in configuration file
      * @see OWMProducerConnector#source
      * @see OWMProducerConnector#latitude
@@ -102,8 +111,8 @@ public class OWMProducerConnector implements IProducerConnector{
         try {
             this.source = PROPERTIES_MANAGER.getProperty("OWMProducerConnector.source");
             final String owmKey = PROPERTIES_MANAGER.getProperty("OWMProducerConnector.key");
-            this.latitude =  Double.valueOf(PROPERTIES_MANAGER.getProperty("OWMProducerConnector.latitude"));
-            this.longitude =  Double.valueOf(PROPERTIES_MANAGER.getProperty("OWMProducerConnector.longitude"));
+            this.latitude = Double.valueOf(PROPERTIES_MANAGER.getProperty("OWMProducerConnector.latitude"));
+            this.longitude = Double.valueOf(PROPERTIES_MANAGER.getProperty("OWMProducerConnector.longitude"));
             this.requestInterval = Long.valueOf(PROPERTIES_MANAGER.getProperty("OWMProducerConnector.sleep"));
             this.openWeatherMap = new OpenWeatherMap(owmKey);
             this.openWeatherMap.setLang(OpenWeatherMap.Language.FRENCH);
@@ -115,6 +124,7 @@ public class OWMProducerConnector implements IProducerConnector{
 
     /**
      * Get the current weather from OpenWeatherMap
+     *
      * @return an Event which contains information about current weather
      * @throws IOException
      * @see OWMProducerConnector#openWeatherMap
@@ -126,26 +136,27 @@ public class OWMProducerConnector implements IProducerConnector{
     private Event getCurrentWeather(double latitude, double longitude) {
         Objects.requireNonNull(latitude);
         Objects.requireNonNull(longitude);
-        ObjectMapper  objectMapper = new ObjectMapper();
-        CurrentWeather currentWeather = openWeatherMap.currentWeatherByCoordinates((float)this.latitude, (float)this.longitude);
-        try{
+        ObjectMapper objectMapper = new ObjectMapper();
+        CurrentWeather currentWeather = openWeatherMap.currentWeatherByCoordinates((float) this.latitude, (float) this.longitude);
+        try {
             JsonNode jn = objectMapper.readTree(currentWeather.getRawResponse());
             String description = currentWeather.getRawResponse();
             LatLong latLong = new LatLong(Double.valueOf(jn.path("coord").path("lat").toString()), Double.valueOf(jn.path("coord").path("lon").toString()));
-            Date start = new Date(Long.valueOf(jn.path("dt").toString())*1000);
-            Date end = new Date(start.getTime()+requestInterval-1000);
+            Date start = new Date(Long.valueOf(jn.path("dt").toString()) * 1000);
+            Date end = new Date(start.getTime() + requestInterval - 1000);
             return new Event(latLong, start, end, description, this.source);
-        } catch ( NumberFormatException e){
+        } catch (NumberFormatException e) {
             LOGGER.warn("value of() failed: {}", e.getMessage());
             return null;
-        } catch (IOException e){
+        } catch (IOException e) {
             LOGGER.warn("Current weather failed: {}", e.getMessage());
-            return  null;
+            return null;
         }
     }
 
     /**
      * Check if this jar is active
+     *
      * @return true if it should be started
      * @see OWMProducerConnector#PROPERTIES_MANAGER
      */
@@ -160,6 +171,7 @@ public class OWMProducerConnector implements IProducerConnector{
 
     /**
      * Listen {@link Event} from OWM
+     *
      * @param dataProducer {@link IDataProducer} contains the data queue
      * @see OWMProducerConnector#latitude
      * @see OWMProducerConnector#longitude
@@ -173,11 +185,11 @@ public class OWMProducerConnector implements IProducerConnector{
             try {
                 long start = System.currentTimeMillis();
                 Event event = getCurrentWeather(this.latitude, this.longitude);
-                if(event!= null) {
+                if (event != null) {
                     dataProducer.push(event);
                     long end = System.currentTimeMillis();
                     long result = end - start;
-                    METRICS_LOGGER.log("time_process_"+this.source, result);
+                    METRICS_LOGGER.log("time_process_" + this.source, result);
                 }
                 Thread.sleep(requestInterval);
             } catch (InterruptedException e) {
