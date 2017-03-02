@@ -18,31 +18,48 @@
 
 package com.waves_rsp.ikb4stream.core.model;
 
+/**
+ * Object that represents a GPS position of an {@link Event}
+ *
+ * @author ikb4stream
+ * @version 1.0
+ */
 public class LatLong {
+    /**
+     * Latitude position
+     *
+     * @see LatLong#getLatitude()
+     */
     private final double latitude;
+    /**
+     * Longitude position
+     *
+     * @see LatLong#getLongitude()
+     */
     private final double longitude;
 
     /**
      * Create a LatLong
-     * @param latitude latitude of the event
+     *
+     * @param latitude  latitude of the event
      * @param longitude longitude of the event
-     * @throws IllegalArgumentException if {@param latitude} is not between -90 an 90, or {@param longitude} is not between -180 and 180
+     * @throws IllegalArgumentException if latitude is not between -90 an 90, or longitude is not between -180 and 180
      */
     public LatLong(double latitude, double longitude) {
-        if(latitude < -90 || latitude > 90) {
+        if (latitude < -90 || latitude > 90) {
             throw new IllegalArgumentException("Latitude must be between -90° and +90° inclusive.");
-        }
-        if(longitude < -180 || longitude > 180) {
+        } else if (longitude < -180 || longitude > 180) {
             throw new IllegalArgumentException("Longitude must be between -180° and +180° inclusive.");
         }
-
         this.latitude = latitude;
         this.longitude = longitude;
     }
 
     /**
      * Get latitude
+     *
      * @return latitude
+     * @see LatLong#latitude
      */
     public double getLatitude() {
         return latitude;
@@ -50,12 +67,20 @@ public class LatLong {
 
     /**
      * Get longitude
+     *
      * @return longitude
+     * @see LatLong#longitude
      */
     public double getLongitude() {
         return longitude;
     }
 
+    /**
+     * Generated method to test if {@link LatLong} are same
+     *
+     * @param o Other {@link LatLong} to compare
+     * @return true if there are equals
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -67,6 +92,11 @@ public class LatLong {
         return Double.compare(latLong.longitude, longitude) == 0;
     }
 
+    /**
+     * Generated method
+     *
+     * @return hashcode of {@link LatLong}
+     */
     @Override
     public int hashCode() {
         int result;
@@ -78,6 +108,13 @@ public class LatLong {
         return result;
     }
 
+    /**
+     * Represent this {@link LatLong} as a String
+     *
+     * @return this {@link LatLong} as String
+     * @see LatLong#longitude
+     * @see LatLong#latitude
+     */
     @Override
     public String toString() {
         return "{" + latitude + "," + longitude + "}";

@@ -22,6 +22,12 @@ import com.hp.hpl.jena.datatypes.xsd.XSDDateTime;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.RDFNode;
+import com.waves_rsp.ikb4stream.core.communication.model.BoundingBox;
+import com.waves_rsp.ikb4stream.core.communication.model.Request;
+import com.waves_rsp.ikb4stream.core.model.LatLong;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.ByteArrayInputStream;
 import java.time.Instant;
 import java.util.Date;
@@ -29,17 +35,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import com.waves_rsp.ikb4stream.core.communication.model.BoundingBox;
-import com.waves_rsp.ikb4stream.core.communication.model.Request;
-import com.waves_rsp.ikb4stream.core.model.LatLong;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 
 /**
  * Parser class to parse stream RDF
+ *
+ * @author ikb4stream
+ * @version 1.0
  */
 public class RDFParser {
+    /**
+     * Logger used to log all information in this module
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(RDFParser.class);
 
     /**
@@ -51,9 +57,11 @@ public class RDFParser {
 
     /**
      * Parse RDF input as string
+     *
      * @param input RDF values as String
      * @return an {@link Request} object which contains information about latitude, longitude and date
-     * @throws IllegalStateException If RDF is not literal
+     * @throws IllegalStateException if RDF is not literal
+     * @throws NullPointerException  if input is null
      */
     public static Request parse(String input) {
         Objects.requireNonNull(input);
@@ -63,7 +71,7 @@ public class RDFParser {
         Map<String, Object> map = new HashMap<>();
         model.listStatements().forEachRemaining(statement -> {
             RDFNode rdfNode = statement.getObject();
-            if(rdfNode.isLiteral()) {
+            if (rdfNode.isLiteral()) {
                 try {
                     map.put(statement.getPredicate().getLocalName(), statement.getObject().asLiteral().getValue());
                 } catch (Exception e) {
@@ -79,10 +87,11 @@ public class RDFParser {
 
     /**
      * Get an AnomalyRequest from Map< String, Object >
+     *
      * @param map {@link Request} represented as Map Object
      * @return {@link Request} object which contains information about latitude, longitude and date
-     * @throws NullPointerException if {@param map} is null
-     * @throws IllegalArgumentException if {@param map} doesn't have needed values
+     * @throws NullPointerException     if map is null
+     * @throws IllegalArgumentException if map doesn't have needed values
      */
     private static Request getDataFromMap(Map<String, Object> map) {
         try {
@@ -117,9 +126,10 @@ public class RDFParser {
     }
 
     /**
-     * Check if {@param map} has needed values
+     * Check if map has needed values
+     *
      * @param map Map to check
-     * @throws IllegalArgumentException If {@param map} doesn't have all information
+     * @throws IllegalArgumentException If map doesn't have all information
      */
     private static void checkValid(Map<String, Object> map) {
         if (map.get("start") == null) {
@@ -135,8 +145,9 @@ public class RDFParser {
 
     /**
      * Check position valid
+     *
      * @param map Map to check
-     * @throws IllegalArgumentException if {@param map} is invalid
+     * @throws IllegalArgumentException if map is invalid
      */
     private static void checkPositionValid(Map<String, Object> map) {
         if (map.get("hasMinLatitude") == null) {
@@ -153,5 +164,4 @@ public class RDFParser {
             throw new IllegalArgumentException("hasMaxLongitude is null");
         }
     }
-
 }

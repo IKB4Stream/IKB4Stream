@@ -35,39 +35,107 @@ import java.util.Objects;
 
 
 /**
- * FacebookProducerConnector class provides events link to a word form coordinates
+ * {@link FacebookProducerConnector} class provides events link to a word form coordinates
+ *
+ * @author ikb4stream
+ * @version 1.0
+ * @see com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector
  */
 public class FacebookProducerConnector implements IProducerConnector {
+    /**
+     * Properties of this module
+     *
+     * @see PropertiesManager
+     * @see PropertiesManager#getProperty(String)
+     * @see PropertiesManager#getInstance(Class, String)
+     */
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(FacebookProducerConnector.class, "resources/datasource/facebook/config.properties");
+    /**
+     * Logger used to log all information in this module
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(FacebookProducerConnector.class);
+    /**
+     * Object to add metrics from this class
+     *
+     * @see MetricsLogger#log(String, long)
+     * @see MetricsLogger#getMetricsLogger()
+     */
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
-    private final String source;
+    /**
+     * Token to access to Facebook API
+     *
+     * @see FacebookProducerConnector#searchWordFromGeolocation(String, int, double, double)
+     */
     private final String pageAccessToken;
+    /**
+     * Name of source in {@link com.waves_rsp.ikb4stream.core.model.Event#source}
+     *
+     * @see FacebookProducerConnector#searchWordFromGeolocation(String, int, double, double)
+     */
+    private final String source;
+    /**
+     * Keyword to search
+     *
+     * @see FacebookProducerConnector#load(IDataProducer)
+     */
     private final String word;
-    private final int limit;
+    /**
+     * Latitude limit to get {@link com.waves_rsp.ikb4stream.core.model.Event Event}
+     *
+     * @see FacebookProducerConnector#load(IDataProducer)
+     */
     private final double lat;
+    /**
+     * Longitude limit to get {@link com.waves_rsp.ikb4stream.core.model.Event Event}
+     *
+     * @see FacebookProducerConnector#load(IDataProducer)
+     */
     private final double lon;
+    /**
+     * Limit to get {@link com.waves_rsp.ikb4stream.core.model.Event Event}
+     *
+     * @see FacebookProducerConnector#load(IDataProducer)
+     */
+    private final int limit;
 
+    /**
+     * Default constructor that init all members with {@link FacebookProducerConnector#PROPERTIES_MANAGER}
+     *
+     * @see FacebookProducerConnector#PROPERTIES_MANAGER
+     * @see FacebookProducerConnector#source
+     * @see FacebookProducerConnector#pageAccessToken
+     * @see FacebookProducerConnector#word
+     * @see FacebookProducerConnector#limit
+     * @see FacebookProducerConnector#lat
+     * @see FacebookProducerConnector#lon
+     */
     public FacebookProducerConnector() {
         try {
             this.source = PROPERTIES_MANAGER.getProperty("FacebookProducerConnector.source");
             this.pageAccessToken = PROPERTIES_MANAGER.getProperty("FacebookProducerConnector.token");
-            this.word =  PROPERTIES_MANAGER.getProperty("FacebookProducerConnector.word");
-            this.limit =  Integer.valueOf(PROPERTIES_MANAGER.getProperty("FacebookProducerConnector.limit"));
-            this.lat =  Double.valueOf(PROPERTIES_MANAGER.getProperty("FacebookProducerConnector.latitude"));
-            this.lon =  Double.valueOf(PROPERTIES_MANAGER.getProperty("FacebookProducerConnector.longitude"));
+            this.word = PROPERTIES_MANAGER.getProperty("FacebookProducerConnector.word");
+            this.limit = Integer.valueOf(PROPERTIES_MANAGER.getProperty("FacebookProducerConnector.limit"));
+            this.lat = Double.valueOf(PROPERTIES_MANAGER.getProperty("FacebookProducerConnector.latitude"));
+            this.lon = Double.valueOf(PROPERTIES_MANAGER.getProperty("FacebookProducerConnector.longitude"));
         } catch (IllegalArgumentException e) {
-            LOGGER.error("Invalid configuration {} ",e);
+            LOGGER.error("Invalid configuration {} ", e);
             throw new IllegalStateException("Invalid configuration");
         }
     }
 
     /**
+     * Search all {@link com.waves_rsp.ikb4stream.core.model.Event Event} in a {@link com.waves_rsp.ikb4stream.core.communication.model.BoundingBox BoundingBox}
+     * with keyword
+     *
      * @param word      a Sting which is the event to find
      * @param limit     an int which the result limit
      * @param latitude  a long
      * @param longitude a long
-     * @return a list of events form Facebook events and coodinates
+     * @return a list of {@link com.waves_rsp.ikb4stream.core.model.Event Event} form Facebook events and coodinates
+     * @throws NullPointerException if word is null
+     * @see FacebookProducerConnector#pageAccessToken
+     * @see FacebookProducerConnector#source
+     * @see com.waves_rsp.ikb4stream.core.model.Event Event
      */
     private List<com.waves_rsp.ikb4stream.core.model.Event> searchWordFromGeolocation(String word, int limit, double latitude, double longitude) {
         Objects.requireNonNull(word);
@@ -79,9 +147,8 @@ public class FacebookProducerConnector implements IProducerConnector {
                 Parameter.with("type", "event"),
                 Parameter.with("limit", limit),
                 Parameter.with("place&center", latitude + "," + longitude));
-
         publicSearch.getData().forEach(eventData -> {
-            if(isValidEvent(eventData)) {
+            if (isValidEvent(eventData)) {
                 double latitudeEv = eventData.getPlace().getLocation().getLatitude();
                 double longitudeEv = eventData.getPlace().getLocation().getLongitude();
                 LatLong latLong = new LatLong(latitudeEv, longitudeEv);
@@ -92,7 +159,7 @@ public class FacebookProducerConnector implements IProducerConnector {
                 events.add(event);
                 long endTime = System.currentTimeMillis();
                 long result = endTime - startTime;
-                METRICS_LOGGER.log("time_process_"+this.source, result);
+                METRICS_LOGGER.log("time_process_" + this.source, result);
             }
         });
 
@@ -101,8 +168,10 @@ public class FacebookProducerConnector implements IProducerConnector {
 
     /**
      * Check if an event is valid i.e parameters are correctly set
-     * @param event to test
-     * @return True if valid
+     *
+     * @param event {@link com.waves_rsp.ikb4stream.core.model.Event Event} to test
+     * @return true if valid
+     * @see com.waves_rsp.ikb4stream.core.model.Event Event
      */
     private boolean isValidEvent(Event event) {
         return (event != null) && (event.getPlace() != null)
@@ -116,9 +185,15 @@ public class FacebookProducerConnector implements IProducerConnector {
 
     /**
      * Load valid events from Facebook into the data producer object
-     * @param dataProducer contains the data queue
+     *
+     * @param dataProducer contains the {@link com.waves_rsp.ikb4stream.producer.datasource.DataQueue DataQueue}
      * @throws NullPointerException if dataProducer is null
      * @throws InterruptedException if the current thread to listen facebook has been interrupted
+     * @see com.waves_rsp.ikb4stream.core.model.Event Event
+     * @see FacebookProducerConnector#word
+     * @see FacebookProducerConnector#limit
+     * @see FacebookProducerConnector#lat
+     * @see FacebookProducerConnector#lon
      */
     @Override
     public void load(IDataProducer dataProducer) {
@@ -136,6 +211,12 @@ public class FacebookProducerConnector implements IProducerConnector {
         }
     }
 
+    /**
+     * Check if this jar is active
+     *
+     * @return True if it should be started
+     * @see FacebookProducerConnector#PROPERTIES_MANAGER
+     */
     @Override
     public boolean isActive() {
         try {

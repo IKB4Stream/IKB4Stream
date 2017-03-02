@@ -21,8 +21,8 @@ package com.waves_rsp.ikb4stream.producer.score;
 import com.waves_rsp.ikb4stream.core.datasource.model.IScoreProcessor;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
+import com.waves_rsp.ikb4stream.core.util.ClassManager;
 import com.waves_rsp.ikb4stream.core.util.JarLoader;
-import com.waves_rsp.ikb4stream.core.util.UtilManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,14 +37,43 @@ import java.security.PrivilegedAction;
 import java.util.*;
 import java.util.stream.Stream;
 
+/**
+ * Object which manage all {@link IScoreProcessor}
+ *
+ * @author ikb4stream
+ * @version 1.0
+ */
 public class ScoreProcessorManager {
-    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(ScoreProcessorManager.class, "resources/config.properties");
+    /**
+     * Properties of this class
+     *
+     * @see PropertiesManager
+     * @see PropertiesManager#getProperty(String)
+     * @see PropertiesManager#getInstance(Class)
+     */
+    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(ScoreProcessorManager.class);
+    /**
+     * Logger used to log all information in this class
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(ScoreProcessorManager.class);
-    private final Map<String,List<IScoreProcessor>> scoreProcessors = new HashMap<>();
+    /**
+     * Association {@link Event#source} to a list of {@link IScoreProcessor}
+     *
+     * @see ScoreProcessorManager#findIScoreProcessor(String)
+     * @see ScoreProcessorManager#launchModule(JarLoader)
+     */
+    private final Map<String, List<IScoreProcessor>> scoreProcessors = new HashMap<>();
+    /**
+     * ClassLoader of {@link ScoreProcessorManager}
+     *
+     * @see ScoreProcessorManager#launchModule(JarLoader)
+     */
     private final ClassLoader parent = ScoreProcessorManager.class.getClassLoader();
 
     /**
      * Override default constructor
+     *
+     * @see ScoreProcessorManager#instanciate()
      */
     public ScoreProcessorManager() {
         instanciate();
@@ -52,9 +81,12 @@ public class ScoreProcessorManager {
 
     /**
      * Process NLP Algorithm to an event
-     * @param event Event to score
-     * @return Copy of {@param event} with a new score
-     * @throws NullPointerException if {@param event} is null
+     *
+     * @param event {@link Event} to score
+     * @return Copy of {@link Event} with a new score
+     * @throws NullPointerException if event is null
+     * @see ScoreProcessorManager#findIScoreProcessor(String)
+     * @see ScoreProcessorManager#process(List, Event)
      */
     public Event processScore(Event event) {
         Objects.requireNonNull(event);
@@ -63,10 +95,12 @@ public class ScoreProcessorManager {
     }
 
     /**
-     * Find ScoreProcessor to apply to a datasource
-     * @param source Origin of the datasource
-     * @return List of all ScoreProcessor to apply
-     * @throws NullPointerException if {@param source} is null
+     * Find {@link IScoreProcessor} to apply to a {@link Event#source}
+     *
+     * @param source Origin of the {@link Event}
+     * @return List of all {@link IScoreProcessor} to apply
+     * @throws NullPointerException if source is null
+     * @see ScoreProcessorManager#scoreProcessors
      */
     private List<IScoreProcessor> findIScoreProcessor(String source) {
         Objects.requireNonNull(source);
@@ -76,11 +110,12 @@ public class ScoreProcessorManager {
     }
 
     /**
-     * Apply all ScoreProcessor to the Event
-     * @param scoreProcessor List of all scoreprocessor to apply
-     * @param event Event to process
-     * @return Copy of {@param event} with its score process
-     * @throws NullPointerException if {@param scoreProcessor} or {@param event} is null
+     * Apply all {@link IScoreProcessor} to the {@link Event}
+     *
+     * @param scoreProcessor List of all {@link IScoreProcessor} to apply
+     * @param event          {@link Event} to process
+     * @return Copy of {@link Event} with its {@link Event#score} process
+     * @throws NullPointerException if scoreProcessor or event is null
      */
     private static Event process(List<IScoreProcessor> scoreProcessor, Event event) {
         Objects.requireNonNull(scoreProcessor);
@@ -96,7 +131,7 @@ public class ScoreProcessorManager {
     }
 
     /**
-     * Get all ScoreProcessor
+     * Get all {@link IScoreProcessor} associated to {@link Event#source}
      */
     private void instanciate() {
         String stringPath = getPathScoreProcessor();
@@ -113,8 +148,10 @@ public class ScoreProcessorManager {
     }
 
     /**
-     * Get path where ScoreProcessor are store
+     * Get path where {@link IScoreProcessor} are store
+     *
      * @return Path or null if there is invalid configuration
+     * @see ScoreProcessorManager#PROPERTIES_MANAGER
      */
     private static String getPathScoreProcessor() {
         try {
@@ -127,30 +164,31 @@ public class ScoreProcessorManager {
     }
 
     /**
-     * Launch module of ScoreProcessor
-     * @param jarLoader JarLoader that represents module
+     * Launch module of {@link IScoreProcessor}
+     *
+     * @param jarLoader {@link JarLoader} that represents module
+     * @see ScoreProcessorManager#scoreProcessors
+     * @see ScoreProcessorManager#parent
+     * @see IScoreProcessor
      */
     private void launchModule(JarLoader jarLoader) {
         if (jarLoader != null) {
             List<URL> urls = jarLoader.getUrls();
-            AccessController.doPrivileged((PrivilegedAction<Object>) () -> {
-                ClassLoader classLoader = new URLClassLoader(
-                        urls.toArray(new URL[urls.size()]),
-                        parent);
-                List<String> classes = jarLoader.getClasses();
-                classes.stream()
-                        .map(c -> UtilManager.loadClass(c, classLoader))
-                        .filter(c -> UtilManager.implementInterface(c, IScoreProcessor.class))
-                        .forEach(clazz -> {
-                            IScoreProcessor iScoreProcessor = (IScoreProcessor) UtilManager.newInstance(clazz);
-                            List<String> sources = iScoreProcessor.getSources();
-                            sources.forEach(source -> {
+            ClassLoader classLoader = AccessController.doPrivileged((PrivilegedAction<ClassLoader>) () -> new URLClassLoader(urls.toArray(new URL[urls.size()]), parent));
+            jarLoader.getClasses().stream()
+                    .map(c -> ClassManager.loadClass(c, classLoader))
+                    .filter(c -> ClassManager.implementInterface(c, IScoreProcessor.class))
+                    .forEach(clazz -> {
+                        try {
+                            IScoreProcessor iScoreProcessor = (IScoreProcessor) ClassManager.newInstance(clazz);
+                            iScoreProcessor.getSources().forEach(source -> {
                                 List<IScoreProcessor> iScoreProcessorList = scoreProcessors.computeIfAbsent(source, l -> new ArrayList<>());
                                 iScoreProcessorList.add(iScoreProcessor);
                             });
-                        });
-                return null;
-            });
+                        } catch (Exception e) {
+                            LOGGER.error("Error during instantiate {} : {}", clazz.getName(), e.getMessage());
+                        }
+                    });
         }
     }
 }

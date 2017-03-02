@@ -38,23 +38,38 @@ import org.slf4j.LoggerFactory;
 
 import java.time.Instant;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * This server relies on Vertx, to handle the REST requests. It is instanciated by the web communication connector.
+ *
+ * @author ikb4stream
+ * @version 1.0
+ * @see io.vertx.core.Verticle
+ * @see io.vertx.core.AbstractVerticle
  */
 public class VertxServer extends AbstractVerticle {
+    /**
+     * Logger used to log all information in this module
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(VertxServer.class);
-    private final IDatabaseReader databaseReader = WebCommunication.databaseReader;
+    /**
+     * {@link IDatabaseReader} object to read data from database
+     *
+     * @see VertxServer#getEvent(Request)
+     */
+    private static final IDatabaseReader DATABASE_READER = WebCommunication.databaseReader;
 
     /**
      * Server starting behaviour
      *
      * @param fut Future that handles the start status
+     * @throws NullPointerException if fut is null
      */
     @Override
     public void start(Future<Void> fut) {
+        Objects.requireNonNull(fut);
         Router router = Router.router(vertx);
-
         router.route().handler(CorsHandler.create("*")
                 .allowedMethod(HttpMethod.GET)
                 .allowedMethod(HttpMethod.POST)
@@ -64,7 +79,6 @@ public class VertxServer extends AbstractVerticle {
         );
 
         router.route("/anomaly*").handler(BodyHandler.create()); // enable reading of request's body
-
         router.get("/anomaly").handler(this::getAnomalies);
         router.post("/anomaly").handler(this::getAnomalies);
         vertx
@@ -84,9 +98,11 @@ public class VertxServer extends AbstractVerticle {
     }
 
     /**
-     * Reads a request from a routing context, and attach the response to it. It requests the database with DatabaseReader.
+     * Reads a request from a routing context, and attach the response to it. It requests the database
+     * with DatabaseReader.
      *
-     * @param rc RoutingContext, which contains the request, and the response
+     * @param rc {@link RoutingContext}, which contains the request, and the response
+     * @throws NullPointerException if rc is null
      */
     private void getAnomalies(RoutingContext rc) {
         Request request;
@@ -100,9 +116,7 @@ public class VertxServer extends AbstractVerticle {
             rc.fail(400);
             return;
         }
-
         rc.response().putHeader("content-type", "application/json");
-
         getEvent(request, (t, result) -> {
             if (t != null) {
                 LOGGER.error("DatabaseReader error: " + t.getMessage());
@@ -117,16 +131,16 @@ public class VertxServer extends AbstractVerticle {
     /**
      * Convert a request from Json to Java object
      *
-     * @param jsonRequest json formatted request
-     * @return Java Request
+     * @param jsonRequest {@link JsonObject} json formatted request
+     * @return {@link Request}
+     * @throws NullPointerException if jsonRequest is null
      */
     private Request parseRequest(JsonObject jsonRequest) {
+        Objects.requireNonNull(jsonRequest);
         Date start = new Date(jsonRequest.getLong("start"));
         Date end = new Date(jsonRequest.getLong("end"));
         String address = jsonRequest.getString("address");
         LatLong[] bb = null;
-
-
         LOGGER.info("Address: " + address);
         return new Request(start, end, new BoundingBox(bb), Date.from(Instant.now()));
     }
@@ -134,8 +148,9 @@ public class VertxServer extends AbstractVerticle {
     /**
      * Retrieve an event from database
      *
-     * @param request the user web request
-     * @return a JSon Object extracted from the database
+     * @param request {@link Request} the user web request
+     * @return {@link JsonObject} extracted from the database
+     * @see VertxServer#DATABASE_READER
      */
     private void getEvent(Request request, DatabaseReaderCallback databaseReaderCallback) {
         databaseReader.getEvent(request, databaseReaderCallback);

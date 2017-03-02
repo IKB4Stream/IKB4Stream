@@ -20,11 +20,11 @@ package com.waves_rsp.ikb4stream.datasource.twittermock;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.waves_rsp.ikb4stream.core.datasource.IProducerConnectorMock;
 import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
-import com.waves_rsp.ikb4stream.core.util.IProducerConnectorMock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,19 +33,44 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Objects;
 
-
+/**
+ * @author ikb4stream
+ * @version 1.0
+ * @see com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector
+ * @see com.waves_rsp.ikb4stream.core.datasource.IProducerConnectorMock
+ */
 public class TwitterMock implements IProducerConnectorMock {
+    /**
+     * Properties of this module
+     *
+     * @see PropertiesManager
+     * @see PropertiesManager#getProperty(String)
+     * @see PropertiesManager#getInstance(Class, String)
+     */
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(TwitterMock.class, "resources/datasource/twittermock/config.properties");
+    /**
+     * Logger used to log all information in this module
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(TwitterMock.class);
+    /**
+     * Source name of corresponding {@link Event}
+     *
+     * @see TwitterMock#getEventFromJson(ObjectNode)
+     */
     private static final String SOURCE = "Twitter";
 
+    /**
+     * Override default constructor
+     */
     public TwitterMock() {
         // Do Nothing
     }
 
     /**
      * Load data registered into a json twitter file and parse them to create event
-     * @param dataProducer
+     *
+     * @param dataProducer {@link IDataProducer} contains the data queue
+     * @see IProducerConnectorMock#load(IDataProducer, PropertiesManager, String)
      */
     @Override
     public void load(IDataProducer dataProducer) {
@@ -55,7 +80,9 @@ public class TwitterMock implements IProducerConnectorMock {
 
     /**
      * Indicates whether this producer is enabled or not, according to twittermock.enable
+     *
      * @return true is facebookmock.enable is true
+     * @see TwitterMock#PROPERTIES_MANAGER
      */
     @Override
     public boolean isActive() {
@@ -63,9 +90,11 @@ public class TwitterMock implements IProducerConnectorMock {
     }
 
     /**
-     * Parse an object node in order to create an Event object
-     * @param objectNode object node to convert to Event
-     * @return Event converted format
+     * Parse an object node in order to create an {@link Event} object
+     *
+     * @param objectNode object node to convert to {@link Event}
+     * @return {@link Event} converted format
+     * @see TwitterMock#SOURCE
      */
     @Override
     public Event getEventFromJson(ObjectNode objectNode) {
@@ -77,17 +106,17 @@ public class TwitterMock implements IProducerConnectorMock {
         LatLong latLong = jsonToLatLong(jsonCoordinates);
         try {
             return new Event(latLong, startDate, endDate, description, SOURCE);
-        }catch (IllegalArgumentException | NullPointerException err) {
+        } catch (IllegalArgumentException | NullPointerException err) {
             LOGGER.error(err.getMessage());
             return null;
         }
     }
 
     /**
-     * Create LatLong from a jsonNode object and parse it to get GPS coordinates
+     * Create {@link LatLong} from a jsonNode object and parse it to get GPS coordinates
      *
      * @param jsonCoordinates json coordinates to parse
-     * @return latlong the parsed latlong
+     * @return {@link LatLong} the parsed latlong from jsonCoordinates
      */
     private static LatLong jsonToLatLong(JsonNode jsonCoordinates) {
         JsonNode main = jsonCoordinates.elements().next();

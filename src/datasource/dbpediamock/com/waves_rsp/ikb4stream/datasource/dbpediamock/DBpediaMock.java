@@ -18,40 +18,75 @@
 
 package com.waves_rsp.ikb4stream.datasource.dbpediamock;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.waves_rsp.ikb4stream.core.datasource.IProducerConnectorMock;
 import com.waves_rsp.ikb4stream.core.datasource.model.IDataProducer;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
 import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
-import com.waves_rsp.ikb4stream.core.util.IProducerConnectorMock;
 
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * Mock of {@link com.waves_rsp.ikb4stream.datasource.dbpedia.DBpediaProducerConnector DBpediaProducerConnector}
+ *
+ * @author ikb4stream
+ * @version 1.0
+ * @see com.waves_rsp.ikb4stream.core.datasource.IProducerConnectorMock
+ * @see com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector
+ */
 public class DBpediaMock implements IProducerConnectorMock {
+    /**
+     * Properties of this module
+     *
+     * @see PropertiesManager
+     * @see PropertiesManager#getProperty(String)
+     * @see PropertiesManager#getInstance(Class, String)
+     */
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(DBpediaMock.class, "resources/datasource/dbpediamock/config.properties");
+    /**
+     * Constant value {@value VALUE}
+     * Key in json result
+     */
     private static final String VALUE = "value";
-    private final String lang;
+    /**
+     * Source name of corresponding {@link Event}
+     *
+     * @see DBpediaMock#getEventFromJson(ObjectNode)
+     */
     private final String source;
+    /**
+     * Language of data receive
+     *
+     * @see DBpediaMock#checkValidData(JsonNode, JsonNode, JsonNode, LatLong, JsonNode)
+     */
+    private final String lang;
 
+    /**
+     * Default constructor that init {@link DBpediaMock#source} and {@link DBpediaMock#lang}
+     */
     public DBpediaMock() {
         try {
             this.source = PROPERTIES_MANAGER.getProperty("dbpediamock.source");
             this.lang = PROPERTIES_MANAGER.getProperty("dbpediamock.language");
-        }catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             LOGGER.error("Bad properties loaded: {}", e);
             throw new IllegalStateException(e.getMessage());
         }
     }
 
+    /**
+     * Common method of {@link com.waves_rsp.ikb4stream.core.datasource.model.IScoreProcessor IScoreProcessor} called
+     * by {@link com.waves_rsp.ikb4stream.producer.datasource.ProducerManager ProducerManager}
+     *
+     * @param dataProducer {@link IDataProducer} contains the data queue
+     * @see DBpediaMock#PROPERTIES_MANAGER
+     */
     @Override
     public void load(IDataProducer dataProducer) {
         Objects.requireNonNull(dataProducer);
@@ -59,36 +94,20 @@ public class DBpediaMock implements IProducerConnectorMock {
     }
 
     /**
-     * Check if the current parser is valid in order to parse the json from dbpedia sources files.
-     * Then create a valid event object and push into the dataProducer object with pushIfValidEvent() method.
+     * Get an {@link Event} object from an ObjectNode if it's possible
      *
-     * @param mapper
-     * @param parser
-     * @param dataProducer
-     * @param start
-     * @throws IOException if the current json or parser is invalid
-     */
-    private void checkParser(ObjectMapper mapper, JsonParser parser, IDataProducer dataProducer, long start) throws IOException {
-        if (parser != null) {
-            while ((parser.nextToken()) == JsonToken.START_OBJECT) {
-                ObjectNode objectNode = mapper.readTree(parser);
-                Event event = getEventFromJson(objectNode);
-                pushIfValidEvent(dataProducer, event, start);
-            }
-        }
-    }
-
-    /**
-     * get an Event object from an ObjectNode if it's possible
-     *
-     * @param objectNode
-     * @return a valid Event
-     * @throws ParseException {@param objectNode} if the current objectNode with a json cannot be parsed
+     * @param objectNode {@link Event} as JSON Object
+     * @return a valid {@link Event}
+     * @throws ParseException       objectNode if the current objectNode with a json cannot be parsed
+     * @throws NullPointerException if objectNode is null
+     * @see DBpediaMock#VALUE
+     * @see DBpediaMock#source
+     * @see Event
      */
     public Event getEventFromJson(ObjectNode objectNode) {
+        Objects.requireNonNull(objectNode);
         Date startDate;
         Date endDate;
-
         try {
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd+hh:mm");
             JsonNode startNode = objectNode.findValue("startDate").findValue(VALUE);
@@ -96,8 +115,7 @@ public class DBpediaMock implements IProducerConnectorMock {
             JsonNode descriptionNode = objectNode.findValue("description").findValue(VALUE);
             JsonNode langNode = objectNode.findValue("xml:lang");
             LatLong latLong = jsonToLatLong(objectNode);
-
-            if(checkValidData(startNode, endNode, descriptionNode, latLong, langNode)) {
+            if (checkValidData(startNode, endNode, descriptionNode, latLong, langNode)) {
                 String start = startNode.asText();
                 String end = endNode.asText();
                 startDate = dateFormat.parse(start);
@@ -105,64 +123,53 @@ public class DBpediaMock implements IProducerConnectorMock {
                 String description = descriptionNode.asText();
                 return new Event(latLong, startDate, endDate, description, source);
             }
-        }catch (ParseException e) {
+        } catch (ParseException e) {
             LOGGER.error("Invalid fields found: {}", e);
         }
-
         return null;
     }
 
     /**
-     * Check if the json nodes and latlong objects are valid
+     * Check if the json nodes and {@link LatLong} objects are valid
      *
-     * @param startNode
-     * @param endNode
-     * @param descriptionNode
-     * @param latLong
-     * @param langNode
-     * @return
+     * @param startNode       Start date in JSON of future {@link Event}
+     * @param endNode         End date in JSON of future {@link Event}
+     * @param descriptionNode Description in JSON of future {@link Event}
+     * @param latLong         {@link LatLong} of the {@link Event}
+     * @param langNode        Language used in {@link Event}
+     * @return true if data are valid
+     * @see DBpediaMock#lang
      */
     private boolean checkValidData(JsonNode startNode, JsonNode endNode, JsonNode descriptionNode, LatLong latLong, JsonNode langNode) {
         return startNode != null && endNode != null && descriptionNode != null
-                &&  lang.equals(langNode.asText()) && latLong != null;
+                && lang.equals(langNode.asText()) && latLong != null;
     }
 
     /**
-     * Parse a json node object in order to create a valid latlong object
+     * Parse a json node object in order to create a valid {@link LatLong} object
      *
-     * @param objectNode
-     * @return a valid LatLong
+     * @param objectNode {@link LatLong} in JSON format
+     * @return a valid {@link LatLong}
+     * @see LatLong
+     * @see DBpediaMock#VALUE
      */
     private static LatLong jsonToLatLong(JsonNode objectNode) {
         JsonNode latitudeNode = objectNode.findValue("latitude");
         JsonNode longitudeNode = objectNode.findValue("longitude");
-        if(latitudeNode != null && longitudeNode != null) {
+        if (latitudeNode != null && longitudeNode != null) {
             double latitude = latitudeNode.findValue(VALUE).asDouble();
             double longitude = longitudeNode.findValue(VALUE).asDouble();
             return new LatLong(latitude, longitude);
         }
-
         return null;
     }
 
     /**
-     * Push a valid event into the dataProducer object
+     * Check if this jar is active
      *
-     * @param dataProducer
-     * @param event
-     * @param start the time at the beginning of the processing
+     * @return true if it should be started
+     * @see DBpediaMock#PROPERTIES_MANAGER
      */
-    private void pushIfValidEvent(IDataProducer dataProducer, Event event, long start) {
-        if(event != null) {
-            long end = System.currentTimeMillis();
-            long result = end - start;
-            dataProducer.push(event);
-            METRICS_LOGGER.log("time_process_"+this.source, result);
-        }else {
-            LOGGER.error("An event was discard (missing field)");
-        }
-    }
-
     @Override
     public boolean isActive() {
         try {

@@ -42,56 +42,94 @@ import java.util.stream.Collectors;
 
 /**
  * This class writes data in mongodb database
+ *
+ * @author ikb4stream
+ * @version 1.0
  */
 public class DatabaseWriter {
+    /**
+     * Properties of this class
+     *
+     * @see PropertiesManager
+     * @see PropertiesManager#getProperty(String)
+     * @see PropertiesManager#getInstance(Class)
+     */
+    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(DatabaseWriter.class);
+    /**
+     * Object to add metrics from this class
+     *
+     * @see DatabaseWriter#insertEvent(Event, DatabaseWriterCallback)
+     * @see MetricsLogger#getMetricsLogger()
+     * @see MetricsLogger#log(String, long)
+     */
     private static final MetricsLogger METRICS_LOGGER = MetricsLogger.getMetricsLogger();
-    private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(DatabaseWriter.class, "resources/config.properties");
+    /**
+     * Logger used to log all information in this class
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseWriter.class);
+    /**
+     * Single instance of {@link DatabaseWriter}
+     *
+     * @see DatabaseWriter#getInstance()
+     */
     private static final DatabaseWriter DATABASE_WRITER = new DatabaseWriter();
+    /**
+     * Mongo collection containing {@link Event}
+     *
+     * @see DatabaseWriter#insertEvent(Event, DatabaseWriterCallback)
+     */
     private final MongoCollection<Document> mongoCollection;
+    /**
+     * Constant value {@value LOCATION_FIELD}
+     *
+     * @see DatabaseWriter#insertEvent(Event, DatabaseWriterCallback)
+     */
     private static final String LOCATION_FIELD = "location";
+    /**
+     * Mapper to read JSON
+     *
+     * @see DatabaseWriter#insertEvent(Event, DatabaseWriterCallback)
+     */
     private final ObjectMapper mapper = new ObjectMapper();
 
     /**
      * DataWriter constructor
-     */
-    private DatabaseWriter() {
-        checkConfiguration();
-        final MongoClient mongoClient = MongoClients.create(PROPERTIES_MANAGER.getProperty("database.host"));
-        final MongoDatabase mongoDatabase = mongoClient.getDatabase(PROPERTIES_MANAGER.getProperty("database.datasource"));
-        this.mongoCollection = mongoDatabase.getCollection(PROPERTIES_MANAGER.getProperty("database.collection"));
-        LOGGER.info("DatabaseWriter has been instantiate");
-    }
-
-    /**
-     * Check configuration of Database
+     *
      * @throws IllegalStateException if database configuration is not set
      */
-    private static void checkConfiguration() {
+    private DatabaseWriter() {
         try {
-            PROPERTIES_MANAGER.getProperty("database.host");
-            PROPERTIES_MANAGER.getProperty("database.datasource");
-            PROPERTIES_MANAGER.getProperty("database.collection");
+            final MongoClient mongoClient = MongoClients.create(PROPERTIES_MANAGER.getProperty("database.host"));
+            final MongoDatabase mongoDatabase = mongoClient.getDatabase(PROPERTIES_MANAGER.getProperty("database.datasource"));
+            this.mongoCollection = mongoDatabase.getCollection(PROPERTIES_MANAGER.getProperty("database.collection"));
         } catch (IllegalArgumentException e) {
             LOGGER.error(e.getMessage());
             throw new IllegalStateException(e.getMessage());
         }
+        LOGGER.info("DatabaseWriter has been instantiate");
     }
 
     /**
-     * Return an intance of {@link DatabaseWriter}
-     * @return DatabaseWriter
+     * Return an instance of {@link DatabaseWriter}
+     *
+     * @return Single instance of {@link DatabaseWriter}
+     * @see DatabaseWriter#DATABASE_WRITER
      */
     public static DatabaseWriter getInstance() {
         return DATABASE_WRITER;
     }
 
     /**
-     * This method inserts an event in the database
-     * @param event an event
-     * @param callback a functional interface
+     * This method inserts an {@link Event} in the database
+     *
+     * @param event    {@link Event} to insert into database
+     * @param callback {@link DatabaseWriterCallback} called after inserting
      * @throws JsonProcessingException in case of problem during inserting
-     * @throws NullPointerException if {@param event} or {@param callback} is null
+     * @throws NullPointerException    if event or callback is null
+     * @see DatabaseWriter#mongoCollection
+     * @see DatabaseWriter#LOCATION_FIELD
+     * @see DatabaseWriter#METRICS_LOGGER
+     * @see DatabaseWriter#mapper
      */
     public void insertEvent(Event event, DatabaseWriterCallback callback) {
         Objects.requireNonNull(event);
@@ -104,7 +142,7 @@ public class DatabaseWriter {
             document.remove(LOCATION_FIELD);
             document.append("start", event.getStart().getTime());
             document.append("end", event.getEnd().getTime());
-            if(event.getLocation().length == 1) {
+            if (event.getLocation().length == 1) {
                 document.append(LOCATION_FIELD, new Point(new Position(
                         event.getLocation()[0].getLongitude(), event.getLocation()[0].getLatitude())));
             } else {
@@ -114,7 +152,7 @@ public class DatabaseWriter {
             }
             this.mongoCollection.insertOne(document, (result, t) -> callback.onResult(t));
             long time = System.currentTimeMillis() - start;
-            METRICS_LOGGER.log("time_dbwriter_"+event.getSource(), time);
+            METRICS_LOGGER.log("time_dbwriter_" + event.getSource(), time);
         } catch (JsonProcessingException e) {
             LOGGER.error("Invalid event format: event not inserted in database.");
         }

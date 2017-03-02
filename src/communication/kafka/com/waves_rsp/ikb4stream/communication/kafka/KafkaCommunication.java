@@ -31,19 +31,52 @@ import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * KafkaCommunication class retrieves messages from the topic
+ *
+ * @author ikb4stream
+ * @version 1.0
+ * @see com.waves_rsp.ikb4stream.core.communication.ICommunication
  */
 public class KafkaCommunication implements ICommunication {
+    /**
+     * Properties of this module
+     *
+     * @see PropertiesManager
+     * @see PropertiesManager#getProperty(String)
+     * @see PropertiesManager#getInstance(Class, String)
+     */
     private static final PropertiesManager PROPERTIES_MANAGER = PropertiesManager.getInstance(KafkaCommunication.class, "resources/communication/kafka/config.properties");
+    /**
+     * Logger used to log all information in this module
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(KafkaCommunication.class);
+    /**
+     * Name of Kafka Topic that request come
+     *
+     * @see KafkaCommunication#getRequests(IPollCallback)
+     */
     private final String kafkaRequestTopic;
+    /**
+     * Name of Kafka Topic where the answer is push
+     *
+     * @see KafkaCommunication#getRequests(IPollCallback)
+     */
     private final String kafkaResponseTopic;
+    /**
+     * Kafka Streams allows for performing continuous computation on input coming from one or more input topics and
+     * sends output to zero or more output topics.
+     *
+     * @see KafkaCommunication#getRequests(IPollCallback)
+     * @see KafkaCommunication#close()
+     */
     private KafkaStreams streams;
 
     /**
      * Constructor which init Request Topic and Response Topic get from properties file
+     *
      * @throws IllegalStateException if the properties file is invalid
      */
     public KafkaCommunication() {
@@ -58,21 +91,27 @@ public class KafkaCommunication implements ICommunication {
 
     /**
      * Get requests from Kafka
-     * @param callback Method to call after getting request
+     *
+     * @param callback {@link IPollCallback} method to call after getting request
      * @throws IllegalStateException if there is an invalid configuration of Kafka
+     * @throws NullPointerException  if callback is null
+     * @see KafkaCommunication#kafkaRequestTopic
+     * @see KafkaCommunication#kafkaResponseTopic
      */
     private void getRequests(IPollCallback callback) {
+        Objects.requireNonNull(callback);
         Map<String, Object> props = new HashMap<>();
         try {
-            props.put(StreamsConfig.APPLICATION_ID_CONFIG, PROPERTIES_MANAGER.getProperty("communications.kafka.application_id"));
-            props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, PROPERTIES_MANAGER.getProperty("communications.kafka.server"));
-            props.put(StreamsConfig.NUM_STREAM_THREADS_CONFIG, PROPERTIES_MANAGER.getProperty("communications.kafka.stream_thread_nb"));
+            props.put(StreamsConfig.APPLICATION_ID_CONFIG,
+                    PROPERTIES_MANAGER.getProperty("communications.kafka.application_id"));
+            props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG,
+                    PROPERTIES_MANAGER.getProperty("communications.kafka.server"));
+            props.put(StreamsConfig.NUM_STREAM_THREADS_CONFIG,
+                    PROPERTIES_MANAGER.getProperty("communications.kafka.stream_thread_nb"));
             props.put("linger.ms", 10);
             props.put("batch.size", 1);
         } catch (IllegalArgumentException e) {
-            LOGGER.error("Error values in properties file not found:\n" +
-                    "\t- communications.kafka.application_id\n" +
-                    "\t- communications.kafka.serve\n");
+            LOGGER.error(e.getMessage());
             throw new IllegalStateException(e.getMessage());
         }
 
@@ -95,15 +134,21 @@ public class KafkaCommunication implements ICommunication {
 
     /**
      * Start kafka communication
-     * @param databaseReader Connection to database to get Event
+     *
+     * @param databaseReader {@link IDatabaseReader} Connection to database to get Event
+     * @throws NullPointerException if databaseReader is null
      */
     @Override
     public void start(IDatabaseReader databaseReader) {
+        Objects.requireNonNull(databaseReader);
         this.getRequests(request -> {
             LOGGER.info("Request = " + request);
             final String[] r = {"[]"};
             databaseReader.getEvent(request, (t, result) -> {
-                if(t != null) { LOGGER.error("DatabaseReader error: " + t.getMessage()); return; }
+                if (t != null) {
+                    LOGGER.error("DatabaseReader error: " + t.getMessage());
+                    return;
+                }
                 r[0] = result;
             });
             LOGGER.info("Result = " + r[0]);
@@ -113,6 +158,8 @@ public class KafkaCommunication implements ICommunication {
 
     /**
      * Close Kafka connection
+     *
+     * @see KafkaCommunication#streams
      */
     @Override
     public void close() {
@@ -123,6 +170,12 @@ public class KafkaCommunication implements ICommunication {
         }
     }
 
+    /**
+     * Check if this jar is active
+     *
+     * @return True if it should be started
+     * @see KafkaCommunication#PROPERTIES_MANAGER
+     */
     @Override
     public boolean isActive() {
         try {
