@@ -22,6 +22,7 @@ import com.mongodb.async.client.MongoClient;
 import com.mongodb.async.client.MongoClients;
 import com.mongodb.async.client.MongoCollection;
 import com.mongodb.async.client.MongoDatabase;
+import com.mongodb.client.model.geojson.Point;
 import com.mongodb.client.model.geojson.Polygon;
 import com.mongodb.client.model.geojson.Position;
 import com.waves_rsp.ikb4stream.core.communication.DatabaseReaderCallback;
@@ -148,15 +149,16 @@ public class DatabaseReader implements IDatabaseReader {
     @Override
     public void getEvent(Request request, DatabaseReaderCallback callback) {
         List<Position> polygon = Arrays.stream(request.getBoundingBox().getLatLongs())
-                .map(l -> new Position(l.getLatitude(), l.getLongitude()))
+                .map(l -> new Position(l.getLongitude(), l.getLatitude()))
                 .collect(Collectors.toList());
 
         final long start = System.currentTimeMillis();
+        LOGGER.debug("Requesting mongodb");
         this.mongoCollection
                 .find(and(
                         geoIntersects("location", new Polygon(polygon)),
-                        gte("start", request.getStart().getTime()),
-                        lte("end", request.getEnd().getTime())
+                        lte("start", request.getEnd().getTime()),
+                        gte("end", request.getStart().getTime())
                 ))
                 .limit(limit)
                 .into(new ArrayList<Document>(),
