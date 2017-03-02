@@ -28,7 +28,6 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.DecodeException;
-import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
@@ -37,6 +36,7 @@ import io.vertx.ext.web.handler.CorsHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.Objects;
 
@@ -139,18 +139,10 @@ public class VertxServer extends AbstractVerticle {
         Objects.requireNonNull(jsonRequest);
         Date start = new Date(jsonRequest.getLong("start"));
         Date end = new Date(jsonRequest.getLong("end"));
-        Date requestReception = new Date(jsonRequest.getLong("requestReception"));
-        JsonObject jsonbb = jsonRequest.getJsonObject("boundingBox");
-        JsonArray latlongs = jsonbb.getJsonArray("points");
-        LatLong[] ll = new LatLong[latlongs.size()];
-        for (int i = 0; i < latlongs.size(); i++) {
-            JsonObject latlong = latlongs.getJsonObject(i);
-            double latitude = latlong.getDouble("latitude");
-            double longitude = latlong.getDouble("longitude");
-            ll[i] = new LatLong(latitude, longitude);
-        }
-        BoundingBox bb = new BoundingBox(ll);
-        return new Request(start, end, bb, requestReception);
+        String address = jsonRequest.getString("address");
+        LatLong[] bb = null;
+        LOGGER.info("Address: " + address);
+        return new Request(start, end, new BoundingBox(bb), Date.from(Instant.now()));
     }
 
     /**
