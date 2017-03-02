@@ -1,6 +1,7 @@
 #!/bin/sh
 
 ROOT_PATH="build/distributions/"
+CURRENT_PATH = pwd
 
 ZIP_NAME="ikb4stream-1.0-SNAPSHOT-all.zip"
 FOLDER_NAME="ikb4stream-1.0-SNAPSHOT-all/"
@@ -13,16 +14,16 @@ CONSUMER_VERSION="latest"
 
 RESOURCES_NAME="resources/"
 
-PRODUCER_IMAGE_FOLDER_PATH="docker_images/producer/"
-CONSUMER_IMAGE_FOLDER_PATH="docker_images/consumer/"
+PRODUCER_IMAGE_FOLDER_PATH="docker_images/producer"
+CONSUMER_IMAGE_FOLDER_PATH="docker_images/consumer"
 
 echo "#####################################################################"
 echo "#                Ikb4stream => Docker image creation                #"
-echo "#                      made by Kevin MOLLENHAUER                    #"
 echo "#                       Already end of support!                     #"
 echo "#####################################################################"
 
 #go into the root path
+pwd
 cd $ROOT_PATH
 
 #unzip file
@@ -38,10 +39,10 @@ echo "File unzipped!"
 
 #files copies
 echo "Files copies..."
-cp $PRODUCER_JAR_NAME $PRODUCER_IMAGE_FOLDER_PATH$PRODUCER_JAR_NAME
-cp $CONSUMER_JAR_NAME $CONSUMER_IMAGE_FOLDER_PATH$CONSUMER_JAR_NAME
-cp -r $RESOURCES_NAMES $PRODUCER_IMAGE_FOLDER_PATH$RESOURCES_NAME
-cp -r $RESOURCES_NAMES $CONSUMER_IMAGE_FOLDER_PATH$RESOURCES_NAME
+cp $PRODUCER_JAR_NAME $PRODUCER_IMAGE_FOLDER_PATH"/"
+cp $CONSUMER_JAR_NAME $CONSUMER_IMAGE_FOLDER_PATH"/"
+cp -r $RESOURCES_NAMES $PRODUCER_IMAGE_FOLDER_PATH
+cp -r $RESOURCES_NAMES $CONSUMER_IMAGE_FOLDER_PATH
 echo "Files copied!"
 
 #producer image creation
