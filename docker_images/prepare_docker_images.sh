@@ -24,13 +24,10 @@ echo "#                       Already end of support!                     #"
 echo "#####################################################################"
 
 #go into the root path
-pwd
 cd $ROOT_PATH"/"$DISTRI_PATH
 
 #unzip file
-echo "File unzipping..."
 unzip $ZIP_NAME
-echo "File unzipped!"
 
 #files copies
 echo "Files copies..."
@@ -41,8 +38,8 @@ cp -rf $RESOURCES_NAME $ROOT_PATH"/"$CONSUMER_IMAGE_FOLDER_PATH"/"$RESOURCES_NAM
 cp -rf $RESOURCES_NAME $ROOT_PATH"/"$DOCKER_IMAGES_FOLDER
 echo "Files copied!"
 
-pwd
-ls
+# RM myself!
+rm $ROOT_PATH"/"$DOCKER_IMAGES_FOLDER"prepare_docker_images.sh"
 
 echo "#########################"
 echo "#       FINISHED!       #"
