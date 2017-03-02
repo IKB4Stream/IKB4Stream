@@ -66,13 +66,10 @@ public class Geocoder {
     /**
      * Private constructor to block instantiation
      *
-     * @throws NullPointerException if latlong or bbox is null
      * @see Geocoder#latLong
      * @see Geocoder#bbox
      */
     private Geocoder(LatLong latLong, LatLong[] bbox) {
-        Objects.requireNonNull(latLong);
-        Objects.requireNonNull(bbox);
         this.latLong = latLong;
         this.bbox = bbox;
     }

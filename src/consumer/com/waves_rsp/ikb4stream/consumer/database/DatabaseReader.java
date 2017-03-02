@@ -150,9 +150,7 @@ public class DatabaseReader implements IDatabaseReader {
         List<Position> polygon = Arrays.stream(request.getBoundingBox().getLatLongs())
                 .map(l -> new Position(l.getLongitude(), l.getLatitude()))
                 .collect(Collectors.toList());
-
         final long start = System.currentTimeMillis();
-        LOGGER.debug("Requesting mongodb");
         this.mongoCollection
                 .find(and(
                         geoIntersects("location", new Polygon(polygon)),
@@ -164,7 +162,6 @@ public class DatabaseReader implements IDatabaseReader {
                         (result, t) -> {
                             long time = System.currentTimeMillis() - start;
                             METRICS_LOGGER.log("time_dbreader", time);
-                            LOGGER.info("get event request has been sent to mongo.");
                             callback.onResult(
                                     t,
                                     "[" + result.stream().map(Document::toJson).collect(Collectors.joining(", ")) + "]"

@@ -18,12 +18,11 @@
 
 package com.waves_rsp.ikb4stream.communication.web;
 
-import com.waves_rsp.ikb4stream.consumer.database.DatabaseReader;
 import com.waves_rsp.ikb4stream.core.communication.DatabaseReaderCallback;
 import com.waves_rsp.ikb4stream.core.communication.IDatabaseReader;
 import com.waves_rsp.ikb4stream.core.communication.model.BoundingBox;
 import com.waves_rsp.ikb4stream.core.communication.model.Request;
-import com.waves_rsp.ikb4stream.core.model.LatLong;
+import com.waves_rsp.ikb4stream.core.util.Geocoder;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.http.HttpMethod;
@@ -56,9 +55,9 @@ public class VertxServer extends AbstractVerticle {
     /**
      * {@link IDatabaseReader} object to read data from database
      *
-     * @see VertxServer#getEvent(Request)
+     * @see VertxServer#getEvent(Request, DatabaseReaderCallback)
      */
-    private static final IDatabaseReader DATABASE_READER = WebCommunication.databaseReader;
+    private final IDatabaseReader databaseReader = WebCommunication.databaseReader;
 
     /**
      * Server starting behaviour
@@ -107,16 +106,25 @@ public class VertxServer extends AbstractVerticle {
     private void getAnomalies(RoutingContext rc) {
         Request request;
         try {
-            // curl http://localhost:8081/anomaly -X POST -H "Content-Type: application/json" -d '{"start":1487004295000,"end":1487004295000, "boundingBox":{"points": [{"latitude":10, "longitude":20},{"latitude":15, "longitude":25},{"latitude":25, "longitude":30},{"latitude":10, "longitude":20}]}, "requestReception":1487004295000}'
             LOGGER.info("Received web request: {}", rc.getBodyAsJson());
             request = parseRequest(rc.getBodyAsJson());
+            if (request == null) {
+                rc.response()
+                        .setStatusCode(400)
+                        .putHeader("Content-type", "application/json;charset:utf-8")
+                        .end("{\"error\": \"Invalid address\"}");
+                return;
+            }
         } catch (DecodeException | NullPointerException e) {
             LOGGER.info("Received an invalid format request : {} ", e.getMessage());
             LOGGER.debug("DecodeException: {}", e);
             rc.fail(400);
             return;
         }
+        LOGGER.info("Request : {}", request);
+        LOGGER.info("rc= {}", rc);
         rc.response().putHeader("content-type", "application/json");
+
         getEvent(request, (t, result) -> {
             if (t != null) {
                 LOGGER.error("DatabaseReader error: " + t.getMessage());
@@ -140,28 +148,22 @@ public class VertxServer extends AbstractVerticle {
         Date start = new Date(jsonRequest.getLong("start"));
         Date end = new Date(jsonRequest.getLong("end"));
         String address = jsonRequest.getString("address");
-        LatLong[] bb = null;
-        LOGGER.info("Address: " + address);
-        return new Request(start, end, new BoundingBox(bb), Date.from(Instant.now()));
+        Geocoder geocoder = Geocoder.geocode(address);
+        if (geocoder.getLatLong() == null) {
+            LOGGER.warn("Can't geocode this address {}", address);
+            return null;
+        }
+        return new Request(start, end, new BoundingBox(geocoder.getBbox()), Date.from(Instant.now()));
     }
 
     /**
      * Retrieve an event from database
      *
      * @param request {@link Request} the user web request
-     * @return {@link JsonObject} extracted from the database
-     * @see VertxServer#DATABASE_READER
+     * @param databaseReaderCallback {@link DatabaseReaderCallback} called when request finished
+     * @see VertxServer#databaseReader
      */
     private void getEvent(Request request, DatabaseReaderCallback databaseReaderCallback) {
         databaseReader.getEvent(request, databaseReaderCallback);
     }
-
-    public static void main(String[] args) {
-
-        WebCommunication webCommunication = new WebCommunication();
-        webCommunication.start(DatabaseReader.getInstance());
-
-    }
-
-
 }
