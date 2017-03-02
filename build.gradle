@@ -28,7 +28,7 @@ apply plugin: 'java'
  * Gradle build file for IKB4Stream Project
  *
  * The project is separated in multiple modules, each module have his
- * build file. All buildfile are located in gradle folder. Don't forget
+ * build file. All buildfile are located in /gradle folder. Don't forget
  * to add all new modules to "packageAll" & "generateJavadoc" tasks and
  * "test" sourceSets.
  **********************************************************************************************************************/
