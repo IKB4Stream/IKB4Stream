@@ -1,7 +1,7 @@
 #!/bin/sh
 
-ROOT_PATH="build/distributions/"
-CURRENT_PATH = pwd
+DISTRI_PATH="build/distributions/"
+ROOT_PATH="/builds/ikb4stream/IKB4STREAM/"
 
 ZIP_NAME="ikb4stream-1.0-SNAPSHOT-all.zip"
 FOLDER_NAME="ikb4stream-1.0-SNAPSHOT-all/"
@@ -24,7 +24,7 @@ echo "#####################################################################"
 
 #go into the root path
 pwd
-cd $ROOT_PATH
+cd $ROOT_PATH$DISTRI_PATH
 
 #unzip file
 echo "File unzipping..."
@@ -39,10 +39,10 @@ echo "File unzipped!"
 
 #files copies
 echo "Files copies..."
-cp $PRODUCER_JAR_NAME $PRODUCER_IMAGE_FOLDER_PATH"/"
-cp $CONSUMER_JAR_NAME $CONSUMER_IMAGE_FOLDER_PATH"/"
-cp -r $RESOURCES_NAMES $PRODUCER_IMAGE_FOLDER_PATH
-cp -r $RESOURCES_NAMES $CONSUMER_IMAGE_FOLDER_PATH
+cp $PRODUCER_JAR_NAME $ROOT_PATH$PRODUCER_IMAGE_FOLDER_PATH"/"
+cp $CONSUMER_JAR_NAME $ROOT_PATH$CONSUMER_IMAGE_FOLDER_PATH"/"
+cp -r $RESOURCES_NAMES $ROOT_PATH$PRODUCER_IMAGE_FOLDER_PATH
+cp -r $RESOURCES_NAMES $ROOT_PATH$CONSUMER_IMAGE_FOLDER_PATH
 echo "Files copied!"
 
 #producer image creation
@@ -64,6 +64,7 @@ echo "Files copied!"
 #rm *.jar
 #echo "Folder cleaned!"
 
+pwd
 ls
 
 echo "#########################"
