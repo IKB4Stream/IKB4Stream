@@ -106,10 +106,10 @@ public class DatabaseWriter {
             document.append("end", event.getEnd().getTime());
             if(event.getLocation().length == 1) {
                 document.append(LOCATION_FIELD, new Point(new Position(
-                        event.getLocation()[0].getLatitude(), event.getLocation()[0].getLongitude())));
+                        event.getLocation()[0].getLongitude(), event.getLocation()[0].getLatitude())));
             } else {
                 List<Position> positions = Arrays.stream(event.getLocation())
-                        .map(p -> new Position(p.getLatitude(), p.getLongitude())).collect(Collectors.toList());
+                        .map(p -> new Position(p.getLongitude(), p.getLatitude())).collect(Collectors.toList());
                 document.append(LOCATION_FIELD, new Polygon(positions));
             }
             this.mongoCollection.insertOne(document, (result, t) -> callback.onResult(t));
