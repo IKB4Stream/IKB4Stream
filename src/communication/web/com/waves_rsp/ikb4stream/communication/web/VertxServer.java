@@ -18,6 +18,8 @@
 
 package com.waves_rsp.ikb4stream.communication.web;
 
+import com.waves_rsp.ikb4stream.consumer.database.DatabaseReader;
+import com.waves_rsp.ikb4stream.core.communication.DatabaseReaderCallback;
 import com.waves_rsp.ikb4stream.core.communication.IDatabaseReader;
 import com.waves_rsp.ikb4stream.core.communication.model.BoundingBox;
 import com.waves_rsp.ikb4stream.core.communication.model.Request;
@@ -87,22 +89,29 @@ public class VertxServer extends AbstractVerticle {
      * @param rc RoutingContext, which contains the request, and the response
      */
     private void getAnomalies(RoutingContext rc) {
+        Request request;
         try {
             // curl http://localhost:8081/anomaly -X POST -H "Content-Type: application/json" -d '{"start":1487004295000,"end":1487004295000, "boundingBox":{"points": [{"latitude":10, "longitude":20},{"latitude":15, "longitude":25},{"latitude":25, "longitude":30},{"latitude":10, "longitude":20}]}, "requestReception":1487004295000}'
             LOGGER.info("Received web request: {}", rc.getBodyAsJson());
-
-            Request request = parseRequest(rc.getBodyAsJson());
-
-            rc.response().putHeader("content-type", "application/json");
-
-            JsonObject jsonResponse = getEvent(request);
-            rc.response()
-                    .end(jsonResponse.encode());
+            request = parseRequest(rc.getBodyAsJson());
         } catch (DecodeException | NullPointerException e) {
             LOGGER.info("Received an invalid format request : {} ", e.getMessage());
             LOGGER.debug("DecodeException: {}", e);
             rc.fail(400);
+            return;
         }
+
+        rc.response().putHeader("content-type", "application/json");
+
+        getEvent(request, (t, result) -> {
+            if (t != null) {
+                LOGGER.error("DatabaseReader error: " + t.getMessage());
+                return;
+            }
+            LOGGER.info("Found events: {}", result);
+            JsonObject response = new JsonObject("{\"events\":" + result + "}");
+            rc.response().end(response.encode());
+        });
     }
 
     /**
@@ -136,32 +145,15 @@ public class VertxServer extends AbstractVerticle {
      * @param request the user web request
      * @return a JSon Object extracted from the database
      */
-    private JsonObject getEvent(Request request) {
-        String[] r = new String[1];
-        databaseReader.getEvent(request, (t, result) -> {
-            if (t != null) {
-                LOGGER.error("DatabaseReader error: " + t.getMessage());
-                return;
-            }
-            r[0] = result;
-        });
-
-        JsonObject response;
-        if (r[0] == null) {
-            LOGGER.info("No event found");
-            response = new JsonObject("{\"events\": []}");
-        } else {
-            LOGGER.info("Found events: {}", r[0]);
-            response = new JsonObject("{\"events\":" + r[0] + "}");
-        }
-        return response;
+    private void getEvent(Request request, DatabaseReaderCallback databaseReaderCallback) {
+        databaseReader.getEvent(request, databaseReaderCallback);
     }
 
     public static void main(String[] args) {
 
         WebCommunication webCommunication = new WebCommunication();
-        webCommunication.start((request, callback) ->
-                callback.onResult(null, "{}"));
+        webCommunication.start(DatabaseReader.getInstance());
+
     }
 
 
