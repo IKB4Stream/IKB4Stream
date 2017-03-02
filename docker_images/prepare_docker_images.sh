@@ -63,6 +63,8 @@ echo "Files copied!"
 #rm *.jar
 #echo "Folder cleaned!"
 
+ls
+
 echo "#########################"
 echo "#       FINISHED!       #"
 echo "#########################"
