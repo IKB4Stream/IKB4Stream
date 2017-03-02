@@ -16,6 +16,7 @@ RESOURCES_NAME="resources/"
 
 PRODUCER_IMAGE_FOLDER_PATH="docker_images/producer"
 CONSUMER_IMAGE_FOLDER_PATH="docker_images/consumer"
+DOCKER_IMAGES_FOLDER="docker_images/"
 
 echo "#####################################################################"
 echo "#                Ikb4stream => Docker image creation                #"
@@ -35,8 +36,9 @@ echo "File unzipped!"
 echo "Files copies..."
 cp $PRODUCER_JAR_NAME $ROOT_PATH"/"$PRODUCER_IMAGE_FOLDER_PATH"/"
 cp $CONSUMER_JAR_NAME $ROOT_PATH"/"$CONSUMER_IMAGE_FOLDER_PATH"/"
-cp -r $RESOURCES_NAME"/"S $ROOT_PATH"/"$PRODUCER_IMAGE_FOLDER_PATH"/"$RESOURCES_NAME
-cp -r $RESOURCES_NAME"/"S $ROOT_PATH"/"$CONSUMER_IMAGE_FOLDER_PATH"/"$RESOURCES_NAME
+cp -rf $RESOURCES_NAME $ROOT_PATH"/"$PRODUCER_IMAGE_FOLDER_PATH"/"$RESOURCES_NAME
+cp -rf $RESOURCES_NAME $ROOT_PATH"/"$CONSUMER_IMAGE_FOLDER_PATH"/"$RESOURCES_NAME
+cp -rf $RESOURCES_NAME $ROOT_PATH"/"$DOCKER_IMAGES_FOLDER
 echo "Files copied!"
 
 pwd
