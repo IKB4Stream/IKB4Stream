@@ -1,0 +1,114 @@
+version: "3"
+volumes:
+   mongod:
+      driver: "local"
+services:
+  mongo:
+    image: mvertes/alpine-mongo:3.2.10-3
+    volumes: 
+      - mongod:/data/db
+    ports:
+     - "40001:27017"
+    restart: on-failure:5
+    deploy:
+      placement:
+        constraints: [node.role == worker]
+
+  influx:
+    image: influxdb:1.1.1-alpine
+    ports:
+     - "40002:8086"
+     - "40003:8083"
+    restart: on-failure:5
+    deploy:
+      placement:
+        constraints: [node.role == worker]
+
+  chronograf:
+    image: chronograf:0.13
+    ports:
+      - "40004:10000"
+    depends_on:
+      - "influx"
+    restart: on-failure:5
+    deploy:
+      placement:
+        constraints: [node.role == worker]
+
+  #zookeeper:
+  #  image: wurstmeister/zookeeper
+  #  ports:
+  #    - "2181:2181"
+  #  restart: always
+  #  deploy:
+  #    placement:
+  #      constraints: [node.role == worker]
+
+  #kafka:
+  #  image: wurstmeister/kafka:0.10.1.1
+  #  ports:
+  #    - "9092:9092"
+  #  depends_on:
+  #    - "zookeeper"
+  #  environment:
+  #    KAFKA_CREATE_TOPICS: "ikb4RequestTopic:1:1"
+  #    KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+  #    KAFKA_ADVERTISED_HOST_NAME: "${DOCKER_HOST_IP}"
+  #    KAFKA_ADVERTISED_PORT: 9092
+  #  links:
+  #    - zookeeper:2181
+  #  restart: always
+  #  deploy:
+  #    placement:
+  #      constraints: [node.role == worker]
+
+  kafka:
+    image: spotify/kafka
+    ports:
+      - "40006:2181"
+      - "40005:9092"
+    environment:
+      ADVERTISED_HOST: "${DOCKER_HOST_IP}"
+      ADVERTISED_PORT: 40005
+      TOPICS: "ikb4RequestTopic"
+    restart: on-failure:5
+    deploy:
+      placement:
+        constraints: [node.role == worker]
+
+  producer:
+    image: producer:2.1
+    depends_on:
+      - "mongo"
+      - "influx"
+    volumes:
+      - ./resources/:/producer/resources/
+    links:
+      - "mongo:mongo"
+      - "influx:influx"
+    restart: on-failure:5
+    deploy:
+      placement:
+        constraints: [node.role == worker]
+
+  consumer:
+    image: consumer:2.1
+    ports:
+      - "40007:40007"
+    depends_on:
+      - "mongo"
+      - "influx"
+      - "kafka"
+    volumes:
+      - ./resources/:/consumer/resources/
+    links:
+      - "mongo:mongo"
+      - "influx:influx"
+      - "kafka:kafka"
+    restart: on-failure:5
+    deploy:
+      placement:
+        constraints: [node.role == worker]
+
+
+
