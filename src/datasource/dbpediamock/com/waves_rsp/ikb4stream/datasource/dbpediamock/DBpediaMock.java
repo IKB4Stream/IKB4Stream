@@ -98,7 +98,6 @@ public class DBpediaMock implements IProducerConnectorMock {
      *
      * @param objectNode {@link Event} as JSON Object
      * @return a valid {@link Event}
-     * @throws ParseException       objectNode if the current objectNode with a json cannot be parsed
      * @throws NullPointerException if objectNode is null
      * @see DBpediaMock#VALUE
      * @see DBpediaMock#source

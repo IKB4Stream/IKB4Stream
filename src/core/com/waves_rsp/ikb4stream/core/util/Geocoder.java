@@ -65,7 +65,8 @@ public class Geocoder {
 
     /**
      * Private constructor to block instantiation
-     *
+     * @param latLong Represent an exact position
+     * @param bbox Represent a Bounding Box
      * @see Geocoder#latLong
      * @see Geocoder#bbox
      */

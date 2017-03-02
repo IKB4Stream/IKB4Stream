@@ -124,7 +124,6 @@ public class DatabaseWriter {
      *
      * @param event    {@link Event} to insert into database
      * @param callback {@link DatabaseWriterCallback} called after inserting
-     * @throws JsonProcessingException in case of problem during inserting
      * @throws NullPointerException    if event or callback is null
      * @see DatabaseWriter#mongoCollection
      * @see DatabaseWriter#LOCATION_FIELD

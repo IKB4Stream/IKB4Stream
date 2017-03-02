@@ -65,8 +65,8 @@ public class OpenAgendaMock implements IOpenAgenda {
     /**
      * Instantiate the OpenAgendaMock object with load properties to connect to the OPen Agenda API
      *
-     * @throws IllegalStateException
-     * @throws IllegalArgumentException
+     * @throws IllegalStateException If there is an invalid configuration loaded
+     * @throws IllegalArgumentException If there is no file associated to this mock
      * @see OpenAgendaMock#source
      * @see OpenAgendaMock#sleepTime
      * @see OpenAgendaMock#input

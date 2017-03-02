@@ -86,7 +86,7 @@ public class RDFParser {
     }
 
     /**
-     * Get an AnomalyRequest from Map< String, Object >
+     * Get an AnomalyRequest from Map Object
      *
      * @param map {@link Request} represented as Map Object
      * @return {@link Request} object which contains information about latitude, longitude and date

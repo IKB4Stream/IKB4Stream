@@ -122,6 +122,7 @@ class DataQueue {
      * Return the first {@link Event} in {@link DataQueue#queue}
      *
      * @return {@link Event} in {@link DataQueue}
+     * @throws InterruptedException if thread is interrupted during pop operation
      * @see DataQueue#METRICS_LOGGER
      * @see DataQueue#queue
      * @see PackagedEvent

@@ -125,8 +125,9 @@ public class OWMProducerConnector implements IProducerConnector {
     /**
      * Get the current weather from OpenWeatherMap
      *
+     * @param latitude Latitude to get weather
+     * @param longitude Longitude to get weather
      * @return an Event which contains information about current weather
-     * @throws IOException
      * @see OWMProducerConnector#openWeatherMap
      * @see OWMProducerConnector#latitude
      * @see OWMProducerConnector#longitude

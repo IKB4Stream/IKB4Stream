@@ -63,7 +63,7 @@ public class CommunicationManager {
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(CommunicationManager.class);
     /**
-     * Map< Thread,ICommunication > to associate a thread to a ICommunication
+     * Object Map to associate a thread to a ICommunication
      *
      * @see ICommunication
      * @see CommunicationManager#launchModule(JarLoader)

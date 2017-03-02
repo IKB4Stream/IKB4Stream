@@ -72,7 +72,7 @@ public class FacebookMock implements IProducerConnectorMock {
     /**
      * Load data registered into a json twitter file and parse them to create {@link Event}
      *
-     * @param dataProducer contains the {@link com.waves_rsp.ikb4stream.producer.datasource.DataQueue DataQueue}
+     * @param dataProducer which allows to push {@link Event} in queue
      * @throws NullPointerException if dataProducer is null
      * @see FacebookMock#PROPERTIES_MANAGER
      */

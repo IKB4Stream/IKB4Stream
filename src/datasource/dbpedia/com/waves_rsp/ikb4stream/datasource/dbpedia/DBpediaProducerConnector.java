@@ -155,7 +155,7 @@ public class DBpediaProducerConnector implements IProducerConnector {
      * Sent the sparql query to dbpedia service and load rdf data parsed into {@link IDataProducer} object.
      * The dbpedia service return a rdf response with nodes corresponding to the fields requested
      *
-     * @param dataProducer contains {@link com.waves_rsp.ikb4stream.producer.datasource.DataQueue DataQueue}
+     * @param dataProducer which allows to push {@link Event} in queue
      * @throws NullPointerException if dataProducer is null
      * @see DBpediaProducerConnector#source
      * @see DBpediaProducerConnector#service
@@ -305,7 +305,7 @@ public class DBpediaProducerConnector implements IProducerConnector {
     /**
      * Push {@link Event} if scored
      *
-     * @param dataProducer contains the {@link com.waves_rsp.ikb4stream.producer.datasource.DataQueue}
+     * @param dataProducer which allows to push {@link Event} in queue
      * @param event        the {@link Event} to push
      * @param start        process start time, used for the metrics module
      * @see Event

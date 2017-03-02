@@ -186,9 +186,8 @@ public class FacebookProducerConnector implements IProducerConnector {
     /**
      * Load valid events from Facebook into the data producer object
      *
-     * @param dataProducer contains the {@link com.waves_rsp.ikb4stream.producer.datasource.DataQueue DataQueue}
+     * @param dataProducer which allows to push {@link com.waves_rsp.ikb4stream.core.model.Event Event} in queue
      * @throws NullPointerException if dataProducer is null
-     * @throws InterruptedException if the current thread to listen facebook has been interrupted
      * @see com.waves_rsp.ikb4stream.core.model.Event Event
      * @see FacebookProducerConnector#word
      * @see FacebookProducerConnector#limit

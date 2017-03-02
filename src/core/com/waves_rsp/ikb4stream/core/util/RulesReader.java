@@ -52,7 +52,7 @@ public class RulesReader {
      * Parse file
      *
      * @param filename as JSON to parse
-     * @return Map<String, Integer> contains Json elements within rules.json
+     * @return Return a map that contains Json elements within rules.json
      * @throws NullPointerException if filename is null
      */
     public static Map<String, Integer> parseJSONRules(String filename) {
