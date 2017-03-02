@@ -1,3 +1,20 @@
+/*
+ * Copyright (C) 2017 ikb4stream team
+ * ikb4stream is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * ikb4stream is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+ */
+
 plugins {
     id "net.saliman.cobertura" version "2.4.0"
 }
@@ -7,15 +24,45 @@ version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 
+/***********************************************************************************************************************
+ * Gradle build file for IKB4Stream Project
+ *
+ * The project is separated in multiple modules, each module have his
+ * build file. All buildfile are located in gradle folder. Don't forget
+ * to add all new modules to "packageAll" & "generateJavadoc" tasks and
+ * "test" sourceSets.
+ **********************************************************************************************************************/
+
+// core
+apply from: 'gradle/core.gradle'
+
+// communications
+apply from: 'gradle/communication_kafka.gradle'
+apply from: 'gradle/communication_web.gradle'
+
+// datasource
+apply from: 'gradle/datasource_dbpedia.gradle'
+apply from: 'gradle/datasource_dbpediamock.gradle'
+apply from: 'gradle/datasource_facebook.gradle'
+apply from: 'gradle/datasource_facebookmock.gradle'
+apply from: 'gradle/datasource_openagenda.gradle'
+apply from: 'gradle/datasource_openagendamock.gradle'
+apply from: 'gradle/datasource_owm.gradle'
+apply from: 'gradle/datasource_rss.gradle'
+apply from: 'gradle/datasource_twitter.gradle'
+apply from: 'gradle/datasource_twittermock.gradle'
+apply from: 'gradle/datasource_weather.gradle'
+
+// scoring
+apply from: 'gradle/scoring_event.gradle'
+apply from: 'gradle/scoring_mock.gradle'
+apply from: 'gradle/scoring_openagenda.gradle'
+apply from: 'gradle/scoring_owm.gradle'
+apply from: 'gradle/scoring_twitter.gradle'
+
 sourceCompatibility = 1.8
 
 sourceSets {
-    core {
-        java {
-            srcDirs = ['src/core']
-        }
-    }
-
     consumer {
         java {
             srcDirs = ['src/core', 'src/consumer']
@@ -30,144 +77,40 @@ sourceSets {
         }
     }
 
-    communicationKafka {
-        java {
-            srcDirs = ['src/core', 'src/communication/kafka']
-            compileClasspath += core.compileClasspath + core.output
-        }
-    }
-
-    communicationWeb {
-        java {
-            srcDirs = ['src/core', 'src/communication/web']
-            compileClasspath += core.compileClasspath + core.output
-        }
-    }
-
-    datasourceMeteo {
-        java {
-            srcDirs = ['src/core', 'src/datasource/weather']
-            compileClasspath += core.compileClasspath + core.output
-        }
-    }
-
-    datasourceRSS {
-        java {
-            srcDirs = ['src/core', 'src/datasource/rss']
-            compileClasspath += core.compileClasspath + core.output
-        }
-    }
-
-    datasourceOWM {
-        java {
-            srcDirs = ['src/core', 'src/datasource/owm']
-            compileClasspath += core.compileClasspath + core.output
-        }
-    }
-
-    datasourceFacebook {
-        java {
-            srcDirs = ['src/core', 'src/datasource/facebook']
-            compileClasspath += core.compileClasspath + core.output
-        }
-    }
-
-    datasourceTwitter {
-        java {
-            srcDirs = ['src/core', 'src/datasource/twitter']
-            compileClasspath += core.compileClasspath + core.output
-        }
-    }
-
-    datasourceTwittermock {
-        java {
-            srcDirs = ['src/core', 'src/datasource/twittermock']
-            compileClasspath += core.compileClasspath + core.output
-        }
-    }
-
-    datasourceFacebookmock {
-        java {
-            srcDirs = ['src/core', 'src/datasource/facebookmock']
-            compileClasspath += core.compileClasspath + core.output
-        }
-    }
-
-    datasourceDbpedia {
-        java {
-            srcDirs = ['src/core', 'src/datasource/dbpedia']
-            compileClasspath += core.compileClasspath + core.output
-        }
-    }
-
-    datasourceDbpediaMock {
-        java {
-            srcDirs = ['src/core', 'src/datasource/dbpediamock']
-            compileClasspath += core.compileClasspath + core.output
-        }
-    }
-
-    datasourceOpenAgenda {
-        java {
-            srcDirs = ['src/core', 'src/datasource/openagenda']
-            compileClasspath += core.compileClasspath + core.output
-        }
-    }
-
-    datasourceOpenAgendaMock {
-        java {
-            srcDirs = ['src/core', 'src/datasource/openagendamock']
-            compileClasspath += core.compileClasspath + core.output
-        }
-    }
-
-    scoringEvent {
-        java {
-            srcDirs = ['src/core', 'src/scoring/event']
-            compileClasspath += core.compileClasspath + core.output
-        }
-    }
-
-    scoringOWM {
-        java {
-            srcDirs = ['src/core', 'src/scoring/owm']
-            compileClasspath += core.compileClasspath + core.output
-        }
-    }
-
-    scoringTwitter {
-        java {
-            srcDirs = ['src/core', 'src/scoring/twitter']
-            compileClasspath += core.compileClasspath + core.output
-        }
-    }
-
-    scoringMock {
-        java {
-            srcDirs = ['src/core', 'src/scoring/mock']
-            compileClasspath += core.compileClasspath + core.output
-        }
-    }
-
-    scoringOpenAgenda {
-        java {
-            srcDirs = ['src/core', 'src/scoring/openagenda']
-            compileClasspath += core.compileClasspath + core.output
-        }
-    }
-
     test {
         java {
-            srcDirs = ['src/core', 'src/consumer', 'src/producer', 'src/test/', 'src/datasource', 'src/scoring',
-                       'src/communication/web', 'src/datasource/weather', 'src/datasource/rss', 'src/communication/kafka',
-                       'src/datasource/twitter', 'src/datasource/twittermock', 'src/datasource/dbpedia', 'src/datasource/dbpediamock', 'src/datasource/owm',
-                       'src/datasource/facebook', 'src/datasource/openagenda', 'src/communication/web', 'src/scoring/twitter',
-                       'src/scoring/owm', 'src/scoring/mock', 'src/scoring/event', 'src/scoring/openagenda', 'src/datasource/openagendamock',
+            srcDirs = ['src/core',
+                       'src/consumer',
+                       'src/producer',
+                       'src/test/',
+                       'src/datasource',
+                       'src/scoring',
+                       'src/communication/web',
+                       'src/datasource/weather',
+                       'src/datasource/rss',
+                       'src/communication/kafka',
+                       'src/datasource/twitter',
+                       'src/datasource/twittermock',
+                       'src/datasource/dbpedia',
+                       'src/datasource/dbpediamock',
+                       'src/datasource/owm',
+                       'src/datasource/facebook',
+                       'src/datasource/openagenda',
+                       'src/communication/web',
+                       'src/scoring/twitter',
+                       'src/scoring/owm',
+                       'src/scoring/mock',
+                       'src/scoring/event',
+                       'src/scoring/openagenda',
+                       'src/datasource/openagendamock',
                        'src/datasource/facebookmock']
 
-            compileClasspath += core.compileClasspath + core.output + consumer.compileClasspath + consumer.output +
-                    producer.compileClasspath + producer.output + communicationKafka.compileClasspath +
-                    communicationKafka.output + datasourceMeteo.compileClasspath + datasourceMeteo.output +
+            compileClasspath +=
+                    core.compileClasspath + core.output +
+                    consumer.compileClasspath + consumer.output +
+                    producer.compileClasspath + producer.output +
+                    communicationKafka.compileClasspath + communicationKafka.output +
+                    datasourceWeather.compileClasspath + datasourceWeather.output +
                     datasourceRSS.compileClasspath + datasourceRSS.output +
                     datasourceTwittermock.compileClasspath + datasourceTwittermock.output +
                     datasourceFacebookmock.compileClasspath + datasourceFacebookmock.output +
@@ -195,7 +138,7 @@ task generateJavadoc(type: Javadoc) {
             sourceSets.consumer.allJava +
             sourceSets.producer.allJava +
             sourceSets.communicationKafka.allJava +
-            sourceSets.datasourceMeteo.allJava +
+            sourceSets.datasourceWeather.allJava +
             sourceSets.datasourceRSS.allJava +
             sourceSets.datasourceTwittermock.allJava +
             sourceSets.datasourceFacebookmock.allJava +
@@ -216,7 +159,7 @@ task generateJavadoc(type: Javadoc) {
             sourceSets.consumer.compileClasspath +
             sourceSets.producer.compileClasspath +
             sourceSets.communicationKafka.compileClasspath +
-            sourceSets.datasourceMeteo.compileClasspath +
+            sourceSets.datasourceWeather.compileClasspath +
             sourceSets.datasourceRSS.compileClasspath +
             sourceSets.datasourceTwittermock.compileClasspath +
             sourceSets.datasourceFacebookmock.compileClasspath +
@@ -238,13 +181,6 @@ task generateJavadoc(type: Javadoc) {
     options.author = true
     options.version = true
     println (title == null? '<null>' : title)
-}
-
-task packageCoreJar(type: Jar, description: 'Package the Core Jar') {
-    archiveName = "ikb4stream-$version-core.jar"
-    from sourceSets.core.output
-    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
 }
 
 task packageConsumerJar(type: Jar, description: 'Package the Consumer Jar') {
@@ -273,196 +209,6 @@ task packageProducerJar(type: Jar, description: 'Package the Producer Jar') {
     with jar
 }
 
-task packageWeatherJar(type: Jar, description: 'Package the Weather Jar') {
-    archiveName = "resources/datasource/weather/ikb4stream-$version-datasource-weather.jar"
-    manifest {
-        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.datasource.rss.WeatherProducerConnector'
-    }
-    from sourceSets.datasourceMeteo.output
-    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
-    from { configurations.datasourceMeteoCompile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
-
-task packageRssJar(type: Jar, description: 'Package the RSS Jar') {
-    archiveName = "resources/datasource/rss/ikb4stream-$version-datasource-rss.jar"
-    manifest {
-        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.datasource.rss.RSSProducerConnector'
-    }
-    from sourceSets.datasourceRSS.output
-    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
-    from { configurations.datasourceRSSCompile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
-
-task packageOwmJar(type: Jar, description: 'Package the OWM Jar') {
-    archiveName = "resources/datasource/owm/ikb4stream-$version-datasource-owm.jar"
-    manifest {
-        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.datasource.owm.OWMProducerConnector'
-    }
-    from sourceSets.datasourceOWM.output
-    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
-    from { configurations.datasourceOWMCompile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
-
-task packageFacebookJar(type: Jar, description: 'Package the Facebook Jar') {
-    archiveName = "resources/datasource/facebook/ikb4stream-$version-datasource-facebook.jar"
-    manifest {
-        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.datasource.facebook.FacebookProducerConnector'
-    }
-    from sourceSets.datasourceFacebook.output
-    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
-    from { configurations.datasourceFacebookCompile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
-
-task packageTwitterJar(type: Jar, description: 'Package the Twitter Jar') {
-    archiveName = "resources/datasource/twitter/ikb4stream-$version-datasource-twitter.jar"
-    manifest {
-        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.datasource.twitter.TwitterProducerConnector'
-    }
-    from sourceSets.datasourceTwitter.output
-    from { configurations.coreCompile.collect {it.isDirectory() ? it : zipTree(it) }}
-    from { configurations.datasourceTwitterCompile.collect { it.isDirectory() ? it : zipTree(it) }}
-    with jar
-}
-
-
-task packageTwitterMockJar(type: Jar, description: 'Package the Twitter Mock Jar') {
-    archiveName = "resources/datasource/twittermock/ikb4stream-$version-datasource-twittermock.jar"
-    manifest {
-        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.datasource.twittermock.TwitterMock'
-    }
-    from sourceSets.datasourceTwittermock.output
-    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) }}
-    with jar
-}
-
-task packageFacebookMockJar(type: Jar, description: 'Package the Facebook Mock Jar') {
-    archiveName = "resources/datasource/facebookmock/ikb4stream-$version-datasource-facebookmock.jar"
-    manifest {
-        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.datasource.facebookmock.FacebookMock'
-    }
-    from sourceSets.datasourceFacebookmock.output
-    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) }}
-    with jar
-}
-
-task packageDbpediaJar(type: Jar, description: 'Package the Dbpedia Jar') {
-    archiveName = "resources/datasource/dbpedia/ikb4stream-$version-datasource-dbpedia.jar"
-    manifest {
-        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.datasource.dbpedia.DBpediaProducerConnector'
-    }
-    from sourceSets.datasourceDbpedia.output
-    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) }}
-    with jar
-}
-
-task packageDbpediaMockJar(type: Jar, description: 'Package the Dbpedia Mock Jar') {
-    archiveName = "resources/datasource/dbpediamock/ikb4stream-$version-datasource-dbpediamock.jar"
-    manifest {
-        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.datasource.dbpediamock.DBpediaMock'
-    }
-    from sourceSets.datasourceDbpediaMock.output
-    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) }}
-    with jar
-}
-
-task packageOpenAgendaJar(type: Jar, description: 'Package the OpenAgenda Jar') {
-    archiveName = "resources/datasource/openagenda/ikb4stream-$version-datasource-openagenda.jar"
-    manifest {
-        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.datasource.openagenda.OpenAgendaProducerConnector'
-    }
-    from sourceSets.datasourceOpenAgenda.output
-    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) }}
-    with jar
-}
-
-task packageOpenAgendaMockJar(type: Jar, description: 'Package the OpenAgenda Mock Jar') {
-    archiveName = "resources/datasource/openagendamock/ikb4stream-$version-datasource-openagendamock.jar"
-    manifest {
-        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.datasource.openagendamock.OpenAgendaMock'
-    }
-    from sourceSets.datasourceOpenAgendaMock.output
-    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) }}
-    with jar
-}
-
-task packageKafkaCommunicationJar(type: Jar, description: 'Package the Kafka Communication Jar') {
-    archiveName = "resources/communication/kafka/ikb4stream-$version-communication-kafka.jar"
-    manifest {
-        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.communication.kafka.KafkaCommunication'
-    }
-    from sourceSets.communicationKafka.output
-    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
-    from { configurations.communicationKafkaCompile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
-
-task packageCommunicationWebJar(type: Jar, description: 'Package the Web Communication Jar') {
-    archiveName = "resources/communication/web/ikb4stream-$version-communication-web.jar"
-    manifest {
-        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.communication.web.WebCommunication'
-    }
-    from sourceSets.communicationWeb.output
-    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
-    from { configurations.communicationWebCompile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
-
-task packageEventScoringJar(type: Jar, description: 'Package the Event Scoring Jar') {
-    archiveName = "resources/scoreprocessor/event/ikb4stream-$version-scoring-event.jar"
-    manifest {
-        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.scoring.event.EventScoreProcessor'
-    }
-    from sourceSets.scoringEvent.output
-    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
-
-task packageOWMScoringJar(type: Jar, description: 'Package the OpenWeatherMap Scoring Jar') {
-    archiveName = "resources/scoreprocessor/owm/ikb4stream-$version-scoring-owm.jar"
-    manifest {
-        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.scoring.owm.OWMScoreProcessor'
-    }
-    from sourceSets.scoringOWM.output
-    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
-    from { configurations.scoringOWMCompile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
-
-task packageTwitterScoringJar(type: Jar, description: 'Package the Twitter Scoring Jar') {
-    archiveName = "resources/scoreprocessor/twitter/ikb4stream-$version-scoring-twitter.jar"
-    manifest {
-        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.scoring.twitter.TwitterScoreProcessor'
-    }
-    from sourceSets.scoringTwitter.output
-    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
-    from { configurations.scoringTwitterCompile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
-
-task packageMockScoringJar(type: Jar, description: 'Package the Mock Scoring Jar') {
-    archiveName = "resources/scoreprocessor/mock/ikb4stream-$version-scoring-mock.jar"
-    manifest {
-        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.scoring.mock.MockScoreProcessor'
-    }
-    from sourceSets.scoringMock.output
-    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
-
-task packageOpenAgendaScoringJar(type: Jar, description: 'Package the OpenAgenda Scoring Jar') {
-    archiveName = "resources/scoreprocessor/openagenda/ikb4stream-$version-scoring-openagenda.jar"
-    manifest {
-        attributes 'Module-Class': 'com.waves_rsp.ikb4stream.scoring.openagenda.OpenAgendaScoreProcessor'
-    }
-    from sourceSets.scoringOpenAgenda.output
-    from { configurations.coreCompile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
-
 task copyConfigProperties(type: Copy) {
     from 'resources/'
     into 'build/libs/resources/'
@@ -474,11 +220,23 @@ task zipBuild(type: Zip) {
     from 'build/libs'
 }
 
-task packageAll(dependsOn: ['copyConfigProperties', 'packageConsumerJar', 'packageProducerJar', 'packageWeatherJar',
-                            'packageRssJar', 'packageKafkaCommunicationJar', 'packageTwitterJar', 'packageDbpediaJar', 'packageFacebookJar',
-                            'packageOwmJar', 'packageOpenAgendaJar', 'packageCommunicationWebJar', 'packageEventScoringJar', 'packageTwitterScoringJar',
-                            'packageOpenAgendaScoringJar', 'packageTwitterMockJar', 'packageFacebookMockJar']) {
-}
+task packageAll(dependsOn: ['copyConfigProperties',
+                            'packageConsumerJar',
+                            'packageProducerJar',
+                            'packageWeatherJar',
+                            'packageRssJar',
+                            'packageKafkaCommunicationJar',
+                            'packageTwitterJar',
+                            'packageDbpediaJar',
+                            'packageFacebookJar',
+                            'packageOwmJar',
+                            'packageOpenAgendaJar',
+                            'packageCommunicationWebJar',
+                            'packageEventScoringJar',
+                            'packageTwitterScoringJar',
+                            'packageOpenAgendaScoringJar',
+                            'packageTwitterMockJar',
+                            'packageFacebookMockJar']) { }
 
 task ci(dependsOn: ['packageAll', 'zipBuild']) {
     tasks.findByName('zipBuild').mustRunAfter 'packageAll'
@@ -500,47 +258,6 @@ repositories {
 }
 
 dependencies {
-    // core
-    coreCompile 'org.influxdb:influxdb-java:2.5'
-    coreCompile 'ch.qos.logback:logback-core:1.1.3'
-    coreCompile "ch.qos.logback:logback-classic:1.1.3"
-    coreCompile 'org.apache.jena:jena-arq:2.9.3'
-    coreCompile 'com.fasterxml.jackson.core:jackson-databind:2.8.6'
-    coreCompile 'org.mongodb:mongodb-driver-async:3.2.2'
-    coreCompile  group: 'org.apache.opennlp', name: 'opennlp-tools', version: '1.6.0'
-
-    // producer
-
-    // consumer
-
-    //datasourceDbpedia
-
-    //datasourceTwitter
-    datasourceTwitterCompile 'org.twitter4j:twitter4j-stream:4.0.6'
-
-    // datasource_Meteo
-    datasourceMeteoCompile 'com.rometools:rome-modules:1.7.1'
-
-    // datasource_rss
-    datasourceRSSCompile 'com.rometools:rome-modules:1.7.1'
-
-    //datasource_OPWweather
-    datasourceOWMCompile 'net.aksingh:owm-japis:2.5.0.3'
-    datasourceOWMCompile 'org.json:json:20140107'
-
-    //datasource_facebook
-    datasourceFacebookCompile 'com.restfb:restfb:1.34.1'
-
-    // communication_kafka
-    communicationKafkaCompile 'org.apache.kafka:kafka-streams:0.10.0.1'
-
-    // communicationWeb
-    communicationWebCompile 'io.vertx:vertx-web:3.0.0'
-
-    //scoring_twitter
-    scoringTwitterCompile 'org.twitter4j:twitter4j-stream:4.0.6'
-
-    // tests
     testCompile 'junit:junit:4.11'
 }
 
