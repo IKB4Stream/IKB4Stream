@@ -120,13 +120,10 @@ public class ScoreProcessorManager {
     private static Event process(List<IScoreProcessor> scoreProcessor, Event event) {
         Objects.requireNonNull(scoreProcessor);
         Objects.requireNonNull(event);
-        LOGGER.info("Process {}", event);
         Event tmp = event;
         for (IScoreProcessor sp : scoreProcessor) {
-            LOGGER.info("With {}", sp);
             tmp = sp.processScore(tmp);
         }
-        LOGGER.info("New {}", tmp);
         return tmp;
     }
 
