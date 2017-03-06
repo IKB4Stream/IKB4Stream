@@ -34,7 +34,7 @@ IKB4Stream is a module inside WAVES. Its goal is to detect false positives among
 > TODO
 
 # Developper Guide
-###Resources
+### Resources
 The directory **resources** contains all the config properties files. 
 
 *  **anomaly.ttl** is an anomaly request for testing
@@ -46,13 +46,13 @@ The directory **resources** contains all the config properties files.
 * The directory **scoreprocessor** contains files properties for each ScoreProcessor and their mock. 
 * The directory **nlp_model** contains the binaries for the NLP functions (lemmatization, NER...) and a dictionnary for lemmatization.
 
-###Sources
+### Sources
 All sources are in the package ```com.waves_rsp.ikb4stream```.
-####Communication
+#### Communication
 This package contains all the connectors for clients applications : **Kafka Connector**  and the **Web Connector**
-####Consumer
+#### Consumer
 This package contains consumers : **Database Reader** and the **Communication Manager**. It also contains the **Main** class for launching program. 
-####Core
+#### Core
 This package contains all utilities classes.
 
 * The sub package **communication** contains *Functional Interfaces* and define Objects for communicating with the database. 
@@ -60,18 +60,18 @@ This package contains all utilities classes.
 * The sub package **model** define Objects : *Event*, *LatLong* and *PropertyManager*
  * The sub package **util** contains the utilities : the Geocoder, the NLP functions, the Class Manager, the Jar Loader and Rules Reader. 
 
-####Datasource
+#### Datasource
 This package contains all the **Producer Connectors** which search data from differents API (stream or batch). A Producer Connector implements the **IProducerConnector** interface.
-####Producer
+#### Producer
 This package contains the **Main** class for the producer module. 
 >TODO :  complete
 
-####Scoring
+#### Scoring
 This package contains all the **ScoreProcessor** apply to the events created by the Producer Connectors. In the sub package **event**, there is the default score processor. 
 Other subpackage contains a specific Score Processor for a specific Producer Connector. 
 All classes in this package implement the **IScoreProcessor** interface.
 
-####Test
+#### Test
 This package contains all the unit Test (JUNIT). 
 It takes up the architecture of the rest of the project.
 
