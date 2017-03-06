@@ -18,16 +18,68 @@ IKB4Stream is a module inside WAVES. Its goal is to detect false positives among
 # Team Members
 * Project Manager: Vincent Heng
 * Technical Experts: Valentin Michalak, Ludovic Carretti
-* NLP Experts: Mehmet Demir, Sandy Allibert
+* NLP Expert, Web Designer, Documentation: Mehmet Demir 
+* NLP Expert: Sandy Allibert
 * Business Analyst: Boubacar Dabo
 * DevOps: Valentin Michalak
 * Quality Expert: Ludovic Carretti
 * Security, Performance: Kevin Mollenhauer
-* Communication, Documentation: Loïck Renée
+* Metrics Analyst, Communication, Documentation: Loïck Renée
 
 # Installation Guide
 
-> TODO
+First of all, download the file archive.
+
+Unzip it.
+
+```sh
+   unzip PATH/FILE_NAME.zip
+```
+
+Move to`docker_images` directory.
+
+```sh
+   cd docker_images
+```
+
+
+Then, add execution flag on each script file.
+
+```sh
+   chmod +x setup.sh
+   chmod +x docker_images/prepare_docker_images.sh
+   chmod +x docker_images/build_docker_images.sh
+```
+
+Just before launch the project, change the conf.properties file.
+You need to declare the container name as hostname.
+
+```sh
+   vim resources/conf.properties
+```
+
+Change the line:
+
+`database.metrics.host = http://localhost:8086`
+
+to:
+
+`database.metrics.host = http://influx:8086`
+
+and the line:
+
+`database.host = mongodb://localhost:27017/`
+
+to:
+
+`database.host = mongodb://mongo:27017/`
+
+
+Now, you can launch the entire project.
+
+```sh
+   ./setup.sh
+```
 
 # Run Guide
 
