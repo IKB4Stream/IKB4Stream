@@ -189,6 +189,6 @@ public class OpenAgendaProducerConnector implements IOpenAgenda {
      */
     @Override
     public boolean isActive() {
-        return this.isActive(PROPERTIES_MANAGER.getProperty("openagenda.enable"));
+        return this.isActive(PROPERTIES_MANAGER, "openagenda.enable");
     }
 }

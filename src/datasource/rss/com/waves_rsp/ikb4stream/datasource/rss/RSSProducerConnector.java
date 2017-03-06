@@ -139,7 +139,7 @@ public class RSSProducerConnector implements IProducerConnector {
                             lastTime[0] = currentTime;
                             Date startDate = (entry.getPublishedDate() != null) ? entry.getPublishedDate() : currentTime;
                             String description = (entry.getDescription().getValue() != null) ? entry.getDescription().getValue() : "";
-                            String completeDesc = entry.getTitle() + " " + description;
+                            String completeDesc = entry.getTitle() + "\\n" + description + "\\nVoir plus: " + entry.getLink();
                             GeoRSSModule module = GeoRSSUtils.getGeoRSS(entry);
                             LatLong latLong = getLatLong(module, completeDesc);
                             if (latLong != null) {

@@ -116,6 +116,7 @@ public class OWMProducerConnector implements IProducerConnector {
             this.requestInterval = Long.valueOf(PROPERTIES_MANAGER.getProperty("OWMProducerConnector.sleep"));
             this.openWeatherMap = new OpenWeatherMap(owmKey);
             this.openWeatherMap.setLang(OpenWeatherMap.Language.FRENCH);
+            this.openWeatherMap.setUnits(OpenWeatherMap.Units.METRIC);
         } catch (IllegalArgumentException e) {
             LOGGER.error(e.getMessage());
             throw new IllegalArgumentException("Invalid configuration\n" + e);

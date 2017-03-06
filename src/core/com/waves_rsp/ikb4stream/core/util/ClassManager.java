@@ -21,7 +21,6 @@ package com.waves_rsp.ikb4stream.core.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -91,10 +90,9 @@ public class ClassManager {
      * @return True if clazz implement interfaceClass
      * @throws NullPointerException if interfaceClass is null
      */
-    public static boolean implementInterface(Class clazz, Class interfaceClass) {
+    public static boolean implementInterface(Class<?> clazz, Class<?> interfaceClass) {
         if (clazz == null) return false;
         Objects.requireNonNull(interfaceClass);
-        return Arrays.stream(clazz.getInterfaces())
-                .anyMatch(i -> i.equals(interfaceClass));
+        return interfaceClass.isAssignableFrom(clazz);
     }
 }

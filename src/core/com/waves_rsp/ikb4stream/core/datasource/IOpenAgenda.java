@@ -25,6 +25,7 @@ import com.waves_rsp.ikb4stream.core.datasource.model.IProducerConnector;
 import com.waves_rsp.ikb4stream.core.metrics.MetricsLogger;
 import com.waves_rsp.ikb4stream.core.model.Event;
 import com.waves_rsp.ikb4stream.core.model.LatLong;
+import com.waves_rsp.ikb4stream.core.model.PropertiesManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -168,15 +169,11 @@ public interface IOpenAgenda extends IProducerConnector {
     /**
      * Check if this jar is active
      *
+     * @param propertiesManager {@link PropertiesManager} of class that implements {@link IOpenAgenda}
      * @param property boolean as string
      * @return true if it should be started
      */
-    default boolean isActive(String property) {
-        try {
-            return Boolean.valueOf(property);
-        } catch (IllegalArgumentException e) {
-            LOGGER.warn("Open agenda datasource not activated: {}", e);
-            return true;
-        }
+    default boolean isActive(PropertiesManager propertiesManager, String property) {
+        return Boolean.valueOf(propertiesManager.getPropertyOrDefault(property, "true"));
     }
 }

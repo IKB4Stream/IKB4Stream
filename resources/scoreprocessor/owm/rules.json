@@ -2,12 +2,12 @@
   "threshold": 18,
   "factor": 5,
   "weatherType": {
-    "Rain": 0,
-    "Snow": 0,
-    "default": 10,
-    "Clear": 10,
-    "Mist": 2,
-    "Storm": 5,
-    "Extreme": 10
+    "Rain": 2,
+    "Snow": 6,
+    "default": 20,
+    "Clear": 20,
+    "Mist": 8,
+    "Storm": 10,
+    "Extreme": 15
   }
 }

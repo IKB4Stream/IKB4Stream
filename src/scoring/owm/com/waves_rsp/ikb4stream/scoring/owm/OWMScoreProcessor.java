@@ -156,12 +156,12 @@ public class OWMScoreProcessor implements IScoreProcessor {
         String jsonString = event.getDescription();
         try {
             JsonNode jn = objectMapper.readTree(jsonString);
-            double temperature = convertFromFahrenheitToCelsius(jn.path("main").path("temp").asDouble());
+            double temperature = jn.path("main").path("temp").asDouble();
             //We suppose that if the T° < threshold, no one turn on fill up his pool
             byte score1 = (byte) ((temperature - threshold) * factor);
             //About the weather, if it rain or snow
             byte score2 = weatherType(score1, jn.path("weather").get(0).path("main").asText());
-            String description = jn.path("weather").get(0).path("description").asText();
+            String description = createDescription(jn);
             return new Event(event.getLocation(), event.getStart(), event.getEnd(), description, verifyMaxScore(score2), event.getSource());
         } catch (IOException e) {
             LOGGER.warn("objectMapper failed: {}", e);
@@ -170,13 +170,18 @@ public class OWMScoreProcessor implements IScoreProcessor {
     }
 
     /**
-     * Convert Fahrenheit to Celsius
+     * Describe an {@link Event}
      *
-     * @param fahrenheit temperature to convert
-     * @return temperature in celsius
+     * @param node JSON Object to read
+     * @return Future string of {@link Event#description}
      */
-    private static double convertFromFahrenheitToCelsius(Double fahrenheit) {
-        return (fahrenheit - 32) / 1.8;
+    private static String createDescription(JsonNode node) {
+        String weather = "Weather: " + node.path("weather").get(0).path("description").asText();
+        String temperature = "Temperature: " + node.path("main").path("temp").asDouble() + "°C";
+        String pressure = "Pressure: " + node.path("main").path("pressure").asText() + "hPa";
+        String humidity = "Humidity: " + node.path("main").path("humidity").asText() + "%";
+        String wind = "Wind: " + node.path("wind").path("speed").asText() + "m/s";
+        return weather + "\\n" + temperature + "\\n" + pressure + "\\n" + humidity + "\\n" + wind;
     }
 
     /**

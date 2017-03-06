@@ -126,6 +126,6 @@ public class OpenAgendaMock implements IOpenAgenda {
      * @see OpenAgendaMock#PROPERTIES_MANAGER
      */
     public boolean isActive() {
-        return this.isActive(PROPERTIES_MANAGER.getProperty("openagendamock.enable"));
+        return this.isActive(PROPERTIES_MANAGER, "openagendamock.enable");
     }
 }
