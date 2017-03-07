@@ -77,7 +77,7 @@ services:
         constraints: [node.role == worker]
 
   producer:
-    image: producer:2.1
+    image: producer:latest
     depends_on:
       - "mongo"
       - "influx"
@@ -92,7 +92,7 @@ services:
         constraints: [node.role == worker]
 
   consumer:
-    image: consumer:2.1
+    image: consumer:latest
     ports:
       - "40007:40007"
     depends_on:
