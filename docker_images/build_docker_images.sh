@@ -12,7 +12,7 @@ echo "=============================================="
 
 cd producer/
 
-docker build -t producer:latest
+docker build -t producer:latest .
 
 echo "=============================================="
 echo "Docker image => consumer:latest will be build."
@@ -20,7 +20,9 @@ echo "=============================================="
 
 cd ../consumer/
 
-docker build -t consumer:latest
+docker build -t consumer:latest .
+
+cd ..
 
 echo "################"
 echo "#  BUILD ENDS  #"

@@ -21,10 +21,10 @@ build:
   stage: build
   script:
     - ./gradlew clean ci
-    - ./docker_images/prepare_docker_images.sh
   artifacts:
     paths:
       - build/distributions/*.zip
+      - setup.sh
       - docker_images/*
     expire_in: 1 day
 
